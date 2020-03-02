@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_item_home"
+        android:icon="@drawable/ic_action_home"
+        android:title="Home" />
+    <item
+        android:id="@+id/menu_item_reception"
+        android:icon="@drawable/reception_logo"
+        android:title="Reception" />
+    <item
+        android:id="@+id/menu_item_the_doctor"
+        android:icon="@drawable/the_doctor_logo"
+        android:title="The doctor" />
+    <item
+        android:id="@+id/menu_item_analysis_lab"
+        android:icon="@drawable/analysis_lab_logo"
+        android:title="Analysis lab" />
+    <item
+        android:id="@+id/menu_item_radiology_laboratory"
+        android:icon="@drawable/radiology_laboratory_logo"
+        android:title="Radiology laboratory" />
+    <item
+        android:id="@+id/menu_item_the_pharmacy"
+        android:icon="@drawable/the_pharmacy_logo"
+        android:title="The pharmacy" />
+    <item
+        android:id="@+id/menu_item_financial_accounts"
+        android:icon="@drawable/financial_accounts_logo"
+        android:title="Financial accounts" />
+    <item
+        android:id="@+id/menu_item_personnel"
+        android:icon="@drawable/personnel_logo"
+        android:title="Personnel" />
+</menu>
