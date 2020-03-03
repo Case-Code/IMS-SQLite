@@ -18,6 +18,7 @@ import android.support.v7.app.AppCompatDialogFragment;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 
 public class ReceptionActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -114,11 +115,19 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
     }
 
     private void showPatientRegistrationDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_patient_registration, null);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View mView = getLayoutInflater().inflate(R.layout.dialog_patient_registration, null);
+
+        final EditText firstNameEditText = mView.findViewById(R.id.edit_first_name);
+        final EditText lastNameEditText = mView.findViewById(R.id.edit_last_name);
+        final EditText phoneEditText = mView.findViewById(R.id.edit_phone);
+        final EditText birthDateEditText = mView.findViewById(R.id.edit_birth_date);
+        final EditText locationEditText = mView.findViewById(R.id.edit_location);
+        final EditText weightEditText = mView.findViewById(R.id.edit_weight);
+        final EditText heightEditText = mView.findViewById(R.id.edit_height);
+
+        builder.setView(mView);
         builder.setTitle("Patient registration");
-        builder.setMessage("Delete this inventory?");
         builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -135,6 +144,7 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
         });
 
         AlertDialog alertDialog = builder.create();
+        alertDialog.setCanceledOnTouchOutside(false);
         alertDialog.show();
     }
 
