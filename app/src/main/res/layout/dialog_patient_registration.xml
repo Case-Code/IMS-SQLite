@@ -37,13 +37,30 @@
         android:hint="phone number"
         android:inputType="phone" />
 
-    <EditText
-        android:id="@+id/edit_birth_date"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="birth date"
-        android:inputType="date" />
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/edit_birth_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:enabled="false"
+            android:hint="birth date"
+            android:inputType="date" />
+
+        <ImageButton
+            android:id="@+id/image_button_action_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/ic_action_date" />
+    </LinearLayout>
+
 
     <EditText
         android:id="@+id/edit_location"
