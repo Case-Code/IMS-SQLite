@@ -1,26 +1,32 @@
 package com.example.ims;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatDialog;
+import android.support.v7.app.AppCompatDialogFragment;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 
 public class ReceptionActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private DrawerLayout drawerLayout;
-    private NavigationView navigationView;
-
-    private ImageButton actionMenuImageButton;
-
+    private DrawerLayout mDrawerLayout;
+    private NavigationView mNavigationView;
+    private ImageButton mActionMenuImageButton;
     private ActionBarDrawerToggle actionBarDrawerToggle;
-
+    private FloatingActionButton mFloatingActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,15 +35,22 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
 
         init();
 
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
-        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
+        mDrawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
-        navigationView.setNavigationItemSelectedListener(this);
+        mNavigationView.setNavigationItemSelectedListener(this);
 
-        actionMenuImageButton.setOnClickListener(new View.OnClickListener() {
+        mActionMenuImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                drawerLayout.openDrawer(GravityCompat.START);
+                mDrawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
+
+        mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPatientRegistrationDialog();
             }
         });
     }
@@ -88,17 +101,48 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
                 startActivity(intent);
                 break;
         }
-        drawerLayout.closeDrawer(GravityCompat.START);
+        mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 
     // initial
     private void init() {
-        drawerLayout = findViewById(R.id.activity_reception);
-        navigationView = findViewById(R.id.navigation_view);
+        mDrawerLayout = findViewById(R.id.activity_reception);
+        mNavigationView = findViewById(R.id.navigation_view);
+        mActionMenuImageButton = findViewById(R.id.image_button_action_menu);
+        mFloatingActionButton = findViewById(R.id.floating_action_button);
+    }
 
-        actionMenuImageButton = findViewById(R.id.image_button_action_menu);
+    private void showPatientRegistrationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_patient_registration, null);
+        builder.setTitle("Patient registration");
+        builder.setMessage("Delete this inventory?");
+        builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                patientRegistration();
+            }
+        });
+        builder.setNegativeButton("Decline", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    // Patient registration
+    private void patientRegistration() {
 
     }
 
 }
+
+

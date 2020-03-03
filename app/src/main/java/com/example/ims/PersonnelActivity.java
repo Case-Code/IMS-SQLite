@@ -1,7 +1,10 @@
 package com.example.ims;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -14,32 +17,31 @@ import android.widget.ImageButton;
 
 public class PersonnelActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private DrawerLayout drawerLayout;
-    private NavigationView navigationView;
-
-    private ImageButton actionMenuImageButton;
-
+    private DrawerLayout mDrawerLayout;
+    private NavigationView mNavigationView;
+    private ImageButton mActionMenuImageButton;
     private ActionBarDrawerToggle actionBarDrawerToggle;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personnel);
 
+        // initial
         init();
 
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
-        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
+        mDrawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
-        navigationView.setNavigationItemSelectedListener(this);
+        mNavigationView.setNavigationItemSelectedListener(this);
 
-        actionMenuImageButton.setOnClickListener(new View.OnClickListener() {
+        mActionMenuImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                drawerLayout.openDrawer(GravityCompat.START);
+                mDrawerLayout.openDrawer(GravityCompat.START);
             }
         });
+
     }
 
     @Override
@@ -88,17 +90,17 @@ public class PersonnelActivity extends AppCompatActivity implements NavigationVi
                 startActivity(intent);
                 break;
         }
-        drawerLayout.closeDrawer(GravityCompat.START);
+        mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 
     // initial
     private void init() {
-        drawerLayout = findViewById(R.id.activity_Personnel);
-        navigationView = findViewById(R.id.navigation_view);
-
-        actionMenuImageButton = findViewById(R.id.image_button_action_menu);
-
+        mDrawerLayout = findViewById(R.id.activity_Personnel);
+        mNavigationView = findViewById(R.id.navigation_view);
+        mActionMenuImageButton = findViewById(R.id.image_button_action_menu);
     }
+
+
 
 }

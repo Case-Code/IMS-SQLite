@@ -14,10 +14,10 @@ import android.widget.ImageButton;
 
 public class FinancialAccountsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private DrawerLayout drawerLayout;
-    private NavigationView navigationView;
+    private DrawerLayout mDrawerLayout;
+    private NavigationView mNavigationView;
 
-    private ImageButton actionMenuImageButton;
+    private ImageButton mActionMenuImageButton;
 
     private ActionBarDrawerToggle actionBarDrawerToggle;
 
@@ -29,15 +29,15 @@ public class FinancialAccountsActivity extends AppCompatActivity implements Navi
 
         init();
 
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
-        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
+        mDrawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
-        navigationView.setNavigationItemSelectedListener(this);
+        mNavigationView.setNavigationItemSelectedListener(this);
 
-        actionMenuImageButton.setOnClickListener(new View.OnClickListener() {
+        mActionMenuImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                drawerLayout.openDrawer(GravityCompat.START);
+                mDrawerLayout.openDrawer(GravityCompat.START);
             }
         });
     }
@@ -88,16 +88,14 @@ public class FinancialAccountsActivity extends AppCompatActivity implements Navi
                 startActivity(intent);
                 break;
         }
-        drawerLayout.closeDrawer(GravityCompat.START);
+        mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 
     // initial
     private void init() {
-        drawerLayout = findViewById(R.id.activity_financial_accounts);
-        navigationView = findViewById(R.id.navigation_view);
-
-        actionMenuImageButton = findViewById(R.id.image_button_action_menu);
-
+        mDrawerLayout = findViewById(R.id.activity_financial_accounts);
+        mNavigationView = findViewById(R.id.navigation_view);
+        mActionMenuImageButton = findViewById(R.id.image_button_action_menu);
     }
 }

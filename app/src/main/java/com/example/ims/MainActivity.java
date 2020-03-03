@@ -9,29 +9,24 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
-import android.view.Gravity;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Toast;
-
-import java.util.zip.Inflater;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private CardView receptionCardView,
-            theDoctorCardView,
-            analysisLabCardView,
-            radiologyLaboratoryCardView,
-            thePharmacyCardView,
-            financialAccountsCardView,
-            personnelCardView;
+    private CardView mReceptionCardView,
+            mTheDoctorCardView,
+            mAnalysisLabCardView,
+            mRadiologyLaboratoryCardView,
+            mThePharmacyCardView,
+            mFinancialAccountsCardView,
+            mPersonnelCardView;
 
-    private ImageButton actionMenuImageButton;
+    private ImageButton mActionMenuImageButton;
 
-    private DrawerLayout drawerLayout;
-    private NavigationView navigationView;
+    private DrawerLayout mDrawerLayout;
+    private NavigationView mNavigationView;
 
     private ActionBarDrawerToggle actionBarDrawerToggle;
 
@@ -42,21 +37,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         init();
 
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
-        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
+        mDrawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
-        navigationView.setNavigationItemSelectedListener(this);
+        mNavigationView.setNavigationItemSelectedListener(this);
 
-        actionMenuImageButton.setOnClickListener(new View.OnClickListener() {
+        mActionMenuImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                drawerLayout.openDrawer(GravityCompat.START);
+                mDrawerLayout.openDrawer(GravityCompat.START);
             }
         });
 
 
         // Reception
-        receptionCardView.setOnClickListener(new View.OnClickListener() {
+        mReceptionCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // To reception
@@ -66,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
         // The doctor
-        theDoctorCardView.setOnClickListener(new View.OnClickListener() {
+        mTheDoctorCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // To the doctor
@@ -76,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
         // Analysis lab
-        analysisLabCardView.setOnClickListener(new View.OnClickListener() {
+        mAnalysisLabCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // To analysis lab
@@ -86,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
         // Radiology laboratory
-        radiologyLaboratoryCardView.setOnClickListener(new View.OnClickListener() {
+        mRadiologyLaboratoryCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // To radiology laboratory
@@ -96,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
         // The Pharmacy
-        thePharmacyCardView.setOnClickListener(new View.OnClickListener() {
+        mThePharmacyCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // To the Pharmacy
@@ -106,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
         // Financial accounts
-        financialAccountsCardView.setOnClickListener(new View.OnClickListener() {
+        mFinancialAccountsCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // To financial accounts
@@ -116,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
         // Personnel
-        personnelCardView.setOnClickListener(new View.OnClickListener() {
+        mPersonnelCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // To personnel
@@ -173,25 +168,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intent);
                 break;
         }
-        drawerLayout.closeDrawer(GravityCompat.START);
+        mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 
     // initial
     private void init() {
-
-        drawerLayout = findViewById(R.id.activity_main);
-        navigationView = findViewById(R.id.navigation_view);
-
-        actionMenuImageButton = findViewById(R.id.image_button_action_menu);
-
-        receptionCardView = findViewById(R.id.card_view_reception);
-        theDoctorCardView = findViewById(R.id.card_view_the_doctor);
-        analysisLabCardView = findViewById(R.id.card_view_analysis_lab);
-        radiologyLaboratoryCardView = findViewById(R.id.card_view_radiology_laboratory);
-        thePharmacyCardView = findViewById(R.id.card_view_the_pharmacy);
-        financialAccountsCardView = findViewById(R.id.card_view_financial_accounts);
-        personnelCardView = findViewById(R.id.card_view_personnel);
+        mDrawerLayout = findViewById(R.id.activity_main);
+        mNavigationView = findViewById(R.id.navigation_view);
+        mActionMenuImageButton = findViewById(R.id.image_button_action_menu);
+        mReceptionCardView = findViewById(R.id.card_view_reception);
+        mTheDoctorCardView = findViewById(R.id.card_view_the_doctor);
+        mAnalysisLabCardView = findViewById(R.id.card_view_analysis_lab);
+        mRadiologyLaboratoryCardView = findViewById(R.id.card_view_radiology_laboratory);
+        mThePharmacyCardView = findViewById(R.id.card_view_the_pharmacy);
+        mFinancialAccountsCardView = findViewById(R.id.card_view_financial_accounts);
+        mPersonnelCardView = findViewById(R.id.card_view_personnel);
     }
 }
 

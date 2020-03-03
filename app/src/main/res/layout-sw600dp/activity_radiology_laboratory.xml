@@ -34,6 +34,9 @@
                     android:layout_centerInParent="true"
                     android:layout_marginLeft="30dp"
                     android:background="@android:color/transparent"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
                     android:src="@drawable/ic_action_menu" />
 
                 <TextView
