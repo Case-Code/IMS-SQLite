@@ -9,13 +9,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".PersonnelActivity"></activity>
+
         <activity android:name=".FinancialAccountsActivity" />
+
         <activity android:name=".ThePharmacyActivity" />
+
         <activity android:name=".RadiologyLaboratoryActivity" />
+
         <activity android:name=".AnalysisLabActivity" />
+
         <activity android:name=".TheDoctorActivity" />
+
         <activity android:name=".ReceptionActivity" />
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,6 +31,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:name=".data.ImsProvider"
+            android:authorities="com.example.ims"
+            android:exported="false" />
+
     </application>
 
 </manifest>

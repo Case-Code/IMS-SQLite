@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- These are the options displayed in the gender drop-down Spinner -->
+    <string-array name="array_gender_options">
+        <item>@string/gender_unknown</item>
+        <item>@string/gender_male</item>
+        <item>@string/gender_female</item>
+    </string-array>
+
+    <!-- These are the options displayed in the analysis drop-down Spinner -->
+    <string-array name="array_analysis_options">
+        <item>@string/analysis_complete_blood_count</item>
+        <item>@string/analysis_urine_examination</item>
+        <item>@string/analysis_stool_examination</item>
+    </string-array>
+
+    <!-- These are the options displayed in the clinics drop-down Spinner -->
+    <string-array name="array_clinics_options">
+        <item>@string/clinics_endemic_diseases</item>
+        <item>@string/clinics_medical_and_microbiological_analyzes</item>
+        <item>@string/clinics_psychological_diseases</item>
+        <item>@string/clinics_phonetic_and_phoneme</item>
+        <item>@string/clinics_ear_nose_and_throat</item>
+        <item>@string/clinics_colon_and_anus</item>
+        <item>@string/clinics_blood_vessels</item>
+        <item>@string/clinics_endocrine_glands</item>
+        <item>@string/clinics_rheumatism_and_immunity</item>
+        <item>@string/clinics_kidney</item>
+        <item>@string/clinics_the_pain</item>
+        <item>@string/clinics_chests_diseases</item>
+        <item>@string/clinics_heart_drawing</item>
+        <item>@string/clinics_cardiothoracic_surgery</item>
+        <item>@string/clinics_fertility_unit</item>
+        <item>@string/clinics_general_interior</item>
+        <item>@string/clinics_rheumatism_and_rehabilitation</item>
+        <item>@string/clinics_plastic_surgery</item>
+        <item>@string/clinics_general_surgery</item>
+        <item>@string/clinics_oncology_and_nuclear_medicine</item>
+        <item>@string/clinics_leather_and_genital</item>
+    </string-array>
+
+
+</resources>

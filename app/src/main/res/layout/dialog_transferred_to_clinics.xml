@@ -9,11 +9,11 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Types of analysis"
+        android:text="Types of clinics"
         android:textColor="@color/primaryText" />
 
     <Spinner
-        android:id="@+id/spinner_types_of_analysis"
+        android:id="@+id/spinner_types_of_clinics"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"

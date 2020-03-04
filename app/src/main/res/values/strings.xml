@@ -2,4 +2,44 @@
     <string name="app_name">IMS</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
+
+    <!-- gender menu [CHAR LIMIT=20] -->
+    <string name="gender_unknown">Unknown</string>
+    <string name="gender_male">Male</string>
+    <string name="gender_female">Female</string>
+
+    <!-- analysis menu -->
+    <string name="analysis_complete_blood_count">Complete blood count</string>
+    <string name="analysis_urine_examination">Urine examination </string>
+    <string name="analysis_stool_examination">Stool examination </string>
+
+    <!-- clinics menu -->
+    <string name="clinics_endemic_diseases">Endemic diseases</string>
+    <string name="clinics_medical_and_microbiological_analyzes">Medical and microbiological analyzes</string>
+    <string name="clinics_psychological_diseases">Psychological diseases</string>
+    <string name="clinics_phonetic_and_phoneme">Phonetic and phoneme</string>
+    <string name="clinics_ear_nose_and_throat">Ear, nose and throat</string>
+    <string name="clinics_colon_and_anus">Colon and anus</string>
+    <string name="clinics_blood_vessels">Blood vessels</string>
+    <string name="clinics_endocrine_glands">Endocrine glands</string>
+    <string name="clinics_rheumatism_and_immunity">Rheumatism and immunity</string>
+    <string name="clinics_kidney">Kidney</string>
+    <string name="clinics_the_pain">The pain</string>
+    <string name="clinics_chests_diseases">Chest\'s diseases</string>
+    <string name="clinics_heart_drawing">Heart drawing</string>
+    <string name="clinics_cardiothoracic_surgery">Cardiothoracic surgery</string>
+    <string name="clinics_fertility_unit">Fertility unit</string>
+    <string name="clinics_general_interior">General interior</string>
+    <string name="clinics_rheumatism_and_rehabilitation">Rheumatism and rehabilitation</string>
+    <string name="clinics_plastic_surgery">Plastic surgery</string>
+    <string name="clinics_general_surgery">General surgery</string>
+    <string name="clinics_oncology_and_nuclear_medicine">Oncology and nuclear medicine</string>
+    <string name="clinics_leather_and_genital">Leather and genital</string>
+    <string name="editor_insert_patient_failed">Error with saving patient</string>
+    <string name="editor_insert_patient_successful">Patient saved</string>
+    <string name="editor_update_patient_successful">Patient updated</string>
+    <string name="editor_update_patient_failed">Error with updating patient</string>
+    <string name="editor_delete_patient_failed">Error with deleting patient</string>
+    <string name="editor_delete_patient_successful">Patient deleted</string>
+
 </resources>

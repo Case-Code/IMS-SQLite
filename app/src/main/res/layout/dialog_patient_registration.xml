@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -30,7 +31,7 @@
     </LinearLayout>
 
     <EditText
-        android:id="@+id/edit_phone"
+        android:id="@+id/edit_phone_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -58,7 +59,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:background="@drawable/ic_action_date" />
+            android:background="@drawable/ic_action_date"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground" />
     </LinearLayout>
 
 
@@ -93,5 +97,22 @@
             android:hint="height"
             android:inputType="number" />
     </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Gender"
+        android:textColor="@color/primaryText" />
+
+    <!-- Gender drop-down spinner -->
+    <Spinner
+        android:id="@+id/spinner_gender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/colorAccent"
+        android:spinnerMode="dropdown"
+        tools:ignore="RtlSymmetry" />
 
 </LinearLayout>
