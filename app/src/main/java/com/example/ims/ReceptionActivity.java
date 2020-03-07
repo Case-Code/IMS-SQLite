@@ -314,7 +314,6 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     patientRegistration();
-                    mCurrentPatientUri= (Uri) null;
                 }
             });
             builder.setNegativeButton("Decline", new DialogInterface.OnClickListener() {
@@ -433,9 +432,9 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
         // optional values
         values.put(PatientEntry.COLUMN_GENDER, mGender);
 
+        // Insert and update patient
         if (mCurrentPatientUri == null) {
             Uri newUri = getContentResolver().insert(PatientEntry.CONTENT_URI, values);
-
             if (newUri == null) {
                 Toast.makeText(this, getString(R.string.editor_insert_patient_failed), Toast.LENGTH_SHORT).show();
             } else {
@@ -443,14 +442,13 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
             }
 
         } else {
-
             int rowsAffected = getContentResolver().update(mCurrentPatientUri, values, null, null);
             if (rowsAffected == 0) {
                 Toast.makeText(this, getString(R.string.editor_update_patient_failed), Toast.LENGTH_SHORT).show();
             } else {
+                mCurrentPatientUri= (Uri) null;
                 Toast.makeText(this, getString(R.string.editor_update_patient_successful), Toast.LENGTH_SHORT).show();
             }
-
         }
     }
 
@@ -461,6 +459,7 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
             if (rowsDeleted == 0) {
                 Toast.makeText(this, getString(R.string.editor_delete_patient_failed), Toast.LENGTH_SHORT).show();
             } else {
+                mCurrentPatientUri= (Uri) null;
                 Toast.makeText(this, getString(R.string.editor_delete_patient_successful), Toast.LENGTH_SHORT).show();
             }
         }
