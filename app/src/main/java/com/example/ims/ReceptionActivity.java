@@ -314,6 +314,7 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     patientRegistration();
+                    mCurrentPatientUri= (Uri) null;
                 }
             });
             builder.setNegativeButton("Decline", new DialogInterface.OnClickListener() {
@@ -334,7 +335,7 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
     }
 
     private void showDeleteConfirmationDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(ReceptionActivity.this);
         builder.setMessage("Delete this patient?");
         builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
             @Override
@@ -538,7 +539,7 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
 
         if (mCurrentPatientUri == null) {
             return new CursorLoader(this,
-                    PatientEntry.CONTENT_URI, // TODO mCurrentPatientUri,
+                    PatientEntry.CONTENT_URI,
                     projection,
                     null,
                     null,
@@ -592,13 +593,13 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
 
                 switch (mGender) {
                     case PatientEntry.GENDER_MALE:
-                        mPatientGenderSpinner.setSelection(1);
+                        mPatientGenderSpinner.setSelection(PatientEntry.GENDER_MALE);
                         break;
                     case PatientEntry.GENDER_FEMALE:
-                        mPatientGenderSpinner.setSelection(2);
+                        mPatientGenderSpinner.setSelection(PatientEntry.GENDER_FEMALE);
                         break;
                     default:
-                        mPatientGenderSpinner.setSelection(0);
+                        mPatientGenderSpinner.setSelection(PatientEntry.GENDER_UNKNOWN);
                         break;
                 }
             }
