@@ -13,7 +13,7 @@ import com.example.ims.data.ImsContract.PatientEntry;
 public class ImsDbHelper extends SQLiteOpenHelper {
 
     //  Name of the database file
-    private static final String DATABASE_NAME = "shelter.db";
+    private static final String DATABASE_NAME = "ims.db";
 
     // Database version. If you change the database schema, you must increment the database version.
     private static final int DATABASE_VERSION = 1;
