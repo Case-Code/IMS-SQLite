@@ -42,7 +42,6 @@ public class PatientCursorAdapter extends CursorAdapter {
         Button invoicesButton = view.findViewById(R.id.button_invoices);
 
 
-
         int firstNameColumnIndex = cursor.getColumnIndex(PatientEntry.COLUMN_FIRST_NAME);
         int lastNameColumnIndex = cursor.getColumnIndex(PatientEntry.COLUMN_LAST_NAME);
         int phoneNumberColumnIndex = cursor.getColumnIndex(PatientEntry.COLUMN_PHONE_NUMBER);
@@ -67,17 +66,10 @@ public class PatientCursorAdapter extends CursorAdapter {
         heightTextView.setText(height.concat(" cm"));
 
 
-
-
         analysisLabButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                ReceptionActivity.mFragmentManager.beginTransaction()
-                        .replace(R.id.frame_layout_patient_records,new FragmentPatientRecords(),null).commit();
-
-
-
+                // TODO add analysis lab code
             }
         });
 
@@ -85,36 +77,27 @@ public class PatientCursorAdapter extends CursorAdapter {
             @Override
             public void onClick(View v) {
                 // TODO add clinic code
-
-
-
             }
         });
 
         healthRecordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                // TODO add health record code
+                ReceptionActivity.mFragmentManager.beginTransaction().replace(R.id.frame_layout_patient_records, new FragmentHealthRecord(), null).commit();
             }
         });
 
         patientRecordsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ReceptionActivity.mFragmentManager.beginTransaction()
-                        .replace(R.id.frame_layout_patient_records,new FragmentHealthRecord(),null).commit();
-
-                // TODO add patient records code
+                ReceptionActivity.mFragmentManager.beginTransaction().replace(R.id.frame_layout_patient_records, new FragmentPatientRecords(), null).commit();
             }
         });
 
         invoicesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ReceptionActivity.mFragmentManager.beginTransaction()
-                        .replace(R.id.frame_layout_patient_records,new FragmentInvoices(),null).commit();
-                // TODO add invoicesButton code
+                ReceptionActivity.mFragmentManager.beginTransaction().replace(R.id.frame_layout_patient_records, new FragmentInvoices(), null).commit();
             }
         });
     }
