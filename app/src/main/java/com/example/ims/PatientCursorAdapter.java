@@ -85,8 +85,7 @@ public class PatientCursorAdapter extends CursorAdapter {
             @Override
             public void onClick(View v) {
                 // TODO add clinic code
-                ReceptionActivity.mFragmentManager.beginTransaction()
-                        .replace(R.id.frame_layout_patient_records,new FragmentInvoices(),null).commit();
+
 
 
             }
@@ -104,6 +103,7 @@ public class PatientCursorAdapter extends CursorAdapter {
         patientRecordsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                
                 // TODO add patient records code
             }
         });
@@ -111,6 +111,8 @@ public class PatientCursorAdapter extends CursorAdapter {
         invoicesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ReceptionActivity.mFragmentManager.beginTransaction()
+                        .replace(R.id.frame_layout_patient_records,new FragmentInvoices(),null).commit();
                 // TODO add invoicesButton code
             }
         });
