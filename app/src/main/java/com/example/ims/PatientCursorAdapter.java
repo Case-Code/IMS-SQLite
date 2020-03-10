@@ -75,21 +75,7 @@ public class PatientCursorAdapter extends CursorAdapter {
         analysisLabButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                            ReceptionActivity.mfragmentManager.beginTransaction().replace(R.id.fragment_container,new FragmentPatientView(),null).commit();
-
-                /*Fragment fragment = null;
-                FragmentManager fragmentManager =fragment.getFragmentManager();
-
-
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                FragmentPatientView pationt_view = new FragmentPatientView();
-
-
-                fragmentTransaction.add(R.id.viewer,pationt_view);
-                fragmentTransaction.commit();*/
-
-
+                ReceptionActivity.mfragmentManager.beginTransaction().replace(R.id.fragment_container,new FragmentPatientView(),null).commit();
 
 
 
