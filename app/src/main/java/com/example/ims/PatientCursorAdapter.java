@@ -13,11 +13,12 @@ import com.example.ims.data.ImsContract.PatientEntry;
 
 public class PatientCursorAdapter extends CursorAdapter {
 
-    
 
+    private int heightColumnIndex;
 
     public PatientCursorAdapter(Context context, Cursor c) {
         super(context, c, 0 /* flags */);
+
     }
 
     @Override
@@ -39,6 +40,8 @@ public class PatientCursorAdapter extends CursorAdapter {
         Button healthRecordButton = view.findViewById(R.id.button_health_record);
         Button patientRecordsButton = view.findViewById(R.id.button_patient_records);
         Button invoicesButton = view.findViewById(R.id.button_invoices);
+
+
 
         int firstNameColumnIndex = cursor.getColumnIndex(PatientEntry.COLUMN_FIRST_NAME);
         int lastNameColumnIndex = cursor.getColumnIndex(PatientEntry.COLUMN_LAST_NAME);
@@ -63,10 +66,18 @@ public class PatientCursorAdapter extends CursorAdapter {
         weightTextView.setText(weight.concat(" kg"));
         heightTextView.setText(height.concat(" cm"));
 
+
+
+
         analysisLabButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ReceptionActivity.mFragmentManager.beginTransaction().replace(R.id.frame_layout_patient_records,new FragmentPatientRecords(),null).commit();
+
+                ReceptionActivity.mFragmentManager.beginTransaction()
+                        .replace(R.id.frame_layout_patient_records,new FragmentPatientRecords(),null).commit();
+
+
+
             }
         });
 
@@ -74,12 +85,18 @@ public class PatientCursorAdapter extends CursorAdapter {
             @Override
             public void onClick(View v) {
                 // TODO add clinic code
+                ReceptionActivity.mFragmentManager.beginTransaction()
+                        .replace(R.id.frame_layout_patient_records,new FragmentInvoices(),null).commit();
+
+
             }
         });
 
         healthRecordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ReceptionActivity.mFragmentManager.beginTransaction()
+                        .replace(R.id.frame_layout_patient_records,new FragmentHealthRecord(),null).commit();
                 // TODO add health record code
             }
         });
