@@ -452,7 +452,6 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
             if (rowsAffected == 0) {
                 Toast.makeText(this, getString(R.string.editor_update_patient_failed), Toast.LENGTH_SHORT).show();
             } else {
-//                getLoaderManager().initLoader(PATIENT_REGISTRATION_LOADER, null, ReceptionActivity.this);
                 getLoaderManager().destroyLoader(PATIENT_UPDATE_LOADER);
                 mCurrentPatientUri = (Uri) null;
                 Toast.makeText(this, getString(R.string.editor_update_patient_successful), Toast.LENGTH_SHORT).show();
