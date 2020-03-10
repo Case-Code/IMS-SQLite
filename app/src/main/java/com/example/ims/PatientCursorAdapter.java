@@ -2,16 +2,25 @@ package com.example.ims;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ims.data.ImsContract.PatientEntry;
 
 public class PatientCursorAdapter extends CursorAdapter {
+    public static FragmentManager mfragmentManager;
+    
+
 
     public PatientCursorAdapter(Context context, Cursor c) {
         super(context, c, 0 /* flags */);
@@ -38,6 +47,7 @@ public class PatientCursorAdapter extends CursorAdapter {
         Button invoicesButton = view.findViewById(R.id.button_invoices);
 
 
+
         int firstNameColumnIndex = cursor.getColumnIndex(PatientEntry.COLUMN_FIRST_NAME);
         int lastNameColumnIndex = cursor.getColumnIndex(PatientEntry.COLUMN_LAST_NAME);
         int phoneNumberColumnIndex = cursor.getColumnIndex(PatientEntry.COLUMN_PHONE_NUMBER);
@@ -61,10 +71,26 @@ public class PatientCursorAdapter extends CursorAdapter {
         weightTextView.setText(weight.concat(" kg"));
         heightTextView.setText(height.concat(" cm"));
 
+
+
+
         analysisLabButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO add analysis lab code
+                Fragment fragment = null;
+                FragmentManager fragmentManager =fragment.getFragmentManager();
+
+
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                Fragment_pationt_view pationt_view = new Fragment_pationt_view();
+
+
+                fragmentTransaction.add(R.id.viewer,pationt_view);
+                fragmentTransaction.commit();
+
+
+
+
             }
         });
 

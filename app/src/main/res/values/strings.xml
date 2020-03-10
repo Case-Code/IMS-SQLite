@@ -42,4 +42,7 @@
     <string name="editor_delete_patient_failed">Error with deleting patient</string>
     <string name="editor_delete_patient_successful">Patient deleted</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

@@ -16,6 +16,7 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -26,6 +27,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -59,6 +61,7 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
     private EditText mHeightEditText;
     private ImageButton mActionDateImageButton;
     private Spinner mPatientGenderSpinner;
+    public static FragmentManager mfragmentManager;
 
     private int mGender = PatientEntry.GENDER_UNKNOWN;
     private String mTypesOfAnalysis = null;
@@ -81,6 +84,8 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
 
         mPatientCursorAdapter = new PatientCursorAdapter(this, null);
         mPatientListView.setAdapter(mPatientCursorAdapter);
+
+
 
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
         mDrawerLayout.addDrawerListener(actionBarDrawerToggle);
@@ -129,6 +134,7 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
 
         getLoaderManager().initLoader(PATIENT_REGISTRATION_LOADER, null, this);
     }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
