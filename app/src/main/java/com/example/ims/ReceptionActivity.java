@@ -27,7 +27,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -61,7 +60,6 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
     private EditText mHeightEditText;
     private ImageButton mActionDateImageButton;
     private Spinner mPatientGenderSpinner;
-    public static FragmentManager mfragmentManager;
 
     private int mGender = PatientEntry.GENDER_UNKNOWN;
     private String mTypesOfAnalysis = null;
@@ -73,11 +71,14 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
     private static final int PATIENT_REGISTRATION_LOADER = 1;
     private static final int PATIENT_UPDATE_LOADER = 2;
 
+    public static FragmentManager mFragmentManager;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reception);
-        mfragmentManager=getSupportFragmentManager();
+        mFragmentManager =getSupportFragmentManager();
 
         init();
 
@@ -85,7 +86,6 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
 
         mPatientCursorAdapter = new PatientCursorAdapter(this, null);
         mPatientListView.setAdapter(mPatientCursorAdapter);
-
 
 
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
@@ -630,6 +630,7 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
             mPatientGenderSpinner.setSelection(0);
         }
     }
+
 }
 
 

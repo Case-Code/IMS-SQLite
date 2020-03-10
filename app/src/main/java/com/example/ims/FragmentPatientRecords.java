@@ -9,10 +9,10 @@ import android.view.ViewGroup;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link FragmentPatientView#newInstance} factory method to
+ * Use the {@link FragmentPatientRecords#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentPatientView extends Fragment {
+public class FragmentPatientRecords extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -22,9 +22,8 @@ public class FragmentPatientView extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public FragmentPatientView() {
+    public FragmentPatientRecords() {
         // Required empty public constructor
-
     }
 
     /**
@@ -36,8 +35,8 @@ public class FragmentPatientView extends Fragment {
      * @return A new instance of fragment Fragment_pationt_view.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentPatientView newInstance(String param1, String param2) {
-        FragmentPatientView fragment = new FragmentPatientView();
+    public static FragmentPatientRecords newInstance(String param1, String param2) {
+        FragmentPatientRecords fragment = new FragmentPatientRecords();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -57,6 +56,6 @@ public class FragmentPatientView extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_pationt_view, container, false);
+        return inflater.inflate(R.layout.fragment_patient_records, container, false);
     }
 }

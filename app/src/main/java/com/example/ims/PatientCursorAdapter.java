@@ -2,9 +2,6 @@ package com.example.ims;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +18,6 @@ public class PatientCursorAdapter extends CursorAdapter {
 
     public PatientCursorAdapter(Context context, Cursor c) {
         super(context, c, 0 /* flags */);
-
     }
 
     @Override
@@ -43,8 +39,6 @@ public class PatientCursorAdapter extends CursorAdapter {
         Button healthRecordButton = view.findViewById(R.id.button_health_record);
         Button patientRecordsButton = view.findViewById(R.id.button_patient_records);
         Button invoicesButton = view.findViewById(R.id.button_invoices);
-
-
 
         int firstNameColumnIndex = cursor.getColumnIndex(PatientEntry.COLUMN_FIRST_NAME);
         int lastNameColumnIndex = cursor.getColumnIndex(PatientEntry.COLUMN_LAST_NAME);
@@ -69,16 +63,10 @@ public class PatientCursorAdapter extends CursorAdapter {
         weightTextView.setText(weight.concat(" kg"));
         heightTextView.setText(height.concat(" cm"));
 
-
-
-
         analysisLabButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ReceptionActivity.mfragmentManager.beginTransaction().replace(R.id.fragment_container,new FragmentPatientView(),null).commit();
-
-
-
+                ReceptionActivity.mFragmentManager.beginTransaction().replace(R.id.frame_layout_patient_records,new FragmentPatientRecords(),null).commit();
             }
         });
 
