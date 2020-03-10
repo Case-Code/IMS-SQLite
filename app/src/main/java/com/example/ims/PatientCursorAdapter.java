@@ -15,12 +15,13 @@ import android.widget.TextView;
 import com.example.ims.data.ImsContract.PatientEntry;
 
 public class PatientCursorAdapter extends CursorAdapter {
-    public static FragmentManager mfragmentManager;
+
     
 
 
     public PatientCursorAdapter(Context context, Cursor c) {
         super(context, c, 0 /* flags */);
+
     }
 
     @Override
@@ -74,7 +75,10 @@ public class PatientCursorAdapter extends CursorAdapter {
         analysisLabButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment fragment = null;
+
+                            ReceptionActivity.mfragmentManager.beginTransaction().replace(R.id.fragment_container,new FragmentPatientView(),null).commit();
+
+                /*Fragment fragment = null;
                 FragmentManager fragmentManager =fragment.getFragmentManager();
 
 
@@ -83,7 +87,8 @@ public class PatientCursorAdapter extends CursorAdapter {
 
 
                 fragmentTransaction.add(R.id.viewer,pationt_view);
-                fragmentTransaction.commit();
+                fragmentTransaction.commit();*/
+
 
 
 

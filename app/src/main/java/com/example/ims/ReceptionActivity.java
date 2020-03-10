@@ -77,6 +77,7 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reception);
+        mfragmentManager=getSupportFragmentManager();
 
         init();
 
