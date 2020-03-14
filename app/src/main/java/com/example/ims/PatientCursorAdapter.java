@@ -17,9 +17,6 @@ import android.widget.Toast;
 import com.example.ims.data.ImsContract.PatientEntry;
 import com.example.logutil.Utils;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 public class PatientCursorAdapter extends CursorAdapter {
 
     private static final String TAG = PatientCursorAdapter.class.getSimpleName();
