@@ -15,7 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ims.data.ImsContract.PatientEntry;
-import com.example.logutil.Utils;
 
 public class PatientCursorAdapter extends CursorAdapter {
 
