@@ -122,7 +122,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:gravity="end"
-                                    android:text="00/00/0000"
+                                    android:text="MM/DD/YYYY"
                                     android:textColor="@color/colorAccent" />
 
                             </LinearLayout>
@@ -148,7 +148,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:gravity="end"
-                                    android:text="00/00/0000"
+                                    android:text="MM/DD/YYYY"
                                     android:textColor="@color/colorAccent" />
 
 
@@ -174,7 +174,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:gravity="end"
-                                    android:text="00/00/0000"
+                                    android:text="MM/DD/YYYY"
                                     android:textColor="@color/colorAccent" />
 
                             </LinearLayout>
@@ -250,7 +250,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="end"
-                        android:text="00/00/0000"
+                        android:text="MM/DD/YYYY"
                         android:textColor="@color/colorAccent" />
                 </LinearLayout>
 

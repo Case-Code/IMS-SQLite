@@ -10,6 +10,7 @@
 
     <!-- These are the options displayed in the analysis drop-down Spinner -->
     <string-array name="array_analysis_options">
+        <item>@string/analysis_unknown</item>
         <item>@string/analysis_complete_blood_count</item>
         <item>@string/analysis_urine_examination</item>
         <item>@string/analysis_stool_examination</item>

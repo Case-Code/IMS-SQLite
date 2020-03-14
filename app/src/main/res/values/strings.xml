@@ -9,11 +9,13 @@
     <string name="gender_female">Female</string>
 
     <!-- analysis menu -->
+    <string name="analysis_unknown">Unknown</string>
     <string name="analysis_complete_blood_count">Complete blood count</string>
-    <string name="analysis_urine_examination">Urine examination </string>
-    <string name="analysis_stool_examination">Stool examination </string>
+    <string name="analysis_urine_examination">Urine examination</string>
+    <string name="analysis_stool_examination">Stool examination</string>
 
     <!-- clinics menu -->
+    <string name="clinics_unknown">Unknown</string>
     <string name="clinics_endemic_diseases">Endemic diseases</string>
     <string name="clinics_medical_and_microbiological_analyzes">Medical and microbiological analyzes</string>
     <string name="clinics_psychological_diseases">Psychological diseases</string>

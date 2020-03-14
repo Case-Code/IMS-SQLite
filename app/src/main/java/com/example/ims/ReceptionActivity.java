@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.LoaderManager;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -23,6 +24,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -36,12 +38,14 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import com.example.ims.data.ImsContract.PatientEntry;
-import com.example.ims.data.ImsContract.PatientDataToLaboratoriesEntry;
 
 
 public class ReceptionActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, LoaderManager.LoaderCallbacks<Cursor> {
+
+    private static final String TAG = ReceptionActivity.class.getSimpleName();
 
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigationView;
@@ -58,11 +62,14 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
     private EditText mLocationEditText;
     private EditText mWeightEditText;
     private EditText mHeightEditText;
-    private ImageButton mActionDateImageButton;
+
     private Spinner mPatientGenderSpinner;
+    private Spinner mTypeOfAnalysisSpinner;
+    private Spinner mTheNameOfTheClinicSpinner;
 
     private int mGender = PatientEntry.GENDER_UNKNOWN;
-    private String mTypesOfAnalysis = null;
+    private String mTypesOfAnalysis = "null";
+    private String mTheNamesOfTheClinics = "null";
 
     private Uri mCurrentPatientUri;
 
@@ -73,12 +80,14 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
 
     public static FragmentManager mFragmentManager;
 
+    public static View mDialogTransferredToTheAnalysisLabView;
+    public static View mDialogTransferredToClinicsView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reception);
-        mFragmentManager =getSupportFragmentManager();
+        mFragmentManager = getSupportFragmentManager();
 
         init();
 
@@ -103,6 +112,7 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
         mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mCurrentPatientUri = (Uri) null;
                 showPatientRegistrationDialog();
             }
         });
@@ -128,7 +138,7 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
                 // For example, the URI would be "content://com.example.android.ims/patient/2"
                 // if the product with ID 2 was clicked on
                 mCurrentPatientUri = ContentUris.withAppendedId(PatientEntry.CONTENT_URI, id);
-                showDeleteConfirmationDialog();
+                showPatientDeleteConfirmationDialog();
                 return false;
             }
         });
@@ -195,8 +205,11 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
         mFloatingActionButton = findViewById(R.id.floating_action_button);
         mEmptyReceptionImageView = findViewById(R.id.image_empty_reception);
         mPatientListView = findViewById(R.id.list_patient);
+        mDialogTransferredToTheAnalysisLabView = getLayoutInflater().inflate(R.layout.dialog_transferred_to_the_analysis_lab, null);
+        mDialogTransferredToClinicsView = getLayoutInflater().inflate(R.layout.dialog_transferred_to_clinics, null);
     }
 
+    // Setup spinner gender
     private void setupSpinnerGender() {
         ArrayAdapter genderSpinnerAdapter = ArrayAdapter.createFromResource(
                 this,
@@ -228,35 +241,70 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
         });
     }
 
-    private void setupSpinnerTypesOfAnalysis() {
-        ArrayAdapter genderSpinnerAdapter = ArrayAdapter.createFromResource(
-                this,
+    // Setup spinner types of analysis
+    private void setupSpinnerTypesOfAnalysis(Context context) {
+        ArrayAdapter typeOfAnalysisSpinnerAdapter = ArrayAdapter.createFromResource(
+                context,
                 R.array.array_analysis_options,
                 android.R.layout.simple_spinner_item);
 
-        genderSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        typeOfAnalysisSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
 
-        mPatientGenderSpinner.setAdapter(genderSpinnerAdapter);
-        mPatientGenderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        mTypeOfAnalysisSpinner.setAdapter(typeOfAnalysisSpinnerAdapter);
+        mTypeOfAnalysisSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selection = (String) parent.getItemAtPosition(position);
                 if (!TextUtils.isEmpty(selection)) {
-                    if (selection.equals(getString(R.string.analysis_complete_blood_count))) {
-                        mTypesOfAnalysis = PatientDataToLaboratoriesEntry.ANALYSIS_COMPLETE_BLOOD_COUNT;
-                    } else if (selection.equals(getString(R.string.analysis_urine_examination))) {
-                        mTypesOfAnalysis = PatientDataToLaboratoriesEntry.ANALYSIS_URINE_EXAMINATION;
-                    } else if (selection.equals(getString(R.string.analysis_stool_examination))) {
-                        mTypesOfAnalysis = PatientDataToLaboratoriesEntry.ANALYSIS_STOOL_EXAMINATION;
+                    if (selection.equals("Complete blood count")) { // TODO chane the text
+                        mTypesOfAnalysis = "Complete blood count";
+                    } else if (selection.equals("Urine examination")) {
+                        mTypesOfAnalysis = "Urine examination";
+                    } else if (selection.equals("Stool examination")) {
+                        mTypesOfAnalysis = "Stool examination";
                     } else {
-                        // TODO mTypesOfAnalysis = PatientEntry.GENDER_UNKNOWN;
+                        mTypesOfAnalysis = "Unknown";
                     }
                 }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                mGender = PatientEntry.GENDER_UNKNOWN;
+                mTypesOfAnalysis = "Unknown";
+            }
+        });
+    }
+
+    // Setup spinner the names of the clinics
+    private void setupSpinnerTheNamesOfTheClinics(Context context) {
+        ArrayAdapter theNameOfTheClinicSpinnerAdapter = ArrayAdapter.createFromResource(
+                context,
+                R.array.array_clinics_options,
+                android.R.layout.simple_spinner_item);
+
+        theNameOfTheClinicSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+
+        mTheNameOfTheClinicSpinner.setAdapter(theNameOfTheClinicSpinnerAdapter);
+        mTheNameOfTheClinicSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selection = (String) parent.getItemAtPosition(position);
+                if (!TextUtils.isEmpty(selection)) {
+                    if (selection.equals("Complete blood count")) { // TODO chane the text
+                        mTheNamesOfTheClinics = "Complete blood count";
+                    } else if (selection.equals("Urine examination")) {
+                        mTheNamesOfTheClinics = "Urine examination";
+                    } else if (selection.equals("Stool examination")) {
+                        mTheNamesOfTheClinics = "Stool examination";
+                    } else {
+                        mTheNamesOfTheClinics = "Unknown";
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                mTheNamesOfTheClinics = "Unknown";
             }
         });
     }
@@ -273,12 +321,12 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
         mLocationEditText = mView.findViewById(R.id.edit_location);
         mWeightEditText = mView.findViewById(R.id.edit_weight);
         mHeightEditText = mView.findViewById(R.id.edit_height);
-        mActionDateImageButton = mView.findViewById(R.id.image_button_action_date);
+        ImageButton actionDateImageButton = mView.findViewById(R.id.image_button_action_date);
         mPatientGenderSpinner = mView.findViewById(R.id.spinner_gender);
 
         setupSpinnerGender();
 
-        mActionDateImageButton.setOnClickListener(new View.OnClickListener() {
+        actionDateImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
@@ -334,13 +382,13 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
             });
         }
 
-
         AlertDialog alertDialog = builder.create();
         alertDialog.setCanceledOnTouchOutside(false);
         alertDialog.show();
     }
 
-    private void showDeleteConfirmationDialog() {
+    // Show patient delete confirmation dialog
+    private void showPatientDeleteConfirmationDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(ReceptionActivity.this);
         builder.setMessage("Delete this patient?");
         builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
@@ -359,6 +407,67 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
         });
 
         AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    // Show transferred to the analysis lab dialog
+    public void showTransferredToTheAnalysisLabDialog(Context context) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+        mTypeOfAnalysisSpinner = mDialogTransferredToTheAnalysisLabView.findViewById(R.id.spinner_types_of_analysis);
+        setupSpinnerTypesOfAnalysis(context);
+
+        builder.setView(mDialogTransferredToTheAnalysisLabView);
+        builder.setTitle("Transferred to the analysis lab");
+        builder.setPositiveButton("Transfer", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.setNegativeButton("Decline", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.setCanceledOnTouchOutside(false);
+        alertDialog.show();
+    }
+
+    // Show transferred to clinics dialog
+    public void showTransferredToClinicsDialog(final Context context) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+        final Date date = new Date();
+
+
+        mTheNameOfTheClinicSpinner = mDialogTransferredToClinicsView.findViewById(R.id.spinner_types_of_clinics);
+        setupSpinnerTheNamesOfTheClinics(context);
+
+        builder.setView(mDialogTransferredToClinicsView);
+        builder.setTitle("Transferred to clinics");
+        builder.setPositiveButton("Transfer", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(context, date.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        builder.setNegativeButton("Decline", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.setCanceledOnTouchOutside(false);
         alertDialog.show();
     }
 
@@ -498,39 +607,6 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
         datePickerDialog.show();
     }
 
-    // Show transferred to the analysis lab dialog
-    private void showTransferredToTheAnalysisLabDialog() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        View mView = getLayoutInflater().inflate(R.layout.dialog_transferred_to_the_analysis_lab, null);
-
-        final Spinner typeOfAnalysisSpinner = mView.findViewById(R.id.spinner_types_of_analysis);
-
-        builder.setView(mView);
-        builder.setTitle("Transferred to the analysis lab");
-        builder.setPositiveButton("Transfer", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                patientRegistration();
-            }
-        });
-        builder.setNegativeButton("Decline", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (dialog != null) {
-                    dialog.dismiss();
-                }
-            }
-        });
-
-        AlertDialog alertDialog = builder.create();
-        alertDialog.setCanceledOnTouchOutside(false);
-        alertDialog.show();
-    }
-
-    // Transferred to the analysis lab
-    private void transferredToTheAnalysisLab() {
-
-    }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {

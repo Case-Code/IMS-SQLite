@@ -126,7 +126,10 @@
                         android:layout_alignParentRight="true"
                         android:layout_alignParentBottom="true"
                         android:layout_margin="@dimen/fab_margin"
-                        android:src="@drawable/ic_action_add" />
+                        android:elevation="6dp"
+                        android:src="@drawable/ic_action_add"
+                        app:fabSize="auto"
+                        app:pressedTranslationZ="12dp" />
                 </RelativeLayout>
 
             </android.support.v7.widget.CardView>
