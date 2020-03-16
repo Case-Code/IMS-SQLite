@@ -42,7 +42,6 @@ import com.example.ims.data.ImsContract.PatientEntry;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
-
 public class ReceptionActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final String TAG = ReceptionActivity.class.getSimpleName();
@@ -606,7 +605,6 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
         datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         datePickerDialog.show();
     }
-
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
