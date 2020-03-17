@@ -6,23 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
-import com.example.ims.data.ImsContract.PatientEntry;
-import com.example.ims.data.ImsContract.PatientDataToAnalysis;
-import com.example.ims.data.ImsContract.PatientDataToClinics;
-import com.example.ims.data.ImsContract.PatientRecords;
-import com.example.ims.data.ImsContract.PatientProgress;
-import com.example.ims.data.ImsContract.Invoices;
-import com.example.ims.data.ImsContract.HealthRecord;
-import com.example.ims.data.ImsContract.CurrentAndPastMedications;
-import com.example.ims.data.ImsContract.MajorIllnesses;
-import com.example.ims.data.ImsContract.SurgicalProcedures;
-import com.example.ims.data.ImsContract.PatientVaccines;
-import com.example.ims.data.ImsContract.DoctorDiagnosis;
-import com.example.ims.data.ImsContract.PatientDataToPharmacy;
-import com.example.ims.data.ImsContract.PatientDataToRadiology;
-import com.example.ims.data.ImsContract.MedicineRegistry;
-import com.example.ims.data.ImsContract.SalesRecord;
-import com.example.ims.data.ImsContract.Employees;
+import com.example.ims.data.ImsContract.*;
 
 /**
  * Database helper for IMS app. Manages database creation and version management.
