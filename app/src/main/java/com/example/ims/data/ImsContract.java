@@ -172,13 +172,14 @@ public class ImsContract {
         public static final String _ID = BaseColumns._ID;
         public static final String COLUMN_BILL_TO_NAME = "bill_to_name";
         public static final String COLUMN_DATE_OF_BIRTH = "date_of_birth";
-        public static final String COLUMN_PATIENT_ID = "patient_id";
         public static final String COLUMN_MEDICAL_RECORD_ID = "medical_record_id";
         public static final String COLUMN_NEXT_APPOINTMENT_DATE = "next_appointment_date";
         public static final String COLUMN_NEXT_TREATMENT_PLAN_REVIEW_DATE = "next_treatment_plan_review_date";
         public static final String COLUMN_PHYSICIAN_SIGNATURE = "physician_signature";
         public static final String COLUMN_DATE_SIGNED = "date_signed";
         public static final String COLUMN_X_RAY_IMAGE = "x_ray_image";
+        public static final String COLUMN_PATIENT_ID = "patient_id";
+
     }
 
     // Patient progress
@@ -205,7 +206,6 @@ public class ImsContract {
         // Invoices table
         public static final String TABLE_NAME = PATH_INVOICES;
         public static final String _ID = BaseColumns._ID;
-        public static final String COLUMN_PATIENT_ID = "patient_id";
         public static final String COLUMN_DATE_OF_SVC = "date_of_svc";
         public static final String COLUMN_INVOICE_DATE = "invoice_date";
         public static final String COLUMN_DATE_DUE = "date_due";
@@ -228,6 +228,7 @@ public class ImsContract {
         public static final String COLUMN_QUESTIONS_PHONE = "questions_phone";
         public static final String COLUMN_QUESTIONS_WEB = "questions_web";
         public static final String COLUMN_PROCEDURE = "procedure";
+        public static final String COLUMN_PATIENT_ID = "patient_id";
     }
 
     // Health record

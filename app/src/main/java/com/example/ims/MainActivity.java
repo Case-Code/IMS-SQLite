@@ -1,10 +1,15 @@
 package com.example.ims;
 
+import android.animation.AnimatorSet;
 import android.content.Intent;
 import android.os.Bundle;
 
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
@@ -51,7 +56,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 mDrawerLayout.openDrawer(GravityCompat.START);
             }
         });
-
 
         // Reception
         mReceptionCardView.setOnClickListener(new View.OnClickListener() {
