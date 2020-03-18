@@ -35,14 +35,14 @@ public class ImsDbHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_PATIENT_DATA_TO_ANALYSIS_TABLE = "CREATE TABLE IF NOT EXISTS " + PatientDataToAnalysis.TABLE_NAME + " ("
             + PatientDataToAnalysis._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + PatientDataToAnalysis.COLUMN_TRANSFER_DATE + " TEXT NOT NULL, "
-            + PatientDataToAnalysis.COLUMN_ANALYSIS_NAME + " TEXT NOT NULL, "
+            + PatientDataToAnalysis.COLUMN_ANALYSIS_NAME + " INTEGER NOT NULL DEFAULT 0, "
             + PatientDataToAnalysis.COLUMN_PATIENT_ID + " INTEGER NOT NULL); ";
 
     // Create a String that contains the SQL statement to create the 'patient data to clinics' table
     private static final String SQL_CREATE_PATIENT_DATA_TO_CLINICS_TABLE = "CREATE TABLE IF NOT EXISTS " + PatientDataToClinics.TABLE_NAME + " ("
             + PatientDataToClinics._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + PatientDataToClinics.COLUMN_TRANSFER_DATE + " TEXT NOT NULL, "
-            + PatientDataToClinics.COLUMN_CLINIC_NAME + " TEXT NOT NULL, "
+            + PatientDataToClinics.COLUMN_CLINIC_NAME + " INTEGER NOT NULL DEFAULT 0, "
             + PatientDataToClinics.COLUMN_PATIENT_ID + " INTEGER NOT NULL); ";
 
     // Create a String that contains the SQL statement to create the 'patient records' table

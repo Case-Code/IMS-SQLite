@@ -18,6 +18,7 @@
 
     <!-- These are the options displayed in the clinics drop-down Spinner -->
     <string-array name="array_clinics_options">
+        <item>@string/unknown</item>
         <item>@string/clinics_endemic_diseases</item>
         <item>@string/clinics_medical_and_microbiological_analyzes</item>
         <item>@string/clinics_psychological_diseases</item>
