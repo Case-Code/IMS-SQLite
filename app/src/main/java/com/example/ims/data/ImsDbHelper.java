@@ -135,8 +135,8 @@ public class ImsDbHelper extends SQLiteOpenHelper {
     // Create a String that contains the SQL statement to create the 'patient vaccines' table
     private static final String SQL_CREATE_PATIENT_VACCINES_TABLE = "CREATE TABLE IF NOT EXISTS " + PatientVaccines.TABLE_NAME + " ("
             + PatientVaccines._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + PatientVaccines.COLUMN_TETANUS + " TEXT NOT NULL, "
-            + PatientVaccines.COLUMN_NAME_OF_VACCINATION + " TEXT NOT NULL, "
+            + PatientVaccines.COLUMN_TETANUS + " INTEGER NOT NULL DEFAULT 0, "
+            + PatientVaccines.COLUMN_NAME_OF_VACCINATION + " INTEGER NOT NULL DEFAULT 0, "
             + PatientVaccines.COLUMN_HISTORY_OF_VACCINATION + " TEXT NOT NULL, "
             + PatientVaccines.COLUMN_PATIENT_ID + " INTEGER NOT NULL); ";
 
@@ -151,15 +151,15 @@ public class ImsDbHelper extends SQLiteOpenHelper {
     // Create a String that contains the SQL statement to create the 'patient data to pharmacy' table
     private static final String SQL_CREATE_PATIENT_DATA_TO_PHARMACY_TABLE = "CREATE TABLE IF NOT EXISTS " + PatientDataToPharmacy.TABLE_NAME + " ("
             + PatientDataToPharmacy._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + PatientDataToPharmacy.COLUMN_TRANSFER_DATA + " TEXT NOT NULL, "
+            + PatientDataToPharmacy.COLUMN_TRANSFER_DATE + " TEXT NOT NULL, "
             + PatientDataToPharmacy.COLUMN_DOCTOR_DIAGNOSIS_ID + " INTEGER NOT NULL, "
             + PatientDataToPharmacy.COLUMN_PATIENT_ID + " INTEGER NOT NULL); ";
 
     // Create a String that contains the SQL statement to create the 'patient data to radiology' table
     private static final String SQL_CREATE_PATIENT_DATA_TO_RADIOLOGY_TABLE = "CREATE TABLE IF NOT EXISTS " + PatientDataToRadiology.TABLE_NAME + " ("
             + PatientDataToRadiology._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + PatientDataToRadiology.COLUMN_TRANSFER_DATA + " TEXT NOT NULL, "
-            + PatientDataToRadiology.COLUMN_TYPES_OF_RADIATION + " TEXT NOT NULL, "
+            + PatientDataToRadiology.COLUMN_TRANSFER_DATE + " TEXT NOT NULL, "
+            + PatientDataToRadiology.COLUMN_TYPES_OF_RADIATION + " INTEGER NOT NULL DEFAULT 0, "
             + PatientDataToRadiology.COLUMN_PATIENT_ID + " INTEGER NOT NULL); ";
 
     // Create a String that contains the SQL statement to create the 'medicine registry' table
@@ -190,10 +190,10 @@ public class ImsDbHelper extends SQLiteOpenHelper {
             + Employees.COLUMN_JOB_TITLE + " TEXT NOT NULL, "
             + Employees.COLUMN_MIN_SALARY + " INTEGER, "
             + Employees.COLUMN_MAX_SALARY + " INTEGER, "
-            + Employees.COLUMN_DEPARTMENT_NAME + " TEXT NOT NULL, "
-            + Employees.COLUMN_REGION_NAME + " TEXT NOT NULL, "
-            + Employees.COLUMN_COUNTRY_NAME + " TEXT NOT NULL, "
-            + Employees.COLUMN_CITY + " TEXT NOT NULL, "
+            + Employees.COLUMN_DEPARTMENT_NAME + " INTEGER NOT NULL DEFAULT 0, "
+            + Employees.COLUMN_REGION_NAME + " INTEGER NOT NULL DEFAULT 0, "
+            + Employees.COLUMN_COUNTRY_NAME + " INTEGER NOT NULL DEFAULT 0, "
+            + Employees.COLUMN_CITY + " INTEGER NOT NULL DEFAULT 0, "
             + Employees.COLUMN_STREET_ADDRESS + " TEXT, "
             + Employees.COLUMN_POSTAL_CODE + " INTEGER NOT NULL); ";
 

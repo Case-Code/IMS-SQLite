@@ -77,7 +77,7 @@ public class ImsContract {
         // Patient data to analysis table
         public static final String TABLE_NAME = PATH_PATIENT_DATA_TO_ANALYSIS;
         public static final String _ID = BaseColumns._ID;
-        public static final String COLUMN_TRANSFER_DATE = "transfer_data";
+        public static final String COLUMN_TRANSFER_DATE = "transfer_date";
         public static final String COLUMN_ANALYSIS_NAME = "analysis_name";
         public static final String COLUMN_PATIENT_ID = "patient_id";
 
@@ -106,7 +106,7 @@ public class ImsContract {
         // Patient data to clinics table
         public static final String TABLE_NAME = PATH_PATIENT_DATA_TO_CLINICS;
         public static final String _ID = BaseColumns._ID;
-        public static final String COLUMN_TRANSFER_DATE = "transfer_data";
+        public static final String COLUMN_TRANSFER_DATE = "transfer_date";
         public static final String COLUMN_CLINIC_NAME = "clinic_name";
         public static final String COLUMN_PATIENT_ID = "patient_id";
 
@@ -347,7 +347,7 @@ public class ImsContract {
         // Patient data to pharmacy table
         public static final String TABLE_NAME = PATH_PATIENT_DATA_TO_PHARMACY;
         public static final String _ID = BaseColumns._ID;
-        public static final String COLUMN_TRANSFER_DATA = "transfer_data";
+        public static final String COLUMN_TRANSFER_DATE = "transfer_date";
         public static final String COLUMN_DOCTOR_DIAGNOSIS_ID = "doctor_diagnosis_id";
         public static final String COLUMN_PATIENT_ID = "patient_id";
     }
@@ -362,7 +362,7 @@ public class ImsContract {
         // Patient data to radiology table
         public static final String TABLE_NAME = PATH_PATIENT_DATA_TO_RADIOLOGY;
         public static final String _ID = BaseColumns._ID;
-        public static final String COLUMN_TRANSFER_DATA = "transfer_data";
+        public static final String COLUMN_TRANSFER_DATE = "transfer_date";
         public static final String COLUMN_TYPES_OF_RADIATION = "types_of_radiation";
         public static final String COLUMN_PATIENT_ID = "patient_id";
     }
