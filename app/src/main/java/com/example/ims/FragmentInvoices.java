@@ -62,10 +62,10 @@ public class FragmentInvoices extends Fragment {
         // Inflate the layout for this fragment
          View rootview= inflater.inflate(R.layout.fragment_invoices, container, false);
 
-         ListView  mSvcListView =rootview.findViewById(R.id.list_svc);
+       /*  ListView  mSvcListView =rootview.findViewById(R.id.list_svc);
          mInvoicesSvcCursorAdapter =new InvoicesSvcCursorAdapter(getActivity() ,null);
 
-        mSvcListView.setAdapter(mInvoicesSvcCursorAdapter);
+        mSvcListView.setAdapter(mInvoicesSvcCursorAdapter);*/
 
 
         return rootview;
