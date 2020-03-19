@@ -39,6 +39,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import com.example.ims.data.ImsContract.PatientEntry;
+import com.example.logutil.Utils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
@@ -336,7 +337,7 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
                         mBirthDateEditText.setText(date);
                     }
                 };
-                showDatePicker(dateSetListener);
+                Utils.showDatePicker(ReceptionActivity.this, dateSetListener);
             }
         });
 
@@ -579,31 +580,6 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
                 Toast.makeText(this, getString(R.string.editor_delete_patient_successful), Toast.LENGTH_SHORT).show();
             }
         }
-    }
-
-    /**
-     * View and set the date-picker
-     * 1. DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener()
-     * 2.  month += 1;
-     * 3. String date = month + "/" + dayOfMonth + "/" + year;
-     *
-     * @param mDateSetListener
-     */
-    private void showDatePicker(DatePickerDialog.OnDateSetListener mDateSetListener) {
-        Calendar calendar = Calendar.getInstance();
-
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-        DatePickerDialog datePickerDialog = new DatePickerDialog(
-                this,
-                android.R.style.Theme_Holo_Dialog_MinWidth,
-                mDateSetListener,
-                year, month, day);
-
-        datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        datePickerDialog.show();
     }
 
     @Override
