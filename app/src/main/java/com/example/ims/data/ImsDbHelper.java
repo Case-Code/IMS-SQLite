@@ -32,188 +32,188 @@ public class ImsDbHelper extends SQLiteOpenHelper {
             + PatientEntry.COLUMN_GENDER + " INTEGER NOT NULL DEFAULT 0);";
 
     // Create a String that contains the SQL statement to create the 'patient data To analysis' table
-    private static final String SQL_CREATE_PATIENT_DATA_TO_ANALYSIS_TABLE = "CREATE TABLE IF NOT EXISTS " + PatientDataToAnalysis.TABLE_NAME + " ("
-            + PatientDataToAnalysis._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + PatientDataToAnalysis.COLUMN_TRANSFER_DATE + " TEXT NOT NULL, "
-            + PatientDataToAnalysis.COLUMN_ANALYSIS_NAME + " TEXT NOT NULL, "
-            + PatientDataToAnalysis.COLUMN_PATIENT_ID + " INTEGER NOT NULL); ";
+    private static final String SQL_CREATE_PATIENT_DATA_TO_ANALYSIS_TABLE = "CREATE TABLE IF NOT EXISTS " + PatientDataToAnalysisEntry.TABLE_NAME + " ("
+            + PatientDataToAnalysisEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + PatientDataToAnalysisEntry.COLUMN_TRANSFER_DATE + " TEXT NOT NULL, "
+            + PatientDataToAnalysisEntry.COLUMN_ANALYSIS_NAME + " INTEGER NOT NULL DEFAULT 0, "
+            + PatientDataToAnalysisEntry.COLUMN_PATIENT_ID + " INTEGER NOT NULL); ";
 
     // Create a String that contains the SQL statement to create the 'patient data to clinics' table
-    private static final String SQL_CREATE_PATIENT_DATA_TO_CLINICS_TABLE = "CREATE TABLE IF NOT EXISTS " + PatientDataToClinics.TABLE_NAME + " ("
-            + PatientDataToClinics._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + PatientDataToClinics.COLUMN_TRANSFER_DATE + " TEXT NOT NULL, "
-            + PatientDataToClinics.COLUMN_CLINIC_NAME + " TEXT NOT NULL, "
-            + PatientDataToClinics.COLUMN_PATIENT_ID + " INTEGER NOT NULL); ";
+    private static final String SQL_CREATE_PATIENT_DATA_TO_CLINICS_TABLE = "CREATE TABLE IF NOT EXISTS " + PatientDataToClinicsEntry.TABLE_NAME + " ("
+            + PatientDataToClinicsEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + PatientDataToClinicsEntry.COLUMN_TRANSFER_DATE + " TEXT NOT NULL, "
+            + PatientDataToClinicsEntry.COLUMN_CLINIC_NAME + " INTEGER NOT NULL DEFAULT 0, "
+            + PatientDataToClinicsEntry.COLUMN_PATIENT_ID + " INTEGER NOT NULL); ";
 
     // Create a String that contains the SQL statement to create the 'patient records' table
-    private static final String SQL_CREATE_PATIENT_RECORDS_TABLE = "CREATE TABLE IF NOT EXISTS " + PatientRecords.TABLE_NAME + " ("
-            + PatientRecords._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + PatientRecords.COLUMN_BILL_TO_NAME + " TEXT NOT NULL, "
-            + PatientRecords.COLUMN_DATE_OF_BIRTH + " TEXT NOT NULL, "
-            + PatientRecords.COLUMN_MEDICAL_RECORD_ID + " INTEGER NOT NULL, "
-            + PatientRecords.COLUMN_NEXT_APPOINTMENT_DATE + " TEXT NOT NULL, "
-            + PatientRecords.COLUMN_NEXT_TREATMENT_PLAN_REVIEW_DATE + " TEXT NOT NULL, "
-            + PatientRecords.COLUMN_PHYSICIAN_SIGNATURE + " TEXT NOT NULL, "
-            + PatientRecords.COLUMN_DATE_SIGNED + " TEXT NOT NULL, "
-            + PatientRecords.COLUMN_X_RAY_IMAGE + " TEXT NOT NULL, "
-            + PatientRecords.COLUMN_PATIENT_ID + " INTEGER NOT NULL); ";
+    private static final String SQL_CREATE_PATIENT_RECORDS_TABLE = "CREATE TABLE IF NOT EXISTS " + PatientRecordsEntry.TABLE_NAME + " ("
+            + PatientRecordsEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + PatientRecordsEntry.COLUMN_BILL_TO_NAME + " TEXT NOT NULL, "
+            + PatientRecordsEntry.COLUMN_DATE_OF_BIRTH + " TEXT NOT NULL, "
+            + PatientRecordsEntry.COLUMN_MEDICAL_RECORD_ID + " INTEGER NOT NULL, "
+            + PatientRecordsEntry.COLUMN_NEXT_APPOINTMENT_DATE + " TEXT NOT NULL, "
+            + PatientRecordsEntry.COLUMN_NEXT_TREATMENT_PLAN_REVIEW_DATE + " TEXT NOT NULL, "
+            + PatientRecordsEntry.COLUMN_PHYSICIAN_SIGNATURE + " TEXT NOT NULL, "
+            + PatientRecordsEntry.COLUMN_DATE_SIGNED + " TEXT NOT NULL, "
+            + PatientRecordsEntry.COLUMN_X_RAY_IMAGE + " TEXT NOT NULL, "
+            + PatientRecordsEntry.COLUMN_PATIENT_ID + " INTEGER NOT NULL); ";
 
     // Create a String that contains the SQL statement to create the 'patient progress' table
-    private static final String SQL_CREATE_PATIENT_PROGRESS_TABLE = "CREATE TABLE IF NOT EXISTS " + PatientProgress.TABLE_NAME + " ("
-            + PatientProgress._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + PatientProgress.COLUMN_PROGRESS_NOTES + " TEXT NOT NULL, "
-            + PatientProgress.COLUMN_PATIENT_ID + " INTEGER NOT NULL); ";
+    private static final String SQL_CREATE_PATIENT_PROGRESS_TABLE = "CREATE TABLE IF NOT EXISTS " + PatientProgressEntry.TABLE_NAME + " ("
+            + PatientProgressEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + PatientProgressEntry.COLUMN_PROGRESS_NOTES + " TEXT NOT NULL, "
+            + PatientProgressEntry.COLUMN_PATIENT_ID + " INTEGER NOT NULL); ";
 
     // Create a String that contains the SQL statement to create the 'invoices' table
-    private static final String SQL_CREATE_INVOICES_TABLE = "CREATE TABLE IF NOT EXISTS " + Invoices.TABLE_NAME + " ("
-            + Invoices._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + Invoices.COLUMN_DATE_OF_SVC + " TEXT NOT NULL, "
-            + Invoices.COLUMN_INVOICE_DATE + " TEXT NOT NULL, "
-            + Invoices.COLUMN_DATE_DUE + " TEXT NOT NULL, "
-            + Invoices.COLUMN_BILL_TO_NAME + " TEXT NOT NULL, "
-            + Invoices.COLUMN_BILL_TO_ADDRESS + " TEXT NOT NULL, "
-            + Invoices.COLUMN_BILL_TO_PHONE + " INTEGER NOT NULL, "
-            + Invoices.COLUMN_BILL_TO_FAX + " INTEGER NOT NULL, "
-            + Invoices.COLUMN_BILL_TO_EMAIL + " TEXT NOT NULL, "
-            + Invoices.COLUMN_SVC_ID + " INTEGER NOT NULL, "
-            + Invoices.COLUMN_MEDICAL_SERVICES + " TEXT NOT NULL, "
-            + Invoices.COLUMN_MEDICATION + " TEXT NOT NULL, "
-            + Invoices.COLUMN_COST + " INTEGER NOT NULL, "
-            + Invoices.COLUMN_SUBTOTAL + " INTEGER NOT NULL, "
-            + Invoices.COLUMN_TAX_RATE + " INTEGER NOT NULL, "
-            + Invoices.COLUMN_TOTAL_TAX + " INTEGER NOT NULL, "
-            + Invoices.COLUMN_OTHER + " INTEGER NOT NULL, "
-            + Invoices.COLUMN_TOTAL + " INTEGER NOT NULL, "
-            + Invoices.COLUMN_QUESTIONS_NAME + " TEXT NOT NULL, "
-            + Invoices.COLUMN_QUESTIONS_EMAIL + " TEXT NOT NULL, "
-            + Invoices.COLUMN_QUESTIONS_PHONE + " INTEGER NOT NULL, "
-            + Invoices.COLUMN_QUESTIONS_WEB + " TEXT NOT NULL, "
-            + Invoices.COLUMN_PROCEDURE + " TEXT NOT NULL, "
-            + Invoices.COLUMN_PATIENT_ID + " INTEGER NOT NULL); ";
+    private static final String SQL_CREATE_INVOICES_TABLE = "CREATE TABLE IF NOT EXISTS " + InvoicesEntry.TABLE_NAME + " ("
+            + InvoicesEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + InvoicesEntry.COLUMN_DATE_OF_SVC + " TEXT NOT NULL, "
+            + InvoicesEntry.COLUMN_INVOICE_DATE + " TEXT NOT NULL, "
+            + InvoicesEntry.COLUMN_DATE_DUE + " TEXT NOT NULL, "
+            + InvoicesEntry.COLUMN_BILL_TO_NAME + " TEXT NOT NULL, "
+            + InvoicesEntry.COLUMN_BILL_TO_ADDRESS + " TEXT NOT NULL, "
+            + InvoicesEntry.COLUMN_BILL_TO_PHONE + " INTEGER NOT NULL, "
+            + InvoicesEntry.COLUMN_BILL_TO_FAX + " INTEGER NOT NULL, "
+            + InvoicesEntry.COLUMN_BILL_TO_EMAIL + " TEXT NOT NULL, "
+            + InvoicesEntry.COLUMN_SVC_ID + " INTEGER NOT NULL, "
+            + InvoicesEntry.COLUMN_MEDICAL_SERVICES + " TEXT NOT NULL, "
+            + InvoicesEntry.COLUMN_MEDICATION + " TEXT NOT NULL, "
+            + InvoicesEntry.COLUMN_COST + " INTEGER NOT NULL, "
+            + InvoicesEntry.COLUMN_SUBTOTAL + " INTEGER NOT NULL, "
+            + InvoicesEntry.COLUMN_TAX_RATE + " INTEGER NOT NULL, "
+            + InvoicesEntry.COLUMN_TOTAL_TAX + " INTEGER NOT NULL, "
+            + InvoicesEntry.COLUMN_OTHER + " INTEGER NOT NULL, "
+            + InvoicesEntry.COLUMN_TOTAL + " INTEGER NOT NULL, "
+            + InvoicesEntry.COLUMN_QUESTIONS_NAME + " TEXT NOT NULL, "
+            + InvoicesEntry.COLUMN_QUESTIONS_EMAIL + " TEXT NOT NULL, "
+            + InvoicesEntry.COLUMN_QUESTIONS_PHONE + " INTEGER NOT NULL, "
+            + InvoicesEntry.COLUMN_QUESTIONS_WEB + " TEXT NOT NULL, "
+            + InvoicesEntry.COLUMN_PROCEDURE + " TEXT NOT NULL, "
+            + InvoicesEntry.COLUMN_PATIENT_ID + " INTEGER NOT NULL); ";
 
     // Create a String that contains the SQL statement to create the 'health record' table
-    private static final String SQL_CREATE_HEALTH_RECORD_TABLE = "CREATE TABLE IF NOT EXISTS " + HealthRecord.TABLE_NAME + " ("
-            + HealthRecord._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + HealthRecord.COLUMN_DATE_OF_THE_LAST_UPDATE + " TEXT NOT NULL, "
-            + HealthRecord.COLUMN_CURRENT_PHYSICIAN_NAME + " TEXT NOT NULL, "
-            + HealthRecord.COLUMN_DOCTORS_PHONE + " INTEGER NOT NULL, "
-            + HealthRecord.COLUMN_CURRENT_PHARMACY_NAME + " TEXT NOT NULL, "
-            + HealthRecord.COLUMN_PHARMACY_PHONE + " INTEGER NOT NULL, "
-            + HealthRecord.COLUMN_PATIENT_ID + " INTEGER NOT NULL); ";
+    private static final String SQL_CREATE_HEALTH_RECORD_TABLE = "CREATE TABLE IF NOT EXISTS " + HealthRecordEntry.TABLE_NAME + " ("
+            + HealthRecordEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + HealthRecordEntry.COLUMN_DATE_OF_THE_LAST_UPDATE + " TEXT NOT NULL, "
+            + HealthRecordEntry.COLUMN_CURRENT_PHYSICIAN_NAME + " TEXT NOT NULL, "
+            + HealthRecordEntry.COLUMN_DOCTORS_PHONE + " INTEGER NOT NULL, "
+            + HealthRecordEntry.COLUMN_CURRENT_PHARMACY_NAME + " TEXT NOT NULL, "
+            + HealthRecordEntry.COLUMN_PHARMACY_PHONE + " INTEGER NOT NULL, "
+            + HealthRecordEntry.COLUMN_PATIENT_ID + " INTEGER NOT NULL); ";
 
     // Create a String that contains the SQL statement to create the 'current and past medications' table
-    private static final String SQL_CREATE_CURRENT_AND_PAST_MEDICATIONS_TABLE = "CREATE TABLE IF NOT EXISTS " + CurrentAndPastMedications.TABLE_NAME + " ("
-            + CurrentAndPastMedications._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + CurrentAndPastMedications.COLUMN_PHYSICIAN + " TEXT NOT NULL, "
-            + CurrentAndPastMedications.COLUMN_DOSAGE + " TEXT NOT NULL, "
-            + CurrentAndPastMedications.COLUMN_FREQ + " INTEGER NOT NULL, "
-            + CurrentAndPastMedications.COLUMN_PURPOSE + " TEXT NOT NULL, "
-            + CurrentAndPastMedications.COLUMN_START_DATE + " TEXT NOT NULL, "
-            + CurrentAndPastMedications.COLUMN_END_DATE + " TEXT NOT NULL, "
-            + CurrentAndPastMedications.COLUMN_PATIENT_ID + " INTEGER NOT NULL); ";
+    private static final String SQL_CREATE_CURRENT_AND_PAST_MEDICATIONS_TABLE = "CREATE TABLE IF NOT EXISTS " + CurrentAndPastMedicationsEntry.TABLE_NAME + " ("
+            + CurrentAndPastMedicationsEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + CurrentAndPastMedicationsEntry.COLUMN_PHYSICIAN + " TEXT NOT NULL, "
+            + CurrentAndPastMedicationsEntry.COLUMN_DOSAGE + " TEXT NOT NULL, "
+            + CurrentAndPastMedicationsEntry.COLUMN_FREQ + " INTEGER NOT NULL, "
+            + CurrentAndPastMedicationsEntry.COLUMN_PURPOSE + " TEXT NOT NULL, "
+            + CurrentAndPastMedicationsEntry.COLUMN_START_DATE + " TEXT NOT NULL, "
+            + CurrentAndPastMedicationsEntry.COLUMN_END_DATE + " TEXT NOT NULL, "
+            + CurrentAndPastMedicationsEntry.COLUMN_PATIENT_ID + " INTEGER NOT NULL); ";
 
     // Create a String that contains the SQL statement to create the 'major illnesses' table
-    private static final String SQL_CREATE_MAJOR_ILLNESSES_TABLE = "CREATE TABLE IF NOT EXISTS " + MajorIllnesses.TABLE_NAME + " ("
-            + MajorIllnesses._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + MajorIllnesses.COLUMN_ILLNESS + " TEXT NOT NULL, "
-            + MajorIllnesses.COLUMN_START_DATE + " TEXT NOT NULL, "
-            + MajorIllnesses.COLUMN_END_DATE + " TEXT NOT NULL, "
-            + MajorIllnesses.COLUMN_PHYSICIAN + " TEXT NOT NULL, "
-            + MajorIllnesses.COLUMN_TREATMENT_NOTES + " TEXT NOT NULL, "
-            + MajorIllnesses.COLUMN_PATIENT_ID + " INTEGER NOT NULL); ";
+    private static final String SQL_CREATE_MAJOR_ILLNESSES_TABLE = "CREATE TABLE IF NOT EXISTS " + MajorIllnessesEntry.TABLE_NAME + " ("
+            + MajorIllnessesEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + MajorIllnessesEntry.COLUMN_ILLNESS + " TEXT NOT NULL, "
+            + MajorIllnessesEntry.COLUMN_START_DATE + " TEXT NOT NULL, "
+            + MajorIllnessesEntry.COLUMN_END_DATE + " TEXT NOT NULL, "
+            + MajorIllnessesEntry.COLUMN_PHYSICIAN + " TEXT NOT NULL, "
+            + MajorIllnessesEntry.COLUMN_TREATMENT_NOTES + " TEXT NOT NULL, "
+            + MajorIllnessesEntry.COLUMN_PATIENT_ID + " INTEGER NOT NULL); ";
 
     // Create a String that contains the SQL statement to create the 'surgical procedures' table
-    private static final String SQL_CREATE_SURGICAL_PROCEDURES_TABLE = "CREATE TABLE IF NOT EXISTS " + SurgicalProcedures.TABLE_NAME + " ("
-            + SurgicalProcedures._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + SurgicalProcedures.COLUMN_PROCEDURE + " TEXT NOT NULL, "
-            + SurgicalProcedures.COLUMN_PHYSICIAN + " TEXT NOT NULL, "
-            + SurgicalProcedures.COLUMN_HOSPITAL + " TEXT NOT NULL, "
-            + SurgicalProcedures.COLUMN_DATE_SURGICAL_PROCEDURES + " TEXT NOT NULL, "
-            + SurgicalProcedures.COLUMN_NOTES + " TEXT NOT NULL, "
-            + SurgicalProcedures.COLUMN_PATIENT_ID + " INTEGER NOT NULL); ";
+    private static final String SQL_CREATE_SURGICAL_PROCEDURES_TABLE = "CREATE TABLE IF NOT EXISTS " + SurgicalProceduresEntry.TABLE_NAME + " ("
+            + SurgicalProceduresEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + SurgicalProceduresEntry.COLUMN_PROCEDURE + " TEXT NOT NULL, "
+            + SurgicalProceduresEntry.COLUMN_PHYSICIAN + " TEXT NOT NULL, "
+            + SurgicalProceduresEntry.COLUMN_HOSPITAL + " TEXT NOT NULL, "
+            + SurgicalProceduresEntry.COLUMN_DATE_SURGICAL_PROCEDURES + " TEXT NOT NULL, "
+            + SurgicalProceduresEntry.COLUMN_NOTES + " TEXT NOT NULL, "
+            + SurgicalProceduresEntry.COLUMN_PATIENT_ID + " INTEGER NOT NULL); ";
 
     // Create a String that contains the SQL statement to create the 'patient vaccines' table
-    private static final String SQL_CREATE_PATIENT_VACCINES_TABLE = "CREATE TABLE IF NOT EXISTS " + PatientVaccines.TABLE_NAME + " ("
-            + PatientVaccines._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + PatientVaccines.COLUMN_TETANUS + " TEXT NOT NULL, "
-            + PatientVaccines.COLUMN_NAME_OF_VACCINATION + " TEXT NOT NULL, "
-            + PatientVaccines.COLUMN_HISTORY_OF_VACCINATION + " TEXT NOT NULL, "
-            + PatientVaccines.COLUMN_PATIENT_ID + " INTEGER NOT NULL); ";
+    private static final String SQL_CREATE_PATIENT_VACCINES_TABLE = "CREATE TABLE IF NOT EXISTS " + PatientVaccinesEntry.TABLE_NAME + " ("
+            + PatientVaccinesEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + PatientVaccinesEntry.COLUMN_TETANUS + " INTEGER NOT NULL DEFAULT 0, "
+            + PatientVaccinesEntry.COLUMN_NAME_OF_VACCINATION + " INTEGER NOT NULL DEFAULT 0, "
+            + PatientVaccinesEntry.COLUMN_HISTORY_OF_VACCINATION + " TEXT NOT NULL, "
+            + PatientVaccinesEntry.COLUMN_PATIENT_ID + " INTEGER NOT NULL); ";
 
     // Create a String that contains the SQL statement to create the 'doctor diagnosis' table
-    private static final String SQL_CREATE_DOCTOR_DIAGNOSIS_TABLE = "CREATE TABLE IF NOT EXISTS " + DoctorDiagnosis.TABLE_NAME + " ("
-            + DoctorDiagnosis._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + DoctorDiagnosis.COLUMN_DIAGNOSIS + " TEXT NOT NULL, "
-            + DoctorDiagnosis.COLUMN_ADDITIONAL_NOTES + " TEXT NOT NULL, "
-            + DoctorDiagnosis.COLUMN_PERFORMING_PHYSICIAN_SIGNATURE + " TEXT NOT NULL, "
-            + DoctorDiagnosis.COLUMN_PATIENT_ID + " INTEGER NOT NULL); ";
+    private static final String SQL_CREATE_DOCTOR_DIAGNOSIS_TABLE = "CREATE TABLE IF NOT EXISTS " + DoctorDiagnosisEntry.TABLE_NAME + " ("
+            + DoctorDiagnosisEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + DoctorDiagnosisEntry.COLUMN_DIAGNOSIS + " TEXT NOT NULL, "
+            + DoctorDiagnosisEntry.COLUMN_ADDITIONAL_NOTES + " TEXT NOT NULL, "
+            + DoctorDiagnosisEntry.COLUMN_PERFORMING_PHYSICIAN_SIGNATURE + " TEXT NOT NULL, "
+            + DoctorDiagnosisEntry.COLUMN_PATIENT_ID + " INTEGER NOT NULL); ";
 
     // Create a String that contains the SQL statement to create the 'patient data to pharmacy' table
-    private static final String SQL_CREATE_PATIENT_DATA_TO_PHARMACY_TABLE = "CREATE TABLE IF NOT EXISTS " + PatientDataToPharmacy.TABLE_NAME + " ("
-            + PatientDataToPharmacy._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + PatientDataToPharmacy.COLUMN_TRANSFER_DATA + " TEXT NOT NULL, "
-            + PatientDataToPharmacy.COLUMN_DOCTOR_DIAGNOSIS_ID + " INTEGER NOT NULL, "
-            + PatientDataToPharmacy.COLUMN_PATIENT_ID + " INTEGER NOT NULL); ";
+    private static final String SQL_CREATE_PATIENT_DATA_TO_PHARMACY_TABLE = "CREATE TABLE IF NOT EXISTS " + PatientDataToPharmacyEntry.TABLE_NAME + " ("
+            + PatientDataToPharmacyEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + PatientDataToPharmacyEntry.COLUMN_TRANSFER_DATE + " TEXT NOT NULL, "
+            + PatientDataToPharmacyEntry.COLUMN_DOCTOR_DIAGNOSIS_ID + " INTEGER NOT NULL, "
+            + PatientDataToPharmacyEntry.COLUMN_PATIENT_ID + " INTEGER NOT NULL); ";
 
     // Create a String that contains the SQL statement to create the 'patient data to radiology' table
-    private static final String SQL_CREATE_PATIENT_DATA_TO_RADIOLOGY_TABLE = "CREATE TABLE IF NOT EXISTS " + PatientDataToRadiology.TABLE_NAME + " ("
-            + PatientDataToRadiology._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + PatientDataToRadiology.COLUMN_TRANSFER_DATA + " TEXT NOT NULL, "
-            + PatientDataToRadiology.COLUMN_TYPES_OF_RADIATION + " TEXT NOT NULL, "
-            + PatientDataToRadiology.COLUMN_PATIENT_ID + " INTEGER NOT NULL); ";
+    private static final String SQL_CREATE_PATIENT_DATA_TO_RADIOLOGY_TABLE = "CREATE TABLE IF NOT EXISTS " + PatientDataToRadiologyEntry.TABLE_NAME + " ("
+            + PatientDataToRadiologyEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + PatientDataToRadiologyEntry.COLUMN_TRANSFER_DATE + " TEXT NOT NULL, "
+            + PatientDataToRadiologyEntry.COLUMN_TYPES_OF_RADIATION + " INTEGER NOT NULL DEFAULT 0, "
+            + PatientDataToRadiologyEntry.COLUMN_PATIENT_ID + " INTEGER NOT NULL); ";
 
     // Create a String that contains the SQL statement to create the 'medicine registry' table
-    private static final String SQL_CREATE_MEDICINE_REGISTRY_TABLE = "CREATE TABLE IF NOT EXISTS " + MedicineRegistry.TABLE_NAME + " ("
-            + MedicineRegistry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + MedicineRegistry.COLUMN_QR + " INTEGER NOT NULL, "
-            + MedicineRegistry.COLUMN_MEDICINE_NAME + " TEXT NOT NULL, "
-            + MedicineRegistry.COLUMN_QUANTITY + " INTEGER NOT NULL, "
-            + MedicineRegistry.COLUMN_PRICE + " INTEGER NOT NULL); ";
+    private static final String SQL_CREATE_MEDICINE_REGISTRY_TABLE = "CREATE TABLE IF NOT EXISTS " + MedicineRegistryEntry.TABLE_NAME + " ("
+            + MedicineRegistryEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + MedicineRegistryEntry.COLUMN_QR + " INTEGER NOT NULL, "
+            + MedicineRegistryEntry.COLUMN_MEDICINE_NAME + " TEXT NOT NULL, "
+            + MedicineRegistryEntry.COLUMN_QUANTITY + " INTEGER NOT NULL, "
+            + MedicineRegistryEntry.COLUMN_PRICE + " INTEGER NOT NULL); ";
 
     // Create a String that contains the SQL statement to create the 'sales record' table
-    private static final String SQL_CREATE_SALES_RECORD_TABLE = "CREATE TABLE IF NOT EXISTS " + SalesRecord.TABLE_NAME + " ("
-            + SalesRecord._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + SalesRecord.COLUMN_MEDICINE_NAME + " TEXT NOT NULL, "
-            + SalesRecord.COLUMN_QUANTITY + " INTEGER NOT NULL, "
-            + SalesRecord.COLUMN_SALE_DATE + " TEXT NOT NULL, "
-            + SalesRecord.COLUMN_PRICE + " INTEGER NOT NULL); ";
+    private static final String SQL_CREATE_SALES_RECORD_TABLE = "CREATE TABLE IF NOT EXISTS " + SalesRecordEntry.TABLE_NAME + " ("
+            + SalesRecordEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + SalesRecordEntry.COLUMN_MEDICINE_NAME + " TEXT NOT NULL, "
+            + SalesRecordEntry.COLUMN_QUANTITY + " INTEGER NOT NULL, "
+            + SalesRecordEntry.COLUMN_SALE_DATE + " TEXT NOT NULL, "
+            + SalesRecordEntry.COLUMN_PRICE + " INTEGER NOT NULL); ";
 
     // Create a String that contains the SQL statement to create the 'employees' table
-    private static final String SQL_CREATE_EMPLOYEES_TABLE = "CREATE TABLE IF NOT EXISTS " + Employees.TABLE_NAME + " ("
-            + Employees._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + Employees.COLUMN_FIRST_NAME + " TEXT NOT NULL, "
-            + Employees.COLUMN_LAST_NAME + " TEXT NOT NULL, "
-            + Employees.COLUMN_EMAIL + " TEXT NOT NULL, "
-            + Employees.COLUMN_PHONE_NUMBER + " INTEGER NOT NULL, "
-            + Employees.COLUMN_HIRE_DATE + " TEXT NOT NULL, "
-            + Employees.COLUMN_SALARY + " INTEGER NOT NULL, "
-            + Employees.COLUMN_JOB_TITLE + " TEXT NOT NULL, "
-            + Employees.COLUMN_MIN_SALARY + " INTEGER, "
-            + Employees.COLUMN_MAX_SALARY + " INTEGER, "
-            + Employees.COLUMN_DEPARTMENT_NAME + " TEXT NOT NULL, "
-            + Employees.COLUMN_REGION_NAME + " TEXT NOT NULL, "
-            + Employees.COLUMN_COUNTRY_NAME + " TEXT NOT NULL, "
-            + Employees.COLUMN_CITY + " TEXT NOT NULL, "
-            + Employees.COLUMN_STREET_ADDRESS + " TEXT, "
-            + Employees.COLUMN_POSTAL_CODE + " INTEGER NOT NULL); ";
+    private static final String SQL_CREATE_EMPLOYEES_TABLE = "CREATE TABLE IF NOT EXISTS " + EmployeesEntry.TABLE_NAME + " ("
+            + EmployeesEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + EmployeesEntry.COLUMN_FIRST_NAME + " TEXT NOT NULL, "
+            + EmployeesEntry.COLUMN_LAST_NAME + " TEXT NOT NULL, "
+            + EmployeesEntry.COLUMN_EMAIL + " TEXT NOT NULL, "
+            + EmployeesEntry.COLUMN_PHONE_NUMBER + " INTEGER NOT NULL, "
+            + EmployeesEntry.COLUMN_HIRE_DATE + " TEXT NOT NULL, "
+            + EmployeesEntry.COLUMN_SALARY + " INTEGER NOT NULL, "
+            + EmployeesEntry.COLUMN_JOB_TITLE + " TEXT NOT NULL, "
+            + EmployeesEntry.COLUMN_MIN_SALARY + " INTEGER, "
+            + EmployeesEntry.COLUMN_MAX_SALARY + " INTEGER, "
+            + EmployeesEntry.COLUMN_DEPARTMENT_NAME + " INTEGER NOT NULL DEFAULT 0, "
+            + EmployeesEntry.COLUMN_REGION_NAME + " INTEGER NOT NULL DEFAULT 0, "
+            + EmployeesEntry.COLUMN_COUNTRY_NAME + " INTEGER NOT NULL DEFAULT 0, "
+            + EmployeesEntry.COLUMN_CITY + " INTEGER NOT NULL DEFAULT 0, "
+            + EmployeesEntry.COLUMN_STREET_ADDRESS + " TEXT, "
+            + EmployeesEntry.COLUMN_POSTAL_CODE + " INTEGER NOT NULL); ";
 
     private static final String SQL_DROP_PATIENT_TABLE = "DROP TABLE IF EXISTS " + PatientEntry.TABLE_NAME;
-    private static final String SQL_DROP_PATIENT_DATA_TO_ANALYSIS_TABLE = "DROP TABLE IF EXISTS " + PatientDataToAnalysis.TABLE_NAME;
-    private static final String SQL_DROP_PATIENT_DATA_TO_CLINICS_TABLE = "DROP TABLE IF EXISTS " + PatientDataToClinics.TABLE_NAME;
-    private static final String SQL_DROP_PATIENT_RECORDS_TABLE = "DROP TABLE IF EXISTS " + PatientRecords.TABLE_NAME;
-    private static final String SQL_DROP_PATIENT_PROGRESS_TABLE = "DROP TABLE IF EXISTS " + PatientProgress.TABLE_NAME;
-    private static final String SQL_DROP_INVOICES_TABLE = "DROP TABLE IF EXISTS " + Invoices.TABLE_NAME;
-    private static final String SQL_DROP_HEALTH_RECORD_TABLE = "DROP TABLE IF EXISTS " + HealthRecord.TABLE_NAME;
-    private static final String SQL_DROP_CURRENT_AND_PAST_MEDICATIONS_TABLE = "DROP TABLE IF EXISTS " + CurrentAndPastMedications.TABLE_NAME;
-    private static final String SQL_DROP_MAJOR_ILLNESSES_TABLE = "DROP TABLE IF EXISTS " + MajorIllnesses.TABLE_NAME;
-    private static final String SQL_DROP_SURGICAL_PROCEDURES_TABLE = "DROP TABLE IF EXISTS " + SurgicalProcedures.TABLE_NAME;
-    private static final String SQL_DROP_PATIENT_VACCINES_TABLE = "DROP TABLE IF EXISTS " + PatientVaccines.TABLE_NAME;
-    private static final String SQL_DROP_DOCTOR_DIAGNOSIS_TABLE = "DROP TABLE IF EXISTS " + DoctorDiagnosis.TABLE_NAME;
-    private static final String SQL_DROP_PATIENT_DATA_TO_PHARMACY_TABLE = "DROP TABLE IF EXISTS " + PatientDataToPharmacy.TABLE_NAME;
-    private static final String SQL_DROP_PATIENT_DATA_TO_RADIOLOGY_TABLE = "DROP TABLE IF EXISTS " + PatientDataToRadiology.TABLE_NAME;
-    private static final String SQL_DROP_MEDICINE_REGISTRY_TABLE = "DROP TABLE IF EXISTS " + MedicineRegistry.TABLE_NAME;
-    private static final String SQL_DROP_SALES_RECORD_TABLE = "DROP TABLE IF EXISTS " + SalesRecord.TABLE_NAME;
-    private static final String SQL_DROP_EMPLOYEES_TABLE = "DROP TABLE IF EXISTS " + Employees.TABLE_NAME;
+    private static final String SQL_DROP_PATIENT_DATA_TO_ANALYSIS_TABLE = "DROP TABLE IF EXISTS " + PatientDataToAnalysisEntry.TABLE_NAME;
+    private static final String SQL_DROP_PATIENT_DATA_TO_CLINICS_TABLE = "DROP TABLE IF EXISTS " + PatientDataToClinicsEntry.TABLE_NAME;
+    private static final String SQL_DROP_PATIENT_RECORDS_TABLE = "DROP TABLE IF EXISTS " + PatientRecordsEntry.TABLE_NAME;
+    private static final String SQL_DROP_PATIENT_PROGRESS_TABLE = "DROP TABLE IF EXISTS " + PatientProgressEntry.TABLE_NAME;
+    private static final String SQL_DROP_INVOICES_TABLE = "DROP TABLE IF EXISTS " + InvoicesEntry.TABLE_NAME;
+    private static final String SQL_DROP_HEALTH_RECORD_TABLE = "DROP TABLE IF EXISTS " + HealthRecordEntry.TABLE_NAME;
+    private static final String SQL_DROP_CURRENT_AND_PAST_MEDICATIONS_TABLE = "DROP TABLE IF EXISTS " + CurrentAndPastMedicationsEntry.TABLE_NAME;
+    private static final String SQL_DROP_MAJOR_ILLNESSES_TABLE = "DROP TABLE IF EXISTS " + MajorIllnessesEntry.TABLE_NAME;
+    private static final String SQL_DROP_SURGICAL_PROCEDURES_TABLE = "DROP TABLE IF EXISTS " + SurgicalProceduresEntry.TABLE_NAME;
+    private static final String SQL_DROP_PATIENT_VACCINES_TABLE = "DROP TABLE IF EXISTS " + PatientVaccinesEntry.TABLE_NAME;
+    private static final String SQL_DROP_DOCTOR_DIAGNOSIS_TABLE = "DROP TABLE IF EXISTS " + DoctorDiagnosisEntry.TABLE_NAME;
+    private static final String SQL_DROP_PATIENT_DATA_TO_PHARMACY_TABLE = "DROP TABLE IF EXISTS " + PatientDataToPharmacyEntry.TABLE_NAME;
+    private static final String SQL_DROP_PATIENT_DATA_TO_RADIOLOGY_TABLE = "DROP TABLE IF EXISTS " + PatientDataToRadiologyEntry.TABLE_NAME;
+    private static final String SQL_DROP_MEDICINE_REGISTRY_TABLE = "DROP TABLE IF EXISTS " + MedicineRegistryEntry.TABLE_NAME;
+    private static final String SQL_DROP_SALES_RECORD_TABLE = "DROP TABLE IF EXISTS " + SalesRecordEntry.TABLE_NAME;
+    private static final String SQL_DROP_EMPLOYEES_TABLE = "DROP TABLE IF EXISTS " + EmployeesEntry.TABLE_NAME;
 
     /**
      * Constructs a new instance of {@link ImsDbHelper}.

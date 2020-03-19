@@ -18,6 +18,7 @@
 
     <!-- These are the options displayed in the clinics drop-down Spinner -->
     <string-array name="array_clinics_options">
+        <item>@string/unknown</item>
         <item>@string/clinics_endemic_diseases</item>
         <item>@string/clinics_medical_and_microbiological_analyzes</item>
         <item>@string/clinics_psychological_diseases</item>
@@ -41,5 +42,40 @@
         <item>@string/clinics_leather_and_genital</item>
     </string-array>
 
+    <!-- These are the options displayed in the radiology drop-down Spinner -->
+    <string-array name="array_radiology_options">
+        <item>@string/unknown</item>
+        <item>@string/radiology_x_rays</item>
+        <item>@string/radiology_ct_scan</item>
+        <item>@string/radiology_magnetic_resonance_imaging</item>
+        <item>@string/radiology_ultrasound</item>
+        <item>@string/radiology_sectional_tomography_of_the_positron_emission</item>
+    </string-array>
+
+    <!-- These are the options displayed in the vaccinations drop-down Spinner -->
+    <string-array name="array_vaccinations_options">
+        <item>@string/unknown</item>
+        <item>@string/vaccinations_hepatitis_a</item>
+        <item>@string/vaccinations_hepatitis_b</item>
+        <item>@string/vaccinations_typhoid</item>
+        <item>@string/vaccinations_yellow_fever</item>
+        <item>@string/vaccinations_rabies</item>
+        <item>@string/vaccinations_polio</item>
+        <item>@string/vaccinations_measles_mumps_rubella_mmr</item>
+        <item>@string/vaccinations_tdap</item>
+        <item>@string/vaccinations_chickenpox</item>
+        <item>@string/vaccinations_shingles</item>
+        <item>@string/vaccinations_pneumonia</item>
+        <item>@string/vaccinations_influenza</item>
+        <item>@string/vaccinations_meningitis</item>
+    </string-array>
+
+    <!-- These are the options displayed in the department drop-down Spinner -->
+
+    <!-- These are the options displayed in the region drop-down Spinner -->
+
+    <!-- These are the options displayed in the country drop-down Spinner -->
+
+    <!-- These are the options displayed in the city drop-down Spinner -->
 
 </resources>

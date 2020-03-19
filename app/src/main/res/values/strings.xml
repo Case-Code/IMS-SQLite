@@ -39,6 +39,36 @@
     <string name="clinics_oncology_and_nuclear_medicine">Oncology and nuclear medicine</string>
     <string name="clinics_leather_and_genital">Leather and genital</string>
 
+    <!-- radiology menu -->
+    <string name="radiology_x_rays">X-rays</string>
+    <string name="radiology_ct_scan">CT scan</string>
+    <string name="radiology_magnetic_resonance_imaging">Magnetic resonance imaging</string>
+    <string name="radiology_ultrasound">Ultrasound</string>
+    <string name="radiology_sectional_tomography_of_the_positron_emission">Sectional tomography of the positron emission</string>
+
+    <!-- vaccinations menu -->
+    <string name="vaccinations_hepatitis_a">Hepatitis A</string>
+    <string name="vaccinations_hepatitis_b">Hepatitis B</string>
+    <string name="vaccinations_typhoid">Typhoid</string>
+    <string name="vaccinations_yellow_fever">Yellow Fever</string>
+    <string name="vaccinations_rabies">Rabies</string>
+    <string name="vaccinations_polio">Polio</string>
+    <string name="vaccinations_measles_mumps_rubella_mmr">Measles Mumps, Rubella (MMR)</string>
+    <string name="vaccinations_tdap">TDAP (Tetanus, Diphtheria and Pertussis)</string>
+    <string name="vaccinations_chickenpox">Chickenpox</string>
+    <string name="vaccinations_shingles">Shingles</string>
+    <string name="vaccinations_pneumonia">Pneumonia</string>
+    <string name="vaccinations_influenza">Influenza</string>
+    <string name="vaccinations_meningitis">Meningitis</string>
+
+    <!-- department menu -->
+
+    <!-- region menu -->
+
+    <!-- country menu -->
+
+    <!-- city menu -->
+
     <!-- TODO name -->
     <string name="editor_insert_patient_failed">Error with saving patient</string>
     <string name="editor_insert_patient_successful">Patient saved</string>
