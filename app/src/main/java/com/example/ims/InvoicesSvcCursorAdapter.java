@@ -50,9 +50,5 @@ public class InvoicesSvcCursorAdapter extends CursorAdapter {
         costTextView.setText(phoneNumber);
 
 
-
-
-
-
     }
 }

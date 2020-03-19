@@ -412,7 +412,7 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
 
     // Show transferred to the analysis lab dialog
     public void showTransferredToTheAnalysisLabDialog(Context context) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
         mTypeOfAnalysisSpinner = mDialogTransferredToTheAnalysisLabView.findViewById(R.id.spinner_types_of_analysis);
         setupSpinnerTypesOfAnalysis(context);
@@ -680,6 +680,7 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
             mPatientGenderSpinner.setSelection(0);
         }
     }
+
 
 }
 
