@@ -68,7 +68,7 @@ public class ImsContract {
     }
 
     // Patient data to analysis
-    public static final class PatientDataToAnalysis implements BaseColumns {
+    public static final class PatientDataToAnalysisEntry implements BaseColumns {
 
         public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_PATIENT_DATA_TO_ANALYSIS);
         public static final String CONTENT_LIST_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_PATIENT_DATA_TO_ANALYSIS;
@@ -97,7 +97,7 @@ public class ImsContract {
     }
 
     // Patient data to clinics
-    public static final class PatientDataToClinics implements BaseColumns {
+    public static final class PatientDataToClinicsEntry implements BaseColumns {
 
         public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_PATIENT_DATA_TO_CLINICS);
         public static final String CONTENT_LIST_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_PATIENT_DATA_TO_CLINICS;
@@ -161,7 +161,7 @@ public class ImsContract {
     }
 
     // Patient records
-    public static final class PatientRecords implements BaseColumns {
+    public static final class PatientRecordsEntry implements BaseColumns {
 
         public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_PATIENT_RECORDS);
         public static final String CONTENT_LIST_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_PATIENT_RECORDS;
@@ -183,7 +183,7 @@ public class ImsContract {
     }
 
     // Patient progress
-    public static final class PatientProgress implements BaseColumns {
+    public static final class PatientProgressEntry implements BaseColumns {
 
         public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_PATIENT_PROGRESS);
         public static final String CONTENT_LIST_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_PATIENT_PROGRESS;
@@ -197,7 +197,7 @@ public class ImsContract {
     }
 
     // Invoices
-    public static final class Invoices implements BaseColumns {
+    public static final class InvoicesEntry implements BaseColumns {
 
         public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_INVOICES);
         public static final String CONTENT_LIST_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_INVOICES;
@@ -232,7 +232,7 @@ public class ImsContract {
     }
 
     // Health record
-    public static final class HealthRecord implements BaseColumns {
+    public static final class HealthRecordEntry implements BaseColumns {
 
         public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_HEALTH_RECORD);
         public static final String CONTENT_LIST_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_HEALTH_RECORD;
@@ -250,7 +250,7 @@ public class ImsContract {
     }
 
     // Current and past medications
-    public static final class CurrentAndPastMedications implements BaseColumns {
+    public static final class CurrentAndPastMedicationsEntry implements BaseColumns {
 
         public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_CURRENT_AND_PAST_MEDICATIONS);
         public static final String CONTENT_LIST_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_CURRENT_AND_PAST_MEDICATIONS;
@@ -269,7 +269,7 @@ public class ImsContract {
     }
 
     // Major illnesses
-    public static final class MajorIllnesses implements BaseColumns {
+    public static final class MajorIllnessesEntry implements BaseColumns {
 
         public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_MAJOR_ILLNESSES);
         public static final String CONTENT_LIST_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_MAJOR_ILLNESSES;
@@ -287,7 +287,7 @@ public class ImsContract {
     }
 
     // Surgical procedures
-    public static final class SurgicalProcedures implements BaseColumns {
+    public static final class SurgicalProceduresEntry implements BaseColumns {
 
         public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_SURGICAL_PROCEDURES);
         public static final String CONTENT_LIST_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_SURGICAL_PROCEDURES;
@@ -305,7 +305,7 @@ public class ImsContract {
     }
 
     // Patient vaccines
-    public static final class PatientVaccines implements BaseColumns {
+    public static final class PatientVaccinesEntry implements BaseColumns {
 
         public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_PATIENT_VACCINES);
         public static final String CONTENT_LIST_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_PATIENT_VACCINES;
@@ -322,7 +322,7 @@ public class ImsContract {
 
     // The doctor
     // Doctor diagnosis
-    public static final class DoctorDiagnosis implements BaseColumns {
+    public static final class DoctorDiagnosisEntry implements BaseColumns {
 
         public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_DOCTOR_DIAGNOSIS);
         public static final String CONTENT_LIST_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_DOCTOR_DIAGNOSIS;
@@ -338,7 +338,7 @@ public class ImsContract {
     }
 
     // Patient data to pharmacy
-    public static final class PatientDataToPharmacy implements BaseColumns {
+    public static final class PatientDataToPharmacyEntry implements BaseColumns {
 
         public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_PATIENT_DATA_TO_PHARMACY);
         public static final String CONTENT_LIST_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_PATIENT_DATA_TO_PHARMACY;
@@ -353,7 +353,7 @@ public class ImsContract {
     }
 
     // Patient data to radiology
-    public static final class PatientDataToRadiology implements BaseColumns {
+    public static final class PatientDataToRadiologyEntry implements BaseColumns {
 
         public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_PATIENT_DATA_TO_RADIOLOGY);
         public static final String CONTENT_LIST_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_PATIENT_DATA_TO_RADIOLOGY;
@@ -369,7 +369,7 @@ public class ImsContract {
 
     // The pharmacy
     // Medicine registry
-    public static final class MedicineRegistry implements BaseColumns {
+    public static final class MedicineRegistryEntry implements BaseColumns {
 
         public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_MEDICINE_REGISTRY);
         public static final String CONTENT_LIST_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_MEDICINE_REGISTRY;
@@ -385,7 +385,7 @@ public class ImsContract {
     }
 
     // Sales record
-    public static final class SalesRecord implements BaseColumns {
+    public static final class SalesRecordEntry implements BaseColumns {
 
         public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_SALES_RECORD);
         public static final String CONTENT_LIST_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_SALES_RECORD;
@@ -402,7 +402,7 @@ public class ImsContract {
 
     // Personnel
     // Employees
-    public static final class Employees implements BaseColumns {
+    public static final class EmployeesEntry implements BaseColumns {
 
         public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_EMPLOYEES);
         public static final String CONTENT_LIST_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_EMPLOYEES;
