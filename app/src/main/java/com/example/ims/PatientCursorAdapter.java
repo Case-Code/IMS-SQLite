@@ -15,6 +15,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ims.data.ImsContract.PatientEntry;
+import com.example.ims.fragment.FragmentHealthRecord;
+import com.example.ims.fragment.FragmentInvoices;
+import com.example.ims.fragment.FragmentPatientRecords;
 
 public class PatientCursorAdapter extends CursorAdapter {
 

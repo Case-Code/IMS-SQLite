@@ -11,28 +11,27 @@ import android.widget.Toast;
 
 import com.example.ims.data.ImsContract;
 
-public class InvoicesSvcCursorAdapter extends CursorAdapter {
+public class InvoicesCursorAdapter extends CursorAdapter {
 
-    private static final String TAG=InvoicesSvcCursorAdapter.class.getSimpleName();
+    private static final String TAG = InvoicesCursorAdapter.class.getSimpleName();
 
-    public InvoicesSvcCursorAdapter(Context context , Cursor cursor){
-        super(context ,cursor,12);
+    public InvoicesCursorAdapter(Context context, Cursor cursor) {
+        super(context, cursor, 12);
     }
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
 
-        return LayoutInflater.from(context).inflate(R.layout.list_item_invoices_svc,viewGroup,false);
+        return LayoutInflater.from(context).inflate(R.layout.list_item_invoices, viewGroup, false);
 
     }
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        TextView  svcIdTextView= view.findViewById(R.id.text_svc_id);
-        TextView medicalServicesTextView  = view.findViewById(R.id.text_medical_services);
+        TextView svcIdTextView = view.findViewById(R.id.text_svc_id);
+        TextView medicalServicesTextView = view.findViewById(R.id.text_medical_services);
         TextView medictionTextView = view.findViewById(R.id.text_mediction);
         TextView costTextView = view.findViewById(R.id.text_cost);
-
 
         final int idColumnIndex = cursor.getColumnIndex(ImsContract.PatientEntry._ID);
         int firstNameColumnIndex = cursor.getColumnIndex(ImsContract.PatientEntry.COLUMN_FIRST_NAME);
