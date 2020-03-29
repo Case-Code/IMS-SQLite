@@ -345,7 +345,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:layout_weight="1"
-                        tools:listitem="@layout/list_item_invoices_svc" />
+                        tools:listitem="@layout/list_item_invoices" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -421,76 +421,89 @@
                 android:layout_marginBottom="10dp"
                 android:layout_weight="1">
 
-                <TextView
-                    android:padding="10dp"
-                    android:id="@+id/textView18"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="For questions concerning this invoice, please contact" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:padding="10dp">
 
-                    <LinearLayout
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:orientation="vertical">
-
-                        <EditText
-                            android:id="@+id/editText16"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:ems="10"
-                            android:inputType="textPersonName"
-                            android:text="questions name" />
-
-                        <EditText
-                            android:id="@+id/editText15"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:ems="10"
-                            android:inputType="textPersonName"
-                            android:text="questions email" />
-                    </LinearLayout>
+                        android:text="For questions concerning this invoice, please contact"
+                        android:textColor="@color/secondaryText" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="62dp"
-                        android:orientation="vertical">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
 
-                        <EditText
-                            android:id="@+id/editText17"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="5dp"
                             android:layout_weight="1"
-                            android:ems="10"
-                            android:inputType="textPersonName"
-                            android:text="questions phone" />
+                            android:orientation="vertical">
 
-                        <EditText
-                            android:id="@+id/editText18"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:ems="10"
-                            android:inputType="textPersonName"
-                            android:text="questions web" />
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ems="10"
+                                android:inputType="textPersonName"
+                                android:text="questions name" />
 
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@android:color/transparent"
-                            android:text="send"
-                            android:textColor="@color/colorAccent" />
+
+                                <EditText
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:ems="10"
+                                    android:inputType="textEmailAddress"
+                                    android:text="questions phone" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="5dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ems="10"
+                                android:inputType="textPersonName"
+                                android:text="questions email" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal">
+
+                                <EditText
+                                    android:layout_width="260dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:ems="10"
+                                    android:inputType="textEmailAddress"
+                                    android:text="questions web" />
+
+                                <Button
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@android:color/transparent"
+                                    android:text="Send"
+                                    android:textColor="@color/colorAccent" />
+
+                            </LinearLayout>
+                        </LinearLayout>
 
                     </LinearLayout>
+
                 </LinearLayout>
+
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView

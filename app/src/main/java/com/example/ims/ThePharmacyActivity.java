@@ -11,8 +11,12 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.tabs.TabLayout;
 
 public class ThePharmacyActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -23,12 +27,19 @@ public class ThePharmacyActivity extends AppCompatActivity implements Navigation
 
     private ActionBarDrawerToggle actionBarDrawerToggle;
 
+    private ViewPager mViewPager;
+    private TabLayout mTabLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_the_pharmacy);
 
         init();
+
+        FragmentPharmacyPagerAdapter fragmentPagerAdapter = new FragmentPharmacyPagerAdapter(this, getSupportFragmentManager());
+        mViewPager.setAdapter(fragmentPagerAdapter);
+        mTabLayout.setupWithViewPager(mViewPager);
 
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
         mDrawerLayout.addDrawerListener(actionBarDrawerToggle);
@@ -98,6 +109,8 @@ public class ThePharmacyActivity extends AppCompatActivity implements Navigation
         mDrawerLayout = findViewById(R.id.activity_the_pharmacy);
         mNavigationView = findViewById(R.id.navigation_view);
         mActionMenuImageButton = findViewById(R.id.image_button_action_menu);
+        mViewPager = findViewById(R.id.view_pager);
+        mTabLayout = findViewById(R.id.tab_layout);
     }
 
 }

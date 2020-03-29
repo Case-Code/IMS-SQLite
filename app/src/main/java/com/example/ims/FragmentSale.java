@@ -7,13 +7,8 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
+public class FragmentSale extends Fragment {
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FragmentHealthRecord#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class FragmentHealthRecord extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -23,7 +18,7 @@ public class FragmentHealthRecord extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public FragmentHealthRecord() {
+    public FragmentSale() {
         // Required empty public constructor
     }
 
@@ -58,6 +53,6 @@ public class FragmentHealthRecord extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_health_record  , container, false);
+        return inflater.inflate(R.layout.fragment_sale, container, false);
     }
 }
