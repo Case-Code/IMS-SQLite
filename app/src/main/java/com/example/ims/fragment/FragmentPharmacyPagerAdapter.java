@@ -1,4 +1,4 @@
-package com.example.ims;
+package com.example.ims.fragment;
 
 import android.content.Context;
 

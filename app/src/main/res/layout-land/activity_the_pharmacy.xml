@@ -76,7 +76,6 @@
                     android:layout_toRightOf="@+id/view"
                     app:tabMode="scrollable" />
 
-
             </RelativeLayout>
 
             <ImageView
