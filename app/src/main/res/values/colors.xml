@@ -11,4 +11,7 @@
     <color name="colorDivider">#BDBDBD</color>
 
     <color name="background">#85C0BC</color>
+
+    <color name="tab_background">#D2E8E6</color>
+    <color name="selectableItemBackground">#BBCFCE</color>
 </resources>
