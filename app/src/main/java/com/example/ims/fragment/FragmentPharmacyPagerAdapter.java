@@ -9,12 +9,11 @@ import androidx.fragment.app.FragmentManager;
 
 public class FragmentPharmacyPagerAdapter extends androidx.fragment.app.FragmentPagerAdapter {
 
-    private Context mContext;
-    private String[] tabTitles = new String[]{"Medicine registry", "Sales record", "Sale"};
+    private int numsoftabs;
 
-    public FragmentPharmacyPagerAdapter(@NonNull Context context, @NonNull FragmentManager fm) {
+    public FragmentPharmacyPagerAdapter( @NonNull FragmentManager fm,int numoftabs) {
         super(fm);
-        this.mContext = context;
+        this.numsoftabs = numoftabs;
     }
 
     @NonNull
@@ -25,20 +24,15 @@ public class FragmentPharmacyPagerAdapter extends androidx.fragment.app.Fragment
                 return new FragmentMedicineRegistry();
             case 1:
                 return new FragmentSalesRecord();
-            default:
+            case 2:
                 return new FragmentSale();
+            default:
+                return null;
         }
     }
 
     @Override
     public int getCount() {
-        return 3;
-    }
-
-    @Nullable
-    @Override
-    public CharSequence getPageTitle(int position) {
-        super.getPageTitle(position);
-        return tabTitles[position];
+        return numsoftabs;
     }
 }

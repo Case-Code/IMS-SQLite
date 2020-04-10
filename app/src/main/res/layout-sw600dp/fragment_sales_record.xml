@@ -1,18 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.FragmentSalesRecord">
+    android:orientation="vertical"
+    android:weightSum="1"
+    tools:context=".fragment.">
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:id="@+id/linear_search"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:background="@color/design_default_color_primary_dark"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="282dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="60dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_monthyear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="2020" />
+
+            <TextView
+                android:id="@+id/tv_data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="fri ,jan 10"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="350dp"
+            android:layout_marginRight="20dp"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <EditText
+                android:id="@+id/editText45"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.9"
+                android:drawableRight="@android:drawable/ic_menu_search"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Name" />
+
+            <ImageButton
+                android:id="@+id/imageButton3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="0.1"
+                android:background="@color/design_default_color_primary_dark"
+                android:src="@drawable/ic_action_date" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="20dp"
+        android:layout_weight="0.9"
+        tools:listitem="@layout/list_item_medicine_registry">
+
+    </ListView>
+
+</LinearLayout>

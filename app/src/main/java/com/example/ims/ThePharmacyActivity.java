@@ -11,12 +11,12 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.PagerAdapter;
+
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.ims.fragment.FragmentPharmacyPagerAdapter;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 
 public class ThePharmacyActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -27,9 +27,13 @@ public class ThePharmacyActivity extends AppCompatActivity implements Navigation
     private ImageButton mActionMenuImageButton;
 
     private ActionBarDrawerToggle actionBarDrawerToggle;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+    private TabItem   tabMedicineRecords;
+    private TabItem   tabSales;
+    private TabItem   tabSalesRecord;
+    FragmentPharmacyPagerAdapter mPagerAdapter;
 
-    private ViewPager mViewPager;
-    private TabLayout mTabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +42,38 @@ public class ThePharmacyActivity extends AppCompatActivity implements Navigation
 
         init();
 
-        FragmentPharmacyPagerAdapter fragmentPagerAdapter = new FragmentPharmacyPagerAdapter(this, getSupportFragmentManager());
-        mViewPager.setAdapter(fragmentPagerAdapter);
-        mTabLayout.setupWithViewPager(mViewPager);
+       mPagerAdapter  = new FragmentPharmacyPagerAdapter(getSupportFragmentManager(),tabLayout.getTabCount());
+       viewPager.setAdapter(mPagerAdapter);
+       tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+           @Override
+           public void onTabSelected(TabLayout.Tab tab) {
+
+               viewPager.setCurrentItem(tab.getPosition());
+               if(tab.getPosition()==1){
+
+               }
+               else if (tab.getPosition()==2){
+
+               }else {
+
+               }
+
+           }
+
+           @Override
+           public void onTabUnselected(TabLayout.Tab tab) {
+
+           }
+
+           @Override
+           public void onTabReselected(TabLayout.Tab tab) {
+
+           }
+       });
+       viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+
+
 
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
         mDrawerLayout.addDrawerListener(actionBarDrawerToggle);
@@ -110,8 +143,13 @@ public class ThePharmacyActivity extends AppCompatActivity implements Navigation
         mDrawerLayout = findViewById(R.id.activity_the_pharmacy);
         mNavigationView = findViewById(R.id.navigation_view);
         mActionMenuImageButton = findViewById(R.id.image_button_action_menu);
-        mViewPager = findViewById(R.id.view_pager);
-        mTabLayout = findViewById(R.id.tab_layout);
+        tabLayout  =findViewById(R.id.tab_layout);
+        tabMedicineRecords=findViewById(R.id.tab_item_pharmacy_medicine_registry);
+        tabSales=findViewById(R.id.tab_item_pharmacy_sales);
+        tabSalesRecord=findViewById(R.id.tab_item_pharmacy_sales_record);
+        viewPager =findViewById(R.id.view_pager);
+
+
     }
 
 }

@@ -55,26 +55,15 @@
                     android:textColor="@android:color/white"
                     android:textSize="20sp" />
 
-                <View
-                    android:id="@+id/view"
-                    android:layout_width="1dp"
-                    android:layout_height="30dp"
-                    android:layout_centerInParent="true"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_toEndOf="@+id/text_page_title"
-                    android:layout_toRightOf="@+id/text_page_title"
-                    android:background="@android:color/white" />
+
 
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tab_layout"
                     style="@style/CategoryTab"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_toEndOf="@+id/view"
-                    android:layout_toRightOf="@+id/view"
-                    app:tabMode="scrollable" />
+
+                    />
 
             </RelativeLayout>
 
