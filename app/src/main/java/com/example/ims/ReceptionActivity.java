@@ -11,8 +11,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -35,9 +33,9 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 
-import java.util.Calendar;
 import java.util.Date;
 
+import com.example.ims.adapter.PatientCursorAdapter;
 import com.example.ims.data.ImsContract.PatientEntry;
 import com.example.logutil.Utils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -73,7 +71,7 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
 
     private Uri mCurrentPatientUri;
 
-    private PatientCursorAdapter mPatientCursorAdapter;
+    public PatientCursorAdapter mPatientCursorAdapter;
 
     private static final int PATIENT_REGISTRATION_LOADER = 1;
     private static final int PATIENT_UPDATE_LOADER = 2;

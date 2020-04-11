@@ -1,4 +1,4 @@
-package com.example.ims;
+package com.example.ims.adapter;
 
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -14,6 +14,8 @@ import android.widget.CursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ims.R;
+import com.example.ims.ReceptionActivity;
 import com.example.ims.data.ImsContract.PatientEntry;
 import com.example.ims.fragment.FragmentHealthRecord;
 import com.example.ims.fragment.FragmentInvoices;

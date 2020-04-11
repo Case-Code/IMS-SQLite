@@ -4,11 +4,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.ims.InvoicesCursorAdapter;
+import com.example.ims.adapter.InvoicesCursorAdapter;
 import com.example.ims.R;
 
 

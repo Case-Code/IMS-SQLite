@@ -18,31 +18,31 @@ public class ImsProvider extends ContentProvider {
 
     public static final String LOG_TAG = ImsProvider.class.getSimpleName();
 
-    // Patient
+    // Patient0
     private static final int PATIENT = 100;
     private static final int PATIENT_ID = 101;
 
-    // Patient data to analysis
+    // Patient data to analysis0
     private static final int PATIENT_DATA_TO_ANALYSIS = 102;
     private static final int PATIENT_DATA_TO_ANALYSIS_ID = 103;
 
-    // Patient data to clinics
+    // Patient data to clinics0
     private static final int PATIENT_DATA_TO_CLINICS = 104;
     private static final int PATIENT_DATA_TO_CLINICS_ID = 105;
 
-    // Patient records
+    // Patient records0
     private static final int PATIENT_RECORDS = 106;
     private static final int PATIENT_RECORDS_ID = 107;
 
-    // Patient progress
+    // Patient progress0
     private static final int PATIENT_PROGRESS = 108;
     private static final int PATIENT_PROGRESS_ID = 109;
 
-    // Invoices
+    // Invoices0
     private static final int INVOICES = 110;
     private static final int INVOICES_ID = 111;
 
-    // Health record
+    // Health record0
     private static final int HEALTH_RECORD = 112;
     private static final int HEALTH_RECORD_ID = 113;
 

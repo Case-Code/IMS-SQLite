@@ -1,4 +1,4 @@
-package com.example.ims;
+package com.example.ims.adapter;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.ims.R;
 import com.example.ims.data.ImsContract;
 
 public class InvoicesCursorAdapter extends CursorAdapter {
