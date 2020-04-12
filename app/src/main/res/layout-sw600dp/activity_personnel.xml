@@ -347,7 +347,7 @@
                     <ListView
                         android:layout_width="match_parent"
                         android:layout_height="285dp"
-                        tools:listitem="@layout/list_doctor_diagnosis" />
+                        tools:listitem="@layout/list_item_patient_name" />
 
                     <TextView
                         android:id="@+id/textView53"

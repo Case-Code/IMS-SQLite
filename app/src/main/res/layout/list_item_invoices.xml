@@ -16,7 +16,9 @@
         android:id="@+id/text_medical_services"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="medical services" />
+        android:text="medical services"
+        android:textColor="#2B62AB"
+        android:textStyle="bold" />
 
 
     <LinearLayout
@@ -30,7 +32,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="mediction" />
+            android:text="mediction"
+            android:textColor="#1786B3"
+            android:textStyle="italic" />
 
         <TextView
             android:id="@+id/text_cost"

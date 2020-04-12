@@ -61,7 +61,6 @@
                     style="@style/CategoryTab"
                     android:layout_width="335dp"
                     android:layout_height="45dp"
-
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_marginStart="9dp"
@@ -70,10 +69,7 @@
                     android:layout_marginRight="122dp"
                     android:layout_toEndOf="@+id/text_page_title"
                     android:layout_toRightOf="@+id/text_page_title"
-                    app:tabIndicatorColor="#2196F3"
-                    app:tabMode="scrollable"
-                    app:tabSelectedTextColor="@color/colorAccent"
-                    app:tabTextColor="#FFFFFF">
+                    app:tabMode="scrollable">
 
                     <com.google.android.material.tabs.TabItem
                         android:id="@+id/tab_item_pharmacy_medicine_registry"
