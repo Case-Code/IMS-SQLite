@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/te"
+        android:id="@+id/text_firstname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
@@ -13,7 +13,7 @@
         android:textColor="@color/colorPrimary" />
 
     <TextView
-        android:id="@+id/textView26"
+        android:id="@+id/text_lastname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"

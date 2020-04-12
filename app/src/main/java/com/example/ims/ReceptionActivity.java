@@ -205,6 +205,8 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
         mPatientListView = findViewById(R.id.list_patient);
         mDialogTransferredToTheAnalysisLabView = getLayoutInflater().inflate(R.layout.dialog_transferred_to_the_analysis_lab, null);
         mDialogTransferredToClinicsView = getLayoutInflater().inflate(R.layout.dialog_transferred_to_clinics, null);
+       // mDrawerLayout.addView();
+
     }
 
     // Setup spinner gender
@@ -444,7 +446,7 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
         final Date date = new Date();
 
 
-        mTheNameOfTheClinicSpinner = mDialogTransferredToClinicsView.findViewById(R.id.spinner_types_of_clinics);
+        mTheNameOfTheClinicSpinner = mDialogTransferredToClinicsView.findViewById(R.id.spinner_types_of_clinics_doc);
         setupSpinnerTheNamesOfTheClinics(context);
 
         builder.setView(mDialogTransferredToClinicsView);

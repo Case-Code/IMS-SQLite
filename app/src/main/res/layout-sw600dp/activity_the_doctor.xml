@@ -200,38 +200,45 @@
                                     android:orientation="horizontal">
 
                                     <com.google.android.material.floatingactionbutton.FloatingActionButton
-                                        android:id="@+id/floatingActionButton"
+                                        android:id="@+id/button_doc_pharmsy"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_margin="5dp"
                                         android:clickable="true"
+
                                         app:backgroundTint="@color/textIcons"
                                         app:srcCompat="@drawable/the_pharmacy_logo" />
 
                                     <com.google.android.material.floatingactionbutton.FloatingActionButton
-                                        android:id="@+id/floatingActionButton2"
+                                        android:id="@+id/button_doc_radiology"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_margin="5dp"
                                         android:clickable="true"
                                         app:backgroundTint="@color/textIcons"
+
+
                                         app:srcCompat="@drawable/radiology_laboratory_logo" />
 
                                     <com.google.android.material.floatingactionbutton.FloatingActionButton
-                                        android:id="@+id/floatingActionButton3"
+                                        android:id="@+id/button_doc_anaylislap"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_margin="5dp"
                                         android:clickable="true"
+
+
                                         app:backgroundTint="@color/textIcons"
                                         app:srcCompat="@drawable/analysis_lab_logo" />
 
                                     <com.google.android.material.floatingactionbutton.FloatingActionButton
-                                        android:id="@+id/floatingActionButton4"
+                                        android:id="@+id/button_doc_clinic"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_margin="5dp"
                                         android:clickable="true"
+
+
                                         app:backgroundTint="@color/textIcons"
                                         app:srcCompat="@drawable/clinics_logo" />
                                 </LinearLayout>
