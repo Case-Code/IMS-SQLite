@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
@@ -412,6 +413,10 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
 
     // Show transferred to the analysis lab dialog
     public void showTransferredToTheAnalysisLabDialog(Context context) {
+        if(mDialogTransferredToTheAnalysisLabView.getParent() !=null){
+            ((ViewGroup)mDialogTransferredToTheAnalysisLabView.getParent()).removeView(mDialogTransferredToTheAnalysisLabView);
+        }
+
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
         mTypeOfAnalysisSpinner = mDialogTransferredToTheAnalysisLabView.findViewById(R.id.spinner_types_of_analysis);
@@ -430,7 +435,9 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
             public void onClick(DialogInterface dialog, int which) {
                 if (dialog != null) {
                     dialog.dismiss();
+
                 }
+
             }
         });
 
@@ -441,6 +448,9 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
 
     // Show transferred to clinics dialog
     public void showTransferredToClinicsDialog(final Context context) {
+        if(mDialogTransferredToClinicsView.getParent() !=null){
+            ((ViewGroup)mDialogTransferredToClinicsView.getParent()).removeView(mDialogTransferredToClinicsView);
+        }
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
         final Date date = new Date();
