@@ -136,6 +136,7 @@ public class DoctorProvider extends ContentProvider {
         }
 
     }
+
     private Uri insertDoctorDiagnosis(Uri uri, ContentValues values) {
 
         // Diagnosis
