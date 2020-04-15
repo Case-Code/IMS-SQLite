@@ -83,6 +83,8 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
 
     public static View mDialogTransferredToClinicsView;
 
+    int mIdPatient;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -466,38 +468,25 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
             public void onClick(DialogInterface dialog, int which) {
                 final Date date = new Date();
 
+                String dateString = Utils.formatDate(date);
+
+                ContentValues values = new ContentValues();
+                values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_TRANSFER_DATE, dateString);
+                values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_ANALYSIS_NAME, mTypesOfAnalysis);
+                values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_PATIENT_ID, String.valueOf(mIdPatient));
+
+                // Insert and update patient
                 if (mCurrentPatientUri == null) {
-                    ContentValues values = new ContentValues();
-
-
-
-                    values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_ANALYSIS_NAME, mTypesOfAnalysis);
-
-                    if (TextUtils.isEmpty(date.toString())) {
-                        Toast.makeText(TAG, "First name is required", Toast.LENGTH_SHORT).show();
+                    Uri newUri = getContentResolver().insert(ImsContract.PatientDataToAnalysisEntry.CONTENT_URI, values);
+                    if (newUri == null) {
+                        Toast.makeText(ReceptionActivity.this, "Abelaziz", Toast.LENGTH_SHORT).show();
                     } else {
-                        values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_TRANSFER_DATE, date.toString());
-                    }
-                    if (id <= 0) {
-                        Toast.makeText(TAG, "retrun please ", Toast.LENGTH_SHORT).show();
-                    } else {
-                        values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_PATIENT_ID, id);
+                        Toast.makeText(ReceptionActivity.this, "Mahmoud", Toast.LENGTH_SHORT).show();
                     }
 
-                    if (mCurrentPatientUri == null) {
-                        Uri newUri = context.getContentResolver().insert(ImsContract.PatientDataToAnalysisEntry.CONTENT_URI,
-                                values);
-                        if (newUri == null) {
-                            Toast.makeText(TAG, "falid", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(TAG, ":susccful", Toast.LENGTH_SHORT).show();
-                            Toast.makeText(TAG, ":susccful", Toast.LENGTH_SHORT).show();
-
-                        }
-                    } else {
-                        return;
-                    }
                 }
+
+
             }
         });
         builder.setNegativeButton("Decline", new DialogInterface.OnClickListener() {
@@ -701,6 +690,8 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
                 return;
             }
 
+            int idPatientColumnIndex = data.getColumnIndex(PatientEntry._ID);
+            mIdPatient = data.getInt(idPatientColumnIndex);
             if (data.moveToFirst()) {
                 int firstNameColumnIndex = data.getColumnIndex(PatientEntry.COLUMN_FIRST_NAME);
                 int lastNameColumnIndex = data.getColumnIndex(PatientEntry.COLUMN_LAST_NAME);

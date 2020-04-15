@@ -95,61 +95,61 @@ public class PatientCursorAdapter extends CursorAdapter {
 
                 new ReceptionActivity().showTransferredToTheAnalysisLabDialog(context);
 
-                final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setView(activity.mDialogTransferredToTheAnalysisLabView);
-                builder.setTitle("Transferred to the analysis lab");
-                builder.setPositiveButton("Transfer", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        final Date date = new Date();
-                        if (mCurrentPatientUri == null && activity.mTypesOfAnalysis == ImsContract.PatientDataToAnalysisEntry.ANALYSIS_UNKNOWN) {
-                            return;
-                        }
-                        values = new ContentValues();
-                        values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_ANALYSIS_NAME, activity.mTypesOfAnalysis);
-
-                        if (TextUtils.isEmpty(date.toString())) {
-                            Toast.makeText(context, "First name is required", Toast.LENGTH_SHORT).show();
-                        } else {
-                            values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_TRANSFER_DATE, date.toString());
-                        }
-                        if (id <= 0) {
-                            Toast.makeText(context, "retrun please ", Toast.LENGTH_SHORT).show();
-                        } else {
-                            values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_PATIENT_ID, id);
-                        }
-
-                        if (mCurrentPatientUri == null) {
-                            Uri newUri = context.getContentResolver().insert(ImsContract.PatientDataToAnalysisEntry.CONTENT_URI,
-                                    values);
-                            if (newUri == null) {
-                                Toast.makeText(context, "falid", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(context, ":susccful", Toast.LENGTH_SHORT).show();
-                                Toast.makeText(context, ":susccful", Toast.LENGTH_SHORT).show();
-
-                            }
-                        } else {
-                            return;
-                        }
-
-
-                    }
-                });
-                builder.setNegativeButton("Decline", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (dialog != null) {
-                            dialog.dismiss();
-
-                        }
-
-                    }
-                });
-
-                AlertDialog alertDialog = builder.create();
-                alertDialog.setCanceledOnTouchOutside(false);
-                alertDialog.show();
+//                final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+//                builder.setView(activity.mDialogTransferredToTheAnalysisLabView);
+//                builder.setTitle("Transferred to the analysis lab");
+//                builder.setPositiveButton("Transfer", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        final Date date = new Date();
+//                        if (mCurrentPatientUri == null && activity.mTypesOfAnalysis == ImsContract.PatientDataToAnalysisEntry.ANALYSIS_UNKNOWN) {
+//                            return;
+//                        }
+//                        values = new ContentValues();
+//                        values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_ANALYSIS_NAME, activity.mTypesOfAnalysis);
+//
+//                        if (TextUtils.isEmpty(date.toString())) {
+//                            Toast.makeText(context, "First name is required", Toast.LENGTH_SHORT).show();
+//                        } else {
+//                            values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_TRANSFER_DATE, date.toString());
+//                        }
+//                        if (id <= 0) {
+//                            Toast.makeText(context, "retrun please ", Toast.LENGTH_SHORT).show();
+//                        } else {
+//                            values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_PATIENT_ID, id);
+//                        }
+//
+//                        if (mCurrentPatientUri == null) {
+//                            Uri newUri = context.getContentResolver().insert(ImsContract.PatientDataToAnalysisEntry.CONTENT_URI,
+//                                    values);
+//                            if (newUri == null) {
+//                                Toast.makeText(context, "falid", Toast.LENGTH_SHORT).show();
+//                            } else {
+//                                Toast.makeText(context, ":susccful", Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(context, ":susccful", Toast.LENGTH_SHORT).show();
+//
+//                            }
+//                        } else {
+//                            return;
+//                        }
+//
+//
+//                    }
+//                });
+//                builder.setNegativeButton("Decline", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        if (dialog != null) {
+//                            dialog.dismiss();
+//
+//                        }
+//
+//                    }
+//                });
+//
+//                AlertDialog alertDialog = builder.create();
+//                alertDialog.setCanceledOnTouchOutside(false);
+//                alertDialog.show();
 
             }
         });
