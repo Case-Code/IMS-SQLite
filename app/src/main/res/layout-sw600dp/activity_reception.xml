@@ -108,7 +108,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_below="@+id/text_patients"
-                        tools:listitem="@layout/list_item_patients" />
+                        tools:listitem="@layout/item_patients" />
 
                     <ImageView
                         android:id="@+id/image_empty_reception"

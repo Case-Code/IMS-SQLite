@@ -120,7 +120,7 @@
                         <ListView
                             android:layout_width="match_parent"
                             android:layout_height="138dp"
-                            tools:listitem="@layout/list_clinic" />
+                            tools:listitem="@layout/item_clinic" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -182,7 +182,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="0dp"
                                     android:layout_weight="0.6"
-                                    tools:listitem="@layout/list_doctor_diagnosis" />
+                                    tools:listitem="@layout/item_patient_name" />
 
                                 <TextView
                                     android:id="@+id/textView33"
