@@ -19,15 +19,12 @@ import androidx.fragment.app.Fragment;
 import com.example.ims.ReceptionActivity;
 import com.example.ims.adapter.InvoicesCursorAdapter;
 import com.example.ims.R;
+import com.example.ims.adapter.PatientCursorAdapter;
 import com.example.ims.data.ImsContract;
 import com.example.logutil.Utils;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FragmentInvoices#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class FragmentInvoices extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -39,7 +36,7 @@ public class FragmentInvoices extends Fragment {
     Button totalAddButton;
     Button questionSendButton;
 
-    TextView patientIdTextView;
+   public  TextView patientIdTextView;
     TextView dateOfSvcTextView;
     TextView invoiceDateTextView;
     TextView dateDueTextView;
@@ -70,8 +67,9 @@ public class FragmentInvoices extends Fragment {
     private InvoicesCursorAdapter mInvoicesSvcCursorAdapter;
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
+    public int id;
     private String mParam2;
+
 
     View view;
 
@@ -86,6 +84,7 @@ public class FragmentInvoices extends Fragment {
         dateOfSvcTextView=view.findViewById(R.id.text_data_of_svc);
          invoiceDateTextView=view.findViewById(R.id.text_invoice_date);
          dateDueTextView=view.findViewById(R.id.text_date_due);
+
 
         billNameEditText = view.findViewById(R.id.edit_billtoname);
         billPhoneEditText = view.findViewById(R.id.edit_billtophone);
@@ -114,20 +113,17 @@ public class FragmentInvoices extends Fragment {
 
     }
 
-    public FragmentInvoices() {
+    public FragmentInvoices(int patientId) {
+        this.id=patientId;
+     /*   String id = String.valueOf(patientId);
+        patientIdTextView.setText(id);*/
+
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Fragment_Invoices.
-     */
+
     // TODO: Rename and change types and number of parameters
-    public static FragmentInvoices newInstance(String param1, String param2) {
+   /* public static FragmentInvoices newInstance(String param1, String param2) {
         FragmentInvoices fragment = new FragmentInvoices();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
@@ -135,7 +131,7 @@ public class FragmentInvoices extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-
+*/
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -149,7 +145,15 @@ public class FragmentInvoices extends Fragment {
         view = inflater.inflate(R.layout.fragment_invoices, container, false);
 
         init();
-        String dateOfSvc =dateOfSvcTextView.getText().toString().trim();
+
+        String patientIdstring =String.valueOf(id);
+        patientIdTextView.setText(patientIdstring);
+
+/*
+         String patientIdString= patientIdTextView.getText().toString().trim();
+        String dateOfSvcString =dateOfSvcTextView.getText().toString().trim();
+        String invoiceDateString =invoiceDateTextView.getText().toString().trim();
+        String dataOfDueString =dateDueTextView.getText().toString().trim();*/
 
 
                 dateOfSvcTextView.setOnClickListener(new View.OnClickListener() {

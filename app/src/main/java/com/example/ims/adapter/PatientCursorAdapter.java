@@ -33,6 +33,8 @@ public class PatientCursorAdapter extends CursorAdapter {
     private int heightColumnIndex;
     private Uri mCurrentPatientUri;
     private ContentValues values;
+    public int id;
+
 
     public PatientCursorAdapter(Context context, Cursor c) {
         super(context, c, 0 /* flags */);
@@ -69,7 +71,7 @@ public class PatientCursorAdapter extends CursorAdapter {
         int weightColumnIndex = cursor.getColumnIndex(PatientEntry.COLUMN_WEIGHT);
         int heightColumnIndex = cursor.getColumnIndex(PatientEntry.COLUMN_HEIGHT);
 
-        final int id = cursor.getInt(idColumnIndex);
+        id = cursor.getInt(idColumnIndex);
         String firstName = cursor.getString(firstNameColumnIndex);
         String lastName = cursor.getString(lastNameColumnIndex);
         String phoneNumber = cursor.getString(phoneNumberColumnIndex);
@@ -258,12 +260,19 @@ public class PatientCursorAdapter extends CursorAdapter {
         });
 
         invoicesButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 Uri productUri = ContentUris.withAppendedId(PatientEntry.CONTENT_URI, id);
 
-                ReceptionActivity.mFragmentManager.beginTransaction().replace(R.id.frame_layout_patient_records, new FragmentInvoices(), null).commit();
+
+                ReceptionActivity.mFragmentManager.beginTransaction().replace(R.id.frame_layout_patient_records
+            ,new FragmentInvoices(id),null).commit();
+
+
+
             }
+
         });
     }
 

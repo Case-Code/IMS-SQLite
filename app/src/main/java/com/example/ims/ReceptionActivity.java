@@ -71,7 +71,7 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
     public int mTypesOfAnalysis = ImsContract.PatientDataToAnalysisEntry.ANALYSIS_UNKNOWN;
     public int mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_UNKNOWN;
 
-    private Uri mCurrentPatientUri;
+    public Uri mCurrentPatientUri;
 
     public PatientCursorAdapter mPatientCursorAdapter;
 
