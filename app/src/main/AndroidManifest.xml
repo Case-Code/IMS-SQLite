@@ -10,21 +10,37 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".PersonnelActivity"></activity>
+        <activity
+            android:name=".PersonnelActivity"
+            android:windowSoftInputMode="adjustPan" />
 
-        <activity android:name=".FinancialAccountsActivity" />
+        <activity
+            android:name=".FinancialAccountsActivity"
+            android:windowSoftInputMode="adjustPan" />
 
-        <activity android:name=".ThePharmacyActivity" />
+        <activity
+            android:name=".ThePharmacyActivity"
+            android:windowSoftInputMode="adjustPan" />
 
-        <activity android:name=".RadiologyLaboratoryActivity" />
+        <activity
+            android:name=".RadiologyLaboratoryActivity"
+            android:windowSoftInputMode="adjustPan" />
 
-        <activity android:name=".AnalysisLabActivity" />
+        <activity
+            android:name=".AnalysisLabActivity"
+            android:windowSoftInputMode="adjustPan" />
 
-        <activity android:name=".TheDoctorActivity" />
+        <activity
+            android:name=".TheDoctorActivity"
+            android:windowSoftInputMode="adjustPan" />
 
-        <activity android:name=".ReceptionActivity" />
+        <activity
+            android:name=".ReceptionActivity"
+            android:windowSoftInputMode="adjustPan" />
 
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

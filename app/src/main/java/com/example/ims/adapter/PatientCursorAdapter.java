@@ -86,15 +86,14 @@ public class PatientCursorAdapter extends CursorAdapter {
         locationTextView.setText(location);
         weightTextView.setText(weight.concat(" kg"));
         heightTextView.setText(height.concat(" cm"));
-        final ReceptionActivity activity =new ReceptionActivity();
+        final ReceptionActivity activity = new ReceptionActivity();
 
         analysisLabButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 final Uri productUri = ContentUris.withAppendedId(PatientEntry.CONTENT_URI, id);
 
-               new ReceptionActivity().showTransferredToTheAnalysisLabDialog(context);
+                new ReceptionActivity().showTransferredToTheAnalysisLabDialog(context);
 
                 final AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setView(activity.mDialogTransferredToTheAnalysisLabView);
@@ -102,45 +101,37 @@ public class PatientCursorAdapter extends CursorAdapter {
                 builder.setPositiveButton("Transfer", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
                         final Date date = new Date();
+                        if (mCurrentPatientUri == null && activity.mTypesOfAnalysis == ImsContract.PatientDataToAnalysisEntry.ANALYSIS_UNKNOWN) {
+                            return;
+                        }
+                        values = new ContentValues();
+                        values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_ANALYSIS_NAME, activity.mTypesOfAnalysis);
 
+                        if (TextUtils.isEmpty(date.toString())) {
+                            Toast.makeText(context, "First name is required", Toast.LENGTH_SHORT).show();
+                        } else {
+                            values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_TRANSFER_DATE, date.toString());
+                        }
+                        if (id <= 0) {
+                            Toast.makeText(context, "retrun please ", Toast.LENGTH_SHORT).show();
+                        } else {
+                            values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_PATIENT_ID, id);
+                        }
 
-
-                            if (mCurrentPatientUri == null
-                            &&activity.mTypesOfAnalysis==ImsContract.PatientDataToAnalysisEntry.ANALYSIS_UNKNOWN){
-                                return;
-                            }
-                            values = new ContentValues();
-
-                                values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_ANALYSIS_NAME, activity.mTypesOfAnalysis);
-
-                            if (TextUtils.isEmpty(date.toString())) {
-                                Toast.makeText(context, "First name is required", Toast.LENGTH_SHORT).show();
+                        if (mCurrentPatientUri == null) {
+                            Uri newUri = context.getContentResolver().insert(ImsContract.PatientDataToAnalysisEntry.CONTENT_URI,
+                                    values);
+                            if (newUri == null) {
+                                Toast.makeText(context, "falid", Toast.LENGTH_SHORT).show();
                             } else {
-                                values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_TRANSFER_DATE, date.toString());
+                                Toast.makeText(context, ":susccful", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, ":susccful", Toast.LENGTH_SHORT).show();
+
                             }
-                            if (id <= 0) {
-                                Toast.makeText(context, "retrun please ", Toast.LENGTH_SHORT).show();
-                            } else {
-                                values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_PATIENT_ID, id);
-                            }
-
-                            if (mCurrentPatientUri == null) {
-                                Uri newUri = context.getContentResolver().insert(ImsContract.PatientDataToAnalysisEntry.CONTENT_URI,
-                                        values);
-                                if (newUri == null) {
-                                    Toast.makeText(context, "falid", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(context, ":susccful", Toast.LENGTH_SHORT).show();
-                                    Toast.makeText(context, ":susccful", Toast.LENGTH_SHORT).show();
-
-                                }
-                            } else {
-                                return;
-                            }
-
-
+                        } else {
+                            return;
+                        }
 
 
                     }
@@ -179,10 +170,8 @@ public class PatientCursorAdapter extends CursorAdapter {
 
                         final Date date = new Date();
 
-
-
                         if (mCurrentPatientUri == null
-                                &&activity.mTheNamesOfTheClinics==ImsContract.PatientDataToClinicsEntry.CLINICS_UNKNOWN){
+                                && activity.mTheNamesOfTheClinics == ImsContract.PatientDataToClinicsEntry.CLINICS_UNKNOWN) {
                             return;
                         }
                         values = new ContentValues();
@@ -210,15 +199,12 @@ public class PatientCursorAdapter extends CursorAdapter {
                                 Toast.makeText(context, ":susccful", Toast.LENGTH_SHORT).show();
                                 System.out.println(values);
 
-                                Log.i(TAG,values.toString());
+                                Log.i(TAG, values.toString());
 
                             }
                         } else {
                             return;
                         }
-
-
-
 
                     }
                 });
@@ -267,8 +253,7 @@ public class PatientCursorAdapter extends CursorAdapter {
 
 
                 ReceptionActivity.mFragmentManager.beginTransaction().replace(R.id.frame_layout_patient_records
-            ,new FragmentInvoices(id),null).commit();
-
+                        , new FragmentInvoices(id), null).commit();
 
 
             }

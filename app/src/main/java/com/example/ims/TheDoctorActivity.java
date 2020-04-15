@@ -45,21 +45,14 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
     private ActionBarDrawerToggle actionBarDrawerToggle;
     public static View mDialogTransferredToClinicsView;
     private Spinner mTheNameOfTheClinicSpinner;
-    private FloatingActionButton  mButtonClinic;
+
+    private FloatingActionButton mButtonClinic;
     private FloatingActionButton mButtonAnaylislap;
     private FloatingActionButton mButtonPharmsy;
     private FloatingActionButton mButtonRadioly;
-    AutoCompleteTextView edittext ;
-
-
-
-
-
-
+    AutoCompleteTextView edittext;
 
     private String mTheNamesOfTheClinics = "null";
-
-
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -144,13 +137,14 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
         mNavigationView = findViewById(R.id.navigation_view);
         mActionMenuImageButton = findViewById(R.id.image_button_action_menu);
         mDialogTransferredToClinicsView = getLayoutInflater().inflate(R.layout.dialog_doctor_transferred_to_clinics, null);
-        mButtonClinic =findViewById(R.id.button_doc_clinic);
-        mButtonAnaylislap =findViewById(R.id.button_doc_anaylislap);
-        mButtonPharmsy =findViewById(R.id.button_doc_pharmsy);
-        mButtonRadioly =findViewById(R.id.button_doc_radiology);
+        mButtonClinic = findViewById(R.id.button_doc_clinic);
+        mButtonAnaylislap = findViewById(R.id.button_doc_anaylislap);
+        mButtonPharmsy = findViewById(R.id.button_doc_pharmsy);
+        mButtonRadioly = findViewById(R.id.button_doc_radiology);
 
 
     }
+
     private void setupSpinnerTheNamesOfTheClinics(Context context) {
         ArrayAdapter theNameOfTheClinicSpinnerAdapter = ArrayAdapter.createFromResource(
                 context,
@@ -166,7 +160,7 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
                 String selection = (String) parent.getItemAtPosition(position);
                 if (!TextUtils.isEmpty(selection)) {
                     if (selection.equals("Complete blood count")) { // TODO chane the text
-                        mTheNamesOfTheClinics  = "Complete blood count";
+                        mTheNamesOfTheClinics = "Complete blood count";
                     } else if (selection.equals("Urine examination")) {
                         mTheNamesOfTheClinics = "Urine examination";
                     } else if (selection.equals("Stool examination")) {
@@ -185,13 +179,12 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
     }
 
 
-    public ArrayList<ImsContract.PatientEntry>  searchPatient() {
-        ArrayList<ImsContract.PatientEntry>arr = new ArrayList<>();
+    public ArrayList<ImsContract.PatientEntry> searchPatient() {
+        ArrayList<ImsContract.PatientEntry> arr = new ArrayList<>();
 
         if (TextUtils.isEmpty(arr.toString())) {
             return null;
         }
-
 
         Uri uri = ImsContract.PatientEntry.CONTENT_URI;
         String[] selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
@@ -205,93 +198,38 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
 
         } else {
             String resultname = cursor.getString(cursor.getColumnIndex(ImsContract.PatientEntry.COLUMN_FIRST_NAME));
-            ImsContract.PatientEntry p =new ImsContract.PatientEntry();
-                if(p!=null){
-            arr.add(p);}
-                cursor.moveToNext();
-
-
+            ImsContract.PatientEntry p = new ImsContract.PatientEntry();
+            if (p != null) {
+                arr.add(p);
+            }
+            cursor.moveToNext();
         }
         cursor.close();
 
         return arr;
 
     }
-    public void showTransferredToClinicsDialog() {
 
+    public void showTransferredToClinicsDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         edittext = mDialogTransferredToClinicsView.findViewById(R.id.tv_search_patient_clinic);
         ArrayList arr = new ArrayList();
         Uri uri = ImsContract.PatientEntry.CONTENT_URI;
-        Cursor cursor =getContentResolver().query(uri, new String[]{ImsContract.PatientEntry.COLUMN_FIRST_NAME},null,null, ImsContract.PatientEntry.COLUMN_FIRST_NAME );
+        Cursor cursor = getContentResolver().query(uri, new String[]{ImsContract.PatientEntry.COLUMN_FIRST_NAME}, null, null, ImsContract.PatientEntry.COLUMN_FIRST_NAME);
         cursor.moveToFirst();
-        while(cursor.isAfterLast()==false) {
+        while (cursor.isAfterLast() == false) {
 
             String patientname = cursor.getString(cursor.getColumnIndex(ImsContract.PatientEntry.COLUMN_FIRST_NAME));
 
-            if(patientname!=null){
+            if (patientname != null) {
                 arr.add(patientname);
             }
-            patientname=null;
+            patientname = null;
             cursor.moveToNext();
 
         }
 
-
-       /* {
-//first code
-        String[] mProjection =
-                {
-                        ImsContract.PatientEntry.COLUMN_FIRST_NAME
-                        // Contract class constant for the locale column name
-                };
-
-// Defines a string to contain the selection clause
-        String selectionClause = null;
-        Uri mCurrentUri;
-
-
-// Initializes an array to contain selection arguments
-        String[] selectionArgs = {""};
-        // Gets a word from the UI
-        String search = edittext.getText().toString();
-
-        if (TextUtils.isEmpty(search)) {
-            selectionClause = null;
-            selectionArgs[0] = "";
-
-        } else {
-            selectionClause = ImsContract.PatientEntry.COLUMN_FIRST_NAME + " = ?";
-            selectionArgs[0] = search;
-
-        }
-
-        Cursor cursor = getContentResolver().query(ImsContract.PatientEntry.CONTENT_URI
-                , mProjection, selectionClause, selectionArgs, null);
-        cursor.moveToFirst();
-        while (cursor.isAfterLast() == false) {
-            if (null == cursor) {
-
-            } else if (cursor.getCount() < 1) {
-
-
-            } else {
-                int firstNameColumnIndex = cursor.getColumnIndex(ImsContract.PatientEntry.COLUMN_FIRST_NAME);
-                String patientname = cursor.getString(firstNameColumnIndex);
-                arr.add(patientname);
-
-            }
-            cursor.moveToNext();
-
-        }
-        cursor.close();
-
-    }*/
-
-//end code
-
-
-        ArrayAdapter <String>adabterEdittext=new ArrayAdapter<String>(this ,android.R.layout.simple_list_item_1,arr);
+        ArrayAdapter<String> adabterEdittext = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arr);
         edittext.setAdapter(adabterEdittext);
 
         mTheNameOfTheClinicSpinner = mDialogTransferredToClinicsView.findViewById(R.id.spinner_doc_types_of_clinics);
@@ -320,9 +258,6 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
         AlertDialog alertDialog = builder.create();
         alertDialog.setCanceledOnTouchOutside(false);
         alertDialog.show();
-
-
-
     }
 
 }

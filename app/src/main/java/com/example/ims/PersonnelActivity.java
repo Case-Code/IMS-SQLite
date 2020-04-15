@@ -99,7 +99,4 @@ public class PersonnelActivity extends AppCompatActivity implements NavigationVi
         mNavigationView = findViewById(R.id.navigation_view);
         mActionMenuImageButton = findViewById(R.id.image_button_action_menu);
     }
-
-
-
 }
