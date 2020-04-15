@@ -41,12 +41,12 @@ public class InvoicesCursorAdapter extends CursorAdapter {
         final int svcId = cursor.getInt(svcIdColumnIndex);
         String firstName = cursor.getString(medicalServicesColumnIndex);
         String lastName = cursor.getString(medictionColumnIndex);
-        int costnumber = cursor.getInt(costColumnIndex);
+        int costNumber = cursor.getInt(costColumnIndex);
 
         svcIdTextView.setText(svcId);
         medicalServicesTextView.setText(firstName);
         medictionTextView.setText(lastName);
-        costTextView.setText(costnumber);
+        costTextView.setText(costNumber);
 
 
     }

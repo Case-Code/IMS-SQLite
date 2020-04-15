@@ -211,12 +211,12 @@
                                     android:hint="bill to phone" />
 
                                 <EditText
-                                    android:id="@+id/edit_billtofax"
+                                    android:id="@+id/edit_bill_to_fax"
                                     android:layout_width="176dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
                                     android:ems="10"
-                                    android:inputType="textPersonName"
+                                    android:inputType="number"
                                     android:hint="bill to fix" />
 
                             </LinearLayout>
@@ -231,7 +231,7 @@
                             android:orientation="vertical">
 
                             <EditText
-                                android:id="@+id/edit_billtoaddress"
+                                android:id="@+id/edit_bill_to_address"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:ems="10"
@@ -244,7 +244,7 @@
                                 android:orientation="horizontal">
 
                                 <EditText
-                                    android:id="@+id/edit_billtoemail"
+                                    android:id="@+id/edit_bill_to_email"
                                     android:layout_width="260dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
@@ -352,7 +352,7 @@
                         android:orientation="horizontal">
 
                         <EditText
-                            android:id="@+id/edit_suptotol"
+                            android:id="@+id/edit_sub_total"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -361,7 +361,7 @@
                             android:hint="suptotal" />
 
                         <EditText
-                            android:id="@+id/edit_texrate"
+                            android:id="@+id/edit_tex_rate"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -370,7 +370,7 @@
                             android:hint="tax rate" />
 
                         <EditText
-                            android:id="@+id/edit_totltax"
+                            android:id="@+id/edit_total_tax"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -388,7 +388,7 @@
                             android:hint="other" />
 
                         <EditText
-                            android:id="@+id/edit_totel"
+                            android:id="@+id/edit_total"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -445,7 +445,7 @@
                             android:orientation="vertical">
 
                             <EditText
-                                android:id="@+id/edit_questionsname"
+                                android:id="@+id/edit_questions_name"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:ems="10"
@@ -454,7 +454,7 @@
 
 
                             <EditText
-                                android:id="@+id/edit_questionsphone"
+                                android:id="@+id/edit_questions_phone"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:ems="10"
@@ -471,7 +471,7 @@
                             android:orientation="vertical">
 
                             <EditText
-                                android:id="@+id/edit_questionsemail"
+                                android:id="@+id/edit_questions_email"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:ems="10"
@@ -484,7 +484,7 @@
                                 android:orientation="horizontal">
 
                                 <EditText
-                                    android:id="@+id/edit_questionsweb"
+                                    android:id="@+id/edit_questions_web"
                                     android:layout_width="260dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
