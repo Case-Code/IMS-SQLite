@@ -109,7 +109,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_margin="5dp"
-                        tools:listitem="@layout/list_item_patient_name" />
+                        tools:listitem="@layout/item_patient_name" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -151,7 +151,7 @@
                         <ListView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            tools:listitem="@layout/list_item_patient_name" />
+                            tools:listitem="@layout/item_patient_name" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -270,7 +270,7 @@
                         <ListView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            tools:listitem="@layout/list_clinic" />
+                            tools:listitem="@layout/item_clinic" />
 
                     </LinearLayout>
                 </LinearLayout>

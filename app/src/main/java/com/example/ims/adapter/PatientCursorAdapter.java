@@ -27,8 +27,6 @@ import com.example.ims.fragment.FragmentPatientRecords;
 
 import java.util.Date;
 
-import static android.provider.Settings.System.getString;
-
 public class PatientCursorAdapter extends CursorAdapter {
 
     private static final String TAG = PatientCursorAdapter.class.getSimpleName();
@@ -43,7 +41,7 @@ public class PatientCursorAdapter extends CursorAdapter {
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
-        return LayoutInflater.from(context).inflate(R.layout.list_item_patients, parent, false);
+        return LayoutInflater.from(context).inflate(R.layout.item_patients, parent, false);
     }
 
     @Override
