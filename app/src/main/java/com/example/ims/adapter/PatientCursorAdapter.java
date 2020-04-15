@@ -24,6 +24,7 @@ import com.example.ims.data.ImsContract.PatientEntry;
 import com.example.ims.fragment.FragmentHealthRecord;
 import com.example.ims.fragment.FragmentInvoices;
 import com.example.ims.fragment.FragmentPatientRecords;
+import com.example.logutil.Utils;
 
 import java.util.Date;
 
@@ -88,52 +89,38 @@ public class PatientCursorAdapter extends CursorAdapter {
         heightTextView.setText(height.concat(" cm"));
         final ReceptionActivity activity = new ReceptionActivity();
 
+        // Analysis lab
         analysisLabButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final Uri productUri = ContentUris.withAppendedId(PatientEntry.CONTENT_URI, id);
-
                 new ReceptionActivity().showTransferredToTheAnalysisLabDialog(context);
 
 //                final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-//                builder.setView(activity.mDialogTransferredToTheAnalysisLabView);
+//                builder.setView(activity.mDialogTransferredToTheAnalysisLab);
 //                builder.setTitle("Transferred to the analysis lab");
 //                builder.setPositiveButton("Transfer", new DialogInterface.OnClickListener() {
 //                    @Override
 //                    public void onClick(DialogInterface dialog, int which) {
 //                        final Date date = new Date();
-//                        if (mCurrentPatientUri == null && activity.mTypesOfAnalysis == ImsContract.PatientDataToAnalysisEntry.ANALYSIS_UNKNOWN) {
-//                            return;
-//                        }
-//                        values = new ContentValues();
-//                        values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_ANALYSIS_NAME, activity.mTypesOfAnalysis);
+//                        String dateString = Utils.formatDate(date);
 //
-//                        if (TextUtils.isEmpty(date.toString())) {
-//                            Toast.makeText(context, "First name is required", Toast.LENGTH_SHORT).show();
-//                        } else {
-//                            values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_TRANSFER_DATE, date.toString());
-//                        }
-//                        if (id <= 0) {
-//                            Toast.makeText(context, "retrun please ", Toast.LENGTH_SHORT).show();
-//                        } else {
-//                            values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_PATIENT_ID, id);
-//                        }
+//                        ContentValues values = new ContentValues();
+//                        values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_TRANSFER_DATE, dateString);
+//                        values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_ANALYSIS_NAME, "ANALYSIS_NAME 1");
+//                        values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_PATIENT_ID, String.valueOf(1));
 //
+//                        // Insert and update patient
 //                        if (mCurrentPatientUri == null) {
-//                            Uri newUri = context.getContentResolver().insert(ImsContract.PatientDataToAnalysisEntry.CONTENT_URI,
-//                                    values);
+//                            Uri newUri = context.getContentResolver().insert(ImsContract.PatientDataToAnalysisEntry.CONTENT_URI, values);
 //                            if (newUri == null) {
-//                                Toast.makeText(context, "falid", Toast.LENGTH_SHORT).show();
+////                        Toast.makeText(ReceptionActivity.this, "Abelaziz", Toast.LENGTH_SHORT).show();
+//                                Log.i(TAG, "Abdelaziz");
 //                            } else {
-//                                Toast.makeText(context, ":susccful", Toast.LENGTH_SHORT).show();
-//                                Toast.makeText(context, ":susccful", Toast.LENGTH_SHORT).show();
-//
+////                        Toast.makeText(ReceptionActivity.this, "Mahmoud", Toast.LENGTH_SHORT).show();
+//                                Log.i(TAG, "Mahmoud");
 //                            }
-//                        } else {
-//                            return;
 //                        }
-//
-//
 //                    }
 //                });
 //                builder.setNegativeButton("Decline", new DialogInterface.OnClickListener() {
@@ -143,10 +130,8 @@ public class PatientCursorAdapter extends CursorAdapter {
 //                            dialog.dismiss();
 //
 //                        }
-//
 //                    }
 //                });
-//
 //                AlertDialog alertDialog = builder.create();
 //                alertDialog.setCanceledOnTouchOutside(false);
 //                alertDialog.show();
@@ -154,11 +139,11 @@ public class PatientCursorAdapter extends CursorAdapter {
             }
         });
 
+        // Clinic
         clinicButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Uri productUri = ContentUris.withAppendedId(PatientEntry.CONTENT_URI, id);
-
                 new ReceptionActivity().showTransferredToClinicsDialog(context);
 
                 final AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -198,14 +183,11 @@ public class PatientCursorAdapter extends CursorAdapter {
                                 Toast.makeText(context, ":susccful", Toast.LENGTH_SHORT).show();
                                 Toast.makeText(context, ":susccful", Toast.LENGTH_SHORT).show();
                                 System.out.println(values);
-
                                 Log.i(TAG, values.toString());
-
                             }
                         } else {
                             return;
                         }
-
                     }
                 });
                 builder.setNegativeButton("Decline", new DialogInterface.OnClickListener() {
@@ -213,51 +195,40 @@ public class PatientCursorAdapter extends CursorAdapter {
                     public void onClick(DialogInterface dialog, int which) {
                         if (dialog != null) {
                             dialog.dismiss();
-
                         }
-
                     }
                 });
-
                 AlertDialog alertDialog = builder.create();
                 alertDialog.setCanceledOnTouchOutside(false);
                 alertDialog.show();
-
             }
-
         });
 
+        // Health record
         healthRecordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Uri productUri = ContentUris.withAppendedId(PatientEntry.CONTENT_URI, id);
-
                 ReceptionActivity.mFragmentManager.beginTransaction().replace(R.id.frame_layout_patient_records, new FragmentHealthRecord(), null).commit();
             }
         });
 
+        // Patient records
         patientRecordsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Uri productUri = ContentUris.withAppendedId(PatientEntry.CONTENT_URI, id);
-
                 ReceptionActivity.mFragmentManager.beginTransaction().replace(R.id.frame_layout_patient_records, new FragmentPatientRecords(), null).commit();
             }
         });
 
+        // Invoices
         invoicesButton.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 Uri productUri = ContentUris.withAppendedId(PatientEntry.CONTENT_URI, id);
-
-
-                ReceptionActivity.mFragmentManager.beginTransaction().replace(R.id.frame_layout_patient_records
-                        , new FragmentInvoices(id), null).commit();
-
-
+                ReceptionActivity.mFragmentManager.beginTransaction().replace(R.id.frame_layout_patient_records, new FragmentInvoices(id), null).commit();
             }
-
         });
     }
 

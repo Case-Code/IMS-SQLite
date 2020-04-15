@@ -13,8 +13,10 @@ import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,7 +67,7 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
     private EditText mHeightEditText;
 
     private Spinner mPatientGenderSpinner;
-    public Spinner mTypeOfAnalysisSpinner;
+    private Spinner mTypeOfAnalysisSpinner;
     private Spinner mTheNameOfTheClinicSpinner;
 
     private int mGender = PatientEntry.GENDER_UNKNOWN;
@@ -82,6 +84,7 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
     public static FragmentManager mFragmentManager;
 
     public static View mDialogTransferredToClinicsView;
+    public static View mDialogTransferredToTheAnalysisLab;
 
     int mIdPatient;
 
@@ -208,6 +211,7 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
         mEmptyReceptionImageView = findViewById(R.id.image_empty_reception);
         mPatientListView = findViewById(R.id.list_patient);
         mDialogTransferredToClinicsView = getLayoutInflater().inflate(R.layout.dialog_transferred_to_clinics, null);
+        mDialogTransferredToTheAnalysisLab = getLayoutInflater().inflate(R.layout.dialog_transferred_to_the_analysis_lab, null);
     }
 
     // Setup spinner gender
@@ -450,43 +454,47 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
     }
 
     // Show transferred to the analysis lab dialog
-    public void showTransferredToTheAnalysisLabDialog(Context context) {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        View mView = getLayoutInflater().inflate(R.layout.dialog_transferred_to_the_analysis_lab, null);
-
-        if (mView.getParent() != null) {
-            ((ViewGroup) mView.getParent()).removeView(mView);
+    public void showTransferredToTheAnalysisLabDialog(final Context context) {
+        if (mDialogTransferredToTheAnalysisLab.getParent() != null) {
+            ((ViewGroup) mDialogTransferredToTheAnalysisLab.getParent()).removeView(mDialogTransferredToTheAnalysisLab);
         }
 
-        mTypeOfAnalysisSpinner = mView.findViewById(R.id.spinner_types_of_analysis);
+        mTypeOfAnalysisSpinner = mDialogTransferredToTheAnalysisLab.findViewById(R.id.spinner_types_of_analysis);
+
         setupSpinnerTypesOfAnalysis(context);
 
-        builder.setView(mView);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setView(mDialogTransferredToTheAnalysisLab);
         builder.setTitle("Transferred to the analysis lab");
         builder.setPositiveButton("Transfer", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 final Date date = new Date();
-
                 String dateString = Utils.formatDate(date);
 
-                ContentValues values = new ContentValues();
-                values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_TRANSFER_DATE, dateString);
-                values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_ANALYSIS_NAME, mTypesOfAnalysis);
-                values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_PATIENT_ID, String.valueOf(mIdPatient));
+                String[] projection = {PatientEntry._ID};
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    Cursor query = context.getContentResolver().query(mCurrentPatientUri, projection, null, null);
+                    int idPatientColumnIndex = query.getColumnIndex(PatientEntry.COLUMN_FIRST_NAME);
+                    int idPatient = query.getInt(idPatientColumnIndex);
 
-                // Insert and update patient
-                if (mCurrentPatientUri == null) {
-                    Uri newUri = getContentResolver().insert(ImsContract.PatientDataToAnalysisEntry.CONTENT_URI, values);
-                    if (newUri == null) {
-                        Toast.makeText(ReceptionActivity.this, "Abelaziz", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(ReceptionActivity.this, "Mahmoud", Toast.LENGTH_SHORT).show();
-                    }
+                    ContentValues values = new ContentValues();
+                    values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_TRANSFER_DATE, dateString);
+                    values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_ANALYSIS_NAME, mTypesOfAnalysis);
+                    values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_PATIENT_ID, idPatient);
+
+
+                    // Insert and update patient
+                        Uri newUri = context.getContentResolver().insert(ImsContract.PatientDataToAnalysisEntry.CONTENT_URI, values);
+                        if (newUri == null) {
+//                        Toast.makeText(ReceptionActivity.this, "Abelaziz", Toast.LENGTH_SHORT).show();
+                            Log.i(TAG, "Abdelaziz");
+                        } else {
+//                        Toast.makeText(ReceptionActivity.this, "Mahmoud", Toast.LENGTH_SHORT).show();
+                            Log.i(TAG, "Mahmoud");
+                        }
 
                 }
-
-
             }
         });
         builder.setNegativeButton("Decline", new DialogInterface.OnClickListener() {
@@ -496,13 +504,12 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
                     dialog.dismiss();
 
                 }
-
             }
         });
-
         AlertDialog alertDialog = builder.create();
         alertDialog.setCanceledOnTouchOutside(false);
         alertDialog.show();
+
     }
 
     // Show transferred to clinics dialog
@@ -690,8 +697,7 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
                 return;
             }
 
-            int idPatientColumnIndex = data.getColumnIndex(PatientEntry._ID);
-            mIdPatient = data.getInt(idPatientColumnIndex);
+
             if (data.moveToFirst()) {
                 int firstNameColumnIndex = data.getColumnIndex(PatientEntry.COLUMN_FIRST_NAME);
                 int lastNameColumnIndex = data.getColumnIndex(PatientEntry.COLUMN_LAST_NAME);
