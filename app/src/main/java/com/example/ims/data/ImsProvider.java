@@ -540,7 +540,7 @@ public class ImsProvider extends ContentProvider {
         }
 
         // Analysis name
-        Integer analysisName = values.getAsInteger(PatientDataToAnalysisEntry.COLUMN_ANALYSIS_NAME);
+        String analysisName = values.getAsString(PatientDataToAnalysisEntry.COLUMN_ANALYSIS_NAME);
         if (analysisName == null) {
             throw new IllegalArgumentException("Patient data to analysis  requires a analysis name");
         }
