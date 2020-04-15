@@ -1,5 +1,6 @@
 package com.example.ims.fragment;
 
+import android.app.DatePickerDialog;
 import android.content.ContentValues;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,14 +9,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.ims.ReceptionActivity;
 import com.example.ims.adapter.InvoicesCursorAdapter;
 import com.example.ims.R;
 import com.example.ims.data.ImsContract;
+import com.example.logutil.Utils;
 
 
 /**
@@ -33,6 +38,11 @@ public class FragmentInvoices extends Fragment {
     Button svcAddButton;
     Button totalAddButton;
     Button questionSendButton;
+
+    TextView patientIdTextView;
+    TextView dateOfSvcTextView;
+    TextView invoiceDateTextView;
+    TextView dateDueTextView;
 
     public EditText billNameEditText;
     EditText billPhoneEditText;
@@ -71,6 +81,11 @@ public class FragmentInvoices extends Fragment {
         svcAddButton = view.findViewById(R.id.button_svcadd);
         totalAddButton = view.findViewById(R.id.button_totelsave);
         questionSendButton = view.findViewById(R.id.button_questionssend);
+
+        patientIdTextView=view.findViewById(R.id.text_patient_id);
+        dateOfSvcTextView=view.findViewById(R.id.text_data_of_svc);
+         invoiceDateTextView=view.findViewById(R.id.text_invoice_date);
+         dateDueTextView=view.findViewById(R.id.text_date_due);
 
         billNameEditText = view.findViewById(R.id.edit_billtoname);
         billPhoneEditText = view.findViewById(R.id.edit_billtophone);
@@ -129,15 +144,62 @@ public class FragmentInvoices extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_invoices, container, false);
 
         init();
+        String dateOfSvc =dateOfSvcTextView.getText().toString().trim();
 
+
+                dateOfSvcTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        month += 1;
+                        String date = month + "/" + dayOfMonth + "/" + year;
+                        dateOfSvcTextView.setText(date);
+                    }
+                };
+                Utils.showDatePicker(getContext(), dateSetListener);
+            }
+        });
+
+        invoiceDateTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        month += 1;
+                        String date = month + "/" + dayOfMonth + "/" + year;
+                        invoiceDateTextView.setText(date);
+                    }
+                };
+                Utils.showDatePicker(getContext(), dateSetListener);
+            }
+        });
+
+        dateOfSvcTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        month += 1;
+                        String date = month + "/" + dayOfMonth + "/" + year;
+                        dateOfSvcTextView.setText(date);
+                    }
+                };
+                Utils.showDatePicker(getContext(), dateSetListener);
+            }
+        });
         billSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 billToSave();
 
             }

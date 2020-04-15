@@ -57,11 +57,11 @@
                             android:textColor="@color/primaryText" />
 
                         <TextView
-                            android:id="@+id/textView9"
+                            android:id="@+id/text_patient_id"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingTop="5dp"
-                            android:text="PATIENT ID"
+                            android:text="@string/patient_id"
                             android:textColor="@color/primaryText" />
 
                         <!-- next appointment date -->
@@ -78,6 +78,7 @@
                                 android:text="DATE OF SVC:" />
 
                             <TextView
+                                android:id="@+id/text_data_of_svc"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="end"
@@ -100,6 +101,7 @@
                                 android:text="INVOICE DATE:" />
 
                             <TextView
+                                android:id="@+id/text_invoice_date"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="end"
@@ -122,6 +124,7 @@
                                 android:text="DATE DUE:" />
 
                             <TextView
+                                android:id="@+id/text_date_due"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="end"
