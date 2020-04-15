@@ -10,6 +10,7 @@
         android:layout_margin="5dp"
         android:layout_weight="0"
         android:text="firstname"
+        android:fadingEdge="none"
         android:textColor="@color/colorPrimary" />
 
     <TextView
