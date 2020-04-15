@@ -1,5 +1,6 @@
 package com.example.ims.adapter;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -84,12 +85,11 @@ public class PatientCursorAdapter extends CursorAdapter {
         locationTextView.setText(location);
         weightTextView.setText(weight.concat(" kg"));
         heightTextView.setText(height.concat(" cm"));
-        final ReceptionActivity activity = new ReceptionActivity();
 
         // Analysis lab
         analysisLabButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
                 new ReceptionActivity().showTransferredToTheAnalysisLabDialog(context);
                 final Uri patientId = ContentUris.withAppendedId(PatientEntry.CONTENT_URI, id);
 
@@ -115,11 +115,9 @@ public class PatientCursorAdapter extends CursorAdapter {
                         // Insert and update patient
                         Uri newUri = context.getContentResolver().insert(ImsContract.PatientDataToAnalysisEntry.CONTENT_URI, values);
                         if (newUri == null) {
-//                        Toast.makeText(ReceptionActivity.this, "Abelaziz", Toast.LENGTH_SHORT).show();
-                            Log.i(TAG, "Abdelaziz");
+                            Toast.makeText(v.getContext(), "Error with transfer patient", Toast.LENGTH_SHORT).show();
                         } else {
-//                        Toast.makeText(ReceptionActivity.this, "Mahmoud", Toast.LENGTH_SHORT).show();
-                            Log.i(TAG, "Mahmoud");
+                            Toast.makeText(v.getContext(), "Transferred", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -129,32 +127,48 @@ public class PatientCursorAdapter extends CursorAdapter {
                     public void onClick(DialogInterface dialog, int which) {
                         if (dialog != null) {
                             dialog.dismiss();
-
                         }
                     }
                 });
                 AlertDialog alertDialog = builder.create();
                 alertDialog.setCanceledOnTouchOutside(false);
                 alertDialog.show();
-
             }
         });
 
         // Clinic
         clinicButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
                 new ReceptionActivity().showTransferredToClinicsDialog(context);
-//                Uri productUri = ContentUris.withAppendedId(PatientEntry.CONTENT_URI, id);
+                final Uri patientId = ContentUris.withAppendedId(PatientEntry.CONTENT_URI, id);
 
                 final AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setView(ReceptionActivity.mDialogTransferredToClinicsView);
                 builder.setTitle("Transferred to clinics");
 
                 builder.setPositiveButton("Transfer", new DialogInterface.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        final Date date = new Date();
 
+                        String dateString = Utils.formatDate(date);
+                        int theNamesOfTheClinics = ReceptionActivity.mTheNamesOfTheClinics;
+                        int idPatient = getIdPatient(context, patientId);
+
+                        ContentValues values = new ContentValues();
+                        values.put(ImsContract.PatientDataToClinicsEntry.COLUMN_TRANSFER_DATE, dateString);
+                        values.put(ImsContract.PatientDataToClinicsEntry.COLUMN_CLINIC_NAME, theNamesOfTheClinics);
+                        values.put(ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID, String.valueOf(idPatient));
+
+                        // Insert and update patient
+                        Uri newUri = context.getContentResolver().insert(ImsContract.PatientDataToClinicsEntry.CONTENT_URI, values);
+                        if (newUri == null) {
+                            Toast.makeText(v.getContext(), "Error with transfer patient", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(v.getContext(), "Transferred", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
 

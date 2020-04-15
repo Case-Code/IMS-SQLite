@@ -1,6 +1,5 @@
 package com.example.ims;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.LoaderManager;
@@ -13,10 +12,8 @@ import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,14 +34,14 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 
-import java.util.Date;
-
 import com.example.ims.adapter.PatientCursorAdapter;
 import com.example.ims.data.ImsContract;
 import com.example.ims.data.ImsContract.PatientEntry;
 import com.example.logutil.Utils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.Date;
 
 public class ReceptionActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -72,7 +69,7 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
 
     private int mGender = PatientEntry.GENDER_UNKNOWN;
     public static int mTypesOfAnalysis = ImsContract.PatientDataToAnalysisEntry.ANALYSIS_UNKNOWN;
-    public int mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_UNKNOWN;
+    public static int mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_UNKNOWN;
 
     public Uri mCurrentPatientUri;
 
@@ -85,8 +82,6 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
 
     public static View mDialogTransferredToClinicsView;
     public static View mDialogTransferredToTheAnalysisLab;
-
-    int mIdPatient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -296,51 +291,50 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
 
                 String selection = (String) parent.getItemAtPosition(position);
                 if (!TextUtils.isEmpty(selection)) {
-                    if (selection.equals("clinics_endemic_diseases")) { // TODO chane the text
+                    if (selection.equals("Endemic diseases")) { // TODO chane the text
                         mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_ENDEMIC_DISEASES;
-                    } else if (selection.equals("clinics_medical_and_microbiological_analyzes")) { // TODO chane the text
+                    } else if (selection.equals("Medical and microbiological analyzes")) { // TODO chane the text
                         mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_MEDICAL_AND_MICROBIOLOGICAL_ANALYZES;
-                    } else if (selection.equals("clinics_psychological_diseases")) { // TODO chane the text
+                    } else if (selection.equals("Psychological diseases")) { // TODO chane the text
                         mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_PSYCHOLOGICAL_DISEASES;
-                    } else if (selection.equals("clinics_phonetic_and_phoneme")) { // TODO chane the text
+                    } else if (selection.equals("Phonetic and phoneme")) { // TODO chane the text
                         mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_PHONETIC_AND_PHONEME;
-                    } else if (selection.equals("clinics_ear_nose_and_throat")) { // TODO chane the text
+                    } else if (selection.equals("Ear, nose and throat")) { // TODO chane the text
                         mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_EAR_NOSE_AND_THROAT;
-                    } else if (selection.equals("clinics_colon_and_anus")) { // TODO chane the text
+                    } else if (selection.equals("Colon and anus")) { // TODO chane the text
                         mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_COLON_AND_ANUS;
-                    } else if (selection.equals("clinics_blood_vessels")) { // TODO chane the text
+                    } else if (selection.equals("Blood vessels")) { // TODO chane the text
                         mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_BLOOD_VESSELS;
-                    } else if (selection.equals("clinics_endocrine_glands")) { // TODO chane the text
+                    } else if (selection.equals("Endocrine glands")) { // TODO chane the text
                         mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_ENDOCRINE_GLANDS;
-                    } else if (selection.equals("clinics_rheumatism_and_immunity")) { // TODO chane the text
+                    } else if (selection.equals("Rheumatism and immunity")) { // TODO chane the text
                         mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_RHEUMATISM_AND_IMMUNITY;
-                    } else if (selection.equals("clinics_kidney")) { // TODO chane the text
+                    } else if (selection.equals("Kidney")) { // TODO chane the text
                         mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_KIDNEY;
-                    } else if (selection.equals("clinics_the_pain")) { // TODO chane the text
+                    } else if (selection.equals("The pain")) { // TODO chane the text
                         mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_THE_PAIN;
-                    } else if (selection.equals("clinics_chests_diseases")) { // TODO chane the text
+                    } else if (selection.equals("Chest's diseases")) { // TODO chane the text
                         mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_CHESTS_DISEASES;
-                    } else if (selection.equals("clinics_heart_drawing")) { // TODO chane the text
+                    } else if (selection.equals("Heart drawing")) { // TODO chane the text
                         mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_HEART_DRAWING;
-                    } else if (selection.equals("clinics_cardiothoracic_surgery")) { // TODO chane the text
+                    } else if (selection.equals("Cardiothoracic surgery")) { // TODO chane the text
                         mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_CARDIOTHORACIC_SURGERY;
-                    } else if (selection.equals("clinics_fertility_unit")) { // TODO chane the text
+                    } else if (selection.equals("Fertility unit")) { // TODO chane the text
                         mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_FERTILITY_UNIT;
-                    } else if (selection.equals("clinics_general_interior")) { // TODO chane the text
+                    } else if (selection.equals("General interior")) { // TODO chane the text
                         mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_GENERAL_INTERIOR;
-                    } else if (selection.equals("clinics_rheumatism_and_rehabilitation")) { // TODO chane the text
+                    } else if (selection.equals("Rheumatism and rehabilitation")) { // TODO chane the text
                         mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_RHEUMATISM_AND_REHABILITATION;
-                    } else if (selection.equals("clinics_plastic_surgery")) { // TODO chane the text
+                    } else if (selection.equals("Plastic surgery")) { // TODO chane the text
                         mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_PLASTIC_SURGERY;
-                    } else if (selection.equals("clinics_general_surgery")) { // TODO chane the text
+                    } else if (selection.equals("General surgery")) { // TODO chane the text
                         mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_GENERAL_SURGERY;
-                    } else if (selection.equals("clinics_oncology_and_nuclear_medicine")) { // TODO chane the text
+                    } else if (selection.equals("Oncology and nuclear medicine")) { // TODO chane the text
                         mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_ONCOLOGY_AND_NUCLEAR_MEDICINE;
-                    } else if (selection.equals("clinics_leather_and_genital")) { // TODO chane the text
+                    } else if (selection.equals("Leather and genital")) { // TODO chane the text
                         mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_LEATHER_AND_GENITAL;
                     } else {
                         mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_UNKNOWN;
-
                     }
                 }
             }
@@ -454,62 +448,13 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
     }
 
     // Show transferred to the analysis lab dialog
-    public void showTransferredToTheAnalysisLabDialog(final Context context) {
+    public void showTransferredToTheAnalysisLabDialog(Context context) {
         if (mDialogTransferredToTheAnalysisLab.getParent() != null) {
             ((ViewGroup) mDialogTransferredToTheAnalysisLab.getParent()).removeView(mDialogTransferredToTheAnalysisLab);
         }
 
         mTypeOfAnalysisSpinner = mDialogTransferredToTheAnalysisLab.findViewById(R.id.spinner_types_of_analysis);
-
         setupSpinnerTypesOfAnalysis(context);
-
-//        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-//        builder.setView(mDialogTransferredToTheAnalysisLab);
-//        builder.setTitle("Transferred to the analysis lab");
-//        builder.setPositiveButton("Transfer", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                final Date date = new Date();
-//                String dateString = Utils.formatDate(date);
-//
-//                String[] projection = {PatientEntry._ID};
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//                    Cursor query = context.getContentResolver().query(mCurrentPatientUri, projection, null, null);
-//                    int idPatientColumnIndex = query.getColumnIndex(PatientEntry.COLUMN_FIRST_NAME);
-//                    int idPatient = query.getInt(idPatientColumnIndex);
-//
-//                    ContentValues values = new ContentValues();
-//                    values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_TRANSFER_DATE, dateString);
-//                    values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_ANALYSIS_NAME, mTypesOfAnalysis);
-//                    values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_PATIENT_ID, idPatient);
-//
-//
-//                    // Insert and update patient
-//                        Uri newUri = context.getContentResolver().insert(ImsContract.PatientDataToAnalysisEntry.CONTENT_URI, values);
-//                        if (newUri == null) {
-////                        Toast.makeText(ReceptionActivity.this, "Abelaziz", Toast.LENGTH_SHORT).show();
-//                            Log.i(TAG, "Abdelaziz");
-//                        } else {
-////                        Toast.makeText(ReceptionActivity.this, "Mahmoud", Toast.LENGTH_SHORT).show();
-//                            Log.i(TAG, "Mahmoud");
-//                        }
-//
-//                }
-//            }
-//        });
-//        builder.setNegativeButton("Decline", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                if (dialog != null) {
-//                    dialog.dismiss();
-//
-//                }
-//            }
-//        });
-//        AlertDialog alertDialog = builder.create();
-//        alertDialog.setCanceledOnTouchOutside(false);
-//        alertDialog.show();
-
     }
 
     // Show transferred to clinics dialog
@@ -517,33 +462,9 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
         if (mDialogTransferredToClinicsView.getParent() != null) {
             ((ViewGroup) mDialogTransferredToClinicsView.getParent()).removeView(mDialogTransferredToClinicsView);
         }
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
-        final Date date = new Date();
-
-
-        mTheNameOfTheClinicSpinner = mDialogTransferredToClinicsView.findViewById(R.id.spinner_types_of_clinics_doc);
+        mTheNameOfTheClinicSpinner = mDialogTransferredToClinicsView.findViewById(R.id.spinner_name_the_clinics);
         setupSpinnerTheNamesOfTheClinics(context);
-
-//        builder.setView(mDialogTransferredToClinicsView);
-//        builder.setTitle("Transferred to clinics");
-//        builder.setPositiveButton("Transfer", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                Toast.makeText(context, date.toString(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//        builder.setNegativeButton("Decline", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                if (dialog != null) {
-//                    dialog.dismiss();
-//                }
-//            }
-//        });
-//
-//        AlertDialog alertDialog = builder.create();
-//        alertDialog.setCanceledOnTouchOutside(false);
     }
 
     // Patient registration
