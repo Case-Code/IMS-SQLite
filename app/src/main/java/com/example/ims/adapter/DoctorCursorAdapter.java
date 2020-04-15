@@ -15,18 +15,18 @@ import com.example.ims.data.ImsContract;
 
 public class DoctorCursorAdapter extends CursorAdapter {
     public DoctorCursorAdapter(Context context, Cursor c) {
-        super(context, c,0);
+        super(context, c, 0);
     }
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
-        return LayoutInflater.from(context).inflate(R.layout.list_doctor_diagnosis, viewGroup, false);
+        return LayoutInflater.from(context).inflate(R.layout.item_patient_name, viewGroup, false);
     }
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        TextView firstNameTextView = view.findViewById(R.id.text_firstname);
-        TextView lastNameTextView = view.findViewById(R.id.text_lastname);
+        TextView firstNameTextView = view.findViewById(R.id.text_first_name);
+        TextView lastNameTextView = view.findViewById(R.id.text_list_name);
 
         final int idColumnIndex = cursor.getColumnIndex(ImsContract.DoctorDiagnosisEntry.COLUMN_PATIENT_ID);
         int firstNameColumnIndex = cursor.getColumnIndex(ImsContract.PatientEntry.COLUMN_FIRST_NAME);
@@ -42,12 +42,6 @@ public class DoctorCursorAdapter extends CursorAdapter {
 
 
         Uri productUri = ContentUris.withAppendedId(ImsContract.PatientEntry.CONTENT_URI, id);
-
-
-
-
-
-
 
 
     }

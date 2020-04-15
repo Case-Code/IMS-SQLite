@@ -34,7 +34,7 @@ public class FragmentInvoices extends Fragment {
     Button totalAddButton;
     Button questionSendButton;
 
-   public EditText billNameEditText;
+    public EditText billNameEditText;
     EditText billPhoneEditText;
     EditText billAddressEditText;
     EditText billFixEditText;
@@ -57,48 +57,48 @@ public class FragmentInvoices extends Fragment {
     private Uri mCurrentPatientInvoicesUri;
 
 
-
     private InvoicesCursorAdapter mInvoicesSvcCursorAdapter;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-View view ;
-public void init (){
+    View view;
 
-    billSaveButton = view. findViewById(R.id.button_billtosave);
-    svcAddButton=view.findViewById(R.id.button_svcadd);
-    totalAddButton=view.findViewById(R.id.button_totelsave);
-    questionSendButton=view.findViewById(R.id.button_questionssend);
+    public void init() {
 
-     billNameEditText=view.findViewById(R.id.edit_billtoname);
-     billPhoneEditText=view.findViewById(R.id.edit_billtophone);
-     billAddressEditText=view.findViewById(R.id.edit_bill_to_address);
-     billFixEditText=view.findViewById(R.id.edit_bill_to_fax);
-     billEmailEditText=view.findViewById(R.id.edit_bill_to_email);
+        billSaveButton = view.findViewById(R.id.button_billtosave);
+        svcAddButton = view.findViewById(R.id.button_svcadd);
+        totalAddButton = view.findViewById(R.id.button_totelsave);
+        questionSendButton = view.findViewById(R.id.button_questionssend);
 
-    svcIdEditText =view.findViewById(R.id.edit_svcid);
-     medicalServicesEditText=view.findViewById(R.id.edit_medicalservis);
-     medicationEditText=view.findViewById(R.id.edit_medication);
-     costEditText=view.findViewById(R.id.edit_cost);
+        billNameEditText = view.findViewById(R.id.edit_billtoname);
+        billPhoneEditText = view.findViewById(R.id.edit_billtophone);
+        billAddressEditText = view.findViewById(R.id.edit_bill_to_address);
+        billFixEditText = view.findViewById(R.id.edit_bill_to_fax);
+        billEmailEditText = view.findViewById(R.id.edit_bill_to_email);
 
-    subtotalEditText=view.findViewById(R.id.edit_sub_total);
-     taxRateEditText=view.findViewById(R.id.edit_tex_rate);;
-     totalTaxEditText=view.findViewById(R.id.edit_total_tax);
-     otherEditText=view.findViewById(R.id.edit_other);
-     totalEditText=view.findViewById(R.id.edit_total);
+        svcIdEditText = view.findViewById(R.id.edit_svcid);
+        medicalServicesEditText = view.findViewById(R.id.edit_medicalservis);
+        medicationEditText = view.findViewById(R.id.edit_medication);
+        costEditText = view.findViewById(R.id.edit_cost);
 
-    questionsNameEditText=view.findViewById(R.id.edit_questions_name);
-     questionEmailEditText=view.findViewById(R.id.edit_questions_email);
-     questionsPhoneEditText=view.findViewById(R.id.edit_questions_phone);
-     questionsWebEditText=view.findViewById(R.id.edit_questions_web);
-     procedureEditText=view.findViewById(R.id.edit_procedure);
+        subtotalEditText = view.findViewById(R.id.edit_sub_total);
+        taxRateEditText = view.findViewById(R.id.edit_tex_rate);
+        ;
+        totalTaxEditText = view.findViewById(R.id.edit_total_tax);
+        otherEditText = view.findViewById(R.id.edit_other);
+        totalEditText = view.findViewById(R.id.edit_total);
+
+        questionsNameEditText = view.findViewById(R.id.edit_questions_name);
+        questionEmailEditText = view.findViewById(R.id.edit_questions_email);
+        questionsPhoneEditText = view.findViewById(R.id.edit_questions_phone);
+        questionsWebEditText = view.findViewById(R.id.edit_questions_web);
+        procedureEditText = view.findViewById(R.id.edit_procedure);
 
 
+    }
 
-
-}
     public FragmentInvoices() {
         // Required empty public constructor
     }
@@ -126,13 +126,12 @@ public void init (){
         super.onCreate(savedInstanceState);
 
 
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view= inflater.inflate(R.layout.fragment_invoices, container, false);
+        view = inflater.inflate(R.layout.fragment_invoices, container, false);
 
         init();
 
@@ -166,28 +165,29 @@ public void init (){
         });
 
 
-
-return  view;
+        return view;
 
 
     }
-    public void billToSave(){
-        String billNameString= billNameEditText.getText().toString().trim();
-        String billAddressString= billAddressEditText.getText().toString().trim();
-        String billEmailString= billEmailEditText.getText().toString().trim();
-        String billPhoneString= billPhoneEditText.getText().toString().trim();
-        String billFaxString= billFixEditText.getText().toString().trim();
+
+    public void billToSave() {
+        String billNameString = billNameEditText.getText().toString().trim();
+        String billAddressString = billAddressEditText.getText().toString().trim();
+        String billEmailString = billEmailEditText.getText().toString().trim();
+        String billPhoneString = billPhoneEditText.getText().toString().trim();
+        String billFaxString = billFixEditText.getText().toString().trim();
 
 
-        if(mCurrentPatientInvoicesUri==null&&
-                TextUtils.isEmpty(billNameString)&&
-                TextUtils.isEmpty(billAddressString)&&
-                TextUtils.isEmpty(billEmailString)&&
-                TextUtils.isEmpty(billPhoneString)&&
-                TextUtils.isEmpty(billFaxString)){
-            return; }
+        if (mCurrentPatientInvoicesUri == null &&
+                TextUtils.isEmpty(billNameString) &&
+                TextUtils.isEmpty(billAddressString) &&
+                TextUtils.isEmpty(billEmailString) &&
+                TextUtils.isEmpty(billPhoneString) &&
+                TextUtils.isEmpty(billFaxString)) {
+            return;
+        }
         //Integer phoneNumber =Integer.parseInt(billPhoneString);
-      //  Integer fixNumber = Integer.parseInt(billFaxString);
+        //  Integer fixNumber = Integer.parseInt(billFaxString);
         ContentValues values = new ContentValues();
 
         if (TextUtils.isEmpty(billNameString)) {
@@ -208,15 +208,15 @@ return  view;
         if (TextUtils.isEmpty(billPhoneString)) {
             Toast.makeText(getContext(), "phone Number is required", Toast.LENGTH_SHORT).show();
         } else {
-            values.put(ImsContract.InvoicesEntry.COLUMN_BILL_TO_PHONE,billPhoneString );
+            values.put(ImsContract.InvoicesEntry.COLUMN_BILL_TO_PHONE, billPhoneString);
         }
         if (TextUtils.isEmpty(billFaxString)) {
             Toast.makeText(getContext(), "First name is required", Toast.LENGTH_SHORT).show();
         } else {
             values.put(ImsContract.InvoicesEntry.COLUMN_BILL_TO_FAX, billFaxString);
         }
-        if(mCurrentPatientInvoicesUri==null){
-            Uri newUri =getContext().getContentResolver().insert(ImsContract.InvoicesEntry.CONTENT_URI, values);
+        if (mCurrentPatientInvoicesUri == null) {
+            Uri newUri = getContext().getContentResolver().insert(ImsContract.InvoicesEntry.CONTENT_URI, values);
             if (newUri == null) {
                 Toast.makeText(getContext(), getString(R.string.editor_insert_patient_failed), Toast.LENGTH_SHORT).show();
             } else {
@@ -226,31 +226,32 @@ return  view;
 
     }
 
-    public void svcSave(){
+    public void svcSave() {
 
-        String svcIdString= svcIdEditText.getText().toString().trim();
-        String medicalServiceString= medicalServicesEditText.getText().toString().trim();
-        String medicationString= medicationEditText.getText().toString().trim();
-        String costString= costEditText.getText().toString().trim();
+        String svcIdString = svcIdEditText.getText().toString().trim();
+        String medicalServiceString = medicalServicesEditText.getText().toString().trim();
+        String medicationString = medicationEditText.getText().toString().trim();
+        String costString = costEditText.getText().toString().trim();
 
 
-        if(mCurrentPatientInvoicesUri==null&&
-                TextUtils.isEmpty(svcIdString)&&
-                TextUtils.isEmpty(medicalServiceString)&&
-                TextUtils.isEmpty(medicationString)&&
-                TextUtils.isEmpty(costString)){
-            return; }
+        if (mCurrentPatientInvoicesUri == null &&
+                TextUtils.isEmpty(svcIdString) &&
+                TextUtils.isEmpty(medicalServiceString) &&
+                TextUtils.isEmpty(medicationString) &&
+                TextUtils.isEmpty(costString)) {
+            return;
+        }
         ContentValues values = new ContentValues();
 
         if (TextUtils.isEmpty(svcIdString)) {
             Toast.makeText(getContext(), "First name is required", Toast.LENGTH_SHORT).show();
         } else {
-            values.put(ImsContract.InvoicesEntry.COLUMN_SVC_ID,svcIdString );
+            values.put(ImsContract.InvoicesEntry.COLUMN_SVC_ID, svcIdString);
         }
         if (TextUtils.isEmpty(medicalServiceString)) {
             Toast.makeText(getContext(), "First name is required", Toast.LENGTH_SHORT).show();
         } else {
-            values.put(ImsContract.InvoicesEntry.COLUMN_MEDICAL_SERVICES,medicalServiceString );
+            values.put(ImsContract.InvoicesEntry.COLUMN_MEDICAL_SERVICES, medicalServiceString);
         }
         if (TextUtils.isEmpty(medicationString)) {
             Toast.makeText(getContext(), "First name is required", Toast.LENGTH_SHORT).show();
@@ -260,11 +261,11 @@ return  view;
         if (TextUtils.isEmpty(costString)) {
             Toast.makeText(getContext(), "First name is required", Toast.LENGTH_SHORT).show();
         } else {
-            values.put(ImsContract.InvoicesEntry.COLUMN_COST,costString );
+            values.put(ImsContract.InvoicesEntry.COLUMN_COST, costString);
         }
 
-        if(mCurrentPatientInvoicesUri==null){
-            Uri newUri =getContext().getContentResolver().insert(ImsContract.InvoicesEntry.CONTENT_URI, values);
+        if (mCurrentPatientInvoicesUri == null) {
+            Uri newUri = getContext().getContentResolver().insert(ImsContract.InvoicesEntry.CONTENT_URI, values);
             if (newUri == null) {
                 Toast.makeText(getContext(), getString(R.string.editor_insert_patient_failed), Toast.LENGTH_SHORT).show();
             } else {
@@ -275,28 +276,29 @@ return  view;
     }
 
 
-    public void totalSave(){
+    public void totalSave() {
 
 
-        String subTotalString= subtotalEditText.getText().toString().trim();
-        String taxRateString= taxRateEditText.getText().toString().trim();
-        String totalTaxString= totalTaxEditText.getText().toString().trim();
-        String otherString= otherEditText.getText().toString().trim();
-        String totalString= totalEditText.getText().toString().trim();
+        String subTotalString = subtotalEditText.getText().toString().trim();
+        String taxRateString = taxRateEditText.getText().toString().trim();
+        String totalTaxString = totalTaxEditText.getText().toString().trim();
+        String otherString = otherEditText.getText().toString().trim();
+        String totalString = totalEditText.getText().toString().trim();
 
-        if(mCurrentPatientInvoicesUri==null&&
-                TextUtils.isEmpty(subTotalString)&&
-                TextUtils.isEmpty(taxRateString)&&
-                TextUtils.isEmpty(totalTaxString)&&
-                TextUtils.isEmpty(otherString)&&
-                TextUtils.isEmpty(totalString)){
-            return; }
+        if (mCurrentPatientInvoicesUri == null &&
+                TextUtils.isEmpty(subTotalString) &&
+                TextUtils.isEmpty(taxRateString) &&
+                TextUtils.isEmpty(totalTaxString) &&
+                TextUtils.isEmpty(otherString) &&
+                TextUtils.isEmpty(totalString)) {
+            return;
+        }
         ContentValues values = new ContentValues();
 
         if (TextUtils.isEmpty(subTotalString)) {
             Toast.makeText(getContext(), "First name is required", Toast.LENGTH_SHORT).show();
         } else {
-            values.put(ImsContract.InvoicesEntry.COLUMN_SUBTOTAL,subTotalString );
+            values.put(ImsContract.InvoicesEntry.COLUMN_SUBTOTAL, subTotalString);
         }
         if (TextUtils.isEmpty(taxRateString)) {
             Toast.makeText(getContext(), "First name is required", Toast.LENGTH_SHORT).show();
@@ -311,15 +313,15 @@ return  view;
         if (TextUtils.isEmpty(otherString)) {
             Toast.makeText(getContext(), "First name is required", Toast.LENGTH_SHORT).show();
         } else {
-            values.put(ImsContract.InvoicesEntry.COLUMN_OTHER,otherString );
+            values.put(ImsContract.InvoicesEntry.COLUMN_OTHER, otherString);
         }
         if (TextUtils.isEmpty(totalString)) {
             Toast.makeText(getContext(), "First name is required", Toast.LENGTH_SHORT).show();
         } else {
             values.put(ImsContract.InvoicesEntry.COLUMN_TOTAL, totalString);
         }
-        if(mCurrentPatientInvoicesUri==null){
-            Uri newUri =getContext().getContentResolver().insert(ImsContract.InvoicesEntry.CONTENT_URI, values);
+        if (mCurrentPatientInvoicesUri == null) {
+            Uri newUri = getContext().getContentResolver().insert(ImsContract.InvoicesEntry.CONTENT_URI, values);
             if (newUri == null) {
                 Toast.makeText(getContext(), getString(R.string.editor_insert_patient_failed), Toast.LENGTH_SHORT).show();
             } else {
@@ -327,19 +329,21 @@ return  view;
             }
         }
     }
-    public void questionsSend(){
 
-        String questionsNameString= questionsNameEditText.getText().toString().trim();
-        String questionsPhoneString= questionsPhoneEditText.getText().toString().trim();
-        String questionsEmailString= questionEmailEditText.getText().toString().trim();
-        String questionsWebString= questionsWebEditText.getText().toString().trim();
+    public void questionsSend() {
 
-        if(mCurrentPatientInvoicesUri==null&&
-                TextUtils.isEmpty(questionsNameString)&&
-                TextUtils.isEmpty(questionsPhoneString)&&
-                TextUtils.isEmpty(questionsEmailString)&&
-                TextUtils.isEmpty(questionsWebString)){
-            return; }
+        String questionsNameString = questionsNameEditText.getText().toString().trim();
+        String questionsPhoneString = questionsPhoneEditText.getText().toString().trim();
+        String questionsEmailString = questionEmailEditText.getText().toString().trim();
+        String questionsWebString = questionsWebEditText.getText().toString().trim();
+
+        if (mCurrentPatientInvoicesUri == null &&
+                TextUtils.isEmpty(questionsNameString) &&
+                TextUtils.isEmpty(questionsPhoneString) &&
+                TextUtils.isEmpty(questionsEmailString) &&
+                TextUtils.isEmpty(questionsWebString)) {
+            return;
+        }
         ContentValues values = new ContentValues();
 
         if (TextUtils.isEmpty(questionsNameString)) {
@@ -363,8 +367,8 @@ return  view;
             values.put(ImsContract.InvoicesEntry.COLUMN_QUESTIONS_WEB, questionsWebString);
         }
 
-        if(mCurrentPatientInvoicesUri==null){
-            Uri newUri =getContext().getContentResolver().insert(ImsContract.InvoicesEntry.CONTENT_URI, values);
+        if (mCurrentPatientInvoicesUri == null) {
+            Uri newUri = getContext().getContentResolver().insert(ImsContract.InvoicesEntry.CONTENT_URI, values);
             if (newUri == null) {
                 Toast.makeText(getContext(), getString(R.string.editor_insert_patient_failed), Toast.LENGTH_SHORT).show();
             } else {
