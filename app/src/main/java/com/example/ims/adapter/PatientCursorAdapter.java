@@ -7,7 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.net.Uri;
-import android.text.TextUtils;
+import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +16,8 @@ import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
 
 import com.example.ims.R;
 import com.example.ims.ReceptionActivity;
@@ -31,11 +33,6 @@ import java.util.Date;
 public class PatientCursorAdapter extends CursorAdapter {
 
     private static final String TAG = PatientCursorAdapter.class.getSimpleName();
-    private int heightColumnIndex;
-    private Uri mCurrentPatientUri;
-    private ContentValues values;
-    public int id;
-
 
     public PatientCursorAdapter(Context context, Cursor c) {
         super(context, c, 0 /* flags */);
@@ -48,7 +45,7 @@ public class PatientCursorAdapter extends CursorAdapter {
     }
 
     @Override
-    public void bindView(final View view, final Context context, Cursor cursor) {
+    public void bindView(final View view, final Context context, final Cursor cursor) {
         TextView firstNameTextView = view.findViewById(R.id.text_first_name_and_list_name);
         TextView birthDateTextView = view.findViewById(R.id.text_birth_date);
         TextView weightTextView = view.findViewById(R.id.text_weight);
@@ -63,7 +60,7 @@ public class PatientCursorAdapter extends CursorAdapter {
         Button invoicesButton = view.findViewById(R.id.button_invoices);
 
         // Find the columns of patient attributes that we're interested in
-        final int idColumnIndex = cursor.getColumnIndex(PatientEntry._ID);
+        int patientIdColumnIndex = cursor.getColumnIndex(PatientEntry._ID);
         int firstNameColumnIndex = cursor.getColumnIndex(PatientEntry.COLUMN_FIRST_NAME);
         int lastNameColumnIndex = cursor.getColumnIndex(PatientEntry.COLUMN_LAST_NAME);
         int phoneNumberColumnIndex = cursor.getColumnIndex(PatientEntry.COLUMN_PHONE_NUMBER);
@@ -72,7 +69,7 @@ public class PatientCursorAdapter extends CursorAdapter {
         int weightColumnIndex = cursor.getColumnIndex(PatientEntry.COLUMN_WEIGHT);
         int heightColumnIndex = cursor.getColumnIndex(PatientEntry.COLUMN_HEIGHT);
 
-        id = cursor.getInt(idColumnIndex);
+        final int id = cursor.getInt(patientIdColumnIndex);
         String firstName = cursor.getString(firstNameColumnIndex);
         String lastName = cursor.getString(lastNameColumnIndex);
         String phoneNumber = cursor.getString(phoneNumberColumnIndex);
@@ -93,48 +90,52 @@ public class PatientCursorAdapter extends CursorAdapter {
         analysisLabButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Uri productUri = ContentUris.withAppendedId(PatientEntry.CONTENT_URI, id);
                 new ReceptionActivity().showTransferredToTheAnalysisLabDialog(context);
+                final Uri patientId = ContentUris.withAppendedId(PatientEntry.CONTENT_URI, id);
 
-//                final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-//                builder.setView(activity.mDialogTransferredToTheAnalysisLab);
-//                builder.setTitle("Transferred to the analysis lab");
-//                builder.setPositiveButton("Transfer", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        final Date date = new Date();
-//                        String dateString = Utils.formatDate(date);
-//
-//                        ContentValues values = new ContentValues();
-//                        values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_TRANSFER_DATE, dateString);
-//                        values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_ANALYSIS_NAME, "ANALYSIS_NAME 1");
-//                        values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_PATIENT_ID, String.valueOf(1));
-//
-//                        // Insert and update patient
-//                        if (mCurrentPatientUri == null) {
-//                            Uri newUri = context.getContentResolver().insert(ImsContract.PatientDataToAnalysisEntry.CONTENT_URI, values);
-//                            if (newUri == null) {
-////                        Toast.makeText(ReceptionActivity.this, "Abelaziz", Toast.LENGTH_SHORT).show();
-//                                Log.i(TAG, "Abdelaziz");
-//                            } else {
-////                        Toast.makeText(ReceptionActivity.this, "Mahmoud", Toast.LENGTH_SHORT).show();
-//                                Log.i(TAG, "Mahmoud");
-//                            }
-//                        }
-//                    }
-//                });
-//                builder.setNegativeButton("Decline", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        if (dialog != null) {
-//                            dialog.dismiss();
-//
-//                        }
-//                    }
-//                });
-//                AlertDialog alertDialog = builder.create();
-//                alertDialog.setCanceledOnTouchOutside(false);
-//                alertDialog.show();
+                final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setView(ReceptionActivity.mDialogTransferredToTheAnalysisLab);
+                builder.setTitle("Transferred to the analysis lab");
+
+                builder.setPositiveButton("Transfer", new DialogInterface.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.O)
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        final Date date = new Date();
+
+                        String dateString = Utils.formatDate(date);
+                        int mTypesOfAnalysis = ReceptionActivity.mTypesOfAnalysis;
+                        int idPatient = getIdPatient(context, patientId);
+
+                        ContentValues values = new ContentValues();
+                        values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_TRANSFER_DATE, dateString);
+                        values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_ANALYSIS_NAME, mTypesOfAnalysis);
+                        values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_PATIENT_ID, String.valueOf(idPatient));
+
+                        // Insert and update patient
+                        Uri newUri = context.getContentResolver().insert(ImsContract.PatientDataToAnalysisEntry.CONTENT_URI, values);
+                        if (newUri == null) {
+//                        Toast.makeText(ReceptionActivity.this, "Abelaziz", Toast.LENGTH_SHORT).show();
+                            Log.i(TAG, "Abdelaziz");
+                        } else {
+//                        Toast.makeText(ReceptionActivity.this, "Mahmoud", Toast.LENGTH_SHORT).show();
+                            Log.i(TAG, "Mahmoud");
+                        }
+                    }
+                });
+
+                builder.setNegativeButton("Decline", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (dialog != null) {
+                            dialog.dismiss();
+
+                        }
+                    }
+                });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.setCanceledOnTouchOutside(false);
+                alertDialog.show();
 
             }
         });
@@ -143,53 +144,20 @@ public class PatientCursorAdapter extends CursorAdapter {
         clinicButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri productUri = ContentUris.withAppendedId(PatientEntry.CONTENT_URI, id);
                 new ReceptionActivity().showTransferredToClinicsDialog(context);
+//                Uri productUri = ContentUris.withAppendedId(PatientEntry.CONTENT_URI, id);
 
                 final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setView(activity.mDialogTransferredToClinicsView);
+                builder.setView(ReceptionActivity.mDialogTransferredToClinicsView);
                 builder.setTitle("Transferred to clinics");
+
                 builder.setPositiveButton("Transfer", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        final Date date = new Date();
-
-                        if (mCurrentPatientUri == null
-                                && activity.mTheNamesOfTheClinics == ImsContract.PatientDataToClinicsEntry.CLINICS_UNKNOWN) {
-                            return;
-                        }
-                        values = new ContentValues();
-
-                        values.put(ImsContract.PatientDataToClinicsEntry.COLUMN_CLINIC_NAME, activity.mTheNamesOfTheClinics);
-
-                        if (TextUtils.isEmpty(date.toString())) {
-                            Toast.makeText(context, "First name is required", Toast.LENGTH_SHORT).show();
-                        } else {
-                            values.put(ImsContract.PatientDataToClinicsEntry.COLUMN_TRANSFER_DATE, date.toString());
-                        }
-                        if (id <= 0) {
-                            Toast.makeText(context, "retrun please ", Toast.LENGTH_SHORT).show();
-                        } else {
-                            values.put(ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID, id);
-                        }
-
-                        if (mCurrentPatientUri == null) {
-                            Uri newUri = context.getContentResolver().insert(ImsContract.PatientDataToClinicsEntry.CONTENT_URI,
-                                    values);
-                            if (newUri == null) {
-                                Toast.makeText(context, "falid", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(context, ":susccful", Toast.LENGTH_SHORT).show();
-                                Toast.makeText(context, ":susccful", Toast.LENGTH_SHORT).show();
-                                System.out.println(values);
-                                Log.i(TAG, values.toString());
-                            }
-                        } else {
-                            return;
-                        }
                     }
                 });
+
                 builder.setNegativeButton("Decline", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -198,6 +166,7 @@ public class PatientCursorAdapter extends CursorAdapter {
                         }
                     }
                 });
+
                 AlertDialog alertDialog = builder.create();
                 alertDialog.setCanceledOnTouchOutside(false);
                 alertDialog.show();
@@ -208,7 +177,6 @@ public class PatientCursorAdapter extends CursorAdapter {
         healthRecordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri productUri = ContentUris.withAppendedId(PatientEntry.CONTENT_URI, id);
                 ReceptionActivity.mFragmentManager.beginTransaction().replace(R.id.frame_layout_patient_records, new FragmentHealthRecord(), null).commit();
             }
         });
@@ -217,7 +185,6 @@ public class PatientCursorAdapter extends CursorAdapter {
         patientRecordsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri productUri = ContentUris.withAppendedId(PatientEntry.CONTENT_URI, id);
                 ReceptionActivity.mFragmentManager.beginTransaction().replace(R.id.frame_layout_patient_records, new FragmentPatientRecords(), null).commit();
             }
         });
@@ -226,7 +193,6 @@ public class PatientCursorAdapter extends CursorAdapter {
         invoicesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri productUri = ContentUris.withAppendedId(PatientEntry.CONTENT_URI, id);
                 ReceptionActivity.mFragmentManager.beginTransaction().replace(R.id.frame_layout_patient_records, new FragmentInvoices(id), null).commit();
             }
         });
@@ -260,6 +226,20 @@ public class PatientCursorAdapter extends CursorAdapter {
             // Show error message in Logs with info about fail update.
             Log.e(TAG, "Issue with upload value of quantity");
         }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private int getIdPatient(Context context, Uri currentPatientUri) {
+        int patientId = 0;
+        String[] projection = {PatientEntry._ID};
+        Cursor cursor = context.getContentResolver().query(currentPatientUri, projection, null, null);
+
+        assert cursor != null;
+        while (cursor.moveToNext()) {
+            int patientIdColumnIndex = cursor.getColumnIndex(PatientEntry._ID);
+            patientId = cursor.getInt(patientIdColumnIndex);
+        }
+        return patientId;
     }
 
 }

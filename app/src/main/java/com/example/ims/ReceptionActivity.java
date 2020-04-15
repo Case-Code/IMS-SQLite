@@ -71,7 +71,7 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
     private Spinner mTheNameOfTheClinicSpinner;
 
     private int mGender = PatientEntry.GENDER_UNKNOWN;
-    public int mTypesOfAnalysis = ImsContract.PatientDataToAnalysisEntry.ANALYSIS_UNKNOWN;
+    public static int mTypesOfAnalysis = ImsContract.PatientDataToAnalysisEntry.ANALYSIS_UNKNOWN;
     public int mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_UNKNOWN;
 
     public Uri mCurrentPatientUri;
@@ -247,7 +247,7 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
     }
 
     // Setup spinner types of analysis
-    private void setupSpinnerTypesOfAnalysis(Context context) {
+    public void setupSpinnerTypesOfAnalysis(Context context) {
         ArrayAdapter typeOfAnalysisSpinnerAdapter = ArrayAdapter.createFromResource(
                 context,
                 R.array.array_analysis_options,
@@ -463,52 +463,52 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
 
         setupSpinnerTypesOfAnalysis(context);
 
-        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setView(mDialogTransferredToTheAnalysisLab);
-        builder.setTitle("Transferred to the analysis lab");
-        builder.setPositiveButton("Transfer", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                final Date date = new Date();
-                String dateString = Utils.formatDate(date);
-
-                String[] projection = {PatientEntry._ID};
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    Cursor query = context.getContentResolver().query(mCurrentPatientUri, projection, null, null);
-                    int idPatientColumnIndex = query.getColumnIndex(PatientEntry.COLUMN_FIRST_NAME);
-                    int idPatient = query.getInt(idPatientColumnIndex);
-
-                    ContentValues values = new ContentValues();
-                    values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_TRANSFER_DATE, dateString);
-                    values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_ANALYSIS_NAME, mTypesOfAnalysis);
-                    values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_PATIENT_ID, idPatient);
-
-
-                    // Insert and update patient
-                        Uri newUri = context.getContentResolver().insert(ImsContract.PatientDataToAnalysisEntry.CONTENT_URI, values);
-                        if (newUri == null) {
-//                        Toast.makeText(ReceptionActivity.this, "Abelaziz", Toast.LENGTH_SHORT).show();
-                            Log.i(TAG, "Abdelaziz");
-                        } else {
-//                        Toast.makeText(ReceptionActivity.this, "Mahmoud", Toast.LENGTH_SHORT).show();
-                            Log.i(TAG, "Mahmoud");
-                        }
-
-                }
-            }
-        });
-        builder.setNegativeButton("Decline", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (dialog != null) {
-                    dialog.dismiss();
-
-                }
-            }
-        });
-        AlertDialog alertDialog = builder.create();
-        alertDialog.setCanceledOnTouchOutside(false);
-        alertDialog.show();
+//        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+//        builder.setView(mDialogTransferredToTheAnalysisLab);
+//        builder.setTitle("Transferred to the analysis lab");
+//        builder.setPositiveButton("Transfer", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                final Date date = new Date();
+//                String dateString = Utils.formatDate(date);
+//
+//                String[] projection = {PatientEntry._ID};
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                    Cursor query = context.getContentResolver().query(mCurrentPatientUri, projection, null, null);
+//                    int idPatientColumnIndex = query.getColumnIndex(PatientEntry.COLUMN_FIRST_NAME);
+//                    int idPatient = query.getInt(idPatientColumnIndex);
+//
+//                    ContentValues values = new ContentValues();
+//                    values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_TRANSFER_DATE, dateString);
+//                    values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_ANALYSIS_NAME, mTypesOfAnalysis);
+//                    values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_PATIENT_ID, idPatient);
+//
+//
+//                    // Insert and update patient
+//                        Uri newUri = context.getContentResolver().insert(ImsContract.PatientDataToAnalysisEntry.CONTENT_URI, values);
+//                        if (newUri == null) {
+////                        Toast.makeText(ReceptionActivity.this, "Abelaziz", Toast.LENGTH_SHORT).show();
+//                            Log.i(TAG, "Abdelaziz");
+//                        } else {
+////                        Toast.makeText(ReceptionActivity.this, "Mahmoud", Toast.LENGTH_SHORT).show();
+//                            Log.i(TAG, "Mahmoud");
+//                        }
+//
+//                }
+//            }
+//        });
+//        builder.setNegativeButton("Decline", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                if (dialog != null) {
+//                    dialog.dismiss();
+//
+//                }
+//            }
+//        });
+//        AlertDialog alertDialog = builder.create();
+//        alertDialog.setCanceledOnTouchOutside(false);
+//        alertDialog.show();
 
     }
 
@@ -696,7 +696,6 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
             if (data == null || data.getCount() < 1) {
                 return;
             }
-
 
             if (data.moveToFirst()) {
                 int firstNameColumnIndex = data.getColumnIndex(PatientEntry.COLUMN_FIRST_NAME);
