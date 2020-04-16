@@ -827,9 +827,9 @@ public class ImsProvider extends ContentProvider {
 
         // Procedure
         String procedure = values.getAsString(InvoicesEntry.COLUMN_PROCEDURE);
-       /* if (procedure == null) {
+        if (procedure == null) {
             throw new IllegalArgumentException("Invoices requires a procedure");
-        }*/
+        }
 
         // Patient id
         Integer patientId = values.getAsInteger(InvoicesEntry.COLUMN_PATIENT_ID);

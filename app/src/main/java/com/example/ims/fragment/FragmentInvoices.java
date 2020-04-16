@@ -1,9 +1,11 @@
 package com.example.ims.fragment;
 
 import android.app.DatePickerDialog;
+import android.app.LoaderManager;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Entity;
+import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -30,7 +32,7 @@ import com.example.logutil.Utils;
 import java.util.ArrayList;
 
 
-public class FragmentInvoices extends Fragment {
+public class FragmentInvoices extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -106,7 +108,6 @@ public class FragmentInvoices extends Fragment {
 
         subtotalEditText = view.findViewById(R.id.edit_sub_total);
         taxRateEditText = view.findViewById(R.id.edit_tex_rate);
-        ;
         totalTaxEditText = view.findViewById(R.id.edit_total_tax);
         otherEditText = view.findViewById(R.id.edit_other);
         totalEditText = view.findViewById(R.id.edit_total);
@@ -506,13 +507,8 @@ public class FragmentInvoices extends Fragment {
     }
 
     public void aVoid(int a){
-
         Uri uri = ImsContract.InvoicesEntry.CONTENT_URI;
-
-        Cursor cursor =
-                getActivity().getContentResolver().
-                query(uri, new String[]{ImsContract.InvoicesEntry.COLUMN_PATIENT_ID},
-                        String.valueOf(a), null, null);
+        Cursor cursor = getActivity().getContentResolver().query(uri, new String[]{ImsContract.InvoicesEntry.COLUMN_PATIENT_ID}, String.valueOf(a), null, null);
 
         cursor.moveToFirst();
         while (cursor.isAfterLast() == false) {
@@ -534,9 +530,21 @@ public class FragmentInvoices extends Fragment {
         }
         cursor.close();
 
-
-
     }
     private static final String TAG = FragmentInvoices.class.getSimpleName();
 
+    @Override
+    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+        return null;
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+
+    }
 }

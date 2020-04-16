@@ -194,8 +194,8 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:ems="10"
-                                    android:inputType="textPersonName"
-                                    android:hint="bill to name" />
+                                    android:hint="bill to name"
+                                    android:inputType="textPersonName" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -210,8 +210,8 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:ems="10"
-                                    android:inputType="phone"
-                                    android:hint="bill to phone" />
+                                    android:hint="bill to phone"
+                                    android:inputType="phone" />
 
                                 <EditText
                                     android:id="@+id/edit_bill_to_fax"
@@ -219,11 +219,9 @@
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
                                     android:ems="10"
-                                    android:inputType="number"
-                                    android:hint="bill to fix" />
-
+                                    android:hint="bill to fix"
+                                    android:inputType="number" />
                             </LinearLayout>
-
                         </LinearLayout>
 
                         <LinearLayout
@@ -238,8 +236,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:ems="10"
-                                android:inputType="textPersonName"
-                                android:hint="bill to adress" />
+                                android:hint="bill to adress"
+                                android:inputType="textPersonName" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -252,8 +250,8 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:ems="10"
-                                    android:inputType="textEmailAddress"
-                                    android:hint="bill to email" />
+                                    android:hint="bill to email"
+                                    android:inputType="textEmailAddress" />
 
                                 <Button
                                     android:id="@+id/button_billtosave"
@@ -265,9 +263,7 @@
 
                             </LinearLayout>
                         </LinearLayout>
-
                     </LinearLayout>
-
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -300,8 +296,8 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:ems="10"
-                            android:inputType="textPersonName"
-                            android:hint="svc id" />
+                            android:hint="svc id"
+                            android:inputType="textPersonName" />
 
                         <EditText
                             android:id="@+id/edit_medicalservis"
@@ -309,8 +305,8 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:ems="10"
-                            android:inputType="textPersonName"
-                            android:hint="medical services" />
+                            android:hint="medical services"
+                            android:inputType="textPersonName" />
 
                         <EditText
                             android:id="@+id/edit_medication"
@@ -318,8 +314,8 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:ems="10"
-                            android:inputType="textPersonName"
-                            android:hint="medication" />
+                            android:hint="medication"
+                            android:inputType="textPersonName" />
 
                         <EditText
                             android:id="@+id/edit_cost"
@@ -327,9 +323,8 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:ems="10"
-                            android:inputType="phone"
-
-                            android:hint="cost" />
+                            android:hint="cost"
+                            android:inputType="textPersonName" />
 
                         <Button
                             android:id="@+id/button_svcadd"
@@ -361,9 +356,8 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:ems="10"
-                            android:inputType="number"
-
-                            android:hint="suptotal" />
+                            android:hint="sup total"
+                            android:inputType="number" />
 
                         <EditText
                             android:id="@+id/edit_tex_rate"
@@ -371,9 +365,8 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:ems="10"
-                            android:inputType="number"
-
-                            android:hint="tax rate" />
+                            android:hint="tax rate"
+                            android:inputType="number" />
 
                         <EditText
                             android:id="@+id/edit_total_tax"
@@ -381,8 +374,8 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:ems="10"
-                            android:inputType="number"
-                            android:hint="total tax" />
+                            android:hint="total tax"
+                            android:inputType="number" />
 
                         <EditText
                             android:id="@+id/edit_other"
@@ -390,8 +383,8 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:ems="10"
-                            android:inputType="textPersonName"
-                            android:hint="other" />
+                            android:hint="other"
+                            android:inputType="textPersonName" />
 
                         <EditText
                             android:id="@+id/edit_total"
@@ -399,8 +392,8 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:ems="10"
-                            android:inputType="number"
-                            android:hint="totel" />
+                            android:hint="totel"
+                            android:inputType="number" />
 
                         <Button
                             android:id="@+id/button_totelsave"
@@ -458,14 +451,13 @@
                                 android:hint="questions name"
                                 android:inputType="textPersonName" />
 
-
                             <EditText
                                 android:id="@+id/edit_questions_phone"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:ems="10"
                                 android:hint="questions phone"
-                                android:inputType="number" />
+                                android:inputType="phone" />
 
                         </LinearLayout>
 
@@ -545,8 +537,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:ems="10"
-                        android:inputType="textPersonName"
-                        android:hint="procedure" />
+                        android:hint="procedure"
+                        android:inputType="textPersonName" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 

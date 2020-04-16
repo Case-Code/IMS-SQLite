@@ -112,7 +112,7 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
         mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCurrentPatientUri = (Uri) null;
+                mCurrentPatientUri = null;
                 showPatientRegistrationDialog();
             }
         });
@@ -291,47 +291,47 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
 
                 String selection = (String) parent.getItemAtPosition(position);
                 if (!TextUtils.isEmpty(selection)) {
-                    if (selection.equals("Endemic diseases")) { // TODO chane the text
+                    if (selection.equals("Endemic diseases")) {
                         mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_ENDEMIC_DISEASES;
-                    } else if (selection.equals("Medical and microbiological analyzes")) { // TODO chane the text
+                    } else if (selection.equals("Medical and microbiological analyzes")) {
                         mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_MEDICAL_AND_MICROBIOLOGICAL_ANALYZES;
-                    } else if (selection.equals("Psychological diseases")) { // TODO chane the text
+                    } else if (selection.equals("Psychological diseases")) {
                         mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_PSYCHOLOGICAL_DISEASES;
-                    } else if (selection.equals("Phonetic and phoneme")) { // TODO chane the text
+                    } else if (selection.equals("Phonetic and phoneme")) {
                         mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_PHONETIC_AND_PHONEME;
-                    } else if (selection.equals("Ear, nose and throat")) { // TODO chane the text
+                    } else if (selection.equals("Ear, nose and throat")) {
                         mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_EAR_NOSE_AND_THROAT;
-                    } else if (selection.equals("Colon and anus")) { // TODO chane the text
+                    } else if (selection.equals("Colon and anus")) {
                         mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_COLON_AND_ANUS;
-                    } else if (selection.equals("Blood vessels")) { // TODO chane the text
+                    } else if (selection.equals("Blood vessels")) {
                         mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_BLOOD_VESSELS;
-                    } else if (selection.equals("Endocrine glands")) { // TODO chane the text
+                    } else if (selection.equals("Endocrine glands")) {
                         mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_ENDOCRINE_GLANDS;
-                    } else if (selection.equals("Rheumatism and immunity")) { // TODO chane the text
+                    } else if (selection.equals("Rheumatism and immunity")) {
                         mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_RHEUMATISM_AND_IMMUNITY;
-                    } else if (selection.equals("Kidney")) { // TODO chane the text
+                    } else if (selection.equals("Kidney")) {
                         mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_KIDNEY;
-                    } else if (selection.equals("The pain")) { // TODO chane the text
+                    } else if (selection.equals("The pain")) {
                         mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_THE_PAIN;
-                    } else if (selection.equals("Chest's diseases")) { // TODO chane the text
+                    } else if (selection.equals("Chest's diseases")) {
                         mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_CHESTS_DISEASES;
-                    } else if (selection.equals("Heart drawing")) { // TODO chane the text
+                    } else if (selection.equals("Heart drawing")) {
                         mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_HEART_DRAWING;
-                    } else if (selection.equals("Cardiothoracic surgery")) { // TODO chane the text
+                    } else if (selection.equals("Cardiothoracic surgery")) {
                         mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_CARDIOTHORACIC_SURGERY;
-                    } else if (selection.equals("Fertility unit")) { // TODO chane the text
+                    } else if (selection.equals("Fertility unit")) {
                         mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_FERTILITY_UNIT;
-                    } else if (selection.equals("General interior")) { // TODO chane the text
+                    } else if (selection.equals("General interior")) {
                         mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_GENERAL_INTERIOR;
-                    } else if (selection.equals("Rheumatism and rehabilitation")) { // TODO chane the text
+                    } else if (selection.equals("Rheumatism and rehabilitation")) {
                         mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_RHEUMATISM_AND_REHABILITATION;
-                    } else if (selection.equals("Plastic surgery")) { // TODO chane the text
+                    } else if (selection.equals("Plastic surgery")) {
                         mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_PLASTIC_SURGERY;
-                    } else if (selection.equals("General surgery")) { // TODO chane the text
+                    } else if (selection.equals("General surgery")) {
                         mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_GENERAL_SURGERY;
-                    } else if (selection.equals("Oncology and nuclear medicine")) { // TODO chane the text
+                    } else if (selection.equals("Oncology and nuclear medicine")) {
                         mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_ONCOLOGY_AND_NUCLEAR_MEDICINE;
-                    } else if (selection.equals("Leather and genital")) { // TODO chane the text
+                    } else if (selection.equals("Leather and genital")) {
                         mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_LEATHER_AND_GENITAL;
                     } else {
                         mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_UNKNOWN;
@@ -559,7 +559,7 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
                 Toast.makeText(this, getString(R.string.editor_update_patient_failed), Toast.LENGTH_SHORT).show();
             } else {
                 getLoaderManager().destroyLoader(PATIENT_UPDATE_LOADER);
-                mCurrentPatientUri = (Uri) null;
+                mCurrentPatientUri = null;
                 Toast.makeText(this, getString(R.string.editor_update_patient_successful), Toast.LENGTH_SHORT).show();
             }
         }
@@ -572,7 +572,7 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
             if (rowsDeleted == 0) {
                 Toast.makeText(this, getString(R.string.editor_delete_patient_failed), Toast.LENGTH_SHORT).show();
             } else {
-                mCurrentPatientUri = (Uri) null;
+                mCurrentPatientUri = null;
                 Toast.makeText(this, getString(R.string.editor_delete_patient_successful), Toast.LENGTH_SHORT).show();
             }
         }

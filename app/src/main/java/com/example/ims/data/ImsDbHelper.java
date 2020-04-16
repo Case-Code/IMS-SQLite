@@ -12,7 +12,7 @@ import com.example.ims.data.ImsContract.*;
  * Database helper for IMS app. Manages database creation and version management.
  */
 public class ImsDbHelper extends SQLiteOpenHelper {
-    Context context;
+
     //  Name of the database file
     private static final String DATABASE_NAME = "ims.db";
 
