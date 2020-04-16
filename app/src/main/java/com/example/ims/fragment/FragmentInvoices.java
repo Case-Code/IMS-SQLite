@@ -1,11 +1,11 @@
 package com.example.ims.fragment;
 
 import android.app.DatePickerDialog;
-import android.app.LoaderManager;
-import android.content.ContentUris;
+
+
 import android.content.ContentValues;
-import android.content.Entity;
-import android.content.Loader;
+
+import android.app.LoaderManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,20 +19,19 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.Loader;
+
+
 
 import androidx.fragment.app.Fragment;
 
-import com.example.ims.ReceptionActivity;
 import com.example.ims.adapter.InvoicesCursorAdapter;
 import com.example.ims.R;
-import com.example.ims.adapter.PatientCursorAdapter;
 import com.example.ims.data.ImsContract;
 import com.example.logutil.Utils;
 
-import java.util.ArrayList;
 
-
-public class FragmentInvoices extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
+public class FragmentInvoices extends Fragment implements  LoaderManager.LoaderCallbacks<Cursor> {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -78,6 +77,8 @@ public class FragmentInvoices extends Fragment implements LoaderManager.LoaderCa
     // TODO: Rename and change types of parameters
     public int id;
     private String mParam2;
+    private static final int PATIENT_REGISTRATION_LOADER = 1;
+
 
 
     View view;
@@ -145,7 +146,7 @@ public class FragmentInvoices extends Fragment implements LoaderManager.LoaderCa
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        aVoid(id);
+
 
 
     }
@@ -165,7 +166,7 @@ public class FragmentInvoices extends Fragment implements LoaderManager.LoaderCa
 
         String patientIdstring =String.valueOf(id);
         patientIdTextView.setText(patientIdstring);
-        aVoid(id);
+
 
 
 
@@ -268,6 +269,7 @@ public class FragmentInvoices extends Fragment implements LoaderManager.LoaderCa
             }
         });
 
+        getLoaderManager().initLoader()
 
         return view;
 
@@ -321,11 +323,11 @@ public class FragmentInvoices extends Fragment implements LoaderManager.LoaderCa
     public void billToSave() {
 
 
+        String billFaxString = billFixEditText.getText().toString().trim();
         String billNameString = billNameEditText.getText().toString().trim();
         String billAddressString = billAddressEditText.getText().toString().trim();
         String billEmailString = billEmailEditText.getText().toString().trim();
         String billPhoneString = billPhoneEditText.getText().toString().trim();
-        String billFaxString = billFixEditText.getText().toString().trim();
 
 
         if (mCurrentPatientInvoicesUri == null &&
@@ -506,7 +508,7 @@ public class FragmentInvoices extends Fragment implements LoaderManager.LoaderCa
 
     }
 
-    public void aVoid(int a){
+  /*  public void aVoid(int a){
         Uri uri = ImsContract.InvoicesEntry.CONTENT_URI;
         Cursor cursor = getActivity().getContentResolver().query(uri, new String[]{ImsContract.InvoicesEntry.COLUMN_PATIENT_ID}, String.valueOf(a), null, null);
 
@@ -530,21 +532,202 @@ public class FragmentInvoices extends Fragment implements LoaderManager.LoaderCa
         }
         cursor.close();
 
-    }
+    }*/
+    public Uri mCurrentPatientUri;
     private static final String TAG = FragmentInvoices.class.getSimpleName();
 
     @Override
-    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        return null;
-    }
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+
+        String[] projection =
+                {
+                ImsContract.InvoicesEntry._ID,
+                ImsContract.InvoicesEntry.COLUMN_DATE_OF_SVC,
+                ImsContract.InvoicesEntry.COLUMN_INVOICE_DATE,
+                ImsContract.InvoicesEntry.COLUMN_DATE_DUE,
+                ImsContract.InvoicesEntry.COLUMN_BILL_TO_NAME,
+                ImsContract.InvoicesEntry.COLUMN_BILL_TO_ADDRESS,
+                ImsContract.InvoicesEntry.COLUMN_BILL_TO_PHONE,
+                ImsContract.InvoicesEntry.COLUMN_BILL_TO_FAX,
+                ImsContract.InvoicesEntry.COLUMN_BILL_TO_EMAIL,
+                ImsContract.InvoicesEntry.COLUMN_SVC_ID,
+                ImsContract.InvoicesEntry.COLUMN_MEDICAL_SERVICES,
+                ImsContract.InvoicesEntry.COLUMN_MEDICATION,
+                ImsContract.InvoicesEntry.COLUMN_COST,
+                ImsContract.InvoicesEntry.COLUMN_SUBTOTAL,
+                ImsContract.InvoicesEntry.COLUMN_TAX_RATE,
+                ImsContract.InvoicesEntry.COLUMN_TOTAL_TAX,
+                ImsContract.InvoicesEntry.COLUMN_OTHER,
+                ImsContract.InvoicesEntry.COLUMN_TOTAL,
+                ImsContract.InvoicesEntry.COLUMN_QUESTIONS_NAME,
+                ImsContract.InvoicesEntry.COLUMN_QUESTIONS_EMAIL,
+                ImsContract.InvoicesEntry.COLUMN_QUESTIONS_PHONE,
+                ImsContract.InvoicesEntry.COLUMN_QUESTIONS_WEB,
+                ImsContract.InvoicesEntry.COLUMN_PROCEDURE,
+                ImsContract.InvoicesEntry.COLUMN_PATIENT_ID
+               };
+
+
+        if (mCurrentPatientUri == null) {
+            return new CursorLoader(this.getActivity(),
+                    ImsContract.PatientEntry.CONTENT_URI,
+                    projection,
+                    null,
+                    null,
+                    null);
+        } else {
+            return new CursorLoader(this.getActivity(),
+                    mCurrentPatientUri,
+                    projection,
+                    null,
+                    null,
+                    null);
+        }    }
+
+
+
 
     @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        if (mCurrentPatientUri == null) {
+            //  mPatientCursorAdapter.swapCursor(data);
+        } else {
 
+            if (data == null || data.getCount() < 1) {
+                return;
+            }
+
+            if (data.moveToFirst()) {
+                int dateOfSvcColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_DATE_OF_SVC);
+                int invoiceColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_INVOICE_DATE);
+                int dateDueColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_DATE_DUE);
+                int billToNameColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_BILL_TO_NAME);
+                int billToAddressColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_BILL_TO_ADDRESS);
+                int billToPhoneColumnIndex = data.getColumnIndex( ImsContract.InvoicesEntry.COLUMN_BILL_TO_PHONE);
+                int billToFaxColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_BILL_TO_FAX);
+                int billToEmailColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_BILL_TO_EMAIL);
+                int svcIdColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_SVC_ID);
+                int medicalServicesColumnIndex = data.getColumnIndex( ImsContract.InvoicesEntry.COLUMN_MEDICAL_SERVICES);
+                int medicationColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_MEDICATION);
+                int costColumnIndex = data.getColumnIndex( ImsContract.InvoicesEntry.COLUMN_COST);
+                int supTotalColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_SUBTOTAL);
+                int taxRateColumnIndex = data.getColumnIndex( ImsContract.InvoicesEntry.COLUMN_TAX_RATE);
+                int totalTaxColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_TOTAL_TAX);
+                int otherColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_OTHER);
+                int totalColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_TOTAL);
+                int questionsNameColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_QUESTIONS_NAME);
+                int questionsEmailColumnIndex = data.getColumnIndex( ImsContract.InvoicesEntry.COLUMN_QUESTIONS_EMAIL);
+                int questionsPhoneColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_QUESTIONS_PHONE);
+                int questionsWebColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_QUESTIONS_WEB);
+                int procedureColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_PROCEDURE);
+                int patientIdColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_PATIENT_ID);
+
+
+
+                String dateOfSvc = data.getString(dateOfSvcColumnIndex);
+                String invoice = data.getString(invoiceColumnIndex);
+                String dateDue = data.getString(dateDueColumnIndex);
+                String billToName = data.getString(billToNameColumnIndex);
+                String billToAddress= data.getString(billToAddressColumnIndex);
+                String billToPhone = data.getString(billToPhoneColumnIndex);
+                String billToFax= data.getString(billToFaxColumnIndex);
+                String billToEmail= data.getString(billToEmailColumnIndex);
+                String svcId= data.getString(svcIdColumnIndex);
+                String medicalServices= data.getString(medicalServicesColumnIndex);
+                String medication= data.getString(medicationColumnIndex);
+                String  cost= data.getString(costColumnIndex);
+                String  supTotal= data.getString(supTotalColumnIndex);
+                String  taxRate= data.getString(taxRateColumnIndex);
+                String totalTax = data.getString(totalTaxColumnIndex);
+                String other = data.getString(otherColumnIndex);
+                String total = data.getString(totalColumnIndex);
+                String questionsName = data.getString(questionsNameColumnIndex);
+                String questionsEmail = data.getString(questionsEmailColumnIndex);
+                String  questionsPhone= data.getString(questionsPhoneColumnIndex);
+                String questionsWeb = data.getString(questionsWebColumnIndex);
+                String procedure = data.getString(procedureColumnIndex);
+                String patientId = data.getString(patientIdColumnIndex);
+
+
+
+                patientIdTextView.setText(patientId);
+                dateOfSvcTextView.setText(dateOfSvc);
+                invoiceDateTextView.setText(invoice);
+                dateDueTextView.setText(dateDue);
+
+                billFixEditText.setText(billToFax);
+                billNameEditText.setText(billToName);
+                billAddressEditText.setText(billToAddress);
+                billEmailEditText.setText(billToEmail);
+                billPhoneEditText.setText(billToPhone);
+
+                svcIdEditText.setText(svcId);
+                medicalServicesEditText.setText(medicalServices);
+                medicationEditText.setText(medication);
+                costEditText.setText(cost);
+                subtotalEditText.setText(supTotal);
+                taxRateEditText.setText(taxRate);
+                totalTaxEditText.setText(totalTax);
+                otherEditText.setText(other);
+                totalEditText.setText(total);
+
+                questionsNameEditText.setText(questionsName);
+                questionsPhoneEditText.setText(questionsPhone);
+                questionEmailEditText.setText(questionsEmail);
+                questionsWebEditText.setText(questionsWeb);
+                procedureEditText.setText(procedure);
+
+
+
+
+
+
+            }
+        }
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
 
+        if (mCurrentPatientUri == null) {
+
+        } else {
+            patientIdTextView.setText("");
+            dateOfSvcTextView.setText("");
+            invoiceDateTextView.setText("");
+            dateDueTextView.setText("");
+            billFixEditText.setText("");
+            billNameEditText.setText("");
+            billAddressEditText.setText("");
+            billEmailEditText.setText("");
+            billPhoneEditText.setText("");
+
+            svcIdEditText.setText("");
+            medicalServicesEditText.setText("");
+            medicationEditText.setText("");
+            costEditText.setText("");
+            subtotalEditText.setText("");
+            taxRateEditText.setText("");
+            totalTaxEditText.setText("");
+            otherEditText.setText("");
+            totalEditText.setText("");
+
+            questionsNameEditText.setText("");
+            questionsPhoneEditText.setText("");
+            questionEmailEditText.setText("");
+            questionsWebEditText.setText("");
+            procedureEditText.setText("");
+
+
+
+
+
+
+        }
+
     }
+
+
+
+
 }

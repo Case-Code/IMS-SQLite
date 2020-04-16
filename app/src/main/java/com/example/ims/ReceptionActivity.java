@@ -43,7 +43,8 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.Date;
 
-public class ReceptionActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, LoaderManager.LoaderCallbacks<Cursor> {
+public class ReceptionActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
+        LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final String TAG = ReceptionActivity.class.getSimpleName();
 
@@ -577,6 +578,7 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
             }
         }
     }
+
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
