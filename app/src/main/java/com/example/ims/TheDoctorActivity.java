@@ -187,7 +187,6 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
         }
 
         Uri uri = ImsContract.PatientEntry.CONTENT_URI;
-        String[] selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
         Cursor cursor = getContentResolver().query(uri, new String[]{ImsContract.PatientEntry.COLUMN_FIRST_NAME}, null, null, "ASC");
         cursor.moveToFirst();
         while (cursor.isAfterLast() == false) {
@@ -215,7 +214,8 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
         edittext = mDialogTransferredToClinicsView.findViewById(R.id.tv_search_patient_clinic);
         ArrayList arr = new ArrayList();
         Uri uri = ImsContract.PatientEntry.CONTENT_URI;
-        Cursor cursor = getContentResolver().query(uri, new String[]{ImsContract.PatientEntry.COLUMN_FIRST_NAME}, null, null, ImsContract.PatientEntry.COLUMN_FIRST_NAME);
+        Cursor cursor = getContentResolver().query(uri, new String[]{ImsContract.PatientEntry.COLUMN_FIRST_NAME},
+                null, null, ImsContract.PatientEntry.COLUMN_FIRST_NAME);
         cursor.moveToFirst();
         while (cursor.isAfterLast() == false) {
 
@@ -224,7 +224,7 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
             if (patientname != null) {
                 arr.add(patientname);
             }
-            patientname = null;
+
             cursor.moveToNext();
 
         }

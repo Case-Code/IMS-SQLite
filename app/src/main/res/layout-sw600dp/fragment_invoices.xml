@@ -327,7 +327,8 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:ems="10"
-                            android:inputType="textPersonName"
+                            android:inputType="phone"
+
                             android:hint="cost" />
 
                         <Button
@@ -360,7 +361,8 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:ems="10"
-                            android:inputType="textPersonName"
+                            android:inputType="number"
+
                             android:hint="suptotal" />
 
                         <EditText
@@ -369,7 +371,8 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:ems="10"
-                            android:inputType="textPersonName"
+                            android:inputType="number"
+
                             android:hint="tax rate" />
 
                         <EditText
@@ -378,7 +381,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:ems="10"
-                            android:inputType="textPersonName"
+                            android:inputType="number"
                             android:hint="total tax" />
 
                         <EditText
@@ -396,7 +399,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:ems="10"
-                            android:inputType="textPersonName"
+                            android:inputType="number"
                             android:hint="totel" />
 
                         <Button
@@ -462,7 +465,7 @@
                                 android:layout_height="wrap_content"
                                 android:ems="10"
                                 android:hint="questions phone"
-                                android:inputType="textEmailAddress" />
+                                android:inputType="number" />
 
                         </LinearLayout>
 

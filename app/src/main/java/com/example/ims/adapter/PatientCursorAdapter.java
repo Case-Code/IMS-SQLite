@@ -138,10 +138,14 @@ public class PatientCursorAdapter extends CursorAdapter {
 
         // Clinic
         clinicButton.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(final View v) {
-                new ReceptionActivity().showTransferredToClinicsDialog(context);
                 final Uri patientId = ContentUris.withAppendedId(PatientEntry.CONTENT_URI, id);
+
+                int idPatient = getIdPatient(context, patientId);
+                Log.e(TAG ,"patientid::::"+idPatient);
+                new ReceptionActivity().showTransferredToClinicsDialog(context);
 
                 final AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setView(ReceptionActivity.mDialogTransferredToClinicsView);
@@ -156,6 +160,7 @@ public class PatientCursorAdapter extends CursorAdapter {
                         String dateString = Utils.formatDate(date);
                         int theNamesOfTheClinics = ReceptionActivity.mTheNamesOfTheClinics;
                         int idPatient = getIdPatient(context, patientId);
+                        Log.e(TAG ,"patientid::::"+idPatient);
 
                         ContentValues values = new ContentValues();
                         values.put(ImsContract.PatientDataToClinicsEntry.COLUMN_TRANSFER_DATE, dateString);
@@ -189,25 +194,42 @@ public class PatientCursorAdapter extends CursorAdapter {
 
         // Health record
         healthRecordButton.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
+                final Uri patientId = ContentUris.withAppendedId(PatientEntry.CONTENT_URI, id);
+
+                int idPatient = getIdPatient(context, patientId);
+                Log.e(TAG ,"patientid::::"+idPatient);
                 ReceptionActivity.mFragmentManager.beginTransaction().replace(R.id.frame_layout_patient_records, new FragmentHealthRecord(), null).commit();
             }
         });
 
         // Patient records
         patientRecordsButton.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
+                final Uri patientId = ContentUris.withAppendedId(PatientEntry.CONTENT_URI, id);
+
+                int idPatient = getIdPatient(context, patientId);
+                Log.e(TAG ,"patientid::::"+idPatient);
                 ReceptionActivity.mFragmentManager.beginTransaction().replace(R.id.frame_layout_patient_records, new FragmentPatientRecords(), null).commit();
             }
         });
 
         // Invoices
         invoicesButton.setOnClickListener(new View.OnClickListener() {
+
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
-                ReceptionActivity.mFragmentManager.beginTransaction().replace(R.id.frame_layout_patient_records, new FragmentInvoices(id), null).commit();
+                final Uri patientId = ContentUris.withAppendedId(PatientEntry.CONTENT_URI, id);
+
+                int idPatient = getIdPatient(context, patientId);
+                Log.e(TAG ,"patientid::::"+idPatient);
+                ReceptionActivity.mFragmentManager.beginTransaction().replace(R.id.frame_layout_patient_records,
+                        new FragmentInvoices(idPatient), null).commit();
             }
         });
     }
