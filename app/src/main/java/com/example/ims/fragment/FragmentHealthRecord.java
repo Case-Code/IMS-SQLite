@@ -1,21 +1,26 @@
 package com.example.ims.fragment;
 
+import android.app.DatePickerDialog;
 import android.content.ContentValues;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
 import com.example.ims.R;
 import com.example.ims.data.ImsContract;
+import com.example.logutil.Utils;
 
 
 /**
@@ -68,15 +73,18 @@ public class FragmentHealthRecord extends Fragment {
     TextView vaccinesHistoryTextView;
     Spinner vaccinesSpinner;
     ListView vaccinesListView;
-    ContentValues values;
+   // ContentValues values;
     View view;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    int id ;
 
 
-    public FragmentHealthRecord() {
+    public FragmentHealthRecord(int patientId) {
         // Required empty public constructor
+        this.id=patientId;
+
     }
 
     /**
@@ -89,7 +97,7 @@ public class FragmentHealthRecord extends Fragment {
      */
     // TODO: Rename and change types and number of parameters
     public static FragmentHealthRecord newInstance(String param1, String param2) {
-        FragmentHealthRecord fragment = new FragmentHealthRecord();
+        FragmentHealthRecord fragment = new FragmentHealthRecord(0);
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -98,14 +106,11 @@ public class FragmentHealthRecord extends Fragment {
     }
 
     public void savePatient() {
-        String
-                patientPhysicianNameString =
-                patientPhysicianNameEditText.getText().toString().trim();
+        String patientPhysicianNameString =patientPhysicianNameEditText.getText().toString().trim();
         String patientPharmacyNameString = patientPharmacyNameEditText.getText().toString().trim();
         String patientPharmacyPhoneString = patientPharmacyPhoneEditText.getText().toString().trim();
         String patientDoctorPhoneString = patientDoctorPhoneEditText.getText().toString().trim();
         String patientDateLastUpdateString = patientDateLastUpdateTextView.getText().toString().trim();
-        String patientIdString = "23";
 
         if(TextUtils.isEmpty(patientPhysicianNameString)
         &&TextUtils.isEmpty(patientPharmacyNameString)
@@ -120,7 +125,7 @@ public class FragmentHealthRecord extends Fragment {
 
             return;
         }
-
+ContentValues values = new ContentValues();
             if (TextUtils.isEmpty(patientPhysicianNameString)) {
                 patientPhysicianNameEditText.setError("please write to name");
                 return;
@@ -156,14 +161,102 @@ public class FragmentHealthRecord extends Fragment {
             } else {
                 values.put(ImsContract.HealthRecordEntry.COLUMN_DATE_OF_THE_LAST_UPDATE, patientDateLastUpdateString);
             }
-            if (TextUtils.isEmpty(patientIdString)) {
+            if (TextUtils.isEmpty(String.valueOf(id))) {
                 return;
 
             } else {
-                values.put(ImsContract.HealthRecordEntry.COLUMN_PATIENT_ID, patientIdString);
+                values.put(ImsContract.HealthRecordEntry.COLUMN_PATIENT_ID, id);
             }
+        Uri newUri =
+                getContext().getContentResolver().insert(ImsContract.InvoicesEntry.CONTENT_URI, values);
+        if (newUri == null) {
+            Toast.makeText(getContext(), getString(R.string.editor_insert_patient_failed), Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getContext(), getString(R.string.editor_insert_patient_successful), Toast.LENGTH_SHORT).show();
+        }
 
+    }
 
+    public void saveMedications(){
+
+        String medicationMedicamentNameString = medicationMedicamentNameEditText.getText().toString().trim();
+        String medicationPhysicianString =  medicationPhysicianEditText.getText().toString().trim();
+        String medicationPurposeString = medicationPurposeEditText.getText().toString().trim();
+        String medicationFREQString = medicationFREQEditText.getText().toString().trim();
+        String medicationDosageString = medicationDosageEditText.getText().toString().trim();
+        String medicationStartDateString =  medicationStartDateTextView.getText().toString().trim();
+        String medicationEndDateString= medicationEndDateTextView.getText().toString().trim();
+
+        if(TextUtils.isEmpty(medicationMedicamentNameString)
+                &&TextUtils.isEmpty(medicationPhysicianString)
+                &&TextUtils.isEmpty(medicationPurposeString)&&
+                TextUtils.isEmpty(medicationFREQString)&&
+                TextUtils.isEmpty(medicationEndDateString)&&
+                TextUtils.isEmpty(medicationStartDateString)&&
+                TextUtils.isEmpty(medicationDosageString)
+
+        ) {
+            medicationMedicamentNameEditText.setError("please write to name");
+            medicationPhysicianEditText.setError("please write to name");
+            medicationPurposeEditText.setError("please write to name");
+
+            return;
+        }
+        ContentValues values = new ContentValues();
+        if (TextUtils.isEmpty(medicationStartDateString)) {
+            patientPhysicianNameEditText.setError("please write to name");
+            return;
+
+        } else {
+            values.put(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_START_DATE, medicationStartDateString);
+        }
+        if (TextUtils.isEmpty(medicationEndDateString)) {
+            patientPhysicianNameEditText.setError("please write to name");
+            return;
+
+        } else {
+            values.put(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_END_DATE, medicationEndDateString);
+        }
+        if (TextUtils.isEmpty(medicationMedicamentNameString)) {
+            return;
+
+        } else {
+          //  values.put(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_PHYSICIAN, medicationMedicamentNameString);
+        }
+        if (TextUtils.isEmpty(medicationPhysicianString)) {
+            return;
+
+        } else {
+            values.put(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_PHYSICIAN, medicationPhysicianString);
+        }
+        if (TextUtils.isEmpty(medicationPurposeString)) {
+            return;
+
+        } else {
+            values.put(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_PURPOSE, medicationPurposeString);
+        }
+        if (TextUtils.isEmpty(medicationFREQString)) {
+            return;
+
+        } else {
+            values.put(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_FREQ, medicationFREQString);
+        }
+        if (TextUtils.isEmpty(medicationDosageString)) {
+          } else {
+            values.put(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_DOSAGE, medicationDosageString); }
+        if (TextUtils.isEmpty(String.valueOf(id))) {
+            return;
+
+        } else {
+            values.put(ImsContract.MedicineRegistryEntry., id);
+        }
+        Uri newUri =
+                getContext().getContentResolver().insert(ImsContract.CurrentAndPastMedicationsEntry.CONTENT_URI, values);
+        if (newUri == null) {
+            Toast.makeText(getContext(), getString(R.string.editor_insert_patient_failed), Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getContext(), getString(R.string.editor_insert_patient_successful), Toast.LENGTH_SHORT).show();
+        }
 
     }
 
@@ -250,6 +343,20 @@ public class FragmentHealthRecord extends Fragment {
         view = inflater.inflate(R.layout.fragment_health_record, container, false);
 
         init();
+        patientDateLastUpdateTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        month += 1;
+                        String date = month + "/" + dayOfMonth + "/" + year;
+                        patientDateLastUpdateTextView.setText(date);
+                    }
+                };
+                Utils.showDatePicker(getContext(), dateSetListener);
+            }
+        });
 
         patientSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -257,6 +364,14 @@ public class FragmentHealthRecord extends Fragment {
                 savePatient();
             }
         });
+
+        majorAddButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
 
         return view;
     }

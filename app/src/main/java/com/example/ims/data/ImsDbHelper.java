@@ -102,7 +102,8 @@ public class ImsDbHelper extends SQLiteOpenHelper {
             + HealthRecordEntry.COLUMN_PATIENT_ID + " INTEGER NOT NULL); ";
 
     // Create a String that contains the SQL statement to create the 'current and past medications' table
-    private static final String SQL_CREATE_CURRENT_AND_PAST_MEDICATIONS_TABLE = "CREATE TABLE IF NOT EXISTS " + CurrentAndPastMedicationsEntry.TABLE_NAME + " ("
+    private static final String SQL_CREATE_CURRENT_AND_PAST_MEDICATIONS_TABLE = "CREATE TABLE IF NOT EXISTS " +
+            CurrentAndPastMedicationsEntry.TABLE_NAME + " ("
             + CurrentAndPastMedicationsEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + CurrentAndPastMedicationsEntry.COLUMN_PHYSICIAN + " TEXT NOT NULL, "
             + CurrentAndPastMedicationsEntry.COLUMN_DOSAGE + " TEXT NOT NULL, "

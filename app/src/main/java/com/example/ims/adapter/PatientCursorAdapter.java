@@ -201,7 +201,8 @@ public class PatientCursorAdapter extends CursorAdapter {
 
                 int idPatient = getIdPatient(context, patientId);
                 Log.e(TAG ,"patientid::::"+idPatient);
-                ReceptionActivity.mFragmentManager.beginTransaction().replace(R.id.frame_layout_patient_records, new FragmentHealthRecord(), null).commit();
+                ReceptionActivity.mFragmentManager.beginTransaction().replace(R.id.frame_layout_patient_records,
+                        new FragmentHealthRecord(idPatient), null).commit();
             }
         });
 
