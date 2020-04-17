@@ -253,7 +253,7 @@
                                 android:text="00/00/0000" />
 
                             <Button
-                                android:id="@+id/button"
+                                android:id="@+id/button_health_record_medications_save"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="120dp"

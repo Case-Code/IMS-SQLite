@@ -38,7 +38,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/textView15"
+                        android:id="@+id/text_health_record_patient_name"
                         android:layout_width="292dp"
                         android:layout_height="wrap_content"
                         android:text="Patient name:" />
@@ -50,7 +50,7 @@
                         android:text="Date of the last update:" />
 
                     <TextView
-                        android:id="@+id/textView19"
+                        android:id="@+id/text_health_record_patient_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -64,7 +64,7 @@
                     android:weightSum="1">
 
                     <EditText
-                        android:id="@+id/editText15"
+                        android:id="@+id/edit_health_record_patient_physiscian_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
@@ -74,7 +74,7 @@
                         android:textSize="14sp" />
 
                     <EditText
-                        android:id="@+id/editText17"
+                        android:id="@+id/edit_health_record_patient_doctor_phone"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
@@ -91,7 +91,7 @@
                     android:weightSum="1">
 
                     <EditText
-                        android:id="@+id/editText39"
+                        android:id="@+id/edit_health_record_patient_pharmacy_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
@@ -101,7 +101,7 @@
                         android:textSize="14sp" />
 
                     <EditText
-                        android:id="@+id/editText18"
+                        android:id="@+id/edit_health_record_patient_Pharmacy_phone"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.4"
@@ -111,7 +111,7 @@
                         android:textSize="14sp" />
 
                     <Button
-                        android:id="@+id/button6"
+                        android:id="@+id/button_health_record_patient_save"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.1"
@@ -140,7 +140,7 @@
                     android:weightSum="1">
 
                     <EditText
-                        android:id="@+id/editText16"
+                        android:id="@+id/edit_health_record__medications_medicament_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
@@ -150,7 +150,7 @@
                         android:textSize="14sp" />
 
                     <EditText
-                        android:id="@+id/editText47"
+                        android:id="@+id/edit_health_record_medications_physiscian"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
@@ -168,7 +168,7 @@
                     android:weightSum="1">
 
                     <EditText
-                        android:id="@+id/editText51"
+                        android:id="@+id/edit_health_record_medications_dosage"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.25"
@@ -178,7 +178,7 @@
                         android:textSize="14sp" />
 
                     <EditText
-                        android:id="@+id/editText50"
+                        android:id="@+id/edit_health_record_medications_freq"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.25"
@@ -188,7 +188,7 @@
                         android:textSize="14sp" />
 
                     <EditText
-                        android:id="@+id/editText49"
+                        android:id="@+id/edit_health_record_medications_purpose"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.50"
@@ -210,7 +210,7 @@
                         android:text="start date:" />
 
                     <TextView
-                        android:id="@+id/textView55"
+                        android:id="@+id/text_health_record_medications_start_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="00/00/0000" />
@@ -223,13 +223,13 @@
                         android:text="end date:" />
 
                     <TextView
-                        android:id="@+id/textView57"
+                        android:id="@+id/text_health_record_medications_end_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="00/00/0000" />
 
                     <Button
-                        android:id="@+id/button7"
+                        android:id="@+id/button_health_record_medications_save"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="200dp"
@@ -260,7 +260,7 @@
                         android:text="Major illnesses" />
 
                     <EditText
-                        android:id="@+id/editText52"
+                        android:id="@+id/edit_health_record_Major_illness"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -279,6 +279,7 @@
                             android:text="start date:" />
 
                         <TextView
+                            android:id="@+id/text_health_record_Major_start_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="00/00/0000" />
@@ -290,13 +291,14 @@
                             android:text="end date:" />
 
                         <TextView
+                            android:id="@+id/text_health_record_Major_end_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="00/00/0000" />
                     </LinearLayout>
 
                     <EditText
-                        android:id="@+id/editText53"
+                        android:id="@+id/edit_health_record_Major_physician"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -310,7 +312,7 @@
                         android:orientation="horizontal">
 
                         <EditText
-                            android:id="@+id/editText54"
+                            android:id="@+id/edit_health_record_major_notes"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -320,7 +322,7 @@
                             android:textSize="14sp" />
 
                         <Button
-                            android:id="@+id/button82"
+                            android:id="@+id/button_health_record_major"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -330,6 +332,7 @@
                 </LinearLayout>
 
                 <ListView
+                    android:id="@+id/list_health_record_major"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.5" />
@@ -355,6 +358,7 @@
                         android:text="Surgical procedures" />
 
                     <EditText
+                        android:id="@+id/edit_health_record_procedure_e"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -369,7 +373,7 @@
                         android:weightSum="1">
 
                         <EditText
-                            android:id="@+id/editText48"
+                            android:id="@+id/edit_health_record_procedure_physician"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
@@ -378,7 +382,7 @@
                             android:inputType="textPersonName" />
 
                         <EditText
-                            android:id="@+id/editText40"
+                            android:id="@+id/edit_health_record_procedure_hospital"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
@@ -399,7 +403,7 @@
                             android:text="date surgical procedures:" />
 
                         <TextView
-                            android:id="@+id/textView61"
+                            android:id="@+id/text_health_record_procedure_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="00/00/0000" />
@@ -412,6 +416,7 @@
                         android:orientation="horizontal">
 
                         <EditText
+                            android:id="@+id/edit_health_record_procedure_note"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -421,6 +426,7 @@
                             android:textSize="14sp" />
 
                         <Button
+                            android:id="@+id/button_health_record_procedures_add"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -430,6 +436,7 @@
                 </LinearLayout>
 
                 <ListView
+                    android:id="@+id/list_helath_record_procedure"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.5" />
@@ -466,6 +473,7 @@
                             android:text="TETANUS" />
 
                         <TextView
+                            android:id="@+id/text_health_record_vaccines_tetanus"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="00/00/0000" />
@@ -484,6 +492,7 @@
 
                         <TextView
 
+                            android:id="@+id/text_health_record_vaccines_vaccine"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="00/00/0000" />
@@ -500,6 +509,7 @@
                             android:text="ZOSTAVAX" />
 
                         <TextView
+                            android:id="@+id/text_health_record_vaccines_zostavax"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="00/00/0000" />
@@ -518,6 +528,7 @@
 
                         <TextView
 
+                            android:id="@+id/text_health_record_vaccines_meningitis"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="00/00/0000" />
@@ -535,7 +546,7 @@
                             android:text="YELLOW FEVER" />
 
                         <TextView
-                            android:id="@+id/textView67"
+                            android:id="@+id/text_health_record_vaccines_yellow_fever"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="00/00/0000" />
@@ -552,6 +563,7 @@
                             android:text="POLIO" />
 
                         <TextView
+                            android:id="@+id/text_health_record_vaccines_polio"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="00/00/0000" />
@@ -570,7 +582,7 @@
                         android:text="Name of vaccination" />
 
                     <Spinner
-                        android:id="@+id/spinner_doc_types_of_clinics2"
+                        android:id="@+id/spinner_health_record_vaccines"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
@@ -592,13 +604,13 @@
                             android:text="History of vaccination:" />
 
                         <TextView
-                            android:id="@+id/textView58"
+                            android:id="@+id/text_health_record_vaccines_history"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="00/00/0000" />
 
                         <Button
-                            android:id="@+id/button8"
+                            android:id="@+id/button_health_record_vaccines_add"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -608,6 +620,7 @@
                 </LinearLayout>
 
                 <ListView
+                    android:id="@+id/list_health_record_vaccines"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.5" />
