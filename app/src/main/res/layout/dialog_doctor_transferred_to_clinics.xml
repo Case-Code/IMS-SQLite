@@ -11,12 +11,10 @@
         android:id="@+id/tv_search_patient_clinic"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableLeft="@android:drawable/ic_menu_search"
-
-        android:hint="Patient Name"
         android:completionThreshold="1"
-        android:inputType="textPersonName"
-        />
+        android:drawableLeft="@android:drawable/ic_menu_search"
+        android:hint="Patient Name"
+        android:inputType="textPersonName" />
 
     <TextView
         android:layout_width="wrap_content"

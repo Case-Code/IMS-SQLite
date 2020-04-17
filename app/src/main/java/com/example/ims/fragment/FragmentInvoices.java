@@ -89,7 +89,7 @@ public class FragmentInvoices extends Fragment implements LoaderManager.LoaderCa
 
     public void init() {
         minvoicesListView =view.findViewById(R.id.list_svc);
-        mEmptyInvoicesImageView=view.findViewById(R.id.image_empty_invoice);
+//        mEmptyInvoicesImageView=view.findViewById(R.id.image_empty_invoice);
 
         billSaveButton = view.findViewById(R.id.button_billtosave);
         svcAddButton = view.findViewById(R.id.button_svcadd);
