@@ -80,7 +80,7 @@
                         android:layout_weight="0.5"
                         android:ems="10"
                         android:hint="Doctor's phone"
-                        android:inputType="textPersonName"
+                        android:inputType="phone"
                         android:textSize="14sp" />
                 </LinearLayout>
 
@@ -107,7 +107,7 @@
                         android:layout_weight="0.4"
                         android:ems="10"
                         android:hint="Pharmacy phone"
-                        android:inputType="textPersonName"
+                        android:inputType="phone"
                         android:textSize="14sp" />
 
                     <Button
