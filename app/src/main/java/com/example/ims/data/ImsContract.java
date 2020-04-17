@@ -259,6 +259,7 @@ public class ImsContract {
         // Current and past medications table
         public static final String TABLE_NAME = PATH_CURRENT_AND_PAST_MEDICATIONS;
         public static final String _ID = BaseColumns._ID;
+        public static final String COLUMN_MEDICAMENT_NAME = "medicament_name";
         public static final String COLUMN_PHYSICIAN = "physician";
         public static final String COLUMN_DOSAGE = "dosage";
         public static final String COLUMN_FREQ = "freq";
@@ -333,7 +334,7 @@ public class ImsContract {
         public static final String _ID = BaseColumns._ID;
         public static final String COLUMN_DIAGNOSIS = "diagnosis";
         public static final String COLUMN_ADDITIONAL_NOTES = "additional_notes";
-        public static final String COLUMN_PERFORMING_PHYSICIAN_SIGNATURE= "performing_physician_signature";
+        public static final String COLUMN_PERFORMING_PHYSICIAN_SIGNATURE = "performing_physician_signature";
         public static final String COLUMN_PATIENT_ID = "patient_id";
     }
 

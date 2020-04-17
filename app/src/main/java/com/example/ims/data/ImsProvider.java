@@ -905,6 +905,12 @@ public class ImsProvider extends ContentProvider {
     // Insert current and past medications
     private Uri insertCurrentAndPastMedications(Uri uri, ContentValues values) {
 
+        // Medicament name
+        String medicamentName = values.getAsString(CurrentAndPastMedicationsEntry.COLUMN_MEDICAMENT_NAME);
+        if (medicamentName == null) {
+            throw new IllegalArgumentException("Current and past medications requires a medicament name");
+        }
+
         // Physician
         String physician = values.getAsString(CurrentAndPastMedicationsEntry.COLUMN_PHYSICIAN);
         if (physician == null) {
@@ -2245,6 +2251,14 @@ public class ImsProvider extends ContentProvider {
 
     // Update current and past medications
     private int updateCurrentAndPastMedications(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+
+        // Medicament name
+        if (values.containsKey(CurrentAndPastMedicationsEntry.COLUMN_MEDICAMENT_NAME)) {
+            String medicamentName = values.getAsString(CurrentAndPastMedicationsEntry.COLUMN_MEDICAMENT_NAME);
+            if (medicamentName == null) {
+                throw new IllegalArgumentException("Current and past medications requires a medicament name");
+            }
+        }
 
         // Physician
         if (values.containsKey(CurrentAndPastMedicationsEntry.COLUMN_PHYSICIAN)) {

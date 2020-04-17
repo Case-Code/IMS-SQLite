@@ -1,251 +1,274 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:weightSum="1"
     tools:context=".fragment.FragmentHealthRecord">
 
-    <androidx.core.widget.NestedScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:fillViewport="false">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:weightSum="1">
+            android:padding="10dp"
+            android:text="Health record"
+            android:textColor="@color/colorPrimaryDark" />
 
-            <TextView
-                android:id="@+id/textView12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Health record" />
+        <androidx.cardview.widget.CardView
+            style="@style/CardViewSubpage"
+            android:layout_weight="1">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="match_parent"
                 android:layout_margin="10dp"
-                android:layout_weight="0.13"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/text_health_record_patient_name"
-                        android:layout_width="292dp"
-                        android:layout_height="wrap_content"
-                        android:text="Patient name:" />
-
-                    <TextView
-                        android:id="@+id/textView18"
+                        android:id="@+id/text_f_h_r_patient_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Date of the last update:" />
-
-                    <TextView
-                        android:id="@+id/text_health_record_patient_date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:text="00/00/0000" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
+                        android:text="Patient name: " />
 
                     <EditText
-                        android:id="@+id/edit_health_record_patient_physiscian_name"
-                        android:layout_width="0dp"
+                        android:id="@+id/text_current_physician_name"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:ems="10"
                         android:hint="Current physician name"
-                        android:inputType="textPersonName"
-                        android:textSize="14sp" />
+                        android:inputType="text" />
 
                     <EditText
-                        android:id="@+id/edit_health_record_patient_doctor_phone"
-                        android:layout_width="0dp"
+                        android:id="@+id/text_current_pharmacy_name"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:ems="10"
-                        android:hint="Doctor's phone"
-                        android:inputType="phone"
-                        android:textSize="14sp" />
+                        android:hint="Current pharmacy name"
+                        android:inputType="text" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="16dp"
+                            android:layout_weight="1"
+                            android:text="Date of the last update: " />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="00/00/0000"
+                            android:textColor="@color/colorAccent" />
+                    </LinearLayout>
 
                     <EditText
-                        android:id="@+id/edit_health_record_patient_pharmacy_name"
-                        android:layout_width="0dp"
+                        android:id="@+id/text_doctors_phone"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:ems="10"
-                        android:hint="Current pharmacy name"
-                        android:inputType="textPersonName"
-                        android:textSize="14sp" />
+                        android:hint="Doctor's phone"
+                        android:inputType="text" />
 
-                    <EditText
-                        android:id="@+id/edit_health_record_patient_Pharmacy_phone"
-                        android:layout_width="0dp"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.4"
-                        android:ems="10"
-                        android:hint="Pharmacy phone"
-                        android:inputType="phone"
-                        android:textSize="14sp" />
+                        android:orientation="horizontal">
 
-                    <Button
-                        android:id="@+id/button_health_record_patient_save"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.1"
-                        android:background="@android:color/background_light"
-                        android:text="sava" />
+                        <EditText
+                            android:id="@+id/text_pharmacy_phone"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="Pharmacy phone"
+                            android:inputType="phone" />
+
+                        <Button
+                            android:id="@+id/btn_health_record_save"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/background_light"
+                            android:text="Save"
+                            android:textColor="@color/colorAccent" />
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            style="@style/CardViewSubpage"
+            android:layout_weight="1">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_margin="10dp"
-                android:layout_weight="0.18"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView26"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Current and past medications" />
+                    android:padding="10dp"
+                    android:text="Current and past medications"
+                    android:textColor="@color/colorPrimaryDark" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="54dp"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
-
-                    <EditText
-                        android:id="@+id/edit_health_record__medications_medicament_name"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:ems="10"
-                        android:hint="medicament name"
-                        android:inputType="textPersonName"
-                        android:textSize="14sp" />
-
-                    <EditText
-                        android:id="@+id/edit_health_record_medications_physiscian"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:ems="10"
-                        android:hint="physician"
-                        android:inputType="textPersonName"
-                        android:textSize="14sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="44dp"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
-
-                    <EditText
-                        android:id="@+id/edit_health_record_medications_dosage"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.25"
-                        android:ems="10"
-                        android:hint="dosage"
-                        android:inputType="textPersonName"
-                        android:textSize="14sp" />
-
-                    <EditText
-                        android:id="@+id/edit_health_record_medications_freq"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.25"
-                        android:ems="10"
-                        android:hint="FREQ"
-                        android:inputType="textPersonName"
-                        android:textSize="14sp" />
-
-                    <EditText
-                        android:id="@+id/edit_health_record_medications_purpose"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.50"
-                        android:ems="10"
-                        android:hint="purpose"
-                        android:inputType="textPersonName"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
                     android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/textView54"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="start date:" />
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/text_health_record_medications_start_date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="00/00/0000" />
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Current pharmacy name"
+                            android:inputType="text" />
 
-                    <TextView
-                        android:id="@+id/textView56"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:text="end date:" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/text_health_record_medications_end_date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="00/00/0000" />
+                            <EditText
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:hint="Pharmacy phone"
+                                android:inputType="phone" />
 
-                    <Button
-                        android:id="@+id/button_health_record_medications_save"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="200dp"
-                        android:background="@android:color/background_light"
-                        android:text="sava" />
+                            <EditText
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:hint="Pharmacy phone"
+                                android:inputType="phone" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="16dp"
+                                    android:layout_weight="1"
+                                    android:text="start date:" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="00/00/0000"
+                                    android:textColor="@color/colorAccent" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="16dp"
+                                    android:layout_weight="1"
+                                    android:text="end date:" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="00/00/0000"
+                                    android:textColor="@color/colorAccent" />
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <EditText
+                            android:id="@+id/aa"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerHorizontal="true"
+                            android:hint="Doctor's phone"
+                            android:inputType="text" />
+
+                        <EditText
+                            android:id="@+id/se"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/aa"
+                            android:hint="Doctor's phone"
+                            android:inputType="text" />
+
+                        <Button
+                            android:id="@+id/aaaaa"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/se"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentBottom="true"
+                            android:background="@android:color/background_light"
+                            android:text="Save"
+                            android:textColor="@color/colorAccent" />
+                    </RelativeLayout>
                 </LinearLayout>
 
             </LinearLayout>
 
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            style="@style/CardViewSubpage"
+            android:layout_weight="1">
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="match_parent"
                 android:layout_margin="10dp"
-                android:layout_weight="0.2"
-                android:orientation="horizontal"
-                android:weightSum="1">
+                android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -260,7 +283,7 @@
                         android:text="Major illnesses" />
 
                     <EditText
-                        android:id="@+id/edit_health_record_Major_illness"
+                        android:id="@+id/editText52"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -279,7 +302,6 @@
                             android:text="start date:" />
 
                         <TextView
-                            android:id="@+id/text_health_record_Major_start_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="00/00/0000" />
@@ -291,14 +313,13 @@
                             android:text="end date:" />
 
                         <TextView
-                            android:id="@+id/text_health_record_Major_end_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="00/00/0000" />
                     </LinearLayout>
 
                     <EditText
-                        android:id="@+id/edit_health_record_Major_physician"
+                        android:id="@+id/editText53"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -312,7 +333,7 @@
                         android:orientation="horizontal">
 
                         <EditText
-                            android:id="@+id/edit_health_record_major_notes"
+                            android:id="@+id/editText54"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -322,29 +343,32 @@
                             android:textSize="14sp" />
 
                         <Button
-                            android:id="@+id/button_health_record_major"
+                            android:id="@+id/button82"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:background="@color/textIcons"
-                            android:text="add" />
+                            android:text="add"
+                            android:textColor="@color/colorAccent" />
                     </LinearLayout>
                 </LinearLayout>
 
                 <ListView
-                    android:id="@+id/list_health_record_major"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.5" />
             </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            style="@style/CardViewSubpage"
+            android:layout_weight="1">
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
+                android:layout_height="match_parent"
                 android:layout_margin="10dp"
-                android:layout_weight="0.2"
-                android:orientation="horizontal"
-                android:weightSum="1">
+                android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -358,7 +382,6 @@
                         android:text="Surgical procedures" />
 
                     <EditText
-                        android:id="@+id/edit_health_record_procedure_e"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -373,7 +396,7 @@
                         android:weightSum="1">
 
                         <EditText
-                            android:id="@+id/edit_health_record_procedure_physician"
+                            android:id="@+id/editText48"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
@@ -382,7 +405,7 @@
                             android:inputType="textPersonName" />
 
                         <EditText
-                            android:id="@+id/edit_health_record_procedure_hospital"
+                            android:id="@+id/editText40"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
@@ -403,7 +426,7 @@
                             android:text="date surgical procedures:" />
 
                         <TextView
-                            android:id="@+id/text_health_record_procedure_date"
+                            android:id="@+id/textView61"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="00/00/0000" />
@@ -416,7 +439,6 @@
                         android:orientation="horizontal">
 
                         <EditText
-                            android:id="@+id/edit_health_record_procedure_note"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -426,34 +448,36 @@
                             android:textSize="14sp" />
 
                         <Button
-                            android:id="@+id/button_health_record_procedures_add"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:background="@color/textIcons"
-                            android:text="add" />
+                            android:text="add"
+                            android:textColor="@color/colorAccent" />
                     </LinearLayout>
                 </LinearLayout>
 
                 <ListView
-                    android:id="@+id/list_helath_record_procedure"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.5" />
             </LinearLayout>
 
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            style="@style/CardViewSubpage"
+            android:layout_weight="1">
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="match_parent"
                 android:layout_margin="10dp"
-                android:layout_weight="0.29"
-                android:orientation="horizontal"
-                android:weightSum="1">
+                android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.5"
                     android:orientation="vertical">
 
                     <TextView
@@ -473,7 +497,6 @@
                             android:text="TETANUS" />
 
                         <TextView
-                            android:id="@+id/text_health_record_vaccines_tetanus"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="00/00/0000" />
@@ -492,7 +515,6 @@
 
                         <TextView
 
-                            android:id="@+id/text_health_record_vaccines_vaccine"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="00/00/0000" />
@@ -509,7 +531,6 @@
                             android:text="ZOSTAVAX" />
 
                         <TextView
-                            android:id="@+id/text_health_record_vaccines_zostavax"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="00/00/0000" />
@@ -528,7 +549,6 @@
 
                         <TextView
 
-                            android:id="@+id/text_health_record_vaccines_meningitis"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="00/00/0000" />
@@ -546,7 +566,7 @@
                             android:text="YELLOW FEVER" />
 
                         <TextView
-                            android:id="@+id/text_health_record_vaccines_yellow_fever"
+                            android:id="@+id/textView67"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="00/00/0000" />
@@ -563,7 +583,6 @@
                             android:text="POLIO" />
 
                         <TextView
-                            android:id="@+id/text_health_record_vaccines_polio"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="00/00/0000" />
@@ -582,7 +601,7 @@
                         android:text="Name of vaccination" />
 
                     <Spinner
-                        android:id="@+id/spinner_health_record_vaccines"
+                        android:id="@+id/spinner_doc_types_of_clinics2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
@@ -604,13 +623,13 @@
                             android:text="History of vaccination:" />
 
                         <TextView
-                            android:id="@+id/text_health_record_vaccines_history"
+                            android:id="@+id/textView58"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="00/00/0000" />
 
                         <Button
-                            android:id="@+id/button_health_record_vaccines_add"
+                            android:id="@+id/button8"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -620,12 +639,11 @@
                 </LinearLayout>
 
                 <ListView
-                    android:id="@+id/list_health_record_vaccines"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.5" />
             </LinearLayout>
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
 
-</LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+</ScrollView>
