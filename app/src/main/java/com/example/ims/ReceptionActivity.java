@@ -41,8 +41,6 @@ import com.example.logutil.Utils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
-import java.util.Date;
-
 public class ReceptionActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         LoaderManager.LoaderCallbacks<Cursor> {
 

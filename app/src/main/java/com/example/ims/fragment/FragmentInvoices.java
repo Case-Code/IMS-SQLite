@@ -1,14 +1,14 @@
 package com.example.ims.fragment;
 
 import android.app.DatePickerDialog;
-
-
-import android.content.ContentValues;
-
 import android.app.LoaderManager;
+import android.content.ContentValues;
+import android.content.CursorLoader;
+import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,21 +17,22 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.content.Loader;
 
-
-
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.example.ims.adapter.InvoicesCursorAdapter;
 import com.example.ims.R;
+import com.example.ims.ReceptionActivity;
+import com.example.ims.adapter.InvoicesCursorAdapter;
 import com.example.ims.data.ImsContract;
 import com.example.logutil.Utils;
 
-
-public class FragmentInvoices extends Fragment implements  LoaderManager.LoaderCallbacks<Cursor> {
+@SuppressWarnings("ALL")
+public class FragmentInvoices extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>  {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -66,10 +67,13 @@ public class FragmentInvoices extends Fragment implements  LoaderManager.LoaderC
     EditText questionsPhoneEditText;
     EditText questionsWebEditText;
     EditText procedureEditText;
+    private ImageView mEmptyInvoicesImageView;
+
 
     ContentValues values;
 
     private Uri mCurrentPatientInvoicesUri;
+    public ListView minvoicesListView;
 
 
     private InvoicesCursorAdapter mInvoicesSvcCursorAdapter;
@@ -84,6 +88,8 @@ public class FragmentInvoices extends Fragment implements  LoaderManager.LoaderC
     View view;
 
     public void init() {
+        minvoicesListView =view.findViewById(R.id.list_svc);
+        mEmptyInvoicesImageView=view.findViewById(R.id.image_empty_invoice);
 
         billSaveButton = view.findViewById(R.id.button_billtosave);
         svcAddButton = view.findViewById(R.id.button_svcadd);
@@ -145,8 +151,13 @@ public class FragmentInvoices extends Fragment implements  LoaderManager.LoaderC
 */
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
+        super.onCreate(savedInstanceState);
+       //
+        // getLoaderManager().initLoader(0,null ,this);
+
+        androidx.loader.app.LoaderManager.getInstance(this);
+        Log.e(TAG ,"Loader::"+androidx.loader.app.LoaderManager.getInstance(this));
 
 
     }
@@ -160,7 +171,14 @@ public class FragmentInvoices extends Fragment implements  LoaderManager.LoaderC
 
 
         init();
+        minvoicesListView.setEmptyView(mEmptyInvoicesImageView);
 
+        mInvoicesSvcCursorAdapter= new InvoicesCursorAdapter(this .getActivity(),null);
+        minvoicesListView.setAdapter(mInvoicesSvcCursorAdapter);
+
+        //getLoaderManager().initLoader(2, null, getActivity());
+
+        androidx.loader.app.LoaderManager.getInstance(this);
 
 
 
@@ -268,8 +286,12 @@ public class FragmentInvoices extends Fragment implements  LoaderManager.LoaderC
 
             }
         });
+        androidx.loader.app.LoaderManager supportLoaderManager = getActivity().getSupportLoaderManager();
+       // supportLoaderManager.initLoader(23, null ,this);
+        androidx.loader.app.LoaderManager.getInstance(this);
 
-        getLoaderManager().initLoader()
+        Log.e(TAG,"Loader"+androidx.loader.app.LoaderManager.getInstance(this));
+
 
         return view;
 
@@ -590,7 +612,7 @@ public class FragmentInvoices extends Fragment implements  LoaderManager.LoaderC
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         if (mCurrentPatientUri == null) {
-            //  mPatientCursorAdapter.swapCursor(data);
+              mInvoicesSvcCursorAdapter.swapCursor(data);
         } else {
 
             if (data == null || data.getCount() < 1) {
@@ -690,6 +712,7 @@ public class FragmentInvoices extends Fragment implements  LoaderManager.LoaderC
     public void onLoaderReset(Loader<Cursor> loader) {
 
         if (mCurrentPatientUri == null) {
+            mInvoicesSvcCursorAdapter.swapCursor(null);
 
         } else {
             patientIdTextView.setText("");
