@@ -248,7 +248,7 @@ ContentValues values = new ContentValues();
             return;
 
         } else {
-            values.put(ImsContract.MedicineRegistryEntry., id);
+            values.put(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_PATIENT_ID, id);
         }
         Uri newUri =
                 getContext().getContentResolver().insert(ImsContract.CurrentAndPastMedicationsEntry.CONTENT_URI, values);
