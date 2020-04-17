@@ -33,8 +33,8 @@ public class FragmentMedicineRegistry extends Fragment {
      * @return A new instance of fragment health_record.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentHealthRecord newInstance(String param1, String param2) {
-        FragmentHealthRecord fragment = new FragmentHealthRecord();
+    public static FragmentMedicineRegistry newInstance(String param1, String param2) {
+        FragmentMedicineRegistry fragment = new FragmentMedicineRegistry();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

@@ -87,6 +87,10 @@ public class FragmentHealthRecord extends Fragment {
 
     }
 
+    public FragmentHealthRecord() {
+
+    }
+
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -259,6 +263,76 @@ ContentValues values = new ContentValues();
         }
 
     }
+    public void addMajor(){
+
+
+        String majorIllnessString = majorIllnessEditText.getText().toString().trim();
+        String majorPhysicianString = majorPhysicianEditText.getText().toString().trim();
+        String majorTreatmentNotesString = majorTreatmentNotesEditText.getText().toString().trim();
+        String majorStartDateString =  majorStartDateTextView.getText().toString().trim();
+        String majorEndDateString= majorEndDateTextView.getText().toString().trim();
+
+
+
+        ContentValues values = new ContentValues();
+        if (TextUtils.isEmpty(majorIllnessString)) {
+            patientPhysicianNameEditText.setError("please write to name");
+            return;
+
+        } else {
+            values.put(ImsContract.MajorIllnessesEntry.COLUMN_ILLNESS, majorIllnessString);
+        }
+        if (TextUtils.isEmpty(majorPhysicianString)) {
+            patientPhysicianNameEditText.setError("please write to name");
+            return;
+
+        } else {
+            values.put(ImsContract.MajorIllnessesEntry.COLUMN_PHYSICIAN, majorPhysicianString);
+        }
+        if (TextUtils.isEmpty(majorTreatmentNotesString)) {
+            patientPhysicianNameEditText.setError("please write to name");
+            return;
+
+        } else {
+            values.put(ImsContract.MajorIllnessesEntry.COLUMN_TREATMENT_NOTES, majorTreatmentNotesString);
+        }
+        if (TextUtils.isEmpty(majorStartDateString)) {
+            patientPhysicianNameEditText.setError("please write to name");
+            return;
+
+        } else {
+            values.put(ImsContract.MajorIllnessesEntry.COLUMN_START_DATE, majorStartDateString);
+        }
+        if (TextUtils.isEmpty(majorEndDateString)) {
+            patientPhysicianNameEditText.setError("please write to name");
+            return;
+
+        } else {
+            values.put(ImsContract.MajorIllnessesEntry.COLUMN_END_DATE, majorEndDateString);
+        }
+        if (TextUtils.isEmpty(String.valueOf(id))) {
+            patientPhysicianNameEditText.setError("please write to name");
+            return;
+
+        } else {
+            values.put(ImsContract.MajorIllnessesEntry.COLUMN_PATIENT_ID, id);
+        }
+
+        Uri newUri =
+                getContext().getContentResolver().insert(ImsContract.CurrentAndPastMedicationsEntry.CONTENT_URI, values);
+        if (newUri == null) {
+            Toast.makeText(getContext(), getString(R.string.editor_insert_patient_failed), Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getContext(), getString(R.string.editor_insert_patient_successful), Toast.LENGTH_SHORT).show();
+        }
+
+    }
+    public void addProcedures()
+    {
+
+
+    }
+
 
     public void init() {
 
