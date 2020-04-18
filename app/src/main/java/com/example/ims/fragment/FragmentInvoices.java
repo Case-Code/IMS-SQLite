@@ -32,7 +32,7 @@ import com.example.ims.data.ImsContract;
 import com.example.logutil.Utils;
 
 @SuppressWarnings("ALL")
-public class FragmentInvoices extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>  {
+public class FragmentInvoices extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -43,7 +43,7 @@ public class FragmentInvoices extends Fragment implements LoaderManager.LoaderCa
     Button totalAddButton;
     Button questionSendButton;
 
-   public  TextView patientIdTextView;
+    public TextView patientIdTextView;
     TextView dateOfSvcTextView;
     TextView invoiceDateTextView;
     TextView dateDueTextView;
@@ -84,62 +84,60 @@ public class FragmentInvoices extends Fragment implements LoaderManager.LoaderCa
     private static final int PATIENT_REGISTRATION_LOADER = 1;
 
 
-
     View view;
 
     public void init() {
-        minvoicesListView =view.findViewById(R.id.list_svc);
+//        minvoicesListView =view.findViewById(R.id.list_svc);
 //        mEmptyInvoicesImageView=view.findViewById(R.id.image_empty_invoice);
 
-        billSaveButton = view.findViewById(R.id.button_billtosave);
-        svcAddButton = view.findViewById(R.id.button_svcadd);
-        totalAddButton = view.findViewById(R.id.button_totelsave);
-        questionSendButton = view.findViewById(R.id.button_questionssend);
-
-        patientIdTextView=view.findViewById(R.id.text_patient_id);
-        dateOfSvcTextView=view.findViewById(R.id.text_data_of_svc);
-         invoiceDateTextView=view.findViewById(R.id.text_invoice_date);
-         dateDueTextView=view.findViewById(R.id.text_date_due);
-
-
-        billNameEditText = view.findViewById(R.id.edit_billtoname);
-        billPhoneEditText = view.findViewById(R.id.edit_billtophone);
-        billAddressEditText = view.findViewById(R.id.edit_bill_to_address);
-        billFixEditText = view.findViewById(R.id.edit_bill_to_fax);
-        billEmailEditText = view.findViewById(R.id.edit_bill_to_email);
-
-        svcIdEditText = view.findViewById(R.id.edit_svcid);
-        medicalServicesEditText = view.findViewById(R.id.edit_medicalservis);
-        medicationEditText = view.findViewById(R.id.edit_medication);
-        costEditText = view.findViewById(R.id.edit_cost);
-
-        subtotalEditText = view.findViewById(R.id.edit_sub_total);
-        taxRateEditText = view.findViewById(R.id.edit_tex_rate);
-        totalTaxEditText = view.findViewById(R.id.edit_total_tax);
-        otherEditText = view.findViewById(R.id.edit_other);
-        totalEditText = view.findViewById(R.id.edit_total);
-
-        questionsNameEditText = view.findViewById(R.id.edit_questions_name);
-        questionEmailEditText = view.findViewById(R.id.edit_questions_email);
-        questionsPhoneEditText = view.findViewById(R.id.edit_questions_phone);
-        questionsWebEditText = view.findViewById(R.id.edit_questions_web);
-        procedureEditText = view.findViewById(R.id.edit_procedure);
+//        billSaveButton = view.findViewById(R.id.button_billtosave);
+//        svcAddButton = view.findViewById(R.id.button_svcadd);
+//
+//        patientIdTextView=view.findViewById(R.id.text_patient_id);
+//        dateOfSvcTextView=view.findViewById(R.id.text_data_of_svc);
+//         invoiceDateTextView=view.findViewById(R.id.text_invoice_date);
+//         dateDueTextView=view.findViewById(R.id.text_date_due);
+//
+//
+//        billNameEditText = view.findViewById(R.id.edit_billtoname);
+//        billPhoneEditText = view.findViewById(R.id.edit_billtophone);
+//        billAddressEditText = view.findViewById(R.id.edit_bill_to_address);
+//        billFixEditText = view.findViewById(R.id.edit_bill_to_fax);
+//        billEmailEditText = view.findViewById(R.id.edit_bill_to_email);
+//
+//        svcIdEditText = view.findViewById(R.id.edit_svcid);
+//        medicalServicesEditText = view.findViewById(R.id.edit_medicalservis);
+//        medicationEditText = view.findViewById(R.id.edit_medication);
+//        costEditText = view.findViewById(R.id.edit_cost);
+//
+//        subtotalEditText = view.findViewById(R.id.edit_sub_total);
+//        taxRateEditText = view.findViewById(R.id.edit_tex_rate);
+//        totalTaxEditText = view.findViewById(R.id.edit_total_tax);
+//        otherEditText = view.findViewById(R.id.edit_other);
+//        totalEditText = view.findViewById(R.id.edit_total);
+//
+//        questionsNameEditText = view.findViewById(R.id.edit_questions_name);
+//        questionEmailEditText = view.findViewById(R.id.edit_questions_email);
+//        questionsPhoneEditText = view.findViewById(R.id.edit_questions_phone);
+//        questionsWebEditText = view.findViewById(R.id.edit_questions_web);
+//        procedureEditText = view.findViewById(R.id.edit_procedure);
 
 
     }
 
     public FragmentInvoices(int patientId) {
-        this.id=patientId;
+        this.id = patientId;
      /*   String id = String.valueOf(patientId);
         patientIdTextView.setText(id);*/
 
         // Required empty public constructor
     }
-    public FragmentInvoices( ) {}
+
+    public FragmentInvoices() {
+    }
 
 
-
-        // TODO: Rename and change types and number of parameters
+    // TODO: Rename and change types and number of parameters
    /* public static FragmentInvoices newInstance(String param1, String param2) {
         FragmentInvoices fragment = new FragmentInvoices();
         Bundle args = new Bundle();
@@ -153,11 +151,11 @@ public class FragmentInvoices extends Fragment implements LoaderManager.LoaderCa
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-       //
+        //
         // getLoaderManager().initLoader(0,null ,this);
 
         androidx.loader.app.LoaderManager.getInstance(this);
-        Log.e(TAG ,"Loader::"+androidx.loader.app.LoaderManager.getInstance(this));
+        Log.e(TAG, "Loader::" + androidx.loader.app.LoaderManager.getInstance(this));
 
 
     }
@@ -168,152 +166,125 @@ public class FragmentInvoices extends Fragment implements LoaderManager.LoaderCa
         view = inflater.inflate(R.layout.fragment_invoices, container, false);
 
 
+//        init();
+//        minvoicesListView.setEmptyView(mEmptyInvoicesImageView);
+//
+//        mInvoicesSvcCursorAdapter = new InvoicesCursorAdapter(this.getActivity(), null);
+//        minvoicesListView.setAdapter(mInvoicesSvcCursorAdapter);
+//
+//        //getLoaderManager().initLoader(2, null, getActivity());
+//
+//        androidx.loader.app.LoaderManager.getInstance(this);
+//
+//
+//        String patientIdstring = String.valueOf(id);
+//        patientIdTextView.setText(patientIdstring);
+//
+//
+//        dateOfSvcTextView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+//                    @Override
+//                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+//                        month += 1;
+//                        String date = month + "/" + dayOfMonth + "/" + year;
+//                        dateOfSvcTextView.setText(date);
+//                    }
+//                };
+//                Utils.showDatePicker(getContext(), dateSetListener);
+//            }
+//        });
+//
+//        invoiceDateTextView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+//                    @Override
+//                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+//                        month += 1;
+//                        String date = month + "/" + dayOfMonth + "/" + year;
+//                        invoiceDateTextView.setText(date);
+//                    }
+//                };
+//                Utils.showDatePicker(getContext(), dateSetListener);
+//            }
+//        });
+//
+//        dateDueTextView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+//                    @Override
+//                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+//                        month += 1;
+//                        String date = month + "/" + dayOfMonth + "/" + year;
+//                        dateDueTextView.setText(date);
+//                    }
+//                };
+//                Utils.showDatePicker(getContext(), dateSetListener);
+//            }
+//        });
+//
+//
+//        billSaveButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//
+//            }
+//        });
 
-
-        init();
-        minvoicesListView.setEmptyView(mEmptyInvoicesImageView);
-
-        mInvoicesSvcCursorAdapter= new InvoicesCursorAdapter(this .getActivity(),null);
-        minvoicesListView.setAdapter(mInvoicesSvcCursorAdapter);
-
-        //getLoaderManager().initLoader(2, null, getActivity());
-
-        androidx.loader.app.LoaderManager.getInstance(this);
-
-
-
-        String patientIdstring =String.valueOf(id);
-        patientIdTextView.setText(patientIdstring);
-
-
-
-
-
-
-
-                dateOfSvcTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        month += 1;
-                        String date = month + "/" + dayOfMonth + "/" + year;
-                        dateOfSvcTextView.setText(date);
-                    }
-                };
-                Utils.showDatePicker(getContext(), dateSetListener);
-            }
-        });
-
-        invoiceDateTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        month += 1;
-                        String date = month + "/" + dayOfMonth + "/" + year;
-                        invoiceDateTextView.setText(date);
-                    }
-                };
-                Utils.showDatePicker(getContext(), dateSetListener);
-            }
-        });
-
-        dateDueTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        month += 1;
-                        String date = month + "/" + dayOfMonth + "/" + year;
-                        dateDueTextView.setText(date);
-                    }
-                };
-                Utils.showDatePicker(getContext(), dateSetListener);
-            }
-        });
-
-
-        billSaveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-
-
-
-            }
-        });
-
-
-        svcAddButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-            }
-        });
-        totalAddButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-        questionSendButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                values=new ContentValues();
-                totalSave();
-                svcSave();
-                questionsSend();
-
-
-                billToSave();
-                saveDate();
-
-                Log.e("dsa","data::::"+values);
-
-                Uri newUri =
-                        getContext().getContentResolver().insert(ImsContract.InvoicesEntry.CONTENT_URI, values);
-                if (newUri == null) {
-                    Toast.makeText(getContext(), getString(R.string.editor_insert_patient_failed), Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getContext(), getString(R.string.editor_insert_patient_successful), Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        });
-        androidx.loader.app.LoaderManager supportLoaderManager = getActivity().getSupportLoaderManager();
-       // supportLoaderManager.initLoader(23, null ,this);
-        androidx.loader.app.LoaderManager.getInstance(this);
-
-        Log.e(TAG,"Loader"+androidx.loader.app.LoaderManager.getInstance(this));
+//        questionSendButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                values=new ContentValues();
+//                totalSave();
+//                svcSave();
+//                questionsSend();
+//
+//
+//                billToSave();
+//                saveDate();
+//
+//                Log.e("dsa","data::::"+values);
+//
+//                Uri newUri =
+//                        getContext().getContentResolver().insert(ImsContract.InvoicesEntry.CONTENT_URI, values);
+//                if (newUri == null) {
+//                    Toast.makeText(getContext(), getString(R.string.editor_insert_patient_failed), Toast.LENGTH_SHORT).show();
+//                } else {
+//                    Toast.makeText(getContext(), getString(R.string.editor_insert_patient_successful), Toast.LENGTH_SHORT).show();
+//                }
+//
+//            }
+//        });
+//        androidx.loader.app.LoaderManager supportLoaderManager = getActivity().getSupportLoaderManager();
+//        // supportLoaderManager.initLoader(23, null ,this);
+//        androidx.loader.app.LoaderManager.getInstance(this);
+//
+//        Log.e(TAG, "Loader" + androidx.loader.app.LoaderManager.getInstance(this));
 
 
         return view;
 
 
     }
-    public void saveDate(){
 
-        final String patientIdString= patientIdTextView.getText().toString().trim();
-        final String dateOfSvcString =dateOfSvcTextView.getText().toString().trim();
-        final String invoiceDateString =invoiceDateTextView.getText().toString().trim();
-        final  String dataOfDueString =dateDueTextView.getText().toString().trim();
+    public void saveDate() {
+
+        final String patientIdString = patientIdTextView.getText().toString().trim();
+        final String dateOfSvcString = dateOfSvcTextView.getText().toString().trim();
+        final String invoiceDateString = invoiceDateTextView.getText().toString().trim();
+        final String dataOfDueString = dateDueTextView.getText().toString().trim();
 
         if (mCurrentPatientInvoicesUri == null &&
-            TextUtils.isEmpty(patientIdString) &&
-            TextUtils.isEmpty(dateOfSvcString) &&
-            TextUtils.isEmpty(invoiceDateString) &&
-            TextUtils.isEmpty(dataOfDueString))
-        {
-        return ;
-    }
-
-
+                TextUtils.isEmpty(patientIdString) &&
+                TextUtils.isEmpty(dateOfSvcString) &&
+                TextUtils.isEmpty(invoiceDateString) &&
+                TextUtils.isEmpty(dataOfDueString)) {
+            return;
+        }
 
 
         if (TextUtils.isEmpty(patientIdString)) {
@@ -338,8 +309,6 @@ public class FragmentInvoices extends Fragment implements LoaderManager.LoaderCa
         }
 
 
-
-
     }
 
     public void billToSave() {
@@ -358,7 +327,7 @@ public class FragmentInvoices extends Fragment implements LoaderManager.LoaderCa
                 TextUtils.isEmpty(billEmailString) &&
                 TextUtils.isEmpty(billPhoneString) &&
                 TextUtils.isEmpty(billFaxString)) {
-            return ;
+            return;
         }
         //Integer phoneNumber =Integer.parseInt(billPhoneString);
         //  Integer fixNumber = Integer.parseInt(billFaxString);
@@ -391,12 +360,9 @@ public class FragmentInvoices extends Fragment implements LoaderManager.LoaderCa
         }
 
 
-
-
     }
 
-    public  void svcSave() {
-
+    public void svcSave() {
 
 
         String svcIdString = svcIdEditText.getText().toString().trim();
@@ -410,7 +376,7 @@ public class FragmentInvoices extends Fragment implements LoaderManager.LoaderCa
                 TextUtils.isEmpty(medicalServiceString) &&
                 TextUtils.isEmpty(medicationString) &&
                 TextUtils.isEmpty(costString)) {
-            return ;
+            return;
         }
 
 
@@ -436,7 +402,6 @@ public class FragmentInvoices extends Fragment implements LoaderManager.LoaderCa
         }
 
 
-
     }
 
 
@@ -455,7 +420,7 @@ public class FragmentInvoices extends Fragment implements LoaderManager.LoaderCa
                 TextUtils.isEmpty(totalTaxString) &&
                 TextUtils.isEmpty(otherString) &&
                 TextUtils.isEmpty(totalString)) {
-            return ;
+            return;
         }
 
         if (TextUtils.isEmpty(subTotalString)) {
@@ -492,14 +457,14 @@ public class FragmentInvoices extends Fragment implements LoaderManager.LoaderCa
         String questionsPhoneString = questionsPhoneEditText.getText().toString().trim();
         String questionsEmailString = questionEmailEditText.getText().toString().trim();
         String questionsWebString = questionsWebEditText.getText().toString().trim();
-       String procedureString= procedureEditText.getText().toString().trim();
+        String procedureString = procedureEditText.getText().toString().trim();
 
         if (mCurrentPatientInvoicesUri == null &&
                 TextUtils.isEmpty(questionsNameString) &&
                 TextUtils.isEmpty(questionsPhoneString) &&
                 TextUtils.isEmpty(questionsEmailString) &&
                 TextUtils.isEmpty(questionsWebString)) {
-            return ;
+            return;
         }
 
         if (TextUtils.isEmpty(questionsNameString)) {
@@ -530,31 +495,31 @@ public class FragmentInvoices extends Fragment implements LoaderManager.LoaderCa
 
     }
 
-  /*  public void aVoid(int a){
-        Uri uri = ImsContract.InvoicesEntry.CONTENT_URI;
-        Cursor cursor = getActivity().getContentResolver().query(uri, new String[]{ImsContract.InvoicesEntry.COLUMN_PATIENT_ID}, String.valueOf(a), null, null);
+    /*  public void aVoid(int a){
+          Uri uri = ImsContract.InvoicesEntry.CONTENT_URI;
+          Cursor cursor = getActivity().getContentResolver().query(uri, new String[]{ImsContract.InvoicesEntry.COLUMN_PATIENT_ID}, String.valueOf(a), null, null);
 
-        cursor.moveToFirst();
-        while (cursor.isAfterLast() == false) {
+          cursor.moveToFirst();
+          while (cursor.isAfterLast() == false) {
 
-        int   x = cursor.getInt(cursor.getColumnIndex(ImsContract.InvoicesEntry._ID));
+          int   x = cursor.getInt(cursor.getColumnIndex(ImsContract.InvoicesEntry._ID));
 
-            if (x > 0) {
-                Log.e(TAG , "aasdaddsdasd::"+a);
-
-
-            }else if(x==0){
-                Log.e(TAG , "mynoterr::"+a);
+              if (x > 0) {
+                  Log.e(TAG , "aasdaddsdasd::"+a);
 
 
-            }
+              }else if(x==0){
+                  Log.e(TAG , "mynoterr::"+a);
 
-            cursor.moveToNext();
 
-        }
-        cursor.close();
+              }
 
-    }*/
+              cursor.moveToNext();
+
+          }
+          cursor.close();
+
+      }*/
     public Uri mCurrentPatientUri;
     private static final String TAG = FragmentInvoices.class.getSimpleName();
 
@@ -563,31 +528,31 @@ public class FragmentInvoices extends Fragment implements LoaderManager.LoaderCa
 
         String[] projection =
                 {
-                ImsContract.InvoicesEntry._ID,
-                ImsContract.InvoicesEntry.COLUMN_DATE_OF_SVC,
-                ImsContract.InvoicesEntry.COLUMN_INVOICE_DATE,
-                ImsContract.InvoicesEntry.COLUMN_DATE_DUE,
-                ImsContract.InvoicesEntry.COLUMN_BILL_TO_NAME,
-                ImsContract.InvoicesEntry.COLUMN_BILL_TO_ADDRESS,
-                ImsContract.InvoicesEntry.COLUMN_BILL_TO_PHONE,
-                ImsContract.InvoicesEntry.COLUMN_BILL_TO_FAX,
-                ImsContract.InvoicesEntry.COLUMN_BILL_TO_EMAIL,
-                ImsContract.InvoicesEntry.COLUMN_SVC_ID,
-                ImsContract.InvoicesEntry.COLUMN_MEDICAL_SERVICES,
-                ImsContract.InvoicesEntry.COLUMN_MEDICATION,
-                ImsContract.InvoicesEntry.COLUMN_COST,
-                ImsContract.InvoicesEntry.COLUMN_SUBTOTAL,
-                ImsContract.InvoicesEntry.COLUMN_TAX_RATE,
-                ImsContract.InvoicesEntry.COLUMN_TOTAL_TAX,
-                ImsContract.InvoicesEntry.COLUMN_OTHER,
-                ImsContract.InvoicesEntry.COLUMN_TOTAL,
-                ImsContract.InvoicesEntry.COLUMN_QUESTIONS_NAME,
-                ImsContract.InvoicesEntry.COLUMN_QUESTIONS_EMAIL,
-                ImsContract.InvoicesEntry.COLUMN_QUESTIONS_PHONE,
-                ImsContract.InvoicesEntry.COLUMN_QUESTIONS_WEB,
-                ImsContract.InvoicesEntry.COLUMN_PROCEDURE,
-                ImsContract.InvoicesEntry.COLUMN_PATIENT_ID
-               };
+                        ImsContract.InvoicesEntry._ID,
+                        ImsContract.InvoicesEntry.COLUMN_DATE_OF_SVC,
+                        ImsContract.InvoicesEntry.COLUMN_INVOICE_DATE,
+                        ImsContract.InvoicesEntry.COLUMN_DATE_DUE,
+                        ImsContract.InvoicesEntry.COLUMN_BILL_TO_NAME,
+                        ImsContract.InvoicesEntry.COLUMN_BILL_TO_ADDRESS,
+                        ImsContract.InvoicesEntry.COLUMN_BILL_TO_PHONE,
+                        ImsContract.InvoicesEntry.COLUMN_BILL_TO_FAX,
+                        ImsContract.InvoicesEntry.COLUMN_BILL_TO_EMAIL,
+                        ImsContract.InvoicesEntry.COLUMN_SVC_ID,
+                        ImsContract.InvoicesEntry.COLUMN_MEDICAL_SERVICES,
+                        ImsContract.InvoicesEntry.COLUMN_MEDICATION,
+                        ImsContract.InvoicesEntry.COLUMN_COST,
+                        ImsContract.InvoicesEntry.COLUMN_SUBTOTAL,
+                        ImsContract.InvoicesEntry.COLUMN_TAX_RATE,
+                        ImsContract.InvoicesEntry.COLUMN_TOTAL_TAX,
+                        ImsContract.InvoicesEntry.COLUMN_OTHER,
+                        ImsContract.InvoicesEntry.COLUMN_TOTAL,
+                        ImsContract.InvoicesEntry.COLUMN_QUESTIONS_NAME,
+                        ImsContract.InvoicesEntry.COLUMN_QUESTIONS_EMAIL,
+                        ImsContract.InvoicesEntry.COLUMN_QUESTIONS_PHONE,
+                        ImsContract.InvoicesEntry.COLUMN_QUESTIONS_WEB,
+                        ImsContract.InvoicesEntry.COLUMN_PROCEDURE,
+                        ImsContract.InvoicesEntry.COLUMN_PATIENT_ID
+                };
 
 
         if (mCurrentPatientUri == null) {
@@ -604,15 +569,14 @@ public class FragmentInvoices extends Fragment implements LoaderManager.LoaderCa
                     null,
                     null,
                     null);
-        }    }
-
-
+        }
+    }
 
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         if (mCurrentPatientUri == null) {
-              mInvoicesSvcCursorAdapter.swapCursor(data);
+            mInvoicesSvcCursorAdapter.swapCursor(data);
         } else {
 
             if (data == null || data.getCount() < 1) {
@@ -625,51 +589,49 @@ public class FragmentInvoices extends Fragment implements LoaderManager.LoaderCa
                 int dateDueColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_DATE_DUE);
                 int billToNameColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_BILL_TO_NAME);
                 int billToAddressColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_BILL_TO_ADDRESS);
-                int billToPhoneColumnIndex = data.getColumnIndex( ImsContract.InvoicesEntry.COLUMN_BILL_TO_PHONE);
+                int billToPhoneColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_BILL_TO_PHONE);
                 int billToFaxColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_BILL_TO_FAX);
                 int billToEmailColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_BILL_TO_EMAIL);
                 int svcIdColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_SVC_ID);
-                int medicalServicesColumnIndex = data.getColumnIndex( ImsContract.InvoicesEntry.COLUMN_MEDICAL_SERVICES);
+                int medicalServicesColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_MEDICAL_SERVICES);
                 int medicationColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_MEDICATION);
-                int costColumnIndex = data.getColumnIndex( ImsContract.InvoicesEntry.COLUMN_COST);
+                int costColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_COST);
                 int supTotalColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_SUBTOTAL);
-                int taxRateColumnIndex = data.getColumnIndex( ImsContract.InvoicesEntry.COLUMN_TAX_RATE);
+                int taxRateColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_TAX_RATE);
                 int totalTaxColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_TOTAL_TAX);
                 int otherColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_OTHER);
                 int totalColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_TOTAL);
                 int questionsNameColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_QUESTIONS_NAME);
-                int questionsEmailColumnIndex = data.getColumnIndex( ImsContract.InvoicesEntry.COLUMN_QUESTIONS_EMAIL);
+                int questionsEmailColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_QUESTIONS_EMAIL);
                 int questionsPhoneColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_QUESTIONS_PHONE);
                 int questionsWebColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_QUESTIONS_WEB);
                 int procedureColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_PROCEDURE);
                 int patientIdColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_PATIENT_ID);
 
 
-
                 String dateOfSvc = data.getString(dateOfSvcColumnIndex);
                 String invoice = data.getString(invoiceColumnIndex);
                 String dateDue = data.getString(dateDueColumnIndex);
                 String billToName = data.getString(billToNameColumnIndex);
-                String billToAddress= data.getString(billToAddressColumnIndex);
+                String billToAddress = data.getString(billToAddressColumnIndex);
                 String billToPhone = data.getString(billToPhoneColumnIndex);
-                String billToFax= data.getString(billToFaxColumnIndex);
-                String billToEmail= data.getString(billToEmailColumnIndex);
-                String svcId= data.getString(svcIdColumnIndex);
-                String medicalServices= data.getString(medicalServicesColumnIndex);
-                String medication= data.getString(medicationColumnIndex);
-                String  cost= data.getString(costColumnIndex);
-                String  supTotal= data.getString(supTotalColumnIndex);
-                String  taxRate= data.getString(taxRateColumnIndex);
+                String billToFax = data.getString(billToFaxColumnIndex);
+                String billToEmail = data.getString(billToEmailColumnIndex);
+                String svcId = data.getString(svcIdColumnIndex);
+                String medicalServices = data.getString(medicalServicesColumnIndex);
+                String medication = data.getString(medicationColumnIndex);
+                String cost = data.getString(costColumnIndex);
+                String supTotal = data.getString(supTotalColumnIndex);
+                String taxRate = data.getString(taxRateColumnIndex);
                 String totalTax = data.getString(totalTaxColumnIndex);
                 String other = data.getString(otherColumnIndex);
                 String total = data.getString(totalColumnIndex);
                 String questionsName = data.getString(questionsNameColumnIndex);
                 String questionsEmail = data.getString(questionsEmailColumnIndex);
-                String  questionsPhone= data.getString(questionsPhoneColumnIndex);
+                String questionsPhone = data.getString(questionsPhoneColumnIndex);
                 String questionsWeb = data.getString(questionsWebColumnIndex);
                 String procedure = data.getString(procedureColumnIndex);
                 String patientId = data.getString(patientIdColumnIndex);
-
 
 
                 patientIdTextView.setText(patientId);
@@ -698,10 +660,6 @@ public class FragmentInvoices extends Fragment implements LoaderManager.LoaderCa
                 questionEmailEditText.setText(questionsEmail);
                 questionsWebEditText.setText(questionsWeb);
                 procedureEditText.setText(procedure);
-
-
-
-
 
 
             }
@@ -742,15 +700,9 @@ public class FragmentInvoices extends Fragment implements LoaderManager.LoaderCa
             procedureEditText.setText("");
 
 
-
-
-
-
         }
 
     }
-
-
 
 
 }

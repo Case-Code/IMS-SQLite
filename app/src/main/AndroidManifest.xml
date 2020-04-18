@@ -34,13 +34,9 @@
             android:name=".TheDoctorActivity"
             android:windowSoftInputMode="adjustPan" />
 
-        <activity
-            android:name=".ReceptionActivity"
-            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".ReceptionActivity" />
 
-        <activity
-            android:name=".MainActivity"
-            android:windowSoftInputMode="adjustPan">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

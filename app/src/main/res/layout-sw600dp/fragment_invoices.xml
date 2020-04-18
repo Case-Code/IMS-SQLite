@@ -14,43 +14,39 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:text="@string/invoices"
             android:textColor="@color/colorPrimaryDark" />
 
-        <androidx.cardview.widget.CardView
-            style="@style/CardViewSubpage"
-            android:layout_weight="1">
+        <!-- Invoices -->
+        <androidx.cardview.widget.CardView style="@style/CardViewSubpage">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:orientation="horizontal"
-                android:weightSum="1">
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:layout_weight="0.3"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/textView2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="INVOICES NO."
                         android:textColor="@color/primaryText" />
 
                     <TextView
-                        android:id="@+id/text_patient_id"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingTop="5dp"
+                        android:layout_marginBottom="10dp"
                         android:text="@string/patient_id"
                         android:textColor="@color/primaryText" />
 
@@ -58,19 +54,19 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
                         android:orientation="horizontal">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginRight="10dp"
+                            android:layout_weight="1"
                             android:text="DATE OF SVC:" />
 
                         <TextView
-                            android:id="@+id/text_data_of_svc"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:gravity="end"
                             android:text="MM/DD/YYYY"
                             android:textColor="@color/colorAccent" />
@@ -81,19 +77,19 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
                         android:orientation="horizontal">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginRight="10dp"
+                            android:layout_weight="1"
                             android:text="INVOICE DATE:" />
 
                         <TextView
-                            android:id="@+id/text_invoice_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:gravity="end"
                             android:text="MM/DD/YYYY"
                             android:textColor="@color/colorAccent" />
@@ -109,37 +105,34 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginRight="10dp"
+                            android:layout_weight="1"
                             android:text="DATE DUE:" />
 
                         <TextView
-                            android:id="@+id/text_date_due"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:gravity="end"
                             android:text="MM/DD/YYYY"
                             android:textColor="@color/colorAccent" />
-
                     </LinearLayout>
 
 
                 </LinearLayout>
 
                 <ImageView
-                    android:id="@+id/imageView"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:padding="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:padding="16dp"
                     android:src="@drawable/analysis_lab_logo" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            style="@style/CardViewSubpage"
-            android:layout_weight="1">
+        <!-- Bill to -->
+        <androidx.cardview.widget.CardView style="@style/CardViewSubpage">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -148,7 +141,6 @@
                 android:padding="10dp">
 
                 <TextView
-                    android:id="@+id/textView14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Bill to"
@@ -174,7 +166,6 @@
                             android:orientation="vertical">
 
                             <EditText
-                                android:id="@+id/edit_billtoname"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:ems="10"
@@ -189,18 +180,18 @@
                             android:orientation="horizontal">
 
                             <EditText
-                                android:id="@+id/edit_billtophone"
                                 android:layout_width="149dp"
                                 android:layout_height="wrap_content"
+                                android:layout_marginRight="5dp"
                                 android:layout_weight="1"
                                 android:ems="10"
                                 android:hint="bill to phone"
                                 android:inputType="phone" />
 
                             <EditText
-                                android:id="@+id/edit_bill_to_fax"
                                 android:layout_width="176dp"
                                 android:layout_height="match_parent"
+                                android:layout_marginLeft="5dp"
                                 android:layout_weight="1"
                                 android:ems="10"
                                 android:hint="bill to fix"
@@ -216,45 +207,26 @@
                         android:orientation="vertical">
 
                         <EditText
-                            android:id="@+id/edit_bill_to_address"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ems="10"
                             android:hint="bill to adress"
                             android:inputType="textPersonName" />
 
-                        <LinearLayout
+                        <EditText
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal">
-
-                            <EditText
-                                android:id="@+id/edit_bill_to_email"
-                                android:layout_width="260dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:ems="10"
-                                android:hint="bill to email"
-                                android:inputType="textEmailAddress" />
-
-                            <Button
-                                android:id="@+id/button_billtosave"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@android:color/transparent"
-                                android:text="save"
-                                android:textColor="@color/colorAccent" />
-
-                        </LinearLayout>
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:ems="10"
+                            android:hint="bill to email"
+                            android:inputType="textEmailAddress" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            style="@style/CardViewSubpage"
-            android:layout_weight="1">
+        <androidx.cardview.widget.CardView style="@style/CardViewSubpage">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -269,7 +241,6 @@
                     android:orientation="horizontal">
 
                     <EditText
-                        android:id="@+id/edit_svcid"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -278,7 +249,6 @@
                         android:inputType="textPersonName" />
 
                     <EditText
-                        android:id="@+id/edit_medicalservis"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -287,7 +257,6 @@
                         android:inputType="textPersonName" />
 
                     <EditText
-                        android:id="@+id/edit_medication"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -296,7 +265,6 @@
                         android:inputType="textPersonName" />
 
                     <EditText
-                        android:id="@+id/edit_cost"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -305,7 +273,6 @@
                         android:inputType="textPersonName" />
 
                     <Button
-                        android:id="@+id/button_svcadd"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
@@ -314,7 +281,6 @@
                 </LinearLayout>
 
                 <ListView
-                    android:id="@+id/list_svc"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="10dp"
@@ -329,7 +295,6 @@
                     android:orientation="horizontal">
 
                     <EditText
-                        android:id="@+id/edit_sub_total"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -338,7 +303,6 @@
                         android:inputType="number" />
 
                     <EditText
-                        android:id="@+id/edit_tex_rate"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -347,7 +311,6 @@
                         android:inputType="number" />
 
                     <EditText
-                        android:id="@+id/edit_total_tax"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -356,7 +319,6 @@
                         android:inputType="number" />
 
                     <EditText
-                        android:id="@+id/edit_other"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -365,30 +327,20 @@
                         android:inputType="textPersonName" />
 
                     <EditText
-                        android:id="@+id/edit_total"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:ems="10"
                         android:hint="totel"
                         android:inputType="number" />
-
-                    <Button
-                        android:id="@+id/button_totelsave"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:text="save"
-                        android:textColor="@color/colorAccent" />
                 </LinearLayout>
 
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            style="@style/CardViewSubpage"
-            android:layout_weight="1">
+        <!-- For questions concerning this invoice, please contact -->
+        <androidx.cardview.widget.CardView style="@style/CardViewSubpage">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -411,12 +363,11 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
                         android:layout_weight="1"
                         android:orientation="vertical">
 
                         <EditText
-                            android:id="@+id/edit_questions_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ems="10"
@@ -424,7 +375,6 @@
                             android:inputType="textPersonName" />
 
                         <EditText
-                            android:id="@+id/edit_questions_phone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ems="10"
@@ -441,47 +391,27 @@
                         android:orientation="vertical">
 
                         <EditText
-                            android:id="@+id/edit_questions_email"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ems="10"
                             android:hint="questions email"
                             android:inputType="textPersonName" />
 
-                        <LinearLayout
+                        <EditText
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal">
-
-                            <EditText
-                                android:id="@+id/edit_questions_web"
-                                android:layout_width="260dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:ems="10"
-                                android:hint="questions web"
-                                android:inputType="textEmailAddress" />
-
-                            <Button
-                                android:id="@+id/button_questionssend"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@android:color/transparent"
-                                android:text="Send"
-                                android:textColor="@color/colorAccent" />
-
-                        </LinearLayout>
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:ems="10"
+                            android:hint="questions web"
+                            android:inputType="textEmailAddress" />
                     </LinearLayout>
-
                 </LinearLayout>
-
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            style="@style/CardViewSubpage"
-            android:layout_weight="1">
+        <!-- Terms -->
+        <androidx.cardview.widget.CardView style="@style/CardViewSubpage">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -490,12 +420,10 @@
                 android:padding="10dp">
 
                 <TextView
-                    android:id="@+id/textView20"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
                     android:text="Terms"
-                    android:textColorHighlight="@color/colorAccent" />
+                    android:textColor="@color/colorPrimaryDark" />
 
                 <EditText
                     android:id="@+id/edit_procedure"
@@ -507,6 +435,14 @@
                     android:inputType="textPersonName" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@android:color/transparent"
+            android:text="save"
+            android:textColor="@color/colorAccent" />
 
     </LinearLayout>
 
