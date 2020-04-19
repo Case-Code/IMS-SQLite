@@ -56,7 +56,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
-                android:drawableRight="@drawable/ic_search_black_24dp"
+                android:drawableRight="@drawable/ic_search_white_24dp"
                 android:ems="10"
                 android:inputType="textPersonName"
                 app:layout_constraintBottom_toBottomOf="parent"
