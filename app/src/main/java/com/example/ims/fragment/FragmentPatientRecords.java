@@ -117,9 +117,9 @@ public class FragmentPatientRecords extends Fragment implements LoaderManager.Lo
 
             return; } else { values.put(ImsContract.PatientProgressEntry.COLUMN_PROGRESS_NOTES , progressNotesString);
         }
-        if (TextUtils.isEmpty(String.valueOf(id))) {
+        if (TextUtils.isEmpty(String.valueOf(idpatient))) {
 
-            return; } else { values.put(ImsContract.PatientProgressEntry.COLUMN_PATIENT_ID , id);
+            return; } else { values.put(ImsContract.PatientProgressEntry.COLUMN_PATIENT_ID , idpatient);
         }
         Uri newUri =
                 getContext().getContentResolver().insert(ImsContract.PatientProgressEntry.CONTENT_URI, values);
@@ -145,11 +145,11 @@ public class FragmentPatientRecords extends Fragment implements LoaderManager.Lo
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    int id;
+    int idpatient;
 
     public FragmentPatientRecords(int id) {
         // Required empty public constructor
-        this.id=id;
+        this.idpatient=id;
     }
     public FragmentPatientRecords() {}
 
@@ -205,12 +205,12 @@ return view;
     @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
-
+CursorLoader c=null;
         String[] projection =
                 { ImsContract.PatientProgressEntry._ID,
                         ImsContract.PatientProgressEntry.COLUMN_PROGRESS_NOTES, ImsContract.PatientProgressEntry.COLUMN_PATIENT_ID,};
 
-        this.id=id;
+
       /*  if(id==0){
 
         }else if(id!=0){
@@ -237,27 +237,27 @@ return view;
 
 
 
-       if(id>0){
-        return new CursorLoader(
+       if(idpatient>0){
+        c= new CursorLoader(
                 this.getActivity(),
-                mCurrentPatientUri,
+                ImsContract.PatientProgressEntry.CONTENT_URI,
                 projection,
-                ImsContract.PatientProgressEntry.COLUMN_PATIENT_ID+" like %"+id+"%"
+                ImsContract.PatientProgressEntry.COLUMN_PATIENT_ID+" ="+idpatient
 
                 ,null,null
         );
-      }else
-       {
-           return new CursorLoader(
+        return c;
+      }else {
+           c= new CursorLoader(
                    this.getActivity(),
                    mCurrentPatientUri,
-                   null,
-                   null
+                   projection,
+                        null
                    ,null,null
            );
 
+           return c;
        }
-
     }
 
     @Override
