@@ -316,6 +316,11 @@ public class ImsContract {
         public static final String TABLE_NAME = PATH_PATIENT_VACCINES;
         public static final String _ID = BaseColumns._ID;
         public static final String COLUMN_TETANUS = "tetanus";
+        public static final String COLUMN_INFLUENZA_VACCINE = "influenza_vaccine";
+        public static final String COLUMN_ZOSTAVAX = "zostavax";
+        public static final String COLUMN_MENINGITIS = "meningitis";
+        public static final String COLUMN_YELLOW_FEVER = "yellow_fever";
+        public static final String COLUMN_POLIO = "polio";
         public static final String COLUMN_NAME_OF_VACCINATION = "name_of_vaccination";
         public static final String COLUMN_HISTORY_OF_VACCINATION = "history_of_vaccination";
         public static final String COLUMN_PATIENT_ID = "patient_id";
