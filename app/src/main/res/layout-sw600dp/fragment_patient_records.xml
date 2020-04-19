@@ -55,6 +55,7 @@
                                 android:layout_marginRight="5dp"
                                 android:layout_weight="1"
                                 android:ems="10"
+                                android:enabled="false"
                                 android:hint="patient id"
                                 android:inputType="phone" />
 
@@ -96,14 +97,13 @@
                             android:orientation="horizontal">
 
                             <TextView
-                                android:id="@+id/text_clinic"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="next appointment date:" />
 
                             <TextView
-                                android:id="@+id/textView2"
+                                android:id="@+id/text_appointment_date"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -127,7 +127,7 @@
                                 android:text="next treatment plan review date:" />
 
                             <TextView
-                                android:id="@+id/textView4"
+                                android:id="@+id/text_treatment_plan_date"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -152,7 +152,7 @@
                                 android:text="date signed:" />
 
                             <TextView
-                                android:id="@+id/textView6"
+                                android:id="@+id/text_date_signed"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -181,12 +181,16 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView style="@style/CardViewSubpage">
+        <androidx.cardview.widget.CardView
+            style="@style/CardViewSubpage"
+            android:layout_width="match_parent"
+            android:layout_height="715dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:weightSum="1">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -215,7 +219,7 @@
                         android:text="date:" />
 
                     <TextView
-                        android:id="@+id/textiew2"
+                        android:id="@+id/text_patient_progress_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -226,9 +230,10 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginBottom="10dp"
+                    android:layout_weight="0.1"
                     android:orientation="horizontal">
 
                     <EditText
@@ -259,7 +264,8 @@
                 <ListView
                     android:id="@+id/list_patient_progress"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.8"
                     tools:listitem="@layout/item_patient_progress" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>

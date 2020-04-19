@@ -590,7 +590,7 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
                 PatientEntry.COLUMN_WEIGHT,
                 PatientEntry.COLUMN_HEIGHT};
 
-        if (mCurrentPatientUri == null) {
+        if (mCurrentPatientUri ==  null) {
             return new CursorLoader(this,
                     PatientEntry.CONTENT_URI,
                     projection,

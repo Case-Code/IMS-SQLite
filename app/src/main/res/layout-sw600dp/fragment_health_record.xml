@@ -39,20 +39,20 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/text_f_h_r_patient_name"
+                        android:id="@+id/text_health_record_patient_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Patient name: " />
 
                     <EditText
-                        android:id="@+id/text_current_physician_name"
+                        android:id="@+id/edit_health_record_physician_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Current physician name"
                         android:inputType="text" />
 
                     <EditText
-                        android:id="@+id/text_current_pharmacy_name"
+                        android:id="@+id/edit_health_record_pharmacy_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Current pharmacy name"
@@ -79,6 +79,8 @@
                             android:text="Date of the last update: " />
 
                         <TextView
+                            android:id="@+id/text_health_record_date_last_update"
+
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="00/00/0000"
@@ -86,7 +88,7 @@
                     </LinearLayout>
 
                     <EditText
-                        android:id="@+id/text_doctors_phone"
+                        android:id="@+id/edit_health_record_doctors_phone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Doctor's phone"
@@ -98,7 +100,7 @@
                         android:orientation="horizontal">
 
                         <EditText
-                            android:id="@+id/text_pharmacy_phone"
+                            android:id="@+id/edit_health_record_pharmacy_phone"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="10dp"
@@ -107,7 +109,7 @@
                             android:inputType="phone" />
 
                         <Button
-                            android:id="@+id/btn_health_record_save"
+                            android:id="@+id/button_health_patient_record_save"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@android:color/background_light"
@@ -139,6 +141,7 @@
                     android:textColor="@color/colorPrimaryDark" />
 
                 <LinearLayout
+                    android:id="@+id/xz"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="10dp"
@@ -152,6 +155,8 @@
                         android:orientation="vertical">
 
                         <EditText
+                            android:id="@+id/edit_medications_medicament_name"
+
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="medicament name"
@@ -163,6 +168,7 @@
                             android:orientation="horizontal">
 
                             <EditText
+                                android:id="@+id/edit_medications_dosage"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="5dp"
@@ -171,6 +177,7 @@
                                 android:inputType="phone" />
 
                             <EditText
+                                android:id="@+id/edit_medications_freq"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="5dp"
@@ -186,6 +193,7 @@
                             android:orientation="horizontal">
 
                             <LinearLayout
+                                android:id="@+id/k"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="5dp"
@@ -201,6 +209,8 @@
                                     android:text="start date:" />
 
                                 <TextView
+                                    android:id="@+id/text_medications_start_date"
+
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="00/00/0000"
@@ -223,6 +233,7 @@
                                     android:text="end date:" />
 
                                 <TextView
+                                    android:id="@+id/text_medications_end_date"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="00/00/0000"
@@ -239,18 +250,21 @@
                         android:orientation="vertical">
 
                         <EditText
+                            android:id="@+id/edit_medications_physician"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="physician"
                             android:inputType="text" />
 
                         <EditText
+                            android:id="@+id/edit_medications_purpose"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="purpose"
                             android:inputType="text" />
 
                         <Button
+                            android:id="@+id/button_medications_save"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="end"
@@ -297,6 +311,7 @@
 
 
                         <EditText
+                            android:id="@+id/edit_major_illness"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="illness"
@@ -323,6 +338,7 @@
                                     android:text="start date:" />
 
                                 <TextView
+                                    android:id="@+id/text_major_start_date"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="00/00/0000"
@@ -345,6 +361,7 @@
                                     android:text="end date:" />
 
                                 <TextView
+                                    android:id="@+id/text_major_end_date"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="00/00/0000"
@@ -353,6 +370,7 @@
                         </LinearLayout>
 
                         <EditText
+                            android:id="@+id/edit_major_physician"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="physician"
@@ -364,6 +382,7 @@
                             android:orientation="horizontal">
 
                             <EditText
+                                android:id="@+id/edit_major_treatment_notes"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="10dp"
@@ -372,6 +391,7 @@
                                 android:inputType="phone" />
 
                             <Button
+                                android:id="@+id/button_major_save"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@android:color/transparent"
@@ -385,7 +405,7 @@
                     </LinearLayout>
 
                     <ListView
-                        android:id="@+id/list_item_major_illnesses"
+                        android:id="@+id/list_major_illnesses"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -427,6 +447,7 @@
 
 
                         <EditText
+                            android:id="@+id/edit_procedures_procedure"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="procedure"
@@ -438,6 +459,7 @@
                             android:orientation="horizontal">
 
                             <EditText
+                                android:id="@+id/edit_procedures_physician"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="5dp"
@@ -446,8 +468,9 @@
                                 android:inputType="phone" />
 
                             <EditText
+                                android:id="@+id/edit_procedures_hospital"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_height="55dp"
                                 android:layout_marginLeft="5dp"
                                 android:layout_weight="1"
                                 android:hint="hospital"
@@ -468,6 +491,7 @@
                                 android:text="date surgical procedures:" />
 
                             <TextView
+                                android:id="@+id/text_procedures_start_date"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -482,6 +506,7 @@
                             android:orientation="horizontal">
 
                             <EditText
+                                android:id="@+id/edit_procedures_notes"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="10dp"
@@ -490,6 +515,7 @@
                                 android:inputType="phone" />
 
                             <Button
+                                android:id="@+id/button_procedures_add"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@android:color/transparent"
@@ -502,7 +528,7 @@
                     </LinearLayout>
 
                     <ListView
-                        android:id="@+id/list_item_surgical_procedures"
+                        android:id="@+id/list_surgical_procedures"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -557,6 +583,7 @@
                                 android:textColor="@android:color/black" />
 
                             <TextView
+                                android:id="@+id/text_Patient_vaccines_TETANUS"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -580,6 +607,7 @@
                                 android:textColor="@android:color/black" />
 
                             <TextView
+                                android:id="@+id/text_Patient_vaccines_INFLUENZA_VACCINE"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -603,6 +631,7 @@
                                 android:textColor="@android:color/black" />
 
                             <TextView
+                                android:id="@+id/text_Patient_vaccines_ZOSTAVAX"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -626,6 +655,7 @@
                                 android:textColor="@android:color/black" />
 
                             <TextView
+                                android:id="@+id/text_Patient_vaccines_MENINGITIS"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -649,6 +679,7 @@
                                 android:textColor="@android:color/black" />
 
                             <TextView
+                                android:id="@+id/text_Patient_vaccines_YELLOW_FEVER"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -671,6 +702,7 @@
                                 android:textColor="@android:color/black" />
 
                             <TextView
+                                android:id="@+id/text_Patient_vaccines_POLIO"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -700,7 +732,7 @@
                             app:cardCornerRadius="5dp">
 
                             <Spinner
-                                android:id="@+id/spinner_tetanus"
+                                android:id="@+id/spinner_Patient_vaccines_tetanus"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="10dp"
@@ -724,6 +756,7 @@
                                 android:text="History of vaccination:" />
 
                             <TextView
+                                android:id="@+id/text_Patient_vaccines_History_of_vaccination"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="10dp"
@@ -733,6 +766,8 @@
                                 android:textColor="@color/colorAccent" />
 
                             <Button
+                                android:id="@+id/button_patient_vaccines_add"
+
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@android:color/transparent"
@@ -745,7 +780,7 @@
                     </LinearLayout>
 
                     <ListView
-                        android:id="@+id/list_item_patient_vaccines"
+                        android:id="@+id/list_patient_vaccines"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"

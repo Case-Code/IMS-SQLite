@@ -48,14 +48,14 @@ public class ImsDbHelper extends SQLiteOpenHelper {
     // Create a String that contains the SQL statement to create the 'patient records' table
     private static final String SQL_CREATE_PATIENT_RECORDS_TABLE = "CREATE TABLE IF NOT EXISTS " + PatientRecordsEntry.TABLE_NAME + " ("
             + PatientRecordsEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + PatientRecordsEntry.COLUMN_BILL_TO_NAME + " TEXT NOT NULL, "
-            + PatientRecordsEntry.COLUMN_DATE_OF_BIRTH + " TEXT NOT NULL, "
-            + PatientRecordsEntry.COLUMN_MEDICAL_RECORD_ID + " INTEGER NOT NULL, "
-            + PatientRecordsEntry.COLUMN_NEXT_APPOINTMENT_DATE + " TEXT NOT NULL, "
-            + PatientRecordsEntry.COLUMN_NEXT_TREATMENT_PLAN_REVIEW_DATE + " TEXT NOT NULL, "
-            + PatientRecordsEntry.COLUMN_PHYSICIAN_SIGNATURE + " TEXT NOT NULL, "
-            + PatientRecordsEntry.COLUMN_DATE_SIGNED + " TEXT NOT NULL, "
-            + PatientRecordsEntry.COLUMN_X_RAY_IMAGE + " TEXT NOT NULL, "
+            + PatientRecordsEntry.COLUMN_BILL_TO_NAME + " TEXT , "
+            + PatientRecordsEntry.COLUMN_DATE_OF_BIRTH + " TEXT , "
+            + PatientRecordsEntry.COLUMN_MEDICAL_RECORD_ID + " INTEGER , "
+            + PatientRecordsEntry.COLUMN_NEXT_APPOINTMENT_DATE + " TEXT , "
+            + PatientRecordsEntry.COLUMN_NEXT_TREATMENT_PLAN_REVIEW_DATE + " TEXT , "
+            + PatientRecordsEntry.COLUMN_PHYSICIAN_SIGNATURE + " TEXT , "
+            + PatientRecordsEntry.COLUMN_DATE_SIGNED + " TEXT , "
+            + PatientRecordsEntry.COLUMN_X_RAY_IMAGE + " TEXT , "
             + PatientRecordsEntry.COLUMN_PATIENT_ID + " INTEGER NOT NULL); ";
 
     // Create a String that contains the SQL statement to create the 'patient progress' table
