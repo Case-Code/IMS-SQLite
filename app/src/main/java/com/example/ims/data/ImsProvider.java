@@ -1074,9 +1074,39 @@ public class ImsProvider extends ContentProvider {
     private Uri insertPatientVaccines(Uri uri, ContentValues values) {
 
         // tetanus
-        Integer tetanus = values.getAsInteger(PatientVaccinesEntry.COLUMN_TETANUS);
+        String tetanus = values.getAsString(PatientVaccinesEntry.COLUMN_TETANUS);
         if (tetanus == null) {
             throw new IllegalArgumentException("Patient vaccines requires a tetanus");
+        }
+
+        // Influenza vaccine
+        String influenzaVaccine = values.getAsString(PatientVaccinesEntry.COLUMN_INFLUENZA_VACCINE);
+        if (influenzaVaccine == null) {
+            throw new IllegalArgumentException("Patient vaccines requires a influenza vaccine");
+        }
+
+        // zostavax
+        String zostavax = values.getAsString(PatientVaccinesEntry.COLUMN_INFLUENZA_VACCINE);
+        if (zostavax == null) {
+            throw new IllegalArgumentException("Patient vaccines requires a zostavax");
+        }
+
+        // meningitis
+        String meningitis = values.getAsString(PatientVaccinesEntry.COLUMN_INFLUENZA_VACCINE);
+        if (meningitis == null) {
+            throw new IllegalArgumentException("Patient vaccines requires a meningitis");
+        }
+
+        // Yellow fever
+        String yellowFever = values.getAsString(PatientVaccinesEntry.COLUMN_INFLUENZA_VACCINE);
+        if (yellowFever == null) {
+            throw new IllegalArgumentException("Patient vaccines requires a yellowFever");
+        }
+
+        // polio
+        String polio = values.getAsString(PatientVaccinesEntry.COLUMN_INFLUENZA_VACCINE);
+        if (polio == null) {
+            throw new IllegalArgumentException("Patient vaccines requires a polio");
         }
 
         // Name of vaccination

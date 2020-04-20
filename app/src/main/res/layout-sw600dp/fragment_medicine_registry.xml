@@ -97,7 +97,7 @@
                 android:layout_marginLeft="60dp"
                 android:layout_marginRight="20dp"
                 android:layout_weight="1"
-                android:drawableRight="@drawable/ic_search_black_24dp"
+                android:drawableRight="@drawable/ic_search_white_24dp"
                 android:ems="10"
                 android:hint="Search"
                 android:inputType="textPersonName" />

@@ -76,7 +76,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="16dp"
                 android:layout_weight="1"
-                android:drawableRight="@drawable/ic_search_black_24dp"
+                android:drawableRight="@drawable/ic_search_white_24dp"
                 android:ems="10"
                 android:inputType="textPersonName" />
         </LinearLayout>

@@ -46,10 +46,6 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
     public static View mDialogTransferredToClinicsView;
     private Spinner mTheNameOfTheClinicSpinner;
 
-    private FloatingActionButton mButtonClinic;
-    private FloatingActionButton mButtonAnaylislap;
-    private FloatingActionButton mButtonPharmsy;
-    private FloatingActionButton mButtonRadioly;
     AutoCompleteTextView edittext;
 
     private String mTheNamesOfTheClinics = "null";
@@ -66,18 +62,19 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
         actionBarDrawerToggle.syncState();
         mNavigationView.setNavigationItemSelectedListener(this);
 
-        mActionMenuImageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mDrawerLayout.openDrawer(GravityCompat.START);
-            }
-        });
-        mButtonClinic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showTransferredToClinicsDialog();
-            }
-        });
+//        mActionMenuImageButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                mDrawerLayout.openDrawer(GravityCompat.START);
+//            }
+//        });
+
+//        mButtonClinic.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                showTransferredToClinicsDialog();
+//            }
+//        });
     }
 
 
@@ -137,11 +134,6 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
         mNavigationView = findViewById(R.id.navigation_view);
         mActionMenuImageButton = findViewById(R.id.image_button_action_menu);
         mDialogTransferredToClinicsView = getLayoutInflater().inflate(R.layout.dialog_doctor_transferred_to_clinics, null);
-        mButtonClinic = findViewById(R.id.button_doc_clinic);
-        mButtonAnaylislap = findViewById(R.id.button_doc_anaylislap);
-        mButtonPharmsy = findViewById(R.id.button_doc_pharmsy);
-        mButtonRadioly = findViewById(R.id.button_doc_radiology);
-
 
     }
 
