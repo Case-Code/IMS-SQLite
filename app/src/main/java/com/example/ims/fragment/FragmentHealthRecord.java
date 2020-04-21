@@ -73,7 +73,7 @@ public class FragmentHealthRecord extends Fragment {
     private TextView vaccinesHistoryTextView;
 
 
-    private ListView majorListView;
+    private ListView majorIllnessesListView;
     private ListView proceduresListView;
     private ListView vaccinesListView;
 
@@ -404,7 +404,6 @@ public class FragmentHealthRecord extends Fragment {
     public void init() {
         patientSaveButton = view.findViewById(R.id.button_health_record_save);
 
-        majorAddButton = view.findViewById(R.id.button_major_save);
         proceduresAddButton = view.findViewById(R.id.button_procedures_add);
         vaccinesAddButton = view.findViewById(R.id.button_patient_vaccines_add);
         patientPhysicianNameEditText = view.findViewById(R.id.edit_health_record_current_physician_name);
@@ -424,12 +423,14 @@ public class FragmentHealthRecord extends Fragment {
         purposeEditText = view.findViewById(R.id.edit_health_record_purpose);
         medicationSaveButton = view.findViewById(R.id.button_health_record_medications_save);
 
+        // Current and past major
         majorIllnessEditText = view.findViewById(R.id.edit_major_illness);
-        majorPhysicianEditText = view.findViewById(R.id.edit_major_physician);
-        majorTreatmentNotesEditText = view.findViewById(R.id.edit_major_treatment_notes);
         majorStartDateTextView = view.findViewById(R.id.text_major_start_date);
         majorEndDateTextView = view.findViewById(R.id.text_major_end_date);
-        majorListView = view.findViewById(R.id.list_major_illnesses);
+        majorPhysicianEditText = view.findViewById(R.id.edit_major_physician);
+        majorTreatmentNotesEditText = view.findViewById(R.id.edit_major_treatment_notes);
+        majorAddButton = view.findViewById(R.id.button_major_save);
+        majorIllnessesListView = view.findViewById(R.id.list_major_illnesses);
 
         proceduresEditText = view.findViewById(R.id.edit_procedures_procedure);
         proceduresPhysicianEditText = view.findViewById(R.id.edit_procedures_physician);
