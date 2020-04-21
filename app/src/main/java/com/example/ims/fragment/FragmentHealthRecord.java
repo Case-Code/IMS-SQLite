@@ -395,7 +395,7 @@ public class FragmentHealthRecord extends Fragment {
 
     public void init() {
     
-      patientSaveButton = view.findViewById(R.id.button_health_patient_record_save);
+      patientSaveButton = view.findViewById(R.id.button_health_record_save);
        medicationSaveButton = view.findViewById(R.id.button_medications_save);
      majorAddButton = view.findViewById(R.id.button_major_save);
      proceduresAddButton = view.findViewById(R.id.button_procedures_add);
@@ -403,13 +403,13 @@ public class FragmentHealthRecord extends Fragment {
 
 
         patientPhysicianNameEditText =
-                view.findViewById(R.id.edit_health_record_physician_name);
+                view.findViewById(R.id.edit_health_record_current_physician_name);
 
-      patientPharmacyNameEditText = view.findViewById(R.id.edit_health_record_pharmacy_name);
+      patientPharmacyNameEditText = view.findViewById(R.id.edit_health_record_current_pharmacy_name);
               patientPharmacyPhoneEditText =
             view.findViewById(R.id.edit_health_record_pharmacy_phone);
 
-        patientDateLastUpdateTextView = view.findViewById(R.id.text_health_record_date_last_update);
+        patientDateLastUpdateTextView = view.findViewById(R.id.text_health_record_date_of_the_last_update);
         patientDoctorPhoneEditText =
                 view.findViewById(R.id.edit_health_record_doctors_phone);
         patientNameTextView = view.findViewById(R.id.text_health_record_patient_name);
