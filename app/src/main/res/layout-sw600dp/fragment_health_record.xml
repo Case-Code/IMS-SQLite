@@ -762,7 +762,7 @@
                                 android:textColor="@color/colorAccent" />
 
                             <Button
-                                android:id="@+id/button_patient_vaccines_add"
+                                android:id="@+id/button_vaccines_add"
 
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
