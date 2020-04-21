@@ -43,7 +43,7 @@
                     android:layout_marginLeft="16dp"
                     android:layout_toEndOf="@+id/image_button_action_menu"
                     android:layout_toRightOf="@+id/image_button_action_menu"
-                    android:text="Reception"
+                    android:text="The doctor"
                     android:textColor="@android:color/white"
                     android:textSize="20sp" />
 
