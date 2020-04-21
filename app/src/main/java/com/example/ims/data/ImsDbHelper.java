@@ -151,6 +151,7 @@ public class ImsDbHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_DOCTOR_DIAGNOSIS_TABLE = "CREATE TABLE IF NOT EXISTS " + DoctorDiagnosisEntry.TABLE_NAME + " ("
             + DoctorDiagnosisEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + DoctorDiagnosisEntry.COLUMN_DIAGNOSIS + " TEXT NOT NULL, "
+            + DoctorDiagnosisEntry.COLUMN_Date_of_Service + " TEXT NOT NULL, "
             + DoctorDiagnosisEntry.COLUMN_ADDITIONAL_NOTES + " TEXT NOT NULL, "
             + DoctorDiagnosisEntry.COLUMN_PERFORMING_PHYSICIAN_SIGNATURE + " TEXT NOT NULL, "
             + DoctorDiagnosisEntry.COLUMN_PATIENT_ID + " INTEGER NOT NULL); ";

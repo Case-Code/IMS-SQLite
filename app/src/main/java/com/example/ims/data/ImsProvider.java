@@ -1160,6 +1160,10 @@ public class ImsProvider extends ContentProvider {
         if (performingPhysicianSignature == null) {
             throw new IllegalArgumentException("Doctor diagnosis requires a performing physician signature");
         }
+        String DateOfService = values.getAsString(DoctorDiagnosisEntry.COLUMN_Date_of_Service);
+        if (performingPhysicianSignature == null) {
+            throw new IllegalArgumentException("Doctor diagnosis requires a Date Of Service");
+        }
 
         // Patient id
         Integer patientId = values.getAsInteger(DoctorDiagnosisEntry.COLUMN_PATIENT_ID);
