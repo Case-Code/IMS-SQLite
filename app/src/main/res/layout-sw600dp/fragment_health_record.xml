@@ -45,14 +45,14 @@
                         android:text="Patient name: " />
 
                     <EditText
-                        android:id="@+id/edit_health_record_physician_name"
+                        android:id="@+id/edit_health_record_current_physician_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Current physician name"
                         android:inputType="text" />
 
                     <EditText
-                        android:id="@+id/edit_health_record_pharmacy_name"
+                        android:id="@+id/edit_health_record_current_pharmacy_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Current pharmacy name"
@@ -79,8 +79,7 @@
                             android:text="Date of the last update: " />
 
                         <TextView
-                            android:id="@+id/text_health_record_date_last_update"
-
+                            android:id="@+id/text_health_record_date_of_the_last_update"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="00/00/0000"
@@ -109,7 +108,7 @@
                             android:inputType="phone" />
 
                         <Button
-                            android:id="@+id/button_health_patient_record_save"
+                            android:id="@+id/button_health_record_save"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@android:color/transparent"
