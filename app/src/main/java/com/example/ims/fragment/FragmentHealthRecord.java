@@ -427,6 +427,7 @@ public class FragmentHealthRecord extends Fragment {
         medicationStartDateTextView =
                 view.findViewById(R.id.text_medications_start_date);
         medicationEndDateTextView = view.findViewById(R.id.text_medications_start_date);
+        //a
 
 
         majorIllnessEditText = view.findViewById(R.id.edit_major_illness);
