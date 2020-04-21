@@ -154,8 +154,7 @@
                         android:orientation="vertical">
 
                         <EditText
-                            android:id="@+id/edit_medications_medicament_name"
-
+                            android:id="@+id/edit_health_record_medicament_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="medicament name"
@@ -167,7 +166,7 @@
                             android:orientation="horizontal">
 
                             <EditText
-                                android:id="@+id/edit_medications_dosage"
+                                android:id="@+id/edit_health_record_dosage"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="5dp"
@@ -176,7 +175,7 @@
                                 android:inputType="phone" />
 
                             <EditText
-                                android:id="@+id/edit_medications_freq"
+                                android:id="@+id/edit_health_record_freq"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="5dp"
@@ -192,7 +191,6 @@
                             android:orientation="horizontal">
 
                             <LinearLayout
-                                android:id="@+id/k"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="5dp"
@@ -208,8 +206,7 @@
                                     android:text="start date:" />
 
                                 <TextView
-                                    android:id="@+id/text_medications_start_date"
-
+                                    android:id="@+id/text_health_record_medications_start_date"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="00/00/0000"
@@ -232,7 +229,7 @@
                                     android:text="end date:" />
 
                                 <TextView
-                                    android:id="@+id/text_medications_end_date"
+                                    android:id="@+id/text_health_record_medications_end_date"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="00/00/0000"
@@ -249,21 +246,21 @@
                         android:orientation="vertical">
 
                         <EditText
-                            android:id="@+id/edit_medications_physician"
+                            android:id="@+id/edit_health_record_physician"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="physician"
                             android:inputType="text" />
 
                         <EditText
-                            android:id="@+id/edit_medications_purpose"
+                            android:id="@+id/edit_health_record_purpose"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="purpose"
                             android:inputType="text" />
 
                         <Button
-                            android:id="@+id/button_medications_save"
+                            android:id="@+id/button_health_record_medications_save"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="end"

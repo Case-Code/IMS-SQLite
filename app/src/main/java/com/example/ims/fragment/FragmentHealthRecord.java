@@ -37,11 +37,11 @@ public class FragmentHealthRecord extends Fragment {
     private EditText patientPhysicianNameEditText;
     private EditText patientPharmacyNameEditText;
     private EditText patientPharmacyPhoneEditText;
-    private EditText medicationMedicamentNameEditText;
-    private EditText medicationPhysicianEditText;
-    private EditText medicationPurposeEditText;
-    private EditText medicationFREQEditText;
-    private EditText medicationDosageEditText;
+    private EditText medicamentNameEditText;
+    private EditText physicianEditText;
+    private EditText purposeEditText;
+    private EditText freqEditText;
+    private EditText dosageEditText;
     private EditText majorIllnessEditText;
     private EditText majorPhysicianEditText;
     private EditText majorTreatmentNotesEditText;
@@ -123,15 +123,13 @@ public class FragmentHealthRecord extends Fragment {
 
         if (TextUtils.isEmpty(patientPhysicianNameString)
                 && TextUtils.isEmpty(patientPharmacyNameString)
-                && TextUtils.isEmpty(patientPharmacyPhoneString) &&
-                TextUtils.isEmpty(patientDoctorPhoneString) &&
-                TextUtils.isEmpty(patientDateLastUpdateString)
-
+                && TextUtils.isEmpty(patientPharmacyPhoneString)
+                && TextUtils.isEmpty(patientDoctorPhoneString)
+                && TextUtils.isEmpty(patientDateLastUpdateString)
         ) {
             patientPharmacyNameEditText.setError("please write to name");
             patientPhysicianNameEditText.setError("please write to name");
             patientPharmacyPhoneEditText.setError("please write to name");
-
             return;
         }
         ContentValues values = new ContentValues();
@@ -187,11 +185,11 @@ public class FragmentHealthRecord extends Fragment {
     }
 
     public void saveMedications() {
-        String medicationMedicamentNameString = medicationMedicamentNameEditText.getText().toString().trim();
-        String medicationPhysicianString = medicationPhysicianEditText.getText().toString().trim();
-        String medicationPurposeString = medicationPurposeEditText.getText().toString().trim();
-        String medicationFREQString = medicationFREQEditText.getText().toString().trim();
-        String medicationDosageString = medicationDosageEditText.getText().toString().trim();
+        String medicationMedicamentNameString = medicamentNameEditText.getText().toString().trim();
+        String medicationPhysicianString = physicianEditText.getText().toString().trim();
+        String medicationPurposeString = purposeEditText.getText().toString().trim();
+        String medicationFREQString = freqEditText.getText().toString().trim();
+        String medicationDosageString = dosageEditText.getText().toString().trim();
         String medicationStartDateString = medicationStartDateTextView.getText().toString().trim();
         String medicationEndDateString = medicationEndDateTextView.getText().toString().trim();
 
@@ -204,9 +202,9 @@ public class FragmentHealthRecord extends Fragment {
                 TextUtils.isEmpty(medicationDosageString)
 
         ) {
-            medicationMedicamentNameEditText.setError("please write to name");
-            medicationPhysicianEditText.setError("please write to name");
-            medicationPurposeEditText.setError("please write to name");
+            medicamentNameEditText.setError("please write to name");
+            physicianEditText.setError("please write to name");
+            purposeEditText.setError("please write to name");
             return;
         }
         ContentValues values = new ContentValues();
@@ -405,7 +403,7 @@ public class FragmentHealthRecord extends Fragment {
 
     public void init() {
         patientSaveButton = view.findViewById(R.id.button_health_record_save);
-        medicationSaveButton = view.findViewById(R.id.button_medications_save);
+
         majorAddButton = view.findViewById(R.id.button_major_save);
         proceduresAddButton = view.findViewById(R.id.button_procedures_add);
         vaccinesAddButton = view.findViewById(R.id.button_patient_vaccines_add);
@@ -415,14 +413,16 @@ public class FragmentHealthRecord extends Fragment {
         patientDateLastUpdateTextView = view.findViewById(R.id.text_health_record_date_of_the_last_update);
         patientDoctorPhoneEditText = view.findViewById(R.id.edit_health_record_doctors_phone);
         patientNameTextView = view.findViewById(R.id.text_health_record_patient_name);
-        medicationMedicamentNameEditText = view.findViewById(R.id.edit_medications_medicament_name);
-        medicationPhysicianEditText = view.findViewById(R.id.edit_medications_physician);
-        medicationPurposeEditText = view.findViewById(R.id.edit_medications_purpose);
-        medicationFREQEditText = view.findViewById(R.id.edit_medications_freq);
-        medicationDosageEditText = view.findViewById(R.id.edit_medications_dosage);
-        medicationStartDateTextView = view.findViewById(R.id.text_medications_start_date);
-        medicationEndDateTextView = view.findViewById(R.id.text_medications_start_date);
-        //a
+
+        // Current and past medications
+        medicamentNameEditText = view.findViewById(R.id.edit_health_record_medicament_name);
+        dosageEditText = view.findViewById(R.id.edit_health_record_dosage);
+        freqEditText = view.findViewById(R.id.edit_health_record_freq);
+        medicationStartDateTextView = view.findViewById(R.id.text_health_record_medications_start_date);
+        medicationEndDateTextView = view.findViewById(R.id.text_health_record_medications_end_date);
+        physicianEditText = view.findViewById(R.id.edit_health_record_physician);
+        purposeEditText = view.findViewById(R.id.edit_health_record_purpose);
+        medicationSaveButton = view.findViewById(R.id.button_health_record_medications_save);
 
         majorIllnessEditText = view.findViewById(R.id.edit_major_illness);
         majorPhysicianEditText = view.findViewById(R.id.edit_major_physician);
