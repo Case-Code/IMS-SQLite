@@ -34,9 +34,9 @@ public class FragmentHealthRecord extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private EditText patientPhysicianNameEditText;
-    private EditText patientPharmacyNameEditText;
-    private EditText patientPharmacyPhoneEditText;
+    private EditText currentPhysicianNameEditText;
+    private EditText currentPharmacyNameEditText;
+    private EditText pharmacyPhoneEditText;
     private EditText medicamentNameEditText;
     private EditText medicationsPhysicianEditText;
     private EditText purposeEditText;
@@ -49,15 +49,15 @@ public class FragmentHealthRecord extends Fragment {
     private EditText proceduresPhysicianEditText;
     private EditText proceduresHospitalEditText;
     private EditText proceduresNotesEditText;
-    private EditText patientDoctorPhoneEditText;
+    private EditText doctorsPhoneEditText;
 
-    private Button patientSaveButton;
+    private Button healthRecordSaveButton;
     private Button medicationSaveButton;
     private Button majorAddButton;
     private Button proceduresAddButton;
     private Button vaccinesAddButton;
 
-    private TextView patientDateLastUpdateTextView;
+    private TextView dateOfTheLastUpdateTextView;
     private TextView patientNameTextView;
     private TextView medicationStartDateTextView;
     private TextView medicationEndDateTextView;
@@ -115,11 +115,11 @@ public class FragmentHealthRecord extends Fragment {
     }
 
     public void saveHealthRecord() {
-        String patientPhysicianNameString = patientPhysicianNameEditText.getText().toString().trim();
-        String patientPharmacyNameString = patientPharmacyNameEditText.getText().toString().trim();
-        String patientPharmacyPhoneString = patientPharmacyPhoneEditText.getText().toString().trim();
-        String patientDoctorPhoneString = patientDoctorPhoneEditText.getText().toString().trim();
-        String patientDateLastUpdateString = patientDateLastUpdateTextView.getText().toString().trim();
+        String patientPhysicianNameString = currentPhysicianNameEditText.getText().toString().trim();
+        String patientPharmacyNameString = currentPharmacyNameEditText.getText().toString().trim();
+        String patientPharmacyPhoneString = pharmacyPhoneEditText.getText().toString().trim();
+        String patientDoctorPhoneString = doctorsPhoneEditText.getText().toString().trim();
+        String patientDateLastUpdateString = dateOfTheLastUpdateTextView.getText().toString().trim();
 
         if (TextUtils.isEmpty(patientPhysicianNameString)
                 && TextUtils.isEmpty(patientPharmacyNameString)
@@ -127,42 +127,42 @@ public class FragmentHealthRecord extends Fragment {
                 && TextUtils.isEmpty(patientDoctorPhoneString)
                 && TextUtils.isEmpty(patientDateLastUpdateString)
         ) {
-            patientPharmacyNameEditText.setError("please write to name");
-            patientPhysicianNameEditText.setError("please write to name");
-            patientPharmacyPhoneEditText.setError("please write to name");
+            currentPharmacyNameEditText.setError("please write to name");
+            currentPhysicianNameEditText.setError("please write to name");
+            pharmacyPhoneEditText.setError("please write to name");
             return;
         }
         ContentValues values = new ContentValues();
         if (TextUtils.isEmpty(patientPhysicianNameString)) {
-            patientPhysicianNameEditText.setError("please write to name");
+            currentPhysicianNameEditText.setError("please write to name");
             return;
 
         } else {
             values.put(ImsContract.HealthRecordEntry.COLUMN_CURRENT_PHYSICIAN_NAME, patientPhysicianNameString);
         }
         if (TextUtils.isEmpty(patientPharmacyNameString)) {
-            patientPharmacyNameEditText.setError("please write to name");
+            currentPharmacyNameEditText.setError("please write to name");
             return;
 
         } else {
             values.put(ImsContract.HealthRecordEntry.COLUMN_CURRENT_PHARMACY_NAME, patientPharmacyNameString);
         }
         if (TextUtils.isEmpty(patientPharmacyPhoneString)) {
-            patientPharmacyPhoneEditText.setError("please write to name");
+            pharmacyPhoneEditText.setError("please write to name");
             return;
 
         } else {
             values.put(ImsContract.HealthRecordEntry.COLUMN_PHARMACY_PHONE, patientPharmacyPhoneString);
         }
         if (TextUtils.isEmpty(patientDoctorPhoneString)) {
-            patientDateLastUpdateTextView.setError("please write to pharmacy");
+            dateOfTheLastUpdateTextView.setError("please write to pharmacy");
             return;
 
         } else {
             values.put(ImsContract.HealthRecordEntry.COLUMN_DOCTORS_PHONE, patientDoctorPhoneString);
         }
         if (TextUtils.isEmpty(patientDateLastUpdateString)) {
-            patientDateLastUpdateTextView.setError("please write to phone");
+            dateOfTheLastUpdateTextView.setError("please write to phone");
             return;
 
         } else {
@@ -209,14 +209,14 @@ public class FragmentHealthRecord extends Fragment {
         }
         ContentValues values = new ContentValues();
         if (TextUtils.isEmpty(medicationStartDateString)) {
-            patientPhysicianNameEditText.setError("please write to name");
+            currentPhysicianNameEditText.setError("please write to name");
             return;
         } else {
             values.put(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_START_DATE, medicationStartDateString);
         }
 
         if (TextUtils.isEmpty(medicationEndDateString)) {
-            patientPhysicianNameEditText.setError("please write to name");
+            currentPhysicianNameEditText.setError("please write to name");
             return;
         } else {
             values.put(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_END_DATE, medicationEndDateString);
@@ -276,42 +276,42 @@ public class FragmentHealthRecord extends Fragment {
 
         ContentValues values = new ContentValues();
         if (TextUtils.isEmpty(majorIllnessString)) {
-            patientPhysicianNameEditText.setError("please write to name");
+            currentPhysicianNameEditText.setError("please write to name");
             return;
 
         } else {
             values.put(ImsContract.MajorIllnessesEntry.COLUMN_ILLNESS, majorIllnessString);
         }
         if (TextUtils.isEmpty(majorPhysicianString)) {
-            patientPhysicianNameEditText.setError("please write to name");
+            currentPhysicianNameEditText.setError("please write to name");
             return;
 
         } else {
             values.put(ImsContract.MajorIllnessesEntry.COLUMN_PHYSICIAN, majorPhysicianString);
         }
         if (TextUtils.isEmpty(majorTreatmentNotesString)) {
-            patientPhysicianNameEditText.setError("please write to name");
+            currentPhysicianNameEditText.setError("please write to name");
             return;
 
         } else {
             values.put(ImsContract.MajorIllnessesEntry.COLUMN_TREATMENT_NOTES, majorTreatmentNotesString);
         }
         if (TextUtils.isEmpty(majorStartDateString)) {
-            patientPhysicianNameEditText.setError("please write to name");
+            currentPhysicianNameEditText.setError("please write to name");
             return;
 
         } else {
             values.put(ImsContract.MajorIllnessesEntry.COLUMN_START_DATE, majorStartDateString);
         }
         if (TextUtils.isEmpty(majorEndDateString)) {
-            patientPhysicianNameEditText.setError("please write to name");
+            currentPhysicianNameEditText.setError("please write to name");
             return;
 
         } else {
             values.put(ImsContract.MajorIllnessesEntry.COLUMN_END_DATE, majorEndDateString);
         }
         if (TextUtils.isEmpty(String.valueOf(id))) {
-            patientPhysicianNameEditText.setError("please write to name");
+            currentPhysicianNameEditText.setError("please write to name");
             return;
 
         } else {
@@ -402,17 +402,13 @@ public class FragmentHealthRecord extends Fragment {
 
 
     public void init() {
-        patientSaveButton = view.findViewById(R.id.button_health_record_save);
-
-        majorAddButton = view.findViewById(R.id.button_major_save);
-        proceduresAddButton = view.findViewById(R.id.button_procedures_add);
-        vaccinesAddButton = view.findViewById(R.id.button_patient_vaccines_add);
-        patientPhysicianNameEditText = view.findViewById(R.id.edit_health_record_current_physician_name);
-        patientPharmacyNameEditText = view.findViewById(R.id.edit_health_record_current_pharmacy_name);
-        patientPharmacyPhoneEditText = view.findViewById(R.id.edit_health_record_pharmacy_phone);
-        patientDateLastUpdateTextView = view.findViewById(R.id.text_health_record_date_of_the_last_update);
-        patientDoctorPhoneEditText = view.findViewById(R.id.edit_health_record_doctors_phone);
-        patientNameTextView = view.findViewById(R.id.text_health_record_patient_name);
+        // Health record
+        currentPhysicianNameEditText = view.findViewById(R.id.edit_health_record_current_physician_name);
+        currentPharmacyNameEditText = view.findViewById(R.id.edit_health_record_current_pharmacy_name);
+        dateOfTheLastUpdateTextView = view.findViewById(R.id.text_health_record_date_of_the_last_update);
+        doctorsPhoneEditText = view.findViewById(R.id.edit_health_record_doctors_phone);
+        pharmacyPhoneEditText = view.findViewById(R.id.edit_health_record_pharmacy_phone);
+        healthRecordSaveButton = view.findViewById(R.id.button_health_record_save);
 
         // Current and past medications
         medicamentNameEditText = view.findViewById(R.id.edit_health_record_medicament_name);
@@ -424,6 +420,10 @@ public class FragmentHealthRecord extends Fragment {
         purposeEditText = view.findViewById(R.id.edit_health_record_purpose);
         medicationSaveButton = view.findViewById(R.id.button_health_record_medications_save);
 
+        majorAddButton = view.findViewById(R.id.button_major_save);
+        proceduresAddButton = view.findViewById(R.id.button_procedures_add);
+        vaccinesAddButton = view.findViewById(R.id.button_patient_vaccines_add);
+        patientNameTextView = view.findViewById(R.id.text_health_record_patient_name);
         majorIllnessEditText = view.findViewById(R.id.edit_major_illness);
         majorPhysicianEditText = view.findViewById(R.id.edit_major_physician);
         majorTreatmentNotesEditText = view.findViewById(R.id.edit_major_treatment_notes);
@@ -466,7 +466,7 @@ public class FragmentHealthRecord extends Fragment {
         view = inflater.inflate(R.layout.fragment_health_record, container, false);
 
         init();
-        patientDateLastUpdateTextView.setOnClickListener(new View.OnClickListener() {
+        dateOfTheLastUpdateTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
@@ -474,13 +474,13 @@ public class FragmentHealthRecord extends Fragment {
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         month += 1;
                         String date = month + "/" + dayOfMonth + "/" + year;
-                        patientDateLastUpdateTextView.setText(date);
+                        dateOfTheLastUpdateTextView.setText(date);
                     }
                 };
                 Utils.showDatePicker(getContext(), dateSetListener);
             }
         });
-        patientSaveButton.setOnClickListener(new View.OnClickListener() {
+        healthRecordSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 saveHealthRecord();
