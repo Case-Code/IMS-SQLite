@@ -38,7 +38,7 @@ public class FragmentHealthRecord extends Fragment {
     private EditText patientPharmacyNameEditText;
     private EditText patientPharmacyPhoneEditText;
     private EditText medicamentNameEditText;
-    private EditText physicianEditText;
+    private EditText medicationsPhysicianEditText;
     private EditText purposeEditText;
     private EditText freqEditText;
     private EditText dosageEditText;
@@ -186,7 +186,7 @@ public class FragmentHealthRecord extends Fragment {
 
     public void saveMedications() {
         String medicationMedicamentNameString = medicamentNameEditText.getText().toString().trim();
-        String medicationPhysicianString = physicianEditText.getText().toString().trim();
+        String medicationPhysicianString = medicationsPhysicianEditText.getText().toString().trim();
         String medicationPurposeString = purposeEditText.getText().toString().trim();
         String medicationFREQString = freqEditText.getText().toString().trim();
         String medicationDosageString = dosageEditText.getText().toString().trim();
@@ -203,7 +203,7 @@ public class FragmentHealthRecord extends Fragment {
 
         ) {
             medicamentNameEditText.setError("please write to name");
-            physicianEditText.setError("please write to name");
+            medicationsPhysicianEditText.setError("please write to name");
             purposeEditText.setError("please write to name");
             return;
         }
@@ -420,7 +420,7 @@ public class FragmentHealthRecord extends Fragment {
         freqEditText = view.findViewById(R.id.edit_health_record_freq);
         medicationStartDateTextView = view.findViewById(R.id.text_health_record_medications_start_date);
         medicationEndDateTextView = view.findViewById(R.id.text_health_record_medications_end_date);
-        physicianEditText = view.findViewById(R.id.edit_health_record_physician);
+        medicationsPhysicianEditText = view.findViewById(R.id.edit_health_record_medications_physician);
         purposeEditText = view.findViewById(R.id.edit_health_record_purpose);
         medicationSaveButton = view.findViewById(R.id.button_health_record_medications_save);
 

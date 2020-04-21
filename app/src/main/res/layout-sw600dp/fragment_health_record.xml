@@ -246,7 +246,7 @@
                         android:orientation="vertical">
 
                         <EditText
-                            android:id="@+id/edit_health_record_physician"
+                            android:id="@+id/edit_health_record_medications_physician"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="physician"
