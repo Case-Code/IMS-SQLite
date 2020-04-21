@@ -63,7 +63,7 @@ public class FragmentHealthRecord extends Fragment {
     private TextView medicationEndDateTextView;
     private TextView majorStartDateTextView;
     private TextView majorEndDateTextView;
-    private TextView proceduresDateSurgicalTextView;
+    private TextView procedureStartDateTextView;
     private TextView vaccinesTETANUSTextView;
     private TextView vaccinesINFLUENZAVACCINETextView;
     private TextView vaccinesZOSTAVAXTextView;
@@ -73,7 +73,7 @@ public class FragmentHealthRecord extends Fragment {
     private TextView vaccinesHistoryTextView;
 
 
-    private ListView majorListView;
+    private ListView majorIllnessesListView;
     private ListView proceduresListView;
     private ListView vaccinesListView;
 
@@ -333,7 +333,7 @@ public class FragmentHealthRecord extends Fragment {
         String proceduresPhysicianString = proceduresPhysicianEditText.getText().toString().trim();
         String proceduresHospitalString = proceduresHospitalEditText.getText().toString().trim();
         String proceduresNotesString = proceduresNotesEditText.getText().toString().trim();
-        String proceduresDateSurgicalString = proceduresDateSurgicalTextView.getText().toString().trim();
+        String proceduresDateSurgicalString = procedureStartDateTextView.getText().toString().trim();
         ContentValues values = new ContentValues();
         if (TextUtils.isEmpty(proceduresString)) {
             return;
@@ -420,33 +420,34 @@ public class FragmentHealthRecord extends Fragment {
         purposeEditText = view.findViewById(R.id.edit_health_record_purpose);
         medicationSaveButton = view.findViewById(R.id.button_health_record_medications_save);
 
-        majorAddButton = view.findViewById(R.id.button_major_save);
-        proceduresAddButton = view.findViewById(R.id.button_procedures_add);
-        vaccinesAddButton = view.findViewById(R.id.button_patient_vaccines_add);
-        patientNameTextView = view.findViewById(R.id.text_health_record_patient_name);
+        // Major illnesses
         majorIllnessEditText = view.findViewById(R.id.edit_major_illness);
-        majorPhysicianEditText = view.findViewById(R.id.edit_major_physician);
-        majorTreatmentNotesEditText = view.findViewById(R.id.edit_major_treatment_notes);
         majorStartDateTextView = view.findViewById(R.id.text_major_start_date);
         majorEndDateTextView = view.findViewById(R.id.text_major_end_date);
-        majorListView = view.findViewById(R.id.list_major_illnesses);
+        majorPhysicianEditText = view.findViewById(R.id.edit_major_physician);
+        majorTreatmentNotesEditText = view.findViewById(R.id.edit_major_treatment_notes);
+        majorAddButton = view.findViewById(R.id.button_major_save);
+        majorIllnessesListView = view.findViewById(R.id.list_major_illnesses);
 
+        // Surgical procedures
         proceduresEditText = view.findViewById(R.id.edit_procedures_procedure);
         proceduresPhysicianEditText = view.findViewById(R.id.edit_procedures_physician);
         proceduresHospitalEditText = view.findViewById(R.id.edit_procedures_hospital);
+        procedureStartDateTextView = view.findViewById(R.id.text_procedures_start_date);
         proceduresNotesEditText = view.findViewById(R.id.edit_procedures_notes);
-        proceduresDateSurgicalTextView = view.findViewById(R.id.text_procedures_start_date);
+        proceduresAddButton = view.findViewById(R.id.button_procedures_add);
         proceduresListView = view.findViewById(R.id.list_surgical_procedures);
 
+        // Patient vaccines
         vaccinesTETANUSTextView = view.findViewById(R.id.text_Patient_vaccines_TETANUS);
         vaccinesINFLUENZAVACCINETextView = view.findViewById(R.id.text_Patient_vaccines_INFLUENZA_VACCINE);
         vaccinesZOSTAVAXTextView = view.findViewById(R.id.text_Patient_vaccines_ZOSTAVAX);
         vaccinesMENINGITISTextView = view.findViewById(R.id.text_Patient_vaccines_MENINGITIS);
         vaccinesYELLOWFEVERTextView = view.findViewById(R.id.text_Patient_vaccines_YELLOW_FEVER);
         vaccinesPOLIOTextView = view.findViewById(R.id.text_Patient_vaccines_POLIO);
-        vaccinesHistoryTextView = view.findViewById(R.id.text_Patient_vaccines_History_of_vaccination);
         vaccinesSpinner = view.findViewById(R.id.spinner_Patient_vaccines_tetanus);
-
+        vaccinesHistoryTextView = view.findViewById(R.id.text_Patient_vaccines_History_of_vaccination);
+        vaccinesAddButton = view.findViewById(R.id.button_vaccines_add);
         vaccinesListView = view.findViewById(R.id.list_patient_vaccines);
     }
 
