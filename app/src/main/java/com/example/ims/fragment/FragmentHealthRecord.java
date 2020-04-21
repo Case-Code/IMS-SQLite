@@ -34,7 +34,7 @@ public class FragmentHealthRecord extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private EditText currentPhysicianNameEditText;
+    private EditText hrCurrentPhysicianNameEditText;
     private EditText currentPharmacyNameEditText;
     private EditText pharmacyPhoneEditText;
     private EditText medicamentNameEditText;
@@ -74,8 +74,8 @@ public class FragmentHealthRecord extends Fragment {
 
 
     private ListView majorIllnessesListView;
-    private ListView proceduresListView;
-    private ListView vaccinesListView;
+    private ListView surgicalProceduresListView;
+    private ListView patientVaccinesListView;
 
     private Spinner vaccinesSpinner;
 
@@ -115,7 +115,7 @@ public class FragmentHealthRecord extends Fragment {
     }
 
     public void saveHealthRecord() {
-        String patientPhysicianNameString = currentPhysicianNameEditText.getText().toString().trim();
+        String patientPhysicianNameString = hrCurrentPhysicianNameEditText.getText().toString().trim();
         String patientPharmacyNameString = currentPharmacyNameEditText.getText().toString().trim();
         String patientPharmacyPhoneString = pharmacyPhoneEditText.getText().toString().trim();
         String patientDoctorPhoneString = doctorsPhoneEditText.getText().toString().trim();
@@ -128,13 +128,13 @@ public class FragmentHealthRecord extends Fragment {
                 && TextUtils.isEmpty(patientDateLastUpdateString)
         ) {
             currentPharmacyNameEditText.setError("please write to name");
-            currentPhysicianNameEditText.setError("please write to name");
+            hrCurrentPhysicianNameEditText.setError("please write to name");
             pharmacyPhoneEditText.setError("please write to name");
             return;
         }
         ContentValues values = new ContentValues();
         if (TextUtils.isEmpty(patientPhysicianNameString)) {
-            currentPhysicianNameEditText.setError("please write to name");
+            hrCurrentPhysicianNameEditText.setError("please write to name");
             return;
 
         } else {
@@ -209,14 +209,14 @@ public class FragmentHealthRecord extends Fragment {
         }
         ContentValues values = new ContentValues();
         if (TextUtils.isEmpty(medicationStartDateString)) {
-            currentPhysicianNameEditText.setError("please write to name");
+            hrCurrentPhysicianNameEditText.setError("please write to name");
             return;
         } else {
             values.put(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_START_DATE, medicationStartDateString);
         }
 
         if (TextUtils.isEmpty(medicationEndDateString)) {
-            currentPhysicianNameEditText.setError("please write to name");
+            hrCurrentPhysicianNameEditText.setError("please write to name");
             return;
         } else {
             values.put(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_END_DATE, medicationEndDateString);
@@ -276,42 +276,42 @@ public class FragmentHealthRecord extends Fragment {
 
         ContentValues values = new ContentValues();
         if (TextUtils.isEmpty(majorIllnessString)) {
-            currentPhysicianNameEditText.setError("please write to name");
+            hrCurrentPhysicianNameEditText.setError("please write to name");
             return;
 
         } else {
             values.put(ImsContract.MajorIllnessesEntry.COLUMN_ILLNESS, majorIllnessString);
         }
         if (TextUtils.isEmpty(majorPhysicianString)) {
-            currentPhysicianNameEditText.setError("please write to name");
+            hrCurrentPhysicianNameEditText.setError("please write to name");
             return;
 
         } else {
             values.put(ImsContract.MajorIllnessesEntry.COLUMN_PHYSICIAN, majorPhysicianString);
         }
         if (TextUtils.isEmpty(majorTreatmentNotesString)) {
-            currentPhysicianNameEditText.setError("please write to name");
+            hrCurrentPhysicianNameEditText.setError("please write to name");
             return;
 
         } else {
             values.put(ImsContract.MajorIllnessesEntry.COLUMN_TREATMENT_NOTES, majorTreatmentNotesString);
         }
         if (TextUtils.isEmpty(majorStartDateString)) {
-            currentPhysicianNameEditText.setError("please write to name");
+            hrCurrentPhysicianNameEditText.setError("please write to name");
             return;
 
         } else {
             values.put(ImsContract.MajorIllnessesEntry.COLUMN_START_DATE, majorStartDateString);
         }
         if (TextUtils.isEmpty(majorEndDateString)) {
-            currentPhysicianNameEditText.setError("please write to name");
+            hrCurrentPhysicianNameEditText.setError("please write to name");
             return;
 
         } else {
             values.put(ImsContract.MajorIllnessesEntry.COLUMN_END_DATE, majorEndDateString);
         }
         if (TextUtils.isEmpty(String.valueOf(id))) {
-            currentPhysicianNameEditText.setError("please write to name");
+            hrCurrentPhysicianNameEditText.setError("please write to name");
             return;
 
         } else {
@@ -400,55 +400,55 @@ public class FragmentHealthRecord extends Fragment {
 
     }
 
-
+    // initialization
     public void init() {
         // Health record
-        currentPhysicianNameEditText = view.findViewById(R.id.edit_health_record_current_physician_name);
-        currentPharmacyNameEditText = view.findViewById(R.id.edit_health_record_current_pharmacy_name);
-        dateOfTheLastUpdateTextView = view.findViewById(R.id.text_health_record_date_of_the_last_update);
-        doctorsPhoneEditText = view.findViewById(R.id.edit_health_record_doctors_phone);
-        pharmacyPhoneEditText = view.findViewById(R.id.edit_health_record_pharmacy_phone);
-        healthRecordSaveButton = view.findViewById(R.id.button_health_record_save);
+        hrCurrentPhysicianNameEditText = view.findViewById(R.id.edit_hr_current_physician_name);
+        currentPharmacyNameEditText = view.findViewById(R.id.edit_hr_current_pharmacy_name);
+        dateOfTheLastUpdateTextView = view.findViewById(R.id.text_hr_date_of_the_last_update);
+        doctorsPhoneEditText = view.findViewById(R.id.edit_hr_doctors_phone);
+        pharmacyPhoneEditText = view.findViewById(R.id.edit_hr_pharmacy_phone);
+        healthRecordSaveButton = view.findViewById(R.id.button_hr_save);
 
         // Current and past medications
-        medicamentNameEditText = view.findViewById(R.id.edit_health_record_medicament_name);
-        dosageEditText = view.findViewById(R.id.edit_health_record_dosage);
-        freqEditText = view.findViewById(R.id.edit_health_record_freq);
-        medicationStartDateTextView = view.findViewById(R.id.text_health_record_medications_start_date);
-        medicationEndDateTextView = view.findViewById(R.id.text_health_record_medications_end_date);
-        medicationsPhysicianEditText = view.findViewById(R.id.edit_health_record_medications_physician);
-        purposeEditText = view.findViewById(R.id.edit_health_record_purpose);
-        medicationSaveButton = view.findViewById(R.id.button_health_record_medications_save);
+        medicamentNameEditText = view.findViewById(R.id.edit_capm_medicament_name);
+        dosageEditText = view.findViewById(R.id.edit_capm_dosage);
+        freqEditText = view.findViewById(R.id.edit_capm_freq);
+        medicationStartDateTextView = view.findViewById(R.id.text_capm_medications_start_date);
+        medicationEndDateTextView = view.findViewById(R.id.text_capm_medications_end_date);
+        medicationsPhysicianEditText = view.findViewById(R.id.edit_capm_medications_physician);
+        purposeEditText = view.findViewById(R.id.edit_capm_purpose);
+        medicationSaveButton = view.findViewById(R.id.button_capm_medications_save);
 
         // Major illnesses
-        majorIllnessEditText = view.findViewById(R.id.edit_major_illness);
-        majorStartDateTextView = view.findViewById(R.id.text_major_start_date);
-        majorEndDateTextView = view.findViewById(R.id.text_major_end_date);
-        majorPhysicianEditText = view.findViewById(R.id.edit_major_physician);
-        majorTreatmentNotesEditText = view.findViewById(R.id.edit_major_treatment_notes);
-        majorAddButton = view.findViewById(R.id.button_major_save);
+        majorIllnessEditText = view.findViewById(R.id.edit_mi_illness);
+        majorStartDateTextView = view.findViewById(R.id.text_mi_start_date);
+        majorEndDateTextView = view.findViewById(R.id.text_mi_end_date);
+        majorPhysicianEditText = view.findViewById(R.id.edit_mi_physician);
+        majorTreatmentNotesEditText = view.findViewById(R.id.edit_mi_treatment_notes);
+        majorAddButton = view.findViewById(R.id.button_mi_save);
         majorIllnessesListView = view.findViewById(R.id.list_major_illnesses);
 
         // Surgical procedures
-        proceduresEditText = view.findViewById(R.id.edit_procedures_procedure);
-        proceduresPhysicianEditText = view.findViewById(R.id.edit_procedures_physician);
-        proceduresHospitalEditText = view.findViewById(R.id.edit_procedures_hospital);
-        procedureStartDateTextView = view.findViewById(R.id.text_procedures_start_date);
-        proceduresNotesEditText = view.findViewById(R.id.edit_procedures_notes);
-        proceduresAddButton = view.findViewById(R.id.button_procedures_add);
-        proceduresListView = view.findViewById(R.id.list_surgical_procedures);
+        proceduresEditText = view.findViewById(R.id.edit_sp_procedure);
+        proceduresPhysicianEditText = view.findViewById(R.id.edit_sp_physician);
+        proceduresHospitalEditText = view.findViewById(R.id.edit_sp_hospital);
+        procedureStartDateTextView = view.findViewById(R.id.text_sp_date);
+        proceduresNotesEditText = view.findViewById(R.id.edit_sp_notes);
+        proceduresAddButton = view.findViewById(R.id.button_sp_add);
+        surgicalProceduresListView = view.findViewById(R.id.list_surgical_procedures);
 
         // Patient vaccines
-        vaccinesTETANUSTextView = view.findViewById(R.id.text_Patient_vaccines_TETANUS);
-        vaccinesINFLUENZAVACCINETextView = view.findViewById(R.id.text_Patient_vaccines_INFLUENZA_VACCINE);
-        vaccinesZOSTAVAXTextView = view.findViewById(R.id.text_Patient_vaccines_ZOSTAVAX);
-        vaccinesMENINGITISTextView = view.findViewById(R.id.text_Patient_vaccines_MENINGITIS);
-        vaccinesYELLOWFEVERTextView = view.findViewById(R.id.text_Patient_vaccines_YELLOW_FEVER);
-        vaccinesPOLIOTextView = view.findViewById(R.id.text_Patient_vaccines_POLIO);
-        vaccinesSpinner = view.findViewById(R.id.spinner_Patient_vaccines_tetanus);
-        vaccinesHistoryTextView = view.findViewById(R.id.text_Patient_vaccines_History_of_vaccination);
-        vaccinesAddButton = view.findViewById(R.id.button_vaccines_add);
-        vaccinesListView = view.findViewById(R.id.list_patient_vaccines);
+        vaccinesTETANUSTextView = view.findViewById(R.id.text_pv_tetanus);
+        vaccinesINFLUENZAVACCINETextView = view.findViewById(R.id.text_pv_influenza_vaccine);
+        vaccinesZOSTAVAXTextView = view.findViewById(R.id.text_pv_zostavax);
+        vaccinesMENINGITISTextView = view.findViewById(R.id.text_pv_meningitis);
+        vaccinesYELLOWFEVERTextView = view.findViewById(R.id.text_pv_yellow_fever);
+        vaccinesPOLIOTextView = view.findViewById(R.id.text_pv_polio);
+        vaccinesSpinner = view.findViewById(R.id.spinner_pv_tetanus);
+        vaccinesHistoryTextView = view.findViewById(R.id.text_pv_history_of_vaccination);
+        vaccinesAddButton = view.findViewById(R.id.button_pv_add);
+        patientVaccinesListView = view.findViewById(R.id.list_patient_vaccines);
     }
 
     @Override
