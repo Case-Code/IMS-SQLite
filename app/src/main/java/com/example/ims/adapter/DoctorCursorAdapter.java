@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.example.ims.R;
 import com.example.ims.data.ImsContract;
 
-public class DoctorCursorAdapter extends CursorAdapter {
+public class  DoctorCursorAdapter extends CursorAdapter {
     public DoctorCursorAdapter(Context context, Cursor c) {
         super(context, c, 0);
     }

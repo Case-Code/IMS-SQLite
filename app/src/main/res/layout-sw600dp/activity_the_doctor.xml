@@ -93,6 +93,7 @@
                         android:textColor="@color/colorPrimaryDark" />
 
                     <AutoCompleteTextView
+                        android:id="@+id/edit_doctor_clinic_search"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -106,7 +107,7 @@
                         android:paddingLeft="10dp" />
 
                     <ListView
-                        android:id="@+id/list_patient"
+                        android:id="@+id/list_doctor_clinic_patient"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         tools:listitem="@layout/item_clinic" />
@@ -172,6 +173,7 @@
                             android:padding="10dp">
 
                             <AutoCompleteTextView
+                                android:id="@+id/edit_doctor_diagnosis_search"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:completionThreshold="1"
@@ -183,7 +185,7 @@
                                 android:paddingLeft="10dp" />
 
                             <ListView
-                                android:id="@+id/list_item_transformation"
+                                android:id="@+id/list_doctor_diagnosis_transformation"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 tools:listitem="@layout/item_transformation" />
@@ -213,6 +215,7 @@
                                     android:textSize="14sp" />
 
                                 <TextView
+                                    android:id="@+id/text_doctor_diagnosis_name"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="end"
@@ -235,6 +238,7 @@
                                     android:textSize="14sp" />
 
                                 <TextView
+                                    android:id="@+id/text_doctor_diagnosis_date_birth"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="end"
@@ -258,6 +262,7 @@
                                     android:textSize="14sp" />
 
                                 <TextView
+                                    android:id="@+id/text_doctor_diagnosis_date_service"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="end"
@@ -266,6 +271,7 @@
                             </LinearLayout>
 
                             <EditText
+                                android:id="@+id/text_doctor_diagnosis_name"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"

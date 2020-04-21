@@ -95,7 +95,7 @@
                         android:textColor="@color/colorPrimaryDark" />
 
                     <ListView
-                        android:id="@+id/list_patient"
+                        android:id="@+id/list_reception_patient"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_below="@+id/text_patients"

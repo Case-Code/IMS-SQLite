@@ -208,31 +208,10 @@ return view;
 CursorLoader c=null;
         String[] projection =
                 { ImsContract.PatientProgressEntry._ID,
-                        ImsContract.PatientProgressEntry.COLUMN_PROGRESS_NOTES, ImsContract.PatientProgressEntry.COLUMN_PATIENT_ID,};
+                        ImsContract.PatientProgressEntry.COLUMN_PROGRESS_NOTES,
+                        ImsContract.PatientProgressEntry.COLUMN_PATIENT_ID,};
 
 
-      /*  if(id==0){
-
-        }else if(id!=0){
-
-        }
-
-        if(mCurrentPatientUri==null)
-        {
-            return new CursorLoader(this.getActivity(),
-                    ImsContract.PatientProgressEntry.CONTENT_URI,
-                    projection,
-                    null,null,null
-                    );
-        }else {
-            return new CursorLoader(
-                this.getActivity(),
-                    mCurrentPatientUri,
-                    projection,
-                    id+""
-                    ,null,null
-            );
-        }*/
 
 
 
@@ -247,7 +226,8 @@ CursorLoader c=null;
                 ,null,null
         );
         return c;
-      }else {
+      }
+       else {
            c= new CursorLoader(
                    this.getActivity(),
                    mCurrentPatientUri,

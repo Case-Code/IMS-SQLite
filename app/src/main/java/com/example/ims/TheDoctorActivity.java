@@ -48,6 +48,8 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
 
     AutoCompleteTextView edittext;
 
+
+
     private String mTheNamesOfTheClinics = "null";
 
     @Override

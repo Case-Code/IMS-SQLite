@@ -203,7 +203,7 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
         mActionMenuImageButton = findViewById(R.id.image_button_action_menu);
         mFloatingActionButton = findViewById(R.id.floating_action_button);
         mEmptyReceptionImageView = findViewById(R.id.image_empty_reception);
-        mPatientListView = findViewById(R.id.list_patient);
+        mPatientListView = findViewById(R.id.list_reception_patient);
         mDialogTransferredToClinicsView = getLayoutInflater().inflate(R.layout.dialog_transferred_to_clinics, null);
         mDialogTransferredToTheAnalysisLab = getLayoutInflater().inflate(R.layout.dialog_transferred_to_the_analysis_lab, null);
     }
