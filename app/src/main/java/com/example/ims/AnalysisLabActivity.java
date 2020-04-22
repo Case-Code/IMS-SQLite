@@ -125,7 +125,7 @@ public class AnalysisLabActivity extends AppCompatActivity implements Navigation
 
         //List of clients referred to the laboratory for analysis
         locPatientNameEditText=findViewById(R.id.edit_loc_patient_name);
-       locPatientListView=findViewById(R.id.list_loc_patient);;
+       locPatientListView=findViewById(R.id.list_loc_patient);
 
         //Patient records
          prBillToNameTextView=findViewById(R.id.text_pr_bill_to_name);;

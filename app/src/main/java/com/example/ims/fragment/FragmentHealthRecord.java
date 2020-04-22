@@ -225,7 +225,7 @@ public class FragmentHealthRecord extends Fragment {
             return;
 
         } else {
-            //  values.put(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_PHYSICIAN, medicationMedicamentNameString);
+             values.put(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_PHYSICIAN, medicationMedicamentNameString);
         }
 
         if (TextUtils.isEmpty(medicationPhysicianString)) {
@@ -380,22 +380,22 @@ public class FragmentHealthRecord extends Fragment {
 
         String vaccinesHistoryString = pvHistoryOfVaccinationTextView.getText().toString().trim();
 
-/*
+
         ContentValues values = new ContentValues();
-        if (TextUtils.isEmpty()) {
-            return; } else { values.put(ImsContract.PatientVaccinesEntry. , ); }
-        if (TextUtils.isEmpty()) {
-            return; } else { values.put(ImsContract.PatientVaccinesEntry. , ); }
-        if (TextUtils.isEmpty()) {
-            return; } else { values.put(ImsContract.PatientVaccinesEntry. , ); }
-        if (TextUtils.isEmpty()) {
-            return; } else { values.put(ImsContract.PatientVaccinesEntry. , ); }
-        if (TextUtils.isEmpty()) {
-            return; } else { values.put(ImsContract.PatientVaccinesEntry. , ); }
-        if (TextUtils.isEmpty()) {
-            return; } else { values.put(ImsContract.PatientVaccinesEntry. , ); }
-        if (TextUtils.isEmpty()) {
-            return; } else { values.put(ImsContract.PatientVaccinesEntry. , ); }*/
+        if (TextUtils.isEmpty(vaccinesTETANUSString)) {
+            return; } else { values.put(ImsContract.PatientVaccinesEntry.COLUMN_TETANUS , vaccinesTETANUSString); }
+        if (TextUtils.isEmpty(vaccinesINFLUENZAVACCINEString)) {
+            return; } else { values.put(ImsContract.PatientVaccinesEntry.COLUMN_INFLUENZA_VACCINE ,vaccinesINFLUENZAVACCINEString ); }
+        if (TextUtils.isEmpty(vaccinesZOSTAVAXString)) {
+            return; } else { values.put(ImsContract.PatientVaccinesEntry.COLUMN_ZOSTAVAX ,vaccinesZOSTAVAXString ); }
+        if (TextUtils.isEmpty(vaccinesMENINGITISString)) {
+            return; } else { values.put(ImsContract.PatientVaccinesEntry.COLUMN_MENINGITIS ,vaccinesMENINGITISString ); }
+        if (TextUtils.isEmpty(vaccinesYELLOWFEVERString)) {
+            return; } else { values.put(ImsContract.PatientVaccinesEntry.COLUMN_YELLOW_FEVER , vaccinesYELLOWFEVERString); }
+        if (TextUtils.isEmpty(vaccinesPOLIOString)) {
+            return; } else { values.put(ImsContract.PatientVaccinesEntry.COLUMN_POLIO , vaccinesPOLIOString); }
+        if (TextUtils.isEmpty(vaccinesHistoryString)) {
+            return; } else { values.put(ImsContract.PatientVaccinesEntry.COLUMN_HISTORY_OF_VACCINATION ,vaccinesHistoryString ); }
 
     }
 
@@ -447,7 +447,9 @@ public class FragmentHealthRecord extends Fragment {
         pvPolioTextView = view.findViewById(R.id.text_pv_polio);
         pvTetanusSpinner = view.findViewById(R.id.spinner_pv_tetanus);
         pvHistoryOfVaccinationTextView = view.findViewById(R.id.text_pv_history_of_vaccination);
+
         pvAddButton = view.findViewById(R.id.button_pv_add);
+
         patientVaccinesListView = view.findViewById(R.id.list_patient_vaccines);
     }
 

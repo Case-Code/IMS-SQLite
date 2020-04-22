@@ -1,6 +1,7 @@
 package com.example.ims;
 
 import android.app.AlertDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,6 +21,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -61,6 +63,35 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
     private Button doctorDdPrintButton;
 
     private String mTheNamesOfTheClinics = "null";
+
+    public void save(){
+        String doctorDdDateOfServiceString =doctorDdDateOfServiceTextView.getText().toString().trim();
+        String doctorDdDiagnosisString =doctorDdDiagnosisEditText.getText().toString().trim();
+        String doctorDdAdditionalNotesString =doctorDdAdditionalNotesEditText.getText().toString().trim();
+        String doctorDdPerformingPhysicianSignatureString =doctorDdPerformingPhysicianSignatureEditText.getText().toString().trim();
+ContentValues values = new ContentValues();
+
+      /*  if (TextUtils.isEmpty(doctorDdDateOfServiceString)) {
+        } else {
+            values.put(ImsContract.DoctorDiagnosisEntry.,doctorDdDateOfServiceString );
+        }
+        if (TextUtils.isEmpty()) {
+        } else {
+            values.put(ImsContract.InvoicesEntry., );
+        }
+        if (TextUtils.isEmpty()) {
+        } else {
+            values.put(ImsContract.InvoicesEntry., );
+        }
+        if (TextUtils.isEmpty()) {
+        } else {
+            values.put(ImsContract.InvoicesEntry., );
+        }
+        if (TextUtils.isEmpty()) {
+        } else {
+            values.put(ImsContract.InvoicesEntry., );
+        }*/
+    }
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
