@@ -2,6 +2,7 @@ package com.example.ims.fragment;
 
 import android.app.DatePickerDialog;
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -16,7 +17,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.CursorLoader;
+import androidx.loader.content.Loader;
 
 import com.example.ims.R;
 import com.example.ims.data.ImsContract;
@@ -28,7 +34,7 @@ import com.example.logutil.Utils;
  * Use the {@link FragmentHealthRecord#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentHealthRecord extends Fragment {
+public class FragmentHealthRecord extends Fragment  implements LoaderManager.LoaderCallbacks<Cursor> {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -78,6 +84,9 @@ public class FragmentHealthRecord extends Fragment {
     private ListView patientVaccinesListView;
 
     private Spinner pvTetanusSpinner;
+
+    public Uri mCurrentHealthRecordUri;
+
 
     // ContentValues values;
     View view;
@@ -739,5 +748,101 @@ public class FragmentHealthRecord extends Fragment {
                  });
 
         return view;
+    }
+
+    @NonNull
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
+        CursorLoader c=null;
+
+        String []projection={
+                ImsContract.HealthRecordEntry.COLUMN_CURRENT_PHYSICIAN_NAME,
+                ImsContract.HealthRecordEntry.COLUMN_CURRENT_PHARMACY_NAME,
+                ImsContract.HealthRecordEntry.COLUMN_DATE_OF_THE_LAST_UPDATE,
+                ImsContract.HealthRecordEntry.COLUMN_DOCTORS_PHONE,
+                ImsContract.HealthRecordEntry.COLUMN_PHARMACY_PHONE
+        };
+
+        if(mPatientId>0){
+            c=new CursorLoader(
+                    this.getActivity(),
+                    ImsContract.HealthRecordEntry.CONTENT_URI,
+                    projection,
+                    ImsContract.HealthRecordEntry.COLUMN_PATIENT_ID+" ="+mPatientId,
+                    null,null
+
+            );
+            return c;
+
+        }else {
+            c= new CursorLoader(this.getActivity(),
+                    mCurrentHealthRecordUri,
+                    projection,
+                    null,
+                    null,null
+            );
+            return c;
+
+        }
+    }
+
+    @Override
+    public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
+        if(mCurrentHealthRecordUri==null){
+            if(mPatientId==0){
+
+
+            }
+
+        }else{
+            if(data==null ||data.getCount()<1){
+                return;
+            }
+            if(data.moveToFirst()){
+            int physicianNameColumnIndex =data.getColumnIndex(ImsContract.HealthRecordEntry.COLUMN_CURRENT_PHYSICIAN_NAME);
+                int pharmacyNameColumnIndex =data.getColumnIndex(ImsContract.HealthRecordEntry.COLUMN_CURRENT_PHARMACY_NAME);
+                int pharmacyPhoneColumnIndex =data.getColumnIndex(ImsContract.HealthRecordEntry.COLUMN_PHARMACY_PHONE);
+                int doctorPhoneColumnIndex =data.getColumnIndex(ImsContract.HealthRecordEntry.COLUMN_DOCTORS_PHONE);
+                int dateOfLastUpdateColumnIndex =data.getColumnIndex(ImsContract.HealthRecordEntry.COLUMN_DATE_OF_THE_LAST_UPDATE);
+
+                String physicianName =data.getString(physicianNameColumnIndex);
+                String pharmacyName=data.getString(pharmacyNameColumnIndex);
+                String pharmacyPhone =data.getString(pharmacyPhoneColumnIndex);
+                String  doctorPhone=data.getString(doctorPhoneColumnIndex);
+                String dateOfLastUpdate=data.getString(dateOfLastUpdateColumnIndex);
+
+                hrCurrentPhysicianNameEditText.setText(physicianName);
+                hrCurrentPharmacyNameEditText.setText(pharmacyName);
+                hrDoctorsPhoneEditText.setText(pharmacyPhone);
+                hrDoctorsPhoneEditText.setText(doctorPhone);
+                hrDateOfTheLastUpdateTextView.setText(dateOfLastUpdate);
+
+
+            }
+        }
+
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull Loader<Cursor> loader) {
+        if(mCurrentHealthRecordUri==null){
+
+       /* }else{
+            hrCurrentPhysicianNameEditText.setText("");
+            hrCurrentPharmacyNameEditText.setText("");
+            hrDoctorsPhoneEditText.setText("");
+            hrDoctorsPhoneEditText.setText("");
+            hrDateOfTheLastUpdateTextView.setText("");*/
+
+        }
+
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+
+        getLoaderManager().initLoader(0, null,  this);
+
+        super.onActivityCreated(savedInstanceState);
     }
 }

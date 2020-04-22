@@ -301,7 +301,6 @@ CursorLoader c=null;
                 ImsContract.PatientProgressEntry.CONTENT_URI,
                 projection,
                 ImsContract.PatientProgressEntry.COLUMN_PATIENT_ID+" ="+idpatient
-
                 ,null,null
         );
         return c;
@@ -357,7 +356,8 @@ CursorLoader c=null;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        getLoaderManager().initLoader(0, null,  this);
+        getLoaderManager().initLoader(21, null,  this);
+
 
         super.onActivityCreated(savedInstanceState);
     }
