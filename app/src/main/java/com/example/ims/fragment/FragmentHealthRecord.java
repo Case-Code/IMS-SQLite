@@ -409,7 +409,7 @@ public class FragmentHealthRecord extends Fragment {
         doctorsPhoneEditText = view.findViewById(R.id.edit_hr_doctors_phone);
         pharmacyPhoneEditText = view.findViewById(R.id.edit_hr_pharmacy_phone);
         healthRecordSaveButton = view.findViewById(R.id.button_hr_save);
-
+//aa
         // Current and past medications
         capmMedicamentNameEditText = view.findViewById(R.id.edit_capm_medicament_name);
         capmDosageEditText = view.findViewById(R.id.edit_capm_dosage);
