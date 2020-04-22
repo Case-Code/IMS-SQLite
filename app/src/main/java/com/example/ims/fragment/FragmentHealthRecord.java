@@ -342,36 +342,36 @@ public class FragmentHealthRecord extends Fragment {
     }
 
     private void addSurgicalProcedures() {
-        String ProcedureString = spProcedureEditText.getText().toString().trim();
-        String PhysicianString = spPhysicianEditText.getText().toString().trim();
-        String HospitalString = spHospitalEditText.getText().toString().trim();
-        String NotesString = spNotesEditText.getText().toString().trim();
+        String procedureString = spProcedureEditText.getText().toString().trim();
+        String physicianString = spPhysicianEditText.getText().toString().trim();
+        String hospitalString = spHospitalEditText.getText().toString().trim();
+        String notesString = spNotesEditText.getText().toString().trim();
         String dateString = spDateTextView.getText().toString().trim();
         ContentValues values = new ContentValues();
-        if (TextUtils.isEmpty(ProcedureString)) {
+        if (TextUtils.isEmpty(procedureString)) {
             spProcedureEditText.setError("please return write Procedure");
             return;
         } else {
-            values.put(ImsContract.SurgicalProceduresEntry.COLUMN_PROCEDURE, ProcedureString);
+            values.put(ImsContract.SurgicalProceduresEntry.COLUMN_PROCEDURE, procedureString);
 
         }
-        if (TextUtils.isEmpty(PhysicianString)) {
+        if (TextUtils.isEmpty(physicianString)) {
             spPhysicianEditText.setError("please return write Physician");
             return;
         } else {
-            values.put(ImsContract.SurgicalProceduresEntry.COLUMN_PHYSICIAN, PhysicianString);
+            values.put(ImsContract.SurgicalProceduresEntry.COLUMN_PHYSICIAN, physicianString);
         }
-        if (TextUtils.isEmpty(HospitalString)) {
+        if (TextUtils.isEmpty(hospitalString)) {
             spHospitalEditText.setError("please return write Hospital");
             return;
         } else {
-            values.put(ImsContract.SurgicalProceduresEntry.COLUMN_HOSPITAL, HospitalString);
+            values.put(ImsContract.SurgicalProceduresEntry.COLUMN_HOSPITAL, hospitalString);
         }
-        if (TextUtils.isEmpty(NotesString)) {
+        if (TextUtils.isEmpty(notesString)) {
             spNotesEditText.setError("please return write note");
             return;
         } else {
-            values.put(ImsContract.SurgicalProceduresEntry.COLUMN_NOTES, NotesString);
+            values.put(ImsContract.SurgicalProceduresEntry.COLUMN_NOTES, notesString);
         }
         if (TextUtils.isEmpty(dateString)) {
             spDateTextView.setError("please return write date");
@@ -397,32 +397,40 @@ public class FragmentHealthRecord extends Fragment {
     private void addPatientVaccines() {
         Spinner vaccinesSpinner;
 
-        String vaccinesTETANUSString = pvTetanusTextView.getText().toString().trim();
-        String vaccinesINFLUENZAVACCINEString = pvInfluenzaVaccineTextView.getText().toString().trim();
-        String vaccinesZOSTAVAXString = pvZostavaxTextView.getText().toString().trim();
-        String vaccinesMENINGITISString = pvMeningitisTextView.getText().toString().trim();
-        String vaccinesYELLOWFEVERString = pvYellowFeverTextView.getText().toString().trim();
-        String vaccinesPOLIOString = pvPolioTextView.getText().toString().trim();
+        String tetanusString = pvTetanusTextView.getText().toString().trim();
+        String influenzaVaccineString = pvInfluenzaVaccineTextView.getText().toString().trim();
+        String zostavaxString = pvZostavaxTextView.getText().toString().trim();
+        String meningitisString = pvMeningitisTextView.getText().toString().trim();
+        String yellowFeverString = pvYellowFeverTextView.getText().toString().trim();
+        String polioString = pvPolioTextView.getText().toString().trim();
 
-        String vaccinesHistoryString = pvHistoryOfVaccinationTextView.getText().toString().trim();
+        String historyOfVaccinationString = pvHistoryOfVaccinationTextView.getText().toString().trim();
 
-/*
+
         ContentValues values = new ContentValues();
-        if (TextUtils.isEmpty()) {
-            return; } else { values.put(ImsContract.PatientVaccinesEntry. , ); }
-        if (TextUtils.isEmpty()) {
-            return; } else { values.put(ImsContract.PatientVaccinesEntry. , ); }
-        if (TextUtils.isEmpty()) {
-            return; } else { values.put(ImsContract.PatientVaccinesEntry. , ); }
-        if (TextUtils.isEmpty()) {
-            return; } else { values.put(ImsContract.PatientVaccinesEntry. , ); }
-        if (TextUtils.isEmpty()) {
-            return; } else { values.put(ImsContract.PatientVaccinesEntry. , ); }
-        if (TextUtils.isEmpty()) {
-            return; } else { values.put(ImsContract.PatientVaccinesEntry. , ); }
-        if (TextUtils.isEmpty()) {
-            return; } else { values.put(ImsContract.PatientVaccinesEntry. , ); }*/
+        if (TextUtils.isEmpty(tetanusString)) {pvTetanusTextView.setError("please return  write to tetanus");
+            return; } else { values.put(ImsContract.PatientVaccinesEntry.COLUMN_TETANUS ,tetanusString ); }
+        if (TextUtils.isEmpty(influenzaVaccineString)) {pvInfluenzaVaccineTextView.setError("please return  write to influenza Vaccine");
+            return; } else { values.put(ImsContract.PatientVaccinesEntry.COLUMN_INFLUENZA_VACCINE ,influenzaVaccineString ); }
+        if (TextUtils.isEmpty(zostavaxString)) {pvZostavaxTextView.setError("please return  write to zostavax");
+            return; } else { values.put(ImsContract.PatientVaccinesEntry.COLUMN_ZOSTAVAX , zostavaxString); }
+        if (TextUtils.isEmpty(meningitisString)) {pvMeningitisTextView.setError("please return  write to meningitis");
+            return; } else { values.put(ImsContract.PatientVaccinesEntry.COLUMN_MENINGITIS , meningitisString); }
+        if (TextUtils.isEmpty(yellowFeverString)) {pvYellowFeverTextView.setError("please return  write to yellow Fever");
+            return; } else { values.put(ImsContract.PatientVaccinesEntry.COLUMN_YELLOW_FEVER ,yellowFeverString ); }
+        if (TextUtils.isEmpty(polioString)) {pvPolioTextView.setError("please return  write to polio");
+            return; } else { values.put(ImsContract.PatientVaccinesEntry.COLUMN_POLIO , polioString); }
+        if (TextUtils.isEmpty(historyOfVaccinationString)) {pvHistoryOfVaccinationTextView.setError("please return  write to history Of Vaccination");
+            return; } else { values.put(ImsContract.PatientVaccinesEntry.COLUMN_HISTORY_OF_VACCINATION , historyOfVaccinationString); }
+                             values.put(ImsContract.PatientVaccinesEntry.COLUMN_PATIENT_ID ,mPatientId);
 
+
+        Uri newUri = getContext().getContentResolver().insert(ImsContract.PatientVaccinesEntry.CONTENT_URI, values);
+        if (newUri == null) {
+            Toast.makeText(getContext(), getString(R.string.editor_insert_Patient_Vaccines_failed), Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getContext(), getString(R.string.editor_insert_Patient_Vaccines_successful), Toast.LENGTH_SHORT).show();
+        }
     }
 
     // initialization
@@ -612,6 +620,124 @@ public class FragmentHealthRecord extends Fragment {
                 addSurgicalProcedures();
             }
         });
+
+
+        //set date in PatientVaccines
+        pvTetanusTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        month += 1;
+                        String date = month + "/" + dayOfMonth + "/" + year;
+                        pvTetanusTextView.setText(date);
+                    }
+                };
+                Utils.showDatePicker(getContext(), dateSetListener);
+
+            }
+        });
+
+        pvInfluenzaVaccineTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        month += 1;
+                        String date = month + "/" + dayOfMonth + "/" + year;
+                        pvInfluenzaVaccineTextView.setText(date);
+                    }
+                };
+                Utils.showDatePicker(getContext(), dateSetListener);
+
+            }
+        });
+
+       pvZostavaxTextView.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+                   @Override
+                   public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                       month += 1;
+                       String date = month + "/" + dayOfMonth + "/" + year;
+                       pvZostavaxTextView.setText(date);
+                   }
+               };
+               Utils.showDatePicker(getContext(), dateSetListener);
+
+           }
+       });
+        pvMeningitisTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        month += 1;
+                        String date = month + "/" + dayOfMonth + "/" + year;
+                        pvMeningitisTextView.setText(date);
+                    }
+                };
+                Utils.showDatePicker(getContext(), dateSetListener);
+
+            }
+        });
+         pvYellowFeverTextView.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View view) {
+                 DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+                     @Override
+                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                         month += 1;
+                         String date = month + "/" + dayOfMonth + "/" + year;
+                         pvYellowFeverTextView.setText(date);
+                     }
+                 };
+                 Utils.showDatePicker(getContext(), dateSetListener);
+
+             }
+         });
+         pvPolioTextView.setOnClickListener(new View.OnClickListener() {
+             @Override
+
+             public void onClick(View view) {
+                 DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+                     @Override
+                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                         month += 1;
+                         String date = month + "/" + dayOfMonth + "/" + year;
+                         pvPolioTextView.setText(date);
+                     }
+                 };
+                 Utils.showDatePicker(getContext(), dateSetListener);
+
+             }
+         });
+                 pvHistoryOfVaccinationTextView.setOnClickListener(new View.OnClickListener() {
+                     @Override
+                     public void onClick(View view) {
+                         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+                             @Override
+                             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                 month += 1;
+                                 String date = month + "/" + dayOfMonth + "/" + year;
+                                 pvHistoryOfVaccinationTextView.setText(date);
+                             }
+                         };
+                         Utils.showDatePicker(getContext(), dateSetListener);
+
+                     }
+                 });
+                 pvAddButton.setOnClickListener(new View.OnClickListener() {
+                     @Override
+                     public void onClick(View view) {
+                         addPatientVaccines();
+                     }
+                 });
+
         return view;
     }
 }
