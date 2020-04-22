@@ -147,14 +147,13 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
         mActionMenuImageButton = findViewById(R.id.image_button_action_menu);
         mDialogTransferredToClinicsView = getLayoutInflater().inflate(R.layout.dialog_doctor_transferred_to_clinics, null);
 
-
         //List of clients referred to the clinic
          doctorLocPatientNameAutoCompleteTextView=findViewById(R.id.text_doctor_loc_patient_name);
-         doctorLocPatientNameListView=findViewById(R.id.list_doctor_loc_patient_name);
+         doctorLocPatientNameListView=findViewById(R.id.list_item_clinic);
 
         //Doctor diagnosis
          doctorDdPatientNameSearchAutoCompleteTextView=findViewById(R.id.text_doctor_dd_patient_name_search);
-         doctorDdPatientListView=findViewById(R.id.list_doctor_dd_patient);
+         doctorDdPatientListView=findViewById(R.id.list_item_transformation);
          doctorDdPatientNameTextView=findViewById(R.id.text_doctor_dd_patient_name);
          doctorDdPatientDateOfBirthTextView=findViewById(R.id.text_doctor_dd_patient_date_of_birth);
          doctorDdDateOfServiceTextView=findViewById(R.id.text_doctor_dd_date_of_service);
@@ -163,7 +162,6 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
          doctorDdPerformingPhysicianSignatureEditText=findViewById(R.id.edit_doctor_dd_performing_physician_signature);
          doctorDdSaveButton=findViewById(R.id.button_doctor_dd_save);
          doctorDdPrintButton=findViewById(R.id.button_doctor_dd_print);
-
     }
 
     private void setupSpinnerTheNamesOfTheClinics(Context context) {

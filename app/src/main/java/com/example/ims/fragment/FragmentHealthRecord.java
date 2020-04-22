@@ -58,7 +58,7 @@ public class FragmentHealthRecord extends Fragment {
     private Button pvAddButton;
 
     private TextView hrDateOfTheLastUpdateTextView;
-    private TextView patientNameTextView;
+    private TextView hrPatientNameTextView;
     private TextView capmMedicationStartDateTextView;
     private TextView capmMedicationEndDateTextView;
     private TextView miStartDateTextView;
@@ -114,17 +114,17 @@ public class FragmentHealthRecord extends Fragment {
     }
 
     private void saveHealthRecord() {
-        String patientPhysicianNameString = hrCurrentPhysicianNameEditText.getText().toString().trim();
-        String patientPharmacyNameString = hrCurrentPharmacyNameEditText.getText().toString().trim();
-        String patientPharmacyPhoneString = hrPharmacyPhoneEditText.getText().toString().trim();
-        String patientDoctorPhoneString = hrDoctorsPhoneEditText.getText().toString().trim();
-        String patientDateLastUpdateString = hrDateOfTheLastUpdateTextView.getText().toString().trim();
+        String currentPhysicianNameString = hrCurrentPhysicianNameEditText.getText().toString().trim();
+        String currentPharmacyNameString = hrCurrentPharmacyNameEditText.getText().toString().trim();
+        String pharmacyPhoneString = hrPharmacyPhoneEditText.getText().toString().trim();
+        String doctorsPhoneString = hrDoctorsPhoneEditText.getText().toString().trim();
+        String dateOfTheLastUpdateString = hrDateOfTheLastUpdateTextView.getText().toString().trim();
 
-        if (TextUtils.isEmpty(patientPhysicianNameString)
-                && TextUtils.isEmpty(patientPharmacyNameString)
-                && TextUtils.isEmpty(patientPharmacyPhoneString)
-                && TextUtils.isEmpty(patientDoctorPhoneString)
-                && TextUtils.isEmpty(patientDateLastUpdateString)
+        if (TextUtils.isEmpty(currentPhysicianNameString)
+                && TextUtils.isEmpty(currentPharmacyNameString)
+                && TextUtils.isEmpty(pharmacyPhoneString)
+                && TextUtils.isEmpty(doctorsPhoneString)
+                && TextUtils.isEmpty(dateOfTheLastUpdateString)
         ) {
             hrCurrentPharmacyNameEditText.setError("please write to name");
             hrCurrentPhysicianNameEditText.setError("please write to name");
@@ -132,40 +132,40 @@ public class FragmentHealthRecord extends Fragment {
             return;
         }
         ContentValues values = new ContentValues();
-        if (TextUtils.isEmpty(patientPhysicianNameString)) {
+        if (TextUtils.isEmpty(currentPhysicianNameString)) {
             hrCurrentPhysicianNameEditText.setError("please write to name");
             return;
 
         } else {
-            values.put(ImsContract.HealthRecordEntry.COLUMN_CURRENT_PHYSICIAN_NAME, patientPhysicianNameString);
+            values.put(ImsContract.HealthRecordEntry.COLUMN_CURRENT_PHYSICIAN_NAME, currentPhysicianNameString);
         }
-        if (TextUtils.isEmpty(patientPharmacyNameString)) {
+        if (TextUtils.isEmpty(currentPharmacyNameString)) {
             hrCurrentPharmacyNameEditText.setError("please write to name");
             return;
 
         } else {
-            values.put(ImsContract.HealthRecordEntry.COLUMN_CURRENT_PHARMACY_NAME, patientPharmacyNameString);
+            values.put(ImsContract.HealthRecordEntry.COLUMN_CURRENT_PHARMACY_NAME, currentPharmacyNameString);
         }
-        if (TextUtils.isEmpty(patientPharmacyPhoneString)) {
+        if (TextUtils.isEmpty(pharmacyPhoneString)) {
             hrPharmacyPhoneEditText.setError("please write to name");
             return;
 
         } else {
-            values.put(ImsContract.HealthRecordEntry.COLUMN_PHARMACY_PHONE, patientPharmacyPhoneString);
+            values.put(ImsContract.HealthRecordEntry.COLUMN_PHARMACY_PHONE, pharmacyPhoneString);
         }
-        if (TextUtils.isEmpty(patientDoctorPhoneString)) {
+        if (TextUtils.isEmpty(doctorsPhoneString)) {
             hrDateOfTheLastUpdateTextView.setError("please write to pharmacy");
             return;
 
         } else {
-            values.put(ImsContract.HealthRecordEntry.COLUMN_DOCTORS_PHONE, patientDoctorPhoneString);
+            values.put(ImsContract.HealthRecordEntry.COLUMN_DOCTORS_PHONE, doctorsPhoneString);
         }
-        if (TextUtils.isEmpty(patientDateLastUpdateString)) {
+        if (TextUtils.isEmpty(dateOfTheLastUpdateString)) {
             hrDateOfTheLastUpdateTextView.setError("please write to phone");
             return;
 
         } else {
-            values.put(ImsContract.HealthRecordEntry.COLUMN_DATE_OF_THE_LAST_UPDATE, patientDateLastUpdateString);
+            values.put(ImsContract.HealthRecordEntry.COLUMN_DATE_OF_THE_LAST_UPDATE, dateOfTheLastUpdateString);
         }
         if (TextUtils.isEmpty(String.valueOf(id))) {
             return;
@@ -402,6 +402,7 @@ public class FragmentHealthRecord extends Fragment {
     // initialization
     private void init() {
         // Health record
+        hrPatientNameTextView = view.findViewById(R.id.text_hr_patient_name);
         hrCurrentPhysicianNameEditText = view.findViewById(R.id.edit_hr_current_physician_name);
         hrCurrentPharmacyNameEditText = view.findViewById(R.id.edit_hr_current_pharmacy_name);
         hrDateOfTheLastUpdateTextView = view.findViewById(R.id.text_hr_date_of_the_last_update);

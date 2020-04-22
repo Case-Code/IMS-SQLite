@@ -107,7 +107,7 @@
                         android:paddingLeft="10dp" />
 
                     <ListView
-                        android:id="@+id/list_doctor_loc_patient_name"
+                        android:id="@+id/list_item_clinic"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         tools:listitem="@layout/item_clinic" />
@@ -185,7 +185,7 @@
                                 android:paddingLeft="10dp" />
 
                             <ListView
-                                android:id="@+id/list_doctor_dd_patient"
+                                android:id="@+id/list_item_transformation"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 tools:listitem="@layout/item_transformation" />
@@ -310,7 +310,7 @@
                                     android:clickable="true"
                                     android:focusable="true"
                                     android:foreground="?android:attr/selectableItemBackground"
-                                    android:text="Save"
+                                    android:text="Add"
                                     android:textColor="@color/colorAccent" />
 
                                 <TextView

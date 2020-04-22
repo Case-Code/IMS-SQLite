@@ -89,16 +89,15 @@ public class FragmentInvoices extends Fragment implements LoaderManager.LoaderCa
 
     public void init() {
 
-        minvoicesListView =view.findViewById(R.id.list_invoices_svc);
-      //  mEmptyInvoicesImageView=view.findViewById(R.id.image_empty_invoice);
+        minvoicesListView = view.findViewById(R.id.list_invoices_svc);
+        //  mEmptyInvoicesImageView=view.findViewById(R.id.image_empty_invoice);
         saveInvoicesButton = view.findViewById(R.id.button_invoices_save);
-    //    svcAddButton = view.findViewById(R.id.button_svcadd);
+        //    svcAddButton = view.findViewById(R.id.button_svcadd);
 
-        patientIdTextView=view.findViewById(R.id.text_patient_id);
-        dateOfSvcTextView=view.findViewById(R.id.text_invoices_data_of_svc);
-         invoiceDateTextView=view.findViewById(R.id.text_invoice_date);
-         dateDueTextView=view.findViewById(R.id.text_invoices_date_due);
-
+        patientIdTextView = view.findViewById(R.id.text_patient_id);
+        dateOfSvcTextView = view.findViewById(R.id.text_invoices_data_of_svc);
+        invoiceDateTextView = view.findViewById(R.id.text_invoice_date);
+        dateDueTextView = view.findViewById(R.id.text_invoices_date_due);
 
         billNameEditText = view.findViewById(R.id.edit_invoices_billtoname);
         billPhoneEditText = view.findViewById(R.id.edit_invoices_billtophone);
@@ -122,14 +121,11 @@ public class FragmentInvoices extends Fragment implements LoaderManager.LoaderCa
         questionsPhoneEditText = view.findViewById(R.id.edit_invoices_questions_phone);
         questionsWebEditText = view.findViewById(R.id.edit_invoices_questions_web);
         procedureEditText = view.findViewById(R.id.edit_invoices_procedure);
-
-
-
     }
 
     public FragmentInvoices(int patientId) {
         this.idpatient = patientId;
-      String id = String.valueOf(patientId);
+        String id = String.valueOf(patientId);
 
 
         // Required empty public constructor
@@ -148,13 +144,13 @@ public class FragmentInvoices extends Fragment implements LoaderManager.LoaderCa
         fragment.setArguments(args);
         return fragment;
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         //
         // getLoaderManager().initLoader(0,null ,this);
-
 
 
     }
@@ -164,20 +160,16 @@ public class FragmentInvoices extends Fragment implements LoaderManager.LoaderCa
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_invoices, container, false);
 
-mFragmentInvoicesCursorAdapter = new FragmentInvoicesCursorAdapter(getActivity() ,null);
+        mFragmentInvoicesCursorAdapter = new FragmentInvoicesCursorAdapter(getActivity(), null);
 
         init();
 
-            patientIdTextView.setText(String.valueOf(idpatient));
+        patientIdTextView.setText(String.valueOf(idpatient));
 
-       // minvoicesListView.setEmptyView(mEmptyInvoicesImageView);
+        // minvoicesListView.setEmptyView(mEmptyInvoicesImageView);
 
         mInvoicesSvcCursorAdapter = new InvoicesCursorAdapter(this.getActivity(), null);
         minvoicesListView.setAdapter(mInvoicesSvcCursorAdapter);
-
-
-
-
 
 
         dateOfSvcTextView.setOnClickListener(new View.OnClickListener() {
@@ -226,11 +218,10 @@ mFragmentInvoicesCursorAdapter = new FragmentInvoicesCursorAdapter(getActivity()
         });
 
 
-
         saveInvoicesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                values=new ContentValues();
+                values = new ContentValues();
                 totalSave();
                 svcSave();
                 questionsSend();
@@ -239,7 +230,7 @@ mFragmentInvoicesCursorAdapter = new FragmentInvoicesCursorAdapter(getActivity()
                 billToSave();
                 saveDate();
 
-                Log.e("dsa","data::::"+values);
+                Log.e("dsa", "data::::" + values);
 
                 Uri newUri =
                         getContext().getContentResolver().insert(ImsContract.InvoicesEntry.CONTENT_URI, values);
@@ -252,8 +243,6 @@ mFragmentInvoicesCursorAdapter = new FragmentInvoicesCursorAdapter(getActivity()
             }
         });
         // supportLoaderManager.initLoader(23, null ,this);
-
-
 
 
         return view;
@@ -515,7 +504,7 @@ mFragmentInvoicesCursorAdapter = new FragmentInvoicesCursorAdapter(getActivity()
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        CursorLoader c =null;
+        CursorLoader c = null;
 
 
         String[] projection =
@@ -547,24 +536,23 @@ mFragmentInvoicesCursorAdapter = new FragmentInvoicesCursorAdapter(getActivity()
                 };
 
 
-
-        if(idpatient>0){
-            c= new CursorLoader(
+        if (idpatient > 0) {
+            c = new CursorLoader(
                     this.getActivity(),
                     ImsContract.InvoicesEntry.CONTENT_URI,
                     projection,
-                    ImsContract.InvoicesEntry.COLUMN_PATIENT_ID+" ="+id
+                    ImsContract.InvoicesEntry.COLUMN_PATIENT_ID + " =" + id
 
-                    ,null,null
+                    , null, null
             );
             return c;
-        }else {
-            c= new CursorLoader(
+        } else {
+            c = new CursorLoader(
                     this.getActivity(),
                     mCurrentPatientInvoicesUri,
                     projection,
                     null
-                    ,null,null
+                    , null, null
             );
 
             return c;
@@ -574,10 +562,10 @@ mFragmentInvoicesCursorAdapter = new FragmentInvoicesCursorAdapter(getActivity()
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        if (mCurrentPatientInvoicesUri==null) {
+        if (mCurrentPatientInvoicesUri == null) {
             mFragmentInvoicesCursorAdapter.swapCursor(data);
 
-       } else {
+        } else {
 
             if (data == null || data.getCount() < 1) {
                 return;
@@ -703,9 +691,10 @@ mFragmentInvoicesCursorAdapter = new FragmentInvoicesCursorAdapter(getActivity()
         }
 
     }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        getLoaderManager().initLoader(123, null,  this);
+        getLoaderManager().initLoader(123, null, this);
 
         super.onActivityCreated(savedInstanceState);
     }

@@ -39,7 +39,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/text_health_record_patient_name"
+                        android:id="@+id/text_hr_patient_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Patient name: " />
