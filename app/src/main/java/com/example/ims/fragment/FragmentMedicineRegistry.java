@@ -20,6 +20,7 @@ public class FragmentMedicineRegistry extends Fragment {
     private String mParam1;
     private String mParam2;
 
+
     public FragmentMedicineRegistry() {
         // Required empty public constructor
     }
