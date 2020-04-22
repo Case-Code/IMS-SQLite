@@ -4,6 +4,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -15,11 +20,36 @@ public class FragmentSale extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+        // add sale
+    private EditText pharmacyFSaleQrEditText;
+    private ImageButton pharmacyDSalePlusImageButton;
+    private EditText pharmacyFSaleQuantityEditText;
+    private ImageButton pharmacyFSaleMinusImageButton;
+    private Button pharmacyFSaleSaleButton;
+    private  TextView pharmacyFSaleTotalTextView;
+    private EditText pharmacyFSaleSearchEditText;
+
+    //show sale
+    private ListView pharmacyFSaleSaleListView;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+private View view ;
+    public void init(){
+        // add sale
+         pharmacyFSaleQrEditText=view.findViewById(R.id.edit_pharmacy_fsale_qr);
+         pharmacyDSalePlusImageButton=view.findViewById(R.id.image_pharmacy_fsale_plus);
+         pharmacyFSaleQuantityEditText=view.findViewById(R.id.edit_pharmacy_fsale_quantity);
+         pharmacyFSaleMinusImageButton=view.findViewById(R.id.image_pharmacy_fsale_minus);
+         pharmacyFSaleSaleButton=view.findViewById(R.id.button_pharmacy_fsale_sale);
+         pharmacyFSaleTotalTextView=view.findViewById(R.id.text_pharmacy_fsale_total);
+         pharmacyFSaleSearchEditText=view.findViewById(R.id.edit_pharmacy_fsale_search);
 
+        //show sale
+         pharmacyFSaleSaleListView=view.findViewById(R.id.list_pharmacy_fsale_sale);
+
+    }
     public FragmentSale() {
         // Required empty public constructor
     }
