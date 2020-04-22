@@ -81,6 +81,10 @@
     <string name="editor_insert_health_record_failed">Error with saving health record</string>
     <string name="editor_insert_health_record_successful">Health record saved</string>
 
+    <!--Current And Past Medications-->
+    <string name="editor_insert_Current_And_Past_Medications_failed">Error with saving Current And Past Medications</string>
+    <string name="editor_insert_Current_And_Past_Medications_successful">Current And Past Medications saved</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
