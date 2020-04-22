@@ -93,7 +93,6 @@ public class ImsContract {
                     typesOfAnalysis == ANALYSIS_URINE_EXAMINATION ||
                     typesOfAnalysis == ANALYSIS_STOOL_EXAMINATION;
         }
-
     }
 
     // Patient data to clinics
@@ -193,7 +192,7 @@ public class ImsContract {
         public static final String TABLE_NAME = PATH_PATIENT_PROGRESS;
         public static final String _ID = BaseColumns._ID;
         public static final String COLUMN_PROGRESS_NOTES = "progress_notes";
-        public static final String COLUMN_DATE="date";
+        public static final String COLUMN_DATE = "date";
         public static final String COLUMN_PATIENT_ID = "patient_id";
     }
 
@@ -325,6 +324,21 @@ public class ImsContract {
         public static final String COLUMN_NAME_OF_VACCINATION = "name_of_vaccination";
         public static final String COLUMN_HISTORY_OF_VACCINATION = "history_of_vaccination";
         public static final String COLUMN_PATIENT_ID = "patient_id";
+
+        // Types of patient vaccines tetanus
+        public static final int TETANUS_UNKNOWN = 0;
+        public static final int TETANUS_D_T = 1;
+        public static final int TETANUS_D_T_A_P = 2;
+        public static final int TETANUS_T_D = 3;
+        public static final int TETANUS_T_DAP = 4;
+
+        public static boolean isValidTypesOfPatientVaccinesTetanus(int typesOfPatientVaccinesTetanus) {
+            return typesOfPatientVaccinesTetanus == TETANUS_UNKNOWN ||
+                    typesOfPatientVaccinesTetanus == TETANUS_D_T ||
+                    typesOfPatientVaccinesTetanus == TETANUS_D_T_A_P ||
+                    typesOfPatientVaccinesTetanus == TETANUS_T_D ||
+                    typesOfPatientVaccinesTetanus == TETANUS_T_DAP;
+        }
     }
 
     // The doctor
@@ -341,7 +355,7 @@ public class ImsContract {
         public static final String COLUMN_DIAGNOSIS = "diagnosis";
         public static final String COLUMN_ADDITIONAL_NOTES = "additional_notes";
         public static final String COLUMN_PERFORMING_PHYSICIAN_SIGNATURE = "performing_physician_signature";
-        public static final String COLUMN_Date_of_Service="Date_of_Service";
+        public static final String COLUMN_Date_of_Service = "Date_of_Service";
         public static final String COLUMN_PATIENT_ID = "patient_id";
     }
 

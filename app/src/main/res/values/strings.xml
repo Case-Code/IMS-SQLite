@@ -69,6 +69,12 @@
 
     <!-- city menu -->
 
+    <!-- types of patient vaccines tetanus -->
+    <string name="tetanus_d_t">Diphtheria and tetanus (DT) vaccines</string>
+    <string name="tetanus_d_t_a_p">Diphtheria, tetanus, and pertussis (DTaP) vaccines</string>
+    <string name="tetanus_t_d">Tetanus and diphtheria (Td) vaccines</string>
+    <string name="tetanus_t_dap">Tetanus, diphtheria, and pertussis (Tdap) vaccines</string>
+
     <!-- patient -->
     <string name="editor_insert_patient_failed">Error with saving patient</string>
     <string name="editor_insert_patient_successful">Patient saved</string>
@@ -80,18 +86,21 @@
     <!-- health record -->
     <string name="editor_insert_health_record_failed">Error with saving health record</string>
     <string name="editor_insert_health_record_successful">Health record saved</string>
+
+    <string name="editor_insert_Current_And_Past_Medications_failed">Error with saving current and past medications</string>
+    <string name="editor_insert_Current_And_Past_Medications_successful">Current and past medications saved</string>
+
     <string name="editor_add_major_illnesses_failed">Error with adding major illnesses</string>
     <string name="editor_add_major_illnesses_successful">Major diseases were added</string>
-    <string name="editor_insert_Current_And_Past_Medications_failed">Error with saving Current And Past Medications</string>
-    <string name="editor_insert_Current_And_Past_Medications_successful">Current And Past Medications saved</string>
-    <string name="editor_Surgical_Procedures_record_failed">Error with saving  Surgical Procedures</string>
-    <string name="editor_Surgical_Procedures_successful">Surgical Procedures saved</string>
-    <string name="editor_insert_Patient_Vaccines_failed">Error with saving Patient Vaccines </string>
-    <string name="editor_insert_Patient_Vaccines_successful">Patient Vaccines saved </string>
+
+    <string name="editor_Surgical_Procedures_record_failed">Error with saving  surgical procedures</string>
+    <string name="editor_Surgical_Procedures_successful">Surgical procedures saved</string>
+
+    <string name="editor_insert_Patient_Vaccines_failed">Error with saving patient vaccines </string>
+    <string name="editor_insert_Patient_Vaccines_successful">Patient vaccines saved </string>
 
     <string name="insert_progress_notes_failed">error with saving progress notes</string>
     <string name="insert_progress_notes_successful"> progress notes saved </string>
-
 
 
     <!-- TODO: Remove or change this placeholder text -->

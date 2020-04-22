@@ -206,7 +206,7 @@
                                     android:text="start date:" />
 
                                 <TextView
-                                    android:id="@+id/text_capm_medications_start_date"
+                                    android:id="@+id/text_capm_start_date"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="00/00/0000"
@@ -229,7 +229,7 @@
                                     android:text="end date:" />
 
                                 <TextView
-                                    android:id="@+id/text_capm_medications_end_date"
+                                    android:id="@+id/text_capm_end_date"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="00/00/0000"
@@ -246,7 +246,7 @@
                         android:orientation="vertical">
 
                         <EditText
-                            android:id="@+id/edit_capm_medications_physician"
+                            android:id="@+id/edit_capm_physician"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="physician"
@@ -260,7 +260,7 @@
                             android:inputType="text" />
 
                         <Button
-                            android:id="@+id/button_capm_medications_save"
+                            android:id="@+id/button_capm_save"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="end"
@@ -717,7 +717,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Tetanus"
+                            android:text="Name of vaccination"
                             android:textColor="@color/primaryText" />
 
                         <androidx.cardview.widget.CardView

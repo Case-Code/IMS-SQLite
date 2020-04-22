@@ -78,4 +78,13 @@
 
     <!-- These are the options displayed in the city drop-down Spinner -->
 
+    <!-- These are the options displayed in the types of patient vaccines tetanus drop-down Spinner -->
+    <string-array name="array_types_of_patient_vaccines_tetanus_options">
+        <item>@string/unknown</item>
+        <item>@string/tetanus_d_t</item>
+        <item>@string/tetanus_d_t_a_p</item>
+        <item>@string/tetanus_t_d</item>
+        <item>@string/tetanus_t_dap</item>
+    </string-array>
+
 </resources>
