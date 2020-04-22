@@ -185,7 +185,7 @@
                                 app:srcCompat="@drawable/analysis_lab_logo" />
 
                             <TextView
-                                android:id="@+id/aa"
+                                android:id="@+id/text_pr_"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentStart="true"
@@ -198,7 +198,7 @@
                                 android:textSize="14sp" />
 
                             <TextView
-                                android:id="@+id/a"
+                                android:id="@+id/text"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/aa"

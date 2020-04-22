@@ -4,7 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -22,6 +25,26 @@ public class AnalysisLabActivity extends AppCompatActivity implements Navigation
     private ImageButton mActionMenuImageButton;
 
     private ActionBarDrawerToggle actionBarDrawerToggle;
+
+    //List of clients referred to the laboratory for analysis
+    private EditText locPatientNameEditText;
+    private ListView locPatientListView;
+
+    //Patient records
+    private  TextView prBillToNameTextView;
+    private  TextView prDateOfBirthTextView;
+    private  TextView prPatientIdTextView;
+    private  TextView prMedicalRecordTextView;
+    private  TextView prNextAppointmentDateTextView;
+    private  TextView prNextTreatmentPlanReviewDateTextView;
+    private  TextView prPhysicianSignatureTextView;
+    private  TextView prDateSignedTextView;
+
+    private ListView ppProgressNotesListView;
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,5 +121,30 @@ public class AnalysisLabActivity extends AppCompatActivity implements Navigation
         mDrawerLayout = findViewById(R.id.activity_analysis_lab);
         mNavigationView = findViewById(R.id.navigation_view);
         mActionMenuImageButton = findViewById(R.id.image_button_action_menu);
+
+
+        //List of clients referred to the laboratory for analysis
+        locPatientNameEditText=findViewById(R.id.edit_loc_patient_name);
+       locPatientListView=findViewById(R.id.list_loc_patient);;
+
+        //Patient records
+         prBillToNameTextView=findViewById(R.id.text_pr_bill_to_name);;
+         prDateOfBirthTextView=findViewById(R.id.text_pr_date_of_birth);;
+         prPatientIdTextView=findViewById(R.id.text_pr_patient_id);;
+         prMedicalRecordTextView=findViewById(R.id.text_pr_medical_record);;
+         prNextAppointmentDateTextView=findViewById(R.id.text_pr_next_appointment_date);;
+         prNextTreatmentPlanReviewDateTextView=findViewById(R.id.text_pr_next_treatment_plan_review_date);;
+         prPhysicianSignatureTextView=findViewById(R.id.text_pr_physician_signature);;
+         prDateSignedTextView=findViewById(R.id.text_pr_date_signed);
+
+         //Patient progress
+        ppProgressNotesListView=findViewById(R.id.list_pp_progress_notes);;
+
+
+
+
+
+
+
     }
 }
