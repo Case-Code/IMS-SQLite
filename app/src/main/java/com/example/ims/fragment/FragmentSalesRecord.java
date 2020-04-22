@@ -4,10 +4,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
 import com.example.ims.R;
+
+import java.util.List;
 
 public class FragmentSalesRecord extends Fragment {
 
@@ -16,10 +22,29 @@ public class FragmentSalesRecord extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
+    //component date sales record
+    private TextView pharmacyFsrDateYearTextView;
+    private TextView pharmacyFsrDateMonthDayTextView;
+    private EditText pharmacyFsrSearchEditText;
+    private ImageButton pharmacyFsrDateImageButton;
+    private ListView pharmacyFsrSalesRecordListView;
+
+    private View view ;
+    public void init(){
+        //component date sales record
+         pharmacyFsrDateYearTextView =view.findViewById(R.id.text_pharmacy_fsr_date_year);
+        pharmacyFsrDateMonthDayTextView=view.findViewById(R.id.text_pharmacy_fsr_date_month_day);;
+         pharmacyFsrSearchEditText=view.findViewById(R.id.edit_pharmacy_fsr_search);;
+         pharmacyFsrDateImageButton=view.findViewById(R.id.image_pharmacy_fsr_date);;
+         pharmacyFsrSalesRecordListView=view.findViewById(R.id.list_pharmacy_fsr_sales_record);;
+
+    }
     public FragmentSalesRecord() {
         // Required empty public constructor
     }

@@ -4,6 +4,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 
 import androidx.fragment.app.Fragment;
 
@@ -19,6 +22,35 @@ public class FragmentMedicineRegistry extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    // component view to fragment medicine registry
+    private EditText pharmacyFmrQrEditText;
+    private EditText pharmacyFmrMedicineNameEditText;
+    private ImageButton pharmacyFmrPlusImageButton;
+    private EditText pharmacyFmrQuantityEditText;
+    private ImageButton pharmacyFmrMinusImageButton;
+    private EditText pharmacyFmrPriceEditText;
+    private Button pharmacyFmrInsertButton;
+    private  Button pharmacyFmrUpdateButton;
+    private EditText pharmacyFmrSearchEditText;
+
+private View view ;
+
+public void init (){
+    // init component view to fragment medicine registry
+     pharmacyFmrQrEditText=view.findViewById(R.id.edit_pharmacy_fmr_qr);
+     pharmacyFmrMedicineNameEditText=view.findViewById(R.id.edit_pharmacy_fmr_medicine_name);
+     pharmacyFmrPlusImageButton=view.findViewById(R.id.image_pharmacy_fmr_plus);
+     pharmacyFmrQuantityEditText=view.findViewById(R.id.edit_pharmacy_fmr_quantity);
+     pharmacyFmrMinusImageButton=view.findViewById(R.id.image_pharmacy_fmr_minus);
+     pharmacyFmrPriceEditText=view.findViewById(R.id.edit_pharmacy_fmr_price);
+     pharmacyFmrInsertButton=view.findViewById(R.id.button_pharmacy_fmr_insert);
+     pharmacyFmrUpdateButton=view.findViewById(R.id.button_pharmacy_fmr_update);
+     pharmacyFmrSearchEditText=view.findViewById(R.id.edit_pharmacy_fmr_search);
+
+
+}
+
 
     public FragmentMedicineRegistry() {
         // Required empty public constructor
