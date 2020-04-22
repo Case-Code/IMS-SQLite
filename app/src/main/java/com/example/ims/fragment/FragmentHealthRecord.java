@@ -188,153 +188,154 @@ public class FragmentHealthRecord extends Fragment {
     }
 
     private void saveCurrentAndPastMedications() {
-        String medicamentNameString = capmMedicamentNameEditText.getText().toString().trim();
-        String medicationsPhysicianString = capmMedicationsPhysicianEditText.getText().toString().trim();
-        String PurposeString = capmPurposeEditText.getText().toString().trim();
-        String FreqString = capmFreqEditText.getText().toString().trim();
-        String DosageString = capmDosageEditText.getText().toString().trim();
-        String MedicationStartDateString = capmMedicationStartDateTextView.getText().toString().trim();
-        String MedicationEndDateString = capmMedicationEndDateTextView.getText().toString().trim();
+        String medicationMedicamentNameString = capmMedicamentNameEditText.getText().toString().trim();
+        String medicationPhysicianString = capmMedicationsPhysicianEditText.getText().toString().trim();
+        String medicationPurposeString = capmPurposeEditText.getText().toString().trim();
+        String medicationFREQString = capmFreqEditText.getText().toString().trim();
+        String medicationDosageString = capmDosageEditText.getText().toString().trim();
+        String medicationStartDateString = capmMedicationStartDateTextView.getText().toString().trim();
+        String medicationEndDateString = capmMedicationEndDateTextView.getText().toString().trim();
 
-        if (TextUtils.isEmpty(medicamentNameString)
-                && TextUtils.isEmpty(medicationsPhysicianString)
-                && TextUtils.isEmpty(PurposeString) &&
-                TextUtils.isEmpty(FreqString) &&
-                TextUtils.isEmpty(MedicationEndDateString) &&
-                TextUtils.isEmpty(MedicationStartDateString) &&
-                TextUtils.isEmpty(DosageString)
-
+        if (TextUtils.isEmpty(medicationMedicamentNameString)
+                && TextUtils.isEmpty(medicationPhysicianString)
+                && TextUtils.isEmpty(medicationPurposeString)
+                && TextUtils.isEmpty(medicationFREQString)
+                && TextUtils.isEmpty(medicationEndDateString)
+                && TextUtils.isEmpty(medicationStartDateString)
+                && TextUtils.isEmpty(medicationDosageString)
         ) {
             capmMedicamentNameEditText.setError("please write to name");
             capmMedicationsPhysicianEditText.setError("please write to name");
             capmPurposeEditText.setError("please write to name");
             return;
         }
+
         ContentValues values = new ContentValues();
-        if (TextUtils.isEmpty(MedicationStartDateString)) {
-            capmMedicationStartDateTextView.setError("please return medication start date");
+        if (TextUtils.isEmpty(medicationStartDateString)) {
+            hrCurrentPhysicianNameEditText.setError("please write to name");
             return;
         } else {
-            values.put(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_START_DATE, MedicationStartDateString);
+            values.put(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_START_DATE, medicationStartDateString);
         }
 
-        if (TextUtils.isEmpty(MedicationEndDateString)) {
-            capmMedicationEndDateTextView.setError("please return medication end date");
+        if (TextUtils.isEmpty(medicationEndDateString)) {
+            hrCurrentPhysicianNameEditText.setError("please write to name");
             return;
         } else {
-            values.put(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_END_DATE, MedicationEndDateString);
+            values.put(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_END_DATE, medicationEndDateString);
         }
 
-        if (TextUtils.isEmpty(medicamentNameString)) {
-            capmMedicamentNameEditText.setError("please return medicament name");
-            return;
-
-        } else {
-             values.put(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_MEDICAMENT_NAME, medicamentNameString);
-        }
-
-        if (TextUtils.isEmpty(medicationsPhysicianString)) {
-            capmMedicationsPhysicianEditText.setError("please return medications physician");
+        if (TextUtils.isEmpty(medicationMedicamentNameString)) {
             return;
 
         } else {
-            values.put(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_PHYSICIAN, medicationsPhysicianString);
+            //  values.put(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_PHYSICIAN, medicationMedicamentNameString);
         }
-        if (TextUtils.isEmpty(PurposeString)) {
-            capmPurposeEditText.setError("please return write purpose");
+
+        if (TextUtils.isEmpty(medicationPhysicianString)) {
             return;
 
         } else {
-            values.put(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_PURPOSE, PurposeString);
+            values.put(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_PHYSICIAN, medicationPhysicianString);
         }
-        if (TextUtils.isEmpty(FreqString)) {
-            capmFreqEditText.setError("please return write freq");
+
+        if (TextUtils.isEmpty(medicationPurposeString)) {
             return;
 
         } else {
-            values.put(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_FREQ, FreqString);
+            values.put(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_PURPOSE, medicationPurposeString);
         }
-        if (TextUtils.isEmpty(DosageString)) {
-            capmDosageEditText.setError("please return write dosage");
+
+        if (TextUtils.isEmpty(medicationFREQString)) {
             return;
+
         } else {
-            values.put(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_DOSAGE, DosageString);
+            values.put(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_FREQ, medicationFREQString);
         }
+
+        if (TextUtils.isEmpty(medicationDosageString)) {
+        } else {
+            values.put(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_DOSAGE, medicationDosageString);
+        }
+
         if (TextUtils.isEmpty(String.valueOf(mPatientId))) {
             return;
-
         } else {
             values.put(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_PATIENT_ID, mPatientId);
         }
+
         Uri newUri =
                 getContext().getContentResolver().insert(ImsContract.CurrentAndPastMedicationsEntry.CONTENT_URI, values);
-        if (newUri == null) {
-            Toast.makeText(getContext(), getString(R.string.editor_insert_Current_And_Past_Medications_failed), Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(getContext(), getString(R.string.editor_insert_Current_And_Past_Medications_successful), Toast.LENGTH_SHORT).show();
-        }
-
-    }
-
-    private void addMajorIllnesses() {
-        String majorIllnessString = miIllnessEditText.getText().toString().trim();
-        String majorPhysicianString = miPhysicianEditText.getText().toString().trim();
-        String majorTreatmentNotesString = miTreatmentNotesEditText.getText().toString().trim();
-        String majorStartDateString = miStartDateTextView.getText().toString().trim();
-        String majorEndDateString = miEndDateTextView.getText().toString().trim();
-
-        ContentValues values = new ContentValues();
-        if (TextUtils.isEmpty(majorIllnessString)) {
-            hrCurrentPhysicianNameEditText.setError("please write to name");
-            return;
-
-        } else {
-            values.put(ImsContract.MajorIllnessesEntry.COLUMN_ILLNESS, majorIllnessString);
-        }
-        if (TextUtils.isEmpty(majorPhysicianString)) {
-            hrCurrentPhysicianNameEditText.setError("please write to name");
-            return;
-
-        } else {
-            values.put(ImsContract.MajorIllnessesEntry.COLUMN_PHYSICIAN, majorPhysicianString);
-        }
-        if (TextUtils.isEmpty(majorTreatmentNotesString)) {
-            hrCurrentPhysicianNameEditText.setError("please write to name");
-            return;
-
-        } else {
-            values.put(ImsContract.MajorIllnessesEntry.COLUMN_TREATMENT_NOTES, majorTreatmentNotesString);
-        }
-        if (TextUtils.isEmpty(majorStartDateString)) {
-            hrCurrentPhysicianNameEditText.setError("please write to name");
-            return;
-
-        } else {
-            values.put(ImsContract.MajorIllnessesEntry.COLUMN_START_DATE, majorStartDateString);
-        }
-        if (TextUtils.isEmpty(majorEndDateString)) {
-            hrCurrentPhysicianNameEditText.setError("please write to name");
-            return;
-
-        } else {
-            values.put(ImsContract.MajorIllnessesEntry.COLUMN_END_DATE, majorEndDateString);
-        }
-        if (TextUtils.isEmpty(String.valueOf(mPatientId))) {
-            hrCurrentPhysicianNameEditText.setError("please write to name");
-            return;
-
-        } else {
-            values.put(ImsContract.MajorIllnessesEntry.COLUMN_PATIENT_ID, mPatientId);
-        }
-
-        Uri newUri =
-                getContext().getContentResolver().insert(ImsContract.MajorIllnessesEntry.CONTENT_URI, values);
         if (newUri == null) {
             Toast.makeText(getContext(), getString(R.string.editor_insert_patient_failed), Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(getContext(), getString(R.string.editor_insert_patient_successful), Toast.LENGTH_SHORT).show();
         }
+    }
 
+    // Add major illnesses
+    private void addMajorIllnesses() {
+        String illnessString = miIllnessEditText.getText().toString().trim();
+        String physicianString = miPhysicianEditText.getText().toString().trim();
+        String treatmentNotesString = miTreatmentNotesEditText.getText().toString().trim();
+        String startDateString = miStartDateTextView.getText().toString().trim();
+        String endDateString = miEndDateTextView.getText().toString().trim();
+
+        ContentValues values = new ContentValues();
+
+        // Illness
+        if (TextUtils.isEmpty(illnessString)) {
+            hrCurrentPhysicianNameEditText.setError("please write to illness");
+            return;
+        } else {
+            values.put(ImsContract.MajorIllnessesEntry.COLUMN_ILLNESS, illnessString);
+        }
+
+        // Physician
+        if (TextUtils.isEmpty(physicianString)) {
+            hrCurrentPhysicianNameEditText.setError("please write to physician");
+            return;
+        } else {
+            values.put(ImsContract.MajorIllnessesEntry.COLUMN_PHYSICIAN, physicianString);
+        }
+
+        // Treatment notes
+        if (TextUtils.isEmpty(treatmentNotesString)) {
+            hrCurrentPhysicianNameEditText.setError("please write to treatment notes");
+            return;
+        } else {
+            values.put(ImsContract.MajorIllnessesEntry.COLUMN_TREATMENT_NOTES, treatmentNotesString);
+        }
+
+        // Start date
+        if (TextUtils.isEmpty(startDateString)) {
+            hrCurrentPhysicianNameEditText.setError("please write to start date");
+            return;
+        } else {
+            values.put(ImsContract.MajorIllnessesEntry.COLUMN_START_DATE, startDateString);
+        }
+
+        // End date
+        if (TextUtils.isEmpty(endDateString)) {
+            hrCurrentPhysicianNameEditText.setError("please write to end date");
+            return;
+        } else {
+            values.put(ImsContract.MajorIllnessesEntry.COLUMN_END_DATE, endDateString);
+        }
+
+        // Patient id
+        if (TextUtils.isEmpty(String.valueOf(mPatientId))) {
+            return;
+        } else {
+            values.put(ImsContract.MajorIllnessesEntry.COLUMN_PATIENT_ID, mPatientId);
+        }
+
+        Uri newUri = getContext().getContentResolver().insert(ImsContract.MajorIllnessesEntry.CONTENT_URI, values);
+        if (newUri == null) {
+            Toast.makeText(getContext(), getString(R.string.editor_add_major_illnesses_failed), Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getContext(), getString(R.string.editor_add_major_illnesses_successful), Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void addSurgicalProcedures() {
@@ -390,22 +391,22 @@ public class FragmentHealthRecord extends Fragment {
 
         String vaccinesHistoryString = pvHistoryOfVaccinationTextView.getText().toString().trim();
 
-
+/*
         ContentValues values = new ContentValues();
-        if (TextUtils.isEmpty(vaccinesTETANUSString)) {
-            return; } else { values.put(ImsContract.PatientVaccinesEntry.COLUMN_TETANUS , vaccinesTETANUSString); }
-        if (TextUtils.isEmpty(vaccinesINFLUENZAVACCINEString)) {
-            return; } else { values.put(ImsContract.PatientVaccinesEntry.COLUMN_INFLUENZA_VACCINE ,vaccinesINFLUENZAVACCINEString ); }
-        if (TextUtils.isEmpty(vaccinesZOSTAVAXString)) {
-            return; } else { values.put(ImsContract.PatientVaccinesEntry.COLUMN_ZOSTAVAX ,vaccinesZOSTAVAXString ); }
-        if (TextUtils.isEmpty(vaccinesMENINGITISString)) {
-            return; } else { values.put(ImsContract.PatientVaccinesEntry.COLUMN_MENINGITIS ,vaccinesMENINGITISString ); }
-        if (TextUtils.isEmpty(vaccinesYELLOWFEVERString)) {
-            return; } else { values.put(ImsContract.PatientVaccinesEntry.COLUMN_YELLOW_FEVER , vaccinesYELLOWFEVERString); }
-        if (TextUtils.isEmpty(vaccinesPOLIOString)) {
-            return; } else { values.put(ImsContract.PatientVaccinesEntry.COLUMN_POLIO , vaccinesPOLIOString); }
-        if (TextUtils.isEmpty(vaccinesHistoryString)) {
-            return; } else { values.put(ImsContract.PatientVaccinesEntry.COLUMN_HISTORY_OF_VACCINATION ,vaccinesHistoryString ); }
+        if (TextUtils.isEmpty()) {
+            return; } else { values.put(ImsContract.PatientVaccinesEntry. , ); }
+        if (TextUtils.isEmpty()) {
+            return; } else { values.put(ImsContract.PatientVaccinesEntry. , ); }
+        if (TextUtils.isEmpty()) {
+            return; } else { values.put(ImsContract.PatientVaccinesEntry. , ); }
+        if (TextUtils.isEmpty()) {
+            return; } else { values.put(ImsContract.PatientVaccinesEntry. , ); }
+        if (TextUtils.isEmpty()) {
+            return; } else { values.put(ImsContract.PatientVaccinesEntry. , ); }
+        if (TextUtils.isEmpty()) {
+            return; } else { values.put(ImsContract.PatientVaccinesEntry. , ); }
+        if (TextUtils.isEmpty()) {
+            return; } else { values.put(ImsContract.PatientVaccinesEntry. , ); }*/
 
     }
 
@@ -457,9 +458,7 @@ public class FragmentHealthRecord extends Fragment {
         pvPolioTextView = view.findViewById(R.id.text_pv_polio);
         pvTetanusSpinner = view.findViewById(R.id.spinner_pv_tetanus);
         pvHistoryOfVaccinationTextView = view.findViewById(R.id.text_pv_history_of_vaccination);
-
         pvAddButton = view.findViewById(R.id.button_pv_add);
-
         patientVaccinesListView = view.findViewById(R.id.list_patient_vaccines);
     }
 
@@ -496,6 +495,36 @@ public class FragmentHealthRecord extends Fragment {
             }
         });
 
+        miStartDateTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        month += 1;
+                        String date = month + "/" + dayOfMonth + "/" + year;
+                        miStartDateTextView.setText(date);
+                    }
+                };
+                Utils.showDatePicker(getContext(), dateSetListener);
+            }
+        });
+
+        miEndDateTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        month += 1;
+                        String date = month + "/" + dayOfMonth + "/" + year;
+                        miEndDateTextView.setText(date);
+                    }
+                };
+                Utils.showDatePicker(getContext(), dateSetListener);
+            }
+        });
+
         hrSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -503,48 +532,10 @@ public class FragmentHealthRecord extends Fragment {
             }
         });
 
-
         miAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-            }
-        });
-
-        capmMedicationStartDateTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        month += 1;
-                        String date = month + "/" + dayOfMonth + "/" + year;
-                        capmMedicationStartDateTextView.setText(date);
-                    }
-                };
-                Utils.showDatePicker(getContext(), dateSetListener);
-            }
-        });
-        capmMedicationEndDateTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        month += 1;
-                        String date = month + "/" + dayOfMonth + "/" + year;
-                        capmMedicationEndDateTextView.setText(date);
-                    }
-                };
-                Utils.showDatePicker(getContext(), dateSetListener);
-            }
-        });
-
-        capmMedicationSaveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                saveCurrentAndPastMedications();
-
+                addMajorIllnesses();
             }
         });
         return view;

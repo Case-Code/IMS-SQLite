@@ -91,7 +91,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Doctor's phone"
-                        android:inputType="text" />
+                        android:inputType="phone" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -384,7 +384,7 @@
                                 android:layout_marginRight="10dp"
                                 android:layout_weight="1"
                                 android:hint="treatment notes"
-                                android:inputType="phone" />
+                                android:inputType="text" />
 
                             <Button
                                 android:id="@+id/button_mi_add"
