@@ -37,7 +37,6 @@ public class PatientCursorAdapter extends CursorAdapter {
 
     public PatientCursorAdapter(Context context, Cursor c) {
         super(context, c, 0 /* flags */);
-
     }
 
     @Override

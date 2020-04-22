@@ -80,6 +80,8 @@
     <!-- health record -->
     <string name="editor_insert_health_record_failed">Error with saving health record</string>
     <string name="editor_insert_health_record_successful">Health record saved</string>
+    <string name="editor_add_major_illnesses_failed">Error with adding major illnesses</string>
+    <string name="editor_add_major_illnesses_successful">Major diseases were added</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
