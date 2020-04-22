@@ -35,49 +35,49 @@ public class FragmentHealthRecord extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     private EditText hrCurrentPhysicianNameEditText;
-    private EditText currentPharmacyNameEditText;
-    private EditText pharmacyPhoneEditText;
-    private EditText medicamentNameEditText;
-    private EditText medicationsPhysicianEditText;
-    private EditText purposeEditText;
-    private EditText freqEditText;
-    private EditText dosageEditText;
-    private EditText majorIllnessEditText;
-    private EditText majorPhysicianEditText;
-    private EditText majorTreatmentNotesEditText;
-    private EditText proceduresEditText;
-    private EditText proceduresPhysicianEditText;
-    private EditText proceduresHospitalEditText;
-    private EditText proceduresNotesEditText;
-    private EditText doctorsPhoneEditText;
+    private EditText hrCurrentPharmacyNameEditText;
+    private EditText hrPharmacyPhoneEditText;
+    private EditText capmMedicamentNameEditText;
+    private EditText capmMedicationsPhysicianEditText;
+    private EditText capmPurposeEditText;
+    private EditText capmFreqEditText;
+    private EditText capmDosageEditText;
+    private EditText miIllnessEditText;
+    private EditText miPhysicianEditText;
+    private EditText miTreatmentNotesEditText;
+    private EditText spProcedureEditText;
+    private EditText spPhysicianEditText;
+    private EditText spHospitalEditText;
+    private EditText spNotesEditText;
+    private EditText hrDoctorsPhoneEditText;
 
-    private Button healthRecordSaveButton;
-    private Button medicationSaveButton;
-    private Button majorAddButton;
-    private Button proceduresAddButton;
-    private Button vaccinesAddButton;
+    private Button hrSaveButton;
+    private Button capmMedicationSaveButton;
+    private Button miAddButton;
+    private Button spAddButton;
+    private Button pvAddButton;
 
-    private TextView dateOfTheLastUpdateTextView;
+    private TextView hrDateOfTheLastUpdateTextView;
     private TextView patientNameTextView;
-    private TextView medicationStartDateTextView;
-    private TextView medicationEndDateTextView;
-    private TextView majorStartDateTextView;
-    private TextView majorEndDateTextView;
-    private TextView procedureStartDateTextView;
-    private TextView vaccinesTETANUSTextView;
-    private TextView vaccinesINFLUENZAVACCINETextView;
-    private TextView vaccinesZOSTAVAXTextView;
-    private TextView vaccinesMENINGITISTextView;
-    private TextView vaccinesYELLOWFEVERTextView;
-    private TextView vaccinesPOLIOTextView;
-    private TextView vaccinesHistoryTextView;
+    private TextView capmMedicationStartDateTextView;
+    private TextView capmMedicationEndDateTextView;
+    private TextView miStartDateTextView;
+    private TextView miEndDateTextView;
+    private TextView spDateTextView;
+    private TextView pvTetanusTextView;
+    private TextView pvInfluenzaVaccineTextView;
+    private TextView pvZostavaxTextView;
+    private TextView pvMeningitisTextView;
+    private TextView pvYellowFeverTextView;
+    private TextView pvPolioTextView;
+    private TextView pvHistoryOfVaccinationTextView;
 
 
     private ListView majorIllnessesListView;
     private ListView surgicalProceduresListView;
     private ListView patientVaccinesListView;
 
-    private Spinner vaccinesSpinner;
+    private Spinner pvTetanusSpinner;
 
     // ContentValues values;
     View view;
@@ -115,10 +115,10 @@ public class FragmentHealthRecord extends Fragment {
 
     private void saveHealthRecord() {
         String patientPhysicianNameString = hrCurrentPhysicianNameEditText.getText().toString().trim();
-        String patientPharmacyNameString = currentPharmacyNameEditText.getText().toString().trim();
-        String patientPharmacyPhoneString = pharmacyPhoneEditText.getText().toString().trim();
-        String patientDoctorPhoneString = doctorsPhoneEditText.getText().toString().trim();
-        String patientDateLastUpdateString = dateOfTheLastUpdateTextView.getText().toString().trim();
+        String patientPharmacyNameString = hrCurrentPharmacyNameEditText.getText().toString().trim();
+        String patientPharmacyPhoneString = hrPharmacyPhoneEditText.getText().toString().trim();
+        String patientDoctorPhoneString = hrDoctorsPhoneEditText.getText().toString().trim();
+        String patientDateLastUpdateString = hrDateOfTheLastUpdateTextView.getText().toString().trim();
 
         if (TextUtils.isEmpty(patientPhysicianNameString)
                 && TextUtils.isEmpty(patientPharmacyNameString)
@@ -126,9 +126,9 @@ public class FragmentHealthRecord extends Fragment {
                 && TextUtils.isEmpty(patientDoctorPhoneString)
                 && TextUtils.isEmpty(patientDateLastUpdateString)
         ) {
-            currentPharmacyNameEditText.setError("please write to name");
+            hrCurrentPharmacyNameEditText.setError("please write to name");
             hrCurrentPhysicianNameEditText.setError("please write to name");
-            pharmacyPhoneEditText.setError("please write to name");
+            hrPharmacyPhoneEditText.setError("please write to name");
             return;
         }
         ContentValues values = new ContentValues();
@@ -140,28 +140,28 @@ public class FragmentHealthRecord extends Fragment {
             values.put(ImsContract.HealthRecordEntry.COLUMN_CURRENT_PHYSICIAN_NAME, patientPhysicianNameString);
         }
         if (TextUtils.isEmpty(patientPharmacyNameString)) {
-            currentPharmacyNameEditText.setError("please write to name");
+            hrCurrentPharmacyNameEditText.setError("please write to name");
             return;
 
         } else {
             values.put(ImsContract.HealthRecordEntry.COLUMN_CURRENT_PHARMACY_NAME, patientPharmacyNameString);
         }
         if (TextUtils.isEmpty(patientPharmacyPhoneString)) {
-            pharmacyPhoneEditText.setError("please write to name");
+            hrPharmacyPhoneEditText.setError("please write to name");
             return;
 
         } else {
             values.put(ImsContract.HealthRecordEntry.COLUMN_PHARMACY_PHONE, patientPharmacyPhoneString);
         }
         if (TextUtils.isEmpty(patientDoctorPhoneString)) {
-            dateOfTheLastUpdateTextView.setError("please write to pharmacy");
+            hrDateOfTheLastUpdateTextView.setError("please write to pharmacy");
             return;
 
         } else {
             values.put(ImsContract.HealthRecordEntry.COLUMN_DOCTORS_PHONE, patientDoctorPhoneString);
         }
         if (TextUtils.isEmpty(patientDateLastUpdateString)) {
-            dateOfTheLastUpdateTextView.setError("please write to phone");
+            hrDateOfTheLastUpdateTextView.setError("please write to phone");
             return;
 
         } else {
@@ -184,13 +184,13 @@ public class FragmentHealthRecord extends Fragment {
     }
 
     private void saveCurrentAndPastMedications() {
-        String medicationMedicamentNameString = medicamentNameEditText.getText().toString().trim();
-        String medicationPhysicianString = medicationsPhysicianEditText.getText().toString().trim();
-        String medicationPurposeString = purposeEditText.getText().toString().trim();
-        String medicationFREQString = freqEditText.getText().toString().trim();
-        String medicationDosageString = dosageEditText.getText().toString().trim();
-        String medicationStartDateString = medicationStartDateTextView.getText().toString().trim();
-        String medicationEndDateString = medicationEndDateTextView.getText().toString().trim();
+        String medicationMedicamentNameString = capmMedicamentNameEditText.getText().toString().trim();
+        String medicationPhysicianString = capmMedicationsPhysicianEditText.getText().toString().trim();
+        String medicationPurposeString = capmPurposeEditText.getText().toString().trim();
+        String medicationFREQString = capmFreqEditText.getText().toString().trim();
+        String medicationDosageString = capmDosageEditText.getText().toString().trim();
+        String medicationStartDateString = capmMedicationStartDateTextView.getText().toString().trim();
+        String medicationEndDateString = capmMedicationEndDateTextView.getText().toString().trim();
 
         if (TextUtils.isEmpty(medicationMedicamentNameString)
                 && TextUtils.isEmpty(medicationPhysicianString)
@@ -201,9 +201,9 @@ public class FragmentHealthRecord extends Fragment {
                 TextUtils.isEmpty(medicationDosageString)
 
         ) {
-            medicamentNameEditText.setError("please write to name");
-            medicationsPhysicianEditText.setError("please write to name");
-            purposeEditText.setError("please write to name");
+            capmMedicamentNameEditText.setError("please write to name");
+            capmMedicationsPhysicianEditText.setError("please write to name");
+            capmPurposeEditText.setError("please write to name");
             return;
         }
         ContentValues values = new ContentValues();
@@ -267,11 +267,11 @@ public class FragmentHealthRecord extends Fragment {
     }
 
     private void addMajorIllnesses() {
-        String majorIllnessString = majorIllnessEditText.getText().toString().trim();
-        String majorPhysicianString = majorPhysicianEditText.getText().toString().trim();
-        String majorTreatmentNotesString = majorTreatmentNotesEditText.getText().toString().trim();
-        String majorStartDateString = majorStartDateTextView.getText().toString().trim();
-        String majorEndDateString = majorEndDateTextView.getText().toString().trim();
+        String majorIllnessString = miIllnessEditText.getText().toString().trim();
+        String majorPhysicianString = miPhysicianEditText.getText().toString().trim();
+        String majorTreatmentNotesString = miTreatmentNotesEditText.getText().toString().trim();
+        String majorStartDateString = miStartDateTextView.getText().toString().trim();
+        String majorEndDateString = miEndDateTextView.getText().toString().trim();
 
         ContentValues values = new ContentValues();
         if (TextUtils.isEmpty(majorIllnessString)) {
@@ -328,11 +328,11 @@ public class FragmentHealthRecord extends Fragment {
     }
 
     private void addSurgicalProcedures() {
-        String proceduresString = proceduresEditText.getText().toString().trim();
-        String proceduresPhysicianString = proceduresPhysicianEditText.getText().toString().trim();
-        String proceduresHospitalString = proceduresHospitalEditText.getText().toString().trim();
-        String proceduresNotesString = proceduresNotesEditText.getText().toString().trim();
-        String proceduresDateSurgicalString = procedureStartDateTextView.getText().toString().trim();
+        String proceduresString = spProcedureEditText.getText().toString().trim();
+        String proceduresPhysicianString = spPhysicianEditText.getText().toString().trim();
+        String proceduresHospitalString = spHospitalEditText.getText().toString().trim();
+        String proceduresNotesString = spNotesEditText.getText().toString().trim();
+        String proceduresDateSurgicalString = spDateTextView.getText().toString().trim();
         ContentValues values = new ContentValues();
         if (TextUtils.isEmpty(proceduresString)) {
             return;
@@ -371,14 +371,14 @@ public class FragmentHealthRecord extends Fragment {
     private void addPatientVaccines() {
         Spinner vaccinesSpinner;
 
-        String vaccinesTETANUSString = vaccinesTETANUSTextView.getText().toString().trim();
-        String vaccinesINFLUENZAVACCINEString = vaccinesINFLUENZAVACCINETextView.getText().toString().trim();
-        String vaccinesZOSTAVAXString = vaccinesZOSTAVAXTextView.getText().toString().trim();
-        String vaccinesMENINGITISString = vaccinesMENINGITISTextView.getText().toString().trim();
-        String vaccinesYELLOWFEVERString = vaccinesYELLOWFEVERTextView.getText().toString().trim();
-        String vaccinesPOLIOString = vaccinesPOLIOTextView.getText().toString().trim();
+        String vaccinesTETANUSString = pvTetanusTextView.getText().toString().trim();
+        String vaccinesINFLUENZAVACCINEString = pvInfluenzaVaccineTextView.getText().toString().trim();
+        String vaccinesZOSTAVAXString = pvZostavaxTextView.getText().toString().trim();
+        String vaccinesMENINGITISString = pvMeningitisTextView.getText().toString().trim();
+        String vaccinesYELLOWFEVERString = pvYellowFeverTextView.getText().toString().trim();
+        String vaccinesPOLIOString = pvPolioTextView.getText().toString().trim();
 
-        String vaccinesHistoryString = vaccinesHistoryTextView.getText().toString().trim();
+        String vaccinesHistoryString = pvHistoryOfVaccinationTextView.getText().toString().trim();
 
 /*
         ContentValues values = new ContentValues();
@@ -403,50 +403,50 @@ public class FragmentHealthRecord extends Fragment {
     private void init() {
         // Health record
         hrCurrentPhysicianNameEditText = view.findViewById(R.id.edit_hr_current_physician_name);
-        currentPharmacyNameEditText = view.findViewById(R.id.edit_hr_current_pharmacy_name);
-        dateOfTheLastUpdateTextView = view.findViewById(R.id.text_hr_date_of_the_last_update);
-        doctorsPhoneEditText = view.findViewById(R.id.edit_hr_doctors_phone);
-        pharmacyPhoneEditText = view.findViewById(R.id.edit_hr_pharmacy_phone);
-        healthRecordSaveButton = view.findViewById(R.id.button_hr_save);
+        hrCurrentPharmacyNameEditText = view.findViewById(R.id.edit_hr_current_pharmacy_name);
+        hrDateOfTheLastUpdateTextView = view.findViewById(R.id.text_hr_date_of_the_last_update);
+        hrDoctorsPhoneEditText = view.findViewById(R.id.edit_hr_doctors_phone);
+        hrPharmacyPhoneEditText = view.findViewById(R.id.edit_hr_pharmacy_phone);
+        hrSaveButton = view.findViewById(R.id.button_hr_save);
 
         // Current and past medications
-        medicamentNameEditText = view.findViewById(R.id.edit_capm_medicament_name);
-        dosageEditText = view.findViewById(R.id.edit_capm_dosage);
-        freqEditText = view.findViewById(R.id.edit_capm_freq);
-        medicationStartDateTextView = view.findViewById(R.id.text_capm_medications_start_date);
-        medicationEndDateTextView = view.findViewById(R.id.text_capm_medications_end_date);
-        medicationsPhysicianEditText = view.findViewById(R.id.edit_capm_medications_physician);
-        purposeEditText = view.findViewById(R.id.edit_capm_purpose);
-        medicationSaveButton = view.findViewById(R.id.button_capm_medications_save);
+        capmMedicamentNameEditText = view.findViewById(R.id.edit_capm_medicament_name);
+        capmDosageEditText = view.findViewById(R.id.edit_capm_dosage);
+        capmFreqEditText = view.findViewById(R.id.edit_capm_freq);
+        capmMedicationStartDateTextView = view.findViewById(R.id.text_capm_medications_start_date);
+        capmMedicationEndDateTextView = view.findViewById(R.id.text_capm_medications_end_date);
+        capmMedicationsPhysicianEditText = view.findViewById(R.id.edit_capm_medications_physician);
+        capmPurposeEditText = view.findViewById(R.id.edit_capm_purpose);
+        capmMedicationSaveButton = view.findViewById(R.id.button_capm_medications_save);
 
         // Major illnesses
-        majorIllnessEditText = view.findViewById(R.id.edit_mi_illness);
-        majorStartDateTextView = view.findViewById(R.id.text_mi_start_date);
-        majorEndDateTextView = view.findViewById(R.id.text_mi_end_date);
-        majorPhysicianEditText = view.findViewById(R.id.edit_mi_physician);
-        majorTreatmentNotesEditText = view.findViewById(R.id.edit_mi_treatment_notes);
-        majorAddButton = view.findViewById(R.id.button_mi_save);
+        miIllnessEditText = view.findViewById(R.id.edit_mi_illness);
+        miStartDateTextView = view.findViewById(R.id.text_mi_start_date);
+        miEndDateTextView = view.findViewById(R.id.text_mi_end_date);
+        miPhysicianEditText = view.findViewById(R.id.edit_mi_physician);
+        miTreatmentNotesEditText = view.findViewById(R.id.edit_mi_treatment_notes);
+        miAddButton = view.findViewById(R.id.button_mi_add);
         majorIllnessesListView = view.findViewById(R.id.list_major_illnesses);
 
         // Surgical procedures
-        proceduresEditText = view.findViewById(R.id.edit_sp_procedure);
-        proceduresPhysicianEditText = view.findViewById(R.id.edit_sp_physician);
-        proceduresHospitalEditText = view.findViewById(R.id.edit_sp_hospital);
-        procedureStartDateTextView = view.findViewById(R.id.text_sp_date);
-        proceduresNotesEditText = view.findViewById(R.id.edit_sp_notes);
-        proceduresAddButton = view.findViewById(R.id.button_sp_add);
+        spProcedureEditText = view.findViewById(R.id.edit_sp_procedure);
+        spPhysicianEditText = view.findViewById(R.id.edit_sp_physician);
+        spHospitalEditText = view.findViewById(R.id.edit_sp_hospital);
+        spDateTextView = view.findViewById(R.id.text_sp_date);
+        spNotesEditText = view.findViewById(R.id.edit_sp_notes);
+        spAddButton = view.findViewById(R.id.button_sp_add);
         surgicalProceduresListView = view.findViewById(R.id.list_surgical_procedures);
 
         // Patient vaccines
-        vaccinesTETANUSTextView = view.findViewById(R.id.text_pv_tetanus);
-        vaccinesINFLUENZAVACCINETextView = view.findViewById(R.id.text_pv_influenza_vaccine);
-        vaccinesZOSTAVAXTextView = view.findViewById(R.id.text_pv_zostavax);
-        vaccinesMENINGITISTextView = view.findViewById(R.id.text_pv_meningitis);
-        vaccinesYELLOWFEVERTextView = view.findViewById(R.id.text_pv_yellow_fever);
-        vaccinesPOLIOTextView = view.findViewById(R.id.text_pv_polio);
-        vaccinesSpinner = view.findViewById(R.id.spinner_pv_tetanus);
-        vaccinesHistoryTextView = view.findViewById(R.id.text_pv_history_of_vaccination);
-        vaccinesAddButton = view.findViewById(R.id.button_pv_add);
+        pvTetanusTextView = view.findViewById(R.id.text_pv_tetanus);
+        pvInfluenzaVaccineTextView = view.findViewById(R.id.text_pv_influenza_vaccine);
+        pvZostavaxTextView = view.findViewById(R.id.text_pv_zostavax);
+        pvMeningitisTextView = view.findViewById(R.id.text_pv_meningitis);
+        pvYellowFeverTextView = view.findViewById(R.id.text_pv_yellow_fever);
+        pvPolioTextView = view.findViewById(R.id.text_pv_polio);
+        pvTetanusSpinner = view.findViewById(R.id.spinner_pv_tetanus);
+        pvHistoryOfVaccinationTextView = view.findViewById(R.id.text_pv_history_of_vaccination);
+        pvAddButton = view.findViewById(R.id.button_pv_add);
         patientVaccinesListView = view.findViewById(R.id.list_patient_vaccines);
     }
 
@@ -466,7 +466,7 @@ public class FragmentHealthRecord extends Fragment {
         view = inflater.inflate(R.layout.fragment_health_record, container, false);
 
         init();
-        dateOfTheLastUpdateTextView.setOnClickListener(new View.OnClickListener() {
+        hrDateOfTheLastUpdateTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
@@ -474,19 +474,19 @@ public class FragmentHealthRecord extends Fragment {
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         month += 1;
                         String date = month + "/" + dayOfMonth + "/" + year;
-                        dateOfTheLastUpdateTextView.setText(date);
+                        hrDateOfTheLastUpdateTextView.setText(date);
                     }
                 };
                 Utils.showDatePicker(getContext(), dateSetListener);
             }
         });
-        healthRecordSaveButton.setOnClickListener(new View.OnClickListener() {
+        hrSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 saveHealthRecord();
             }
         });
-        majorAddButton.setOnClickListener(new View.OnClickListener() {
+        miAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
