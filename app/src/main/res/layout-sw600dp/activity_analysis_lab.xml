@@ -93,6 +93,7 @@
                         android:textColor="@color/colorPrimaryDark" />
 
                     <AutoCompleteTextView
+                        android:id="@+id/edit_loc_patient_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -106,6 +107,7 @@
                         android:paddingLeft="10dp" />
 
                     <ListView
+                        android:id="@+id/list_loc_patient"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         tools:listitem="@layout/item_analysis_lab" />
@@ -178,7 +180,7 @@
                                 app:srcCompat="@drawable/analysis_lab_logo" />
 
                             <TextView
-                                android:id="@+id/aa"
+                                android:id="@+id/text_pr_bill_to_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentStart="true"
@@ -191,10 +193,10 @@
                                 android:textSize="14sp" />
 
                             <TextView
-                                android:id="@+id/a"
+                                android:id="@+id/text_pr_date_of_birth"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/aa"
+                                android:layout_below="@+id/text_pr_bill_to_name"
                                 android:layout_alignParentStart="true"
                                 android:layout_alignParentLeft="true"
                                 android:layout_marginBottom="10dp"
@@ -204,10 +206,10 @@
                                 android:textSize="14sp" />
 
                             <TextView
-                                android:id="@+id/b"
+                                android:id="@+id/text_pr_patient_id"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/a"
+                                android:layout_below="@+id/text_pr_date_of_birth"
                                 android:layout_alignParentStart="true"
                                 android:layout_alignParentLeft="true"
                                 android:layout_marginBottom="10dp"
@@ -217,10 +219,10 @@
                                 android:textSize="14sp" />
 
                             <TextView
-                                android:id="@+id/c"
+                                android:id="@+id/text_pr_medical_record"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/b"
+                                android:layout_below="@+id/text_pr_patient_id"
                                 android:layout_alignParentStart="true"
                                 android:layout_alignParentLeft="true"
                                 android:layout_marginBottom="10dp"
@@ -230,10 +232,10 @@
                                 android:textSize="14sp" />
 
                             <TextView
-                                android:id="@+id/d"
+                                android:id="@+id/text_pr_next_appointment_date"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/c"
+                                android:layout_below="@+id/text_pr_medical_record"
                                 android:layout_alignParentStart="true"
                                 android:layout_alignParentLeft="true"
                                 android:layout_marginBottom="10dp"
@@ -243,10 +245,10 @@
                                 android:textSize="14sp" />
 
                             <TextView
-                                android:id="@+id/e"
+                                android:id="@+id/text_pr_next_treatment_plan_review_date"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/d"
+                                android:layout_below="@+id/text_pr_next_appointment_date"
                                 android:layout_alignParentStart="true"
                                 android:layout_alignParentLeft="true"
                                 android:layout_marginBottom="10dp"
@@ -256,10 +258,10 @@
                                 android:textSize="14sp" />
 
                             <TextView
-                                android:id="@+id/f"
+                                android:id="@+id/text_pr_physician_signature"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/e"
+                                android:layout_below="@+id/text_pr_next_treatment_plan_review_date"
                                 android:layout_alignParentStart="true"
                                 android:layout_alignParentLeft="true"
                                 android:layout_marginBottom="10dp"
@@ -269,10 +271,10 @@
                                 android:textSize="14sp" />
 
                             <TextView
-                                android:id="@+id/g"
+                                android:id="@+id/text_pr_date_signed"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/f"
+                                android:layout_below="@+id/text_pr_physician_signature"
                                 android:layout_alignParentStart="true"
                                 android:layout_alignParentLeft="true"
                                 android:maxLines="2"
@@ -305,6 +307,7 @@
                             android:textColor="@color/colorPrimaryDark" />
 
                         <ListView
+                            android:id="@+id/list_pp_progress_notes"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             tools:listitem="@layout/item_patient_progress" />

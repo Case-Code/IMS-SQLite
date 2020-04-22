@@ -93,7 +93,7 @@
                         android:textColor="@color/colorPrimaryDark" />
 
                     <AutoCompleteTextView
-                        android:id="@+id/edit_doctor_clinic_search"
+                        android:id="@+id/text_doctor_loc_patient_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -107,7 +107,7 @@
                         android:paddingLeft="10dp" />
 
                     <ListView
-                        android:id="@+id/list_doctor_clinic_patient"
+                        android:id="@+id/list_doctor_loc_patient_name"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         tools:listitem="@layout/item_clinic" />
@@ -173,7 +173,7 @@
                             android:padding="10dp">
 
                             <AutoCompleteTextView
-                                android:id="@+id/edit_doctor_diagnosis_search"
+                                android:id="@+id/text_doctor_dd_patient_name_search"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:completionThreshold="1"
@@ -185,7 +185,7 @@
                                 android:paddingLeft="10dp" />
 
                             <ListView
-                                android:id="@+id/list_doctor_diagnosis_transformation"
+                                android:id="@+id/list_doctor_dd_patient"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 tools:listitem="@layout/item_transformation" />
@@ -215,7 +215,7 @@
                                     android:textSize="14sp" />
 
                                 <TextView
-                                    android:id="@+id/text_doctor_diagnosis_name"
+                                    android:id="@+id/text_doctor_dd_patient_name"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="end"
@@ -238,7 +238,7 @@
                                     android:textSize="14sp" />
 
                                 <TextView
-                                    android:id="@+id/text_doctor_diagnosis_date_birth"
+                                    android:id="@+id/text_doctor_dd_patient_date_of_birth"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="end"
@@ -262,7 +262,7 @@
                                     android:textSize="14sp" />
 
                                 <TextView
-                                    android:id="@+id/text_doctor_diagnosis_date_service"
+                                    android:id="@+id/text_doctor_dd_date_of_service"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="end"
@@ -271,7 +271,7 @@
                             </LinearLayout>
 
                             <EditText
-                                android:id="@+id/text_doctor_diagnosis_name"
+                                android:id="@+id/edit_doctor_dd_diagnosis"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
@@ -280,6 +280,7 @@
                                 android:inputType="text" />
 
                             <EditText
+                                android:id="@+id/edit_doctor_dd_additional_notes"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="10dp"
@@ -287,6 +288,7 @@
                                 android:inputType="text" />
 
                             <EditText
+                                android:id="@+id/edit_doctor_dd_performing_physician_signature"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="10dp"
@@ -301,6 +303,7 @@
                                 android:orientation="horizontal">
 
                                 <Button
+                                    android:id="@+id/button_doctor_dd_save"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:background="@android:color/transparent"
@@ -319,13 +322,14 @@
                                     android:text="or" />
 
                                 <Button
+                                    android:id="@+id/button_doctor_dd_print"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:background="@android:color/transparent"
                                     android:clickable="true"
                                     android:focusable="true"
                                     android:foreground="?android:attr/selectableItemBackground"
-                                    android:text="Save"
+                                    android:text="print"
                                     android:textColor="@color/colorAccent" />
                             </LinearLayout>
                         </LinearLayout>

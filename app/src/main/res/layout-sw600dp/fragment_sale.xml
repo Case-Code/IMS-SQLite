@@ -20,6 +20,7 @@
             android:padding="16dp">
 
             <EditText
+                android:id="@+id/edit_pharmacy_fsale_qr"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -30,6 +31,7 @@
                 android:inputType="number" />
 
             <ImageButton
+                android:id="@+id/image_pharmacy_fsale_plus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -37,6 +39,7 @@
                 android:src="@drawable/ic_action_add" />
 
             <EditText
+                android:id="@+id/edit_pharmacy_fsale_quantity"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -46,7 +49,7 @@
                 android:inputType="textPersonName" />
 
             <ImageButton
-                android:id="@+id/imageButton"
+                android:id="@+id/image_pharmacy_fsale_minus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -54,6 +57,7 @@
                 android:src="@drawable/ic_action_add" />
 
             <Button
+                android:id="@+id/button_pharmacy_fsale_sale"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -64,6 +68,7 @@
                 android:textColor="@android:color/white" />
 
             <TextView
+                android:id="@+id/text_pharmacy_fsale_total"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -71,6 +76,7 @@
                 android:textColor="@android:color/white" />
 
             <EditText
+                android:id="@+id/edit_pharmacy_fsale_search"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -82,6 +88,7 @@
         </LinearLayout>
 
         <ListView
+            android:id="@+id/list_pharmacy_fsale_sale"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="16dp"
