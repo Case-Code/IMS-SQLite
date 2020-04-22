@@ -130,7 +130,7 @@ public class PersonnelActivity extends AppCompatActivity implements NavigationVi
         mDrawerLayout = findViewById(R.id.activity_Personnel);
         mNavigationView = findViewById(R.id.navigation_view);
         mActionMenuImageButton = findViewById(R.id.image_button_action_menu);
-
+         //Employee data management
          edmEmployeeSearchAutoCompleteTextView=findViewById(R.id.text_edm_employee_search);
          edmPatientListView=findViewById(R.id.list_edm_patient);
 
