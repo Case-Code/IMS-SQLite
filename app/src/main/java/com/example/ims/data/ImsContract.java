@@ -193,6 +193,7 @@ public class ImsContract {
         public static final String TABLE_NAME = PATH_PATIENT_PROGRESS;
         public static final String _ID = BaseColumns._ID;
         public static final String COLUMN_PROGRESS_NOTES = "progress_notes";
+        public static final String COLUMN_DATE="date";
         public static final String COLUMN_PATIENT_ID = "patient_id";
     }
 

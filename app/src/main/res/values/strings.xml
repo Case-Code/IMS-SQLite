@@ -89,6 +89,8 @@
     <string name="editor_insert_Patient_Vaccines_failed">Error with saving Patient Vaccines </string>
     <string name="editor_insert_Patient_Vaccines_successful">Patient Vaccines saved </string>
 
+    <string name="insert_progress_notes_failed">error with saving progress notes</string>
+    <string name="insert_progress_notes_successful"> progress notes saved </string>
 
 
 

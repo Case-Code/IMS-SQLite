@@ -113,24 +113,26 @@ public class FragmentPatientRecords extends Fragment implements LoaderManager.Lo
 
     public void patientProgressAdd(){
         String progressNotesString= ReceptionFprProgressNotesEditText.getText().toString().trim();
+        String dateString = ReceptionFprDateTextView.getText().toString().trim();
 
       //  String patientProgressDateString= patientProgressDateTextView.getText().toString().trim();
         ContentValues values = new ContentValues();
 
-        if (TextUtils.isEmpty(progressNotesString)) {
-
+        if (TextUtils.isEmpty(progressNotesString)) {ReceptionFprProgressNotesEditText.setError("please return write to progress Notes ");
             return; } else { values.put(ImsContract.PatientProgressEntry.COLUMN_PROGRESS_NOTES , progressNotesString);
         }
-        if (TextUtils.isEmpty(String.valueOf(idpatient))) {
-
-            return; } else { values.put(ImsContract.PatientProgressEntry.COLUMN_PATIENT_ID , idpatient);
+        if (TextUtils.isEmpty(dateString)) {ReceptionFprDateTextView.setError("please return write to date");
+            return; } else { values.put(ImsContract.PatientProgressEntry.COLUMN_DATE , dateString);
         }
+
+        if (TextUtils.isEmpty(String.valueOf(idpatient))) {
+            return; } else { values.put(ImsContract.PatientProgressEntry.COLUMN_PATIENT_ID , idpatient); }
         Uri newUri =
                 getContext().getContentResolver().insert(ImsContract.PatientProgressEntry.CONTENT_URI, values);
         if (newUri == null) {
-            Toast.makeText(getContext(), getString(R.string.editor_insert_patient_failed), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getString(R.string.insert_progress_notes_failed), Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(getContext(), getString(R.string.editor_insert_patient_successful), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getString(R.string.insert_progress_notes_successful), Toast.LENGTH_SHORT).show();
         }
 
 

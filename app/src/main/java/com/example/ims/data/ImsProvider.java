@@ -1992,7 +1992,13 @@ public class ImsProvider extends ContentProvider {
                 throw new IllegalArgumentException("Patient progress requires a progress notes");
             }
         }
-
+            //add column date
+        if (values.containsKey(PatientProgressEntry.COLUMN_DATE)) {
+            String date = values.getAsString(PatientProgressEntry.COLUMN_DATE);
+            if (date == null) {
+                throw new IllegalArgumentException("Patient progress requires a date");
+            }
+        }
         // Patient id
         if (values.containsKey(PatientProgressEntry.COLUMN_PATIENT_ID)) {
             Integer patientId = values.getAsInteger(PatientProgressEntry.COLUMN_PATIENT_ID);
