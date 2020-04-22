@@ -49,7 +49,7 @@
                             android:orientation="horizontal">
 
                             <EditText
-                                android:id="@+id/edit_patient_id"
+                                android:id="@+id/edit_reception_fpr_patient_id"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="5dp"
@@ -60,7 +60,7 @@
                                 android:inputType="phone" />
 
                             <EditText
-                                android:id="@+id/edit_medical_record_id"
+                                android:id="@+id/edit_reception_fpr_medical_record_id"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="5dp"
@@ -71,7 +71,7 @@
                         </LinearLayout>
 
                         <EditText
-                            android:id="@+id/edit_physician_signature"
+                            android:id="@+id/edit_reception_fpr_physican_signature"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ems="10"
@@ -103,7 +103,7 @@
                                 android:text="next appointment date:" />
 
                             <TextView
-                                android:id="@+id/text_appointment_date"
+                                android:id="@+id/text_reception_fpr_next_appointment_date"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -120,14 +120,13 @@
                             android:orientation="horizontal">
 
                             <TextView
-                                android:id="@+id/textView3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="next treatment plan review date:" />
 
                             <TextView
-                                android:id="@+id/text_treatment_plan_date"
+                                android:id="@+id/text_reception_fpr_next_treatment_plan_review_date"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -152,7 +151,7 @@
                                 android:text="date signed:" />
 
                             <TextView
-                                android:id="@+id/text_date_signed"
+                                android:id="@+id/text_reception_fpr_date_signed"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -166,7 +165,7 @@
                 </LinearLayout>
 
                 <Button
-                    android:id="@+id/button_patient_records_save"
+                    android:id="@+id/button_reception_fpr_save"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -211,7 +210,6 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/textVie"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
@@ -219,7 +217,7 @@
                         android:text="date:" />
 
                     <TextView
-                        android:id="@+id/text_patient_progress_date"
+                        android:id="@+id/text_reception_fpr_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -237,7 +235,7 @@
                     android:orientation="horizontal">
 
                     <EditText
-                        android:id="@+id/edit_progress_notes"
+                        android:id="@+id/edit_reception_fpr_progress_notes"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
@@ -247,7 +245,7 @@
                         android:inputType="textPersonName" />
 
                     <Button
-                        android:id="@+id/button_patient_progress_add"
+                        android:id="@+id/button_reception_fpr_add"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -262,7 +260,7 @@
                 </LinearLayout>
 
                 <ListView
-                    android:id="@+id/list_patient_progress"
+                    android:id="@+id/list_reception_fpr_patient_progress"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="0.8"

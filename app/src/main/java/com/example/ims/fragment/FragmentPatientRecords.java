@@ -1,5 +1,6 @@
 package com.example.ims.fragment;
 
+import android.app.DatePickerDialog;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -17,8 +19,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
@@ -26,6 +26,7 @@ import androidx.loader.content.Loader;
 import com.example.ims.R;
 import com.example.ims.adapter.PatientProgressCursorAdapter;
 import com.example.ims.data.ImsContract;
+import com.example.logutil.Utils;
 
 
 /**
@@ -36,19 +37,19 @@ import com.example.ims.data.ImsContract;
 public class FragmentPatientRecords extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
 
-    Button patientRecordSaveButton;
-    Button patientProgressAddButton;
+    Button ReceptionFprSaveButton;
+    Button ReceptionFprAddButton;
 
-    EditText patientIdEditText;
-    EditText medicalRecordEditText;
-    EditText physicianSignatureEditText;
-    EditText progressNotesEditText;
-    TextView appointmentDateTextView;
-    TextView treatmentPlanDateTextView;
-    TextView dateSignedTextView;
-    TextView patientProgressDateTextView;
+    EditText ReceptionFprPatientIdEditText;
+    EditText ReceptionFprMedicalRecordIdEditText;
+    EditText ReceptionFprPhysicanSignatureEditText;
+    EditText ReceptionFprProgressNotesEditText;
+    TextView ReceptionFprNextAppointmentDateTextView;
+    TextView ReceptionFprNextTreatmentPlanReviewDateTextView;
+    TextView ReceptionFprDateSignedTextView;
+    TextView ReceptionFprDateTextView;
 
-    ListView patientProgressListView;
+    ListView ReceptionFprPatientProgressListView;
         View view ;
 
     public Uri mCurrentPatientUri;
@@ -56,59 +57,62 @@ public class FragmentPatientRecords extends Fragment implements LoaderManager.Lo
 
 
     public void init (){
-         patientRecordSaveButton=view.findViewById(R.id.button_patient_records_save);
-         patientProgressAddButton=view.findViewById(R.id.button_patient_progress_add);
 
-         patientIdEditText=view.findViewById(R.id.edit_patient_id);
-         medicalRecordEditText=view.findViewById(R.id.edit_medical_record_id);
-         physicianSignatureEditText=view.findViewById(R.id.edit_physician_signature);
-         progressNotesEditText=view.findViewById(R.id.edit_progress_notes);
-         appointmentDateTextView=view.findViewById(R.id.text_appointment_date);
-         treatmentPlanDateTextView=view.findViewById(R.id.text_treatment_plan_date);
-         dateSignedTextView=view.findViewById(R.id.text_date_signed);
-         patientProgressDateTextView=view.findViewById(R.id.text_patient_progress_date);
-        patientProgressListView=view.findViewById(R.id.list_patient_progress);
+        ReceptionFprPatientIdEditText =view.findViewById(R.id.edit_reception_fpr_patient_id);
+        ReceptionFprMedicalRecordIdEditText =view.findViewById(R.id.edit_reception_fpr_medical_record_id);
+        ReceptionFprPhysicanSignatureEditText =view.findViewById(R.id.edit_reception_fpr_physican_signature);
+        ReceptionFprSaveButton =view.findViewById(R.id.button_reception_fpr_save);
+        ReceptionFprNextAppointmentDateTextView =view.findViewById(R.id.text_reception_fpr_next_appointment_date);
+        ReceptionFprNextTreatmentPlanReviewDateTextView =view.findViewById(R.id.text_reception_fpr_next_treatment_plan_review_date);
+        ReceptionFprDateSignedTextView =view.findViewById(R.id.text_reception_fpr_date_signed);
+
+
+        ReceptionFprDateTextView =view.findViewById(R.id.text_reception_fpr_date);
+        ReceptionFprProgressNotesEditText =view.findViewById(R.id.edit_reception_fpr_progress_notes);
+        ReceptionFprAddButton =view.findViewById(R.id.button_reception_fpr_add);
+        ReceptionFprPatientProgressListView =view.findViewById(R.id.list_reception_fpr_patient_progress);
 
     }
     public void savePatientRecord(){
 
-       String patientIdString=  patientIdEditText.getText().toString().trim();
-        String medicalRecordString= medicalRecordEditText.getText().toString().trim();
-        String physicianSignatureString=  physicianSignatureEditText.getText().toString().trim();
-        String dateSignedString= dateSignedTextView.getText().toString().trim();
+       String patientIdString=  ReceptionFprPatientIdEditText.getText().toString().trim();
+        String medicalRecordIdString= ReceptionFprMedicalRecordIdEditText.getText().toString().trim();
+        String physicianSignatureString=  ReceptionFprPhysicanSignatureEditText.getText().toString().trim();
+        String dateSignedString= ReceptionFprDateSignedTextView.getText().toString().trim();
 
-        String appointmentDateString=  appointmentDateTextView.getText().toString().trim();
-        String treatmentPlanDateString=  treatmentPlanDateTextView.getText().toString().trim();
+        String appointmentDateString=  ReceptionFprNextAppointmentDateTextView.getText().toString().trim();
+        String treatmentPlanDateString=  ReceptionFprNextTreatmentPlanReviewDateTextView.getText().toString().trim();
+
         ContentValues values = new ContentValues();
-        if (TextUtils.isEmpty(patientIdString)) {
+        if (TextUtils.isEmpty(patientIdString)) {ReceptionFprPatientIdEditText.setError("please return a touch item to  patient Id");
             return; } else { values.put(ImsContract.PatientRecordsEntry.COLUMN_PATIENT_ID , patientIdString);
         }
-        if (TextUtils.isEmpty(medicalRecordString)) {
-            return; } else { values.put(ImsContract.PatientRecordsEntry.COLUMN_MEDICAL_RECORD_ID ,medicalRecordString );
+        if (TextUtils.isEmpty(medicalRecordIdString)) {ReceptionFprMedicalRecordIdEditText.setError("please return write to medical Record Id ");
+            return; } else { values.put(ImsContract.PatientRecordsEntry.COLUMN_MEDICAL_RECORD_ID ,medicalRecordIdString );
         }
-        if (TextUtils.isEmpty(physicianSignatureString)) {
+        if (TextUtils.isEmpty(physicianSignatureString)) {ReceptionFprPhysicanSignatureEditText.setError("please return write to physician Signature ");
             return; } else { values.put(ImsContract.PatientRecordsEntry.COLUMN_PHYSICIAN_SIGNATURE ,physicianSignatureString );
         }
-        if (TextUtils.isEmpty(dateSignedString)) {
+        if (TextUtils.isEmpty(dateSignedString)) {ReceptionFprNextAppointmentDateTextView.setError("please return write to date Signed ");
             return; } else { values.put(ImsContract.PatientRecordsEntry.COLUMN_DATE_SIGNED , dateSignedString);
         }
-        if (TextUtils.isEmpty(appointmentDateString)) {
+        if (TextUtils.isEmpty(appointmentDateString)) {ReceptionFprNextAppointmentDateTextView.setError("please return write to appointment Date ");
             return; } else { values.put(ImsContract.PatientRecordsEntry.COLUMN_NEXT_APPOINTMENT_DATE , appointmentDateString);
         }
-        if (TextUtils.isEmpty(treatmentPlanDateString)) {
+        if (TextUtils.isEmpty(treatmentPlanDateString)) {ReceptionFprNextTreatmentPlanReviewDateTextView.setError("please return write to  treatment Plan Date");
             return; } else { values.put(ImsContract.PatientRecordsEntry.COLUMN_NEXT_TREATMENT_PLAN_REVIEW_DATE ,treatmentPlanDateString );
         }
         Uri newUri =
                 getContext().getContentResolver().insert(ImsContract.PatientRecordsEntry.CONTENT_URI, values);
         if (newUri == null) {
-            Toast.makeText(getContext(), getString(R.string.editor_insert_patient_failed), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getString(R.string.editor_insert_health_record_failed), Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(getContext(), getString(R.string.editor_insert_patient_successful), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getString(R.string.editor_insert_health_record_successful), Toast.LENGTH_SHORT).show();
         }
     }
 
     public void patientProgressAdd(){
-        String progressNotesString=progressNotesEditText.getText().toString().trim();
+        String progressNotesString= ReceptionFprProgressNotesEditText.getText().toString().trim();
 
       //  String patientProgressDateString= patientProgressDateTextView.getText().toString().trim();
         ContentValues values = new ContentValues();
@@ -190,15 +194,88 @@ public class FragmentPatientRecords extends Fragment implements LoaderManager.Lo
 
         view= inflater.inflate(R.layout.fragment_patient_records, container, false);
         init();
-            patientProgressListView.setAdapter(mPatientProgressCursorAdapter);
+            ReceptionFprPatientProgressListView.setAdapter(mPatientProgressCursorAdapter);
 
-            patientProgressAddButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    patientProgressAdd();
-                }
-            });
 
+        ReceptionFprNextAppointmentDateTextView .setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        month += 1;
+                        String date = month + "/" + dayOfMonth + "/" + year;
+                        ReceptionFprNextAppointmentDateTextView.setText(date);
+                    }
+                };
+                Utils.showDatePicker(getContext(), dateSetListener);
+
+
+            }
+        });
+        ReceptionFprNextTreatmentPlanReviewDateTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        month += 1;
+                        String date = month + "/" + dayOfMonth + "/" + year;
+                        ReceptionFprNextTreatmentPlanReviewDateTextView.setText(date);
+                    }
+                };
+                Utils.showDatePicker(getContext(), dateSetListener);
+
+            }
+        });
+        ReceptionFprDateSignedTextView .setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        month += 1;
+                        String date = month + "/" + dayOfMonth + "/" + year;
+                        ReceptionFprDateSignedTextView.setText(date);
+                    }
+                };
+                Utils.showDatePicker(getContext(), dateSetListener);
+            }
+        });
+
+        ReceptionFprSaveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                savePatientRecord();
+
+
+            }
+        });
+
+
+        ReceptionFprDateTextView .setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        month += 1;
+                        String date = month + "/" + dayOfMonth + "/" + year;
+                        ReceptionFprDateTextView.setText(date);
+                    }
+                };
+                Utils.showDatePicker(getContext(), dateSetListener);
+
+            }
+        });
+        ReceptionFprAddButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                patientProgressAdd();
+
+
+            }
+        });
 return view;
     }
 
