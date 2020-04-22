@@ -69,13 +69,18 @@
 
     <!-- city menu -->
 
-    <!-- TODO name -->
+    <!-- patient -->
     <string name="editor_insert_patient_failed">Error with saving patient</string>
     <string name="editor_insert_patient_successful">Patient saved</string>
     <string name="editor_update_patient_successful">Patient updated</string>
     <string name="editor_update_patient_failed">Error with updating patient</string>
     <string name="editor_delete_patient_failed">Error with deleting patient</string>
     <string name="editor_delete_patient_successful">Patient deleted</string>
+
+    <!-- health record -->
+    <string name="editor_insert_health_record_failed">Error with saving health record</string>
+    <string name="editor_insert_health_record_successful">Health record saved</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
