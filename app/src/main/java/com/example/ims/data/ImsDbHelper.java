@@ -135,18 +135,23 @@ public class ImsDbHelper extends SQLiteOpenHelper {
             + SurgicalProceduresEntry.COLUMN_NOTES + " TEXT NOT NULL, "
             + SurgicalProceduresEntry.COLUMN_PATIENT_ID + " INTEGER NOT NULL); ";
 
-    // Create a String that contains the SQL statement to create the 'patient vaccines' table
-    private static final String SQL_CREATE_PATIENT_VACCINES_TABLE = "CREATE TABLE IF NOT EXISTS " + PatientVaccinesEntry.TABLE_NAME + " ("
-            + PatientVaccinesEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + PatientVaccinesEntry.COLUMN_TETANUS + " TEXT, "
-            + PatientVaccinesEntry.COLUMN_INFLUENZA_VACCINE + " TEXT, "
-            + PatientVaccinesEntry.COLUMN_ZOSTAVAX + " TEXT, "
-            + PatientVaccinesEntry.COLUMN_MENINGITIS + " TEXT, "
-            + PatientVaccinesEntry.COLUMN_YELLOW_FEVER + " TEXT, "
-            + PatientVaccinesEntry.COLUMN_POLIO + " TEXT, "
-            + PatientVaccinesEntry.COLUMN_NAME_OF_VACCINATION + " INTEGER NOT NULL DEFAULT 0, "
-            + PatientVaccinesEntry.COLUMN_HISTORY_OF_VACCINATION + " TEXT NOT NULL, "
-            + PatientVaccinesEntry.COLUMN_PATIENT_ID + " INTEGER NOT NULL); ";
+    // Create a String that contains the SQL statement to create the 'basic patient vaccines' table
+    private static final String SQL_CREATE_BASIC_PATIENT_VACCINES_TABLE = "CREATE TABLE IF NOT EXISTS " + BasicPatientVaccinesEntry.TABLE_NAME + " ("
+            + BasicPatientVaccinesEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + BasicPatientVaccinesEntry.COLUMN_TETANUS + " TEXT, "
+            + BasicPatientVaccinesEntry.COLUMN_INFLUENZA_VACCINE + " TEXT, "
+            + BasicPatientVaccinesEntry.COLUMN_ZOSTAVAX + " TEXT, "
+            + BasicPatientVaccinesEntry.COLUMN_MENINGITIS + " TEXT, "
+            + BasicPatientVaccinesEntry.COLUMN_YELLOW_FEVER + " TEXT, "
+            + BasicPatientVaccinesEntry.COLUMN_POLIO + " TEXT, "
+            + BasicPatientVaccinesEntry.COLUMN_PATIENT_ID + " INTEGER NOT NULL); ";
+
+    // Create a String that contains the SQL statement to create the 'other patient vaccines' table
+    private static final String SQL_CREATE_OTHER_PATIENT_VACCINES_TABLE = "CREATE TABLE IF NOT EXISTS " + OtherPatientVaccinesEntry.TABLE_NAME + " ("
+            + OtherPatientVaccinesEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + OtherPatientVaccinesEntry.COLUMN_NAME_OF_VACCINATION + "INTEGER NOT NULL DEFAULT 0,"
+            + OtherPatientVaccinesEntry.COLUMN_HISTORY_OF_VACCINATION + "TEXT NOT NULL,"
+            + OtherPatientVaccinesEntry.COLUMN_PATIENT_ID + " INTEGER NOT NULL); ";
 
     // Create a String that contains the SQL statement to create the 'doctor diagnosis' table
     private static final String SQL_CREATE_DOCTOR_DIAGNOSIS_TABLE = "CREATE TABLE IF NOT EXISTS " + DoctorDiagnosisEntry.TABLE_NAME + " ("
@@ -216,7 +221,8 @@ public class ImsDbHelper extends SQLiteOpenHelper {
     private static final String SQL_DROP_CURRENT_AND_PAST_MEDICATIONS_TABLE = "DROP TABLE IF EXISTS " + CurrentAndPastMedicationsEntry.TABLE_NAME;
     private static final String SQL_DROP_MAJOR_ILLNESSES_TABLE = "DROP TABLE IF EXISTS " + MajorIllnessesEntry.TABLE_NAME;
     private static final String SQL_DROP_SURGICAL_PROCEDURES_TABLE = "DROP TABLE IF EXISTS " + SurgicalProceduresEntry.TABLE_NAME;
-    private static final String SQL_DROP_PATIENT_VACCINES_TABLE = "DROP TABLE IF EXISTS " + PatientVaccinesEntry.TABLE_NAME;
+    private static final String SQL_DROP_BASIC_PATIENT_VACCINES_TABLE = "DROP TABLE IF EXISTS " + BasicPatientVaccinesEntry.TABLE_NAME;
+    private static final String SQL_DROP_OTHER_PATIENT_VACCINES_TABLE = "DROP TABLE IF EXISTS " + OtherPatientVaccinesEntry.TABLE_NAME;
     private static final String SQL_DROP_DOCTOR_DIAGNOSIS_TABLE = "DROP TABLE IF EXISTS " + DoctorDiagnosisEntry.TABLE_NAME;
     private static final String SQL_DROP_PATIENT_DATA_TO_PHARMACY_TABLE = "DROP TABLE IF EXISTS " + PatientDataToPharmacyEntry.TABLE_NAME;
     private static final String SQL_DROP_PATIENT_DATA_TO_RADIOLOGY_TABLE = "DROP TABLE IF EXISTS " + PatientDataToRadiologyEntry.TABLE_NAME;
@@ -247,7 +253,8 @@ public class ImsDbHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_CURRENT_AND_PAST_MEDICATIONS_TABLE);
         db.execSQL(SQL_CREATE_MAJOR_ILLNESSES_TABLE);
         db.execSQL(SQL_CREATE_SURGICAL_PROCEDURES_TABLE);
-        db.execSQL(SQL_CREATE_PATIENT_VACCINES_TABLE);
+        db.execSQL(SQL_CREATE_BASIC_PATIENT_VACCINES_TABLE);
+        db.execSQL(SQL_CREATE_OTHER_PATIENT_VACCINES_TABLE);
         db.execSQL(SQL_CREATE_DOCTOR_DIAGNOSIS_TABLE);
         db.execSQL(SQL_CREATE_PATIENT_DATA_TO_PHARMACY_TABLE);
         db.execSQL(SQL_CREATE_PATIENT_DATA_TO_RADIOLOGY_TABLE);
@@ -270,7 +277,8 @@ public class ImsDbHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_DROP_CURRENT_AND_PAST_MEDICATIONS_TABLE);
         db.execSQL(SQL_DROP_MAJOR_ILLNESSES_TABLE);
         db.execSQL(SQL_DROP_SURGICAL_PROCEDURES_TABLE);
-        db.execSQL(SQL_DROP_PATIENT_VACCINES_TABLE);
+        db.execSQL(SQL_DROP_BASIC_PATIENT_VACCINES_TABLE);
+        db.execSQL(SQL_DROP_OTHER_PATIENT_VACCINES_TABLE);
         db.execSQL(SQL_DROP_DOCTOR_DIAGNOSIS_TABLE);
         db.execSQL(SQL_DROP_PATIENT_DATA_TO_PHARMACY_TABLE);
         db.execSQL(SQL_DROP_PATIENT_DATA_TO_RADIOLOGY_TABLE);

@@ -69,7 +69,7 @@
 
     <!-- city menu -->
 
-    <!-- types of patient vaccines tetanus -->
+    <!-- name of vaccination menu -->
     <string name="tetanus_d_t">Diphtheria and tetanus (DT) vaccines</string>
     <string name="tetanus_d_t_a_p">Diphtheria, tetanus, and pertussis (DTaP) vaccines</string>
     <string name="tetanus_t_d">Tetanus and diphtheria (Td) vaccines</string>
@@ -96,8 +96,11 @@
     <string name="editor_Surgical_Procedures_record_failed">Error with saving  surgical procedures</string>
     <string name="editor_Surgical_Procedures_successful">Surgical procedures saved</string>
 
-    <string name="editor_insert_Patient_Vaccines_failed">Error with saving patient vaccines </string>
-    <string name="editor_insert_Patient_Vaccines_successful">Patient vaccines saved </string>
+    <string name="editor_insert_basic_patient_vaccines_failed">Error with saving basic patient vaccines </string>
+    <string name="editor_insert_basic_patient_vaccines_successful">Basic patient vaccines saved </string>
+
+    <string name="editor_insert_other_patient_vaccines_failed">Error with saving other patient vaccines </string>
+    <string name="editor_insert_other_patient_vaccines_successful">Other patient vaccines saved </string>
 
     <string name="insert_progress_notes_failed">error with saving progress notes</string>
     <string name="insert_progress_notes_successful"> progress notes saved </string>

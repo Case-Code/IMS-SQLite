@@ -18,31 +18,31 @@ public class ImsProvider extends ContentProvider {
 
     public static final String LOG_TAG = ImsProvider.class.getSimpleName();
 
-    // Patient0
+    // Patient
     private static final int PATIENT = 100;
     private static final int PATIENT_ID = 101;
 
-    // Patient data to analysis0
+    // Patient data to analysis
     private static final int PATIENT_DATA_TO_ANALYSIS = 102;
     private static final int PATIENT_DATA_TO_ANALYSIS_ID = 103;
 
-    // Patient data to clinics0
+    // Patient data to clinics
     private static final int PATIENT_DATA_TO_CLINICS = 104;
     private static final int PATIENT_DATA_TO_CLINICS_ID = 105;
 
-    // Patient records0
+    // Patient records
     private static final int PATIENT_RECORDS = 106;
     private static final int PATIENT_RECORDS_ID = 107;
 
-    // Patient progress0
+    // Patient progress
     private static final int PATIENT_PROGRESS = 108;
     private static final int PATIENT_PROGRESS_ID = 109;
 
-    // Invoices0
+    // Invoices
     private static final int INVOICES = 110;
     private static final int INVOICES_ID = 111;
 
-    // Health record0
+    // Health record
     private static final int HEALTH_RECORD = 112;
     private static final int HEALTH_RECORD_ID = 113;
 
@@ -58,33 +58,37 @@ public class ImsProvider extends ContentProvider {
     private static final int SURGICAL_PROCEDURES = 118;
     private static final int SURGICAL_PROCEDURES_ID = 119;
 
-    // Patient vaccines
-    private static final int PATIENT_VACCINES = 120;
-    private static final int PATIENT_VACCINES_ID = 121;
+    // Basic patient vaccines
+    private static final int BASIC_PATIENT_VACCINES = 120;
+    private static final int BASIC_PATIENT_VACCINES_ID = 121;
+
+    // Other patient vaccines
+    private static final int OTHER_PATIENT_VACCINES = 122;
+    private static final int OTHER_PATIENT_VACCINES_ID = 123;
 
     // Doctor diagnosis
-    private static final int DOCTOR_DIAGNOSIS = 122;
-    private static final int DOCTOR_DIAGNOSIS_ID = 123;
+    private static final int DOCTOR_DIAGNOSIS = 124;
+    private static final int DOCTOR_DIAGNOSIS_ID = 125;
 
     // Patient data to pharmacy
-    private static final int PATIENT_DATA_TO_PHARMACY = 124;
-    private static final int PATIENT_DATA_TO_PHARMACY_ID = 125;
+    private static final int PATIENT_DATA_TO_PHARMACY = 126;
+    private static final int PATIENT_DATA_TO_PHARMACY_ID = 127;
 
     // Patient data to radiology
-    private static final int PATIENT_DATA_TO_RADIOLOGY = 126;
-    private static final int PATIENT_DATA_TO_RADIOLOGY_ID = 127;
+    private static final int PATIENT_DATA_TO_RADIOLOGY = 128;
+    private static final int PATIENT_DATA_TO_RADIOLOGY_ID = 129;
 
     // Medicine registry
-    private static final int MEDICINE_REGISTRY = 128;
-    private static final int MEDICINE_REGISTRY_ID = 129;
+    private static final int MEDICINE_REGISTRY = 130;
+    private static final int MEDICINE_REGISTRY_ID = 131;
 
     // Sales record
-    private static final int SALES_RECORD = 130;
-    private static final int SALES_RECORD_ID = 131;
+    private static final int SALES_RECORD = 132;
+    private static final int SALES_RECORD_ID = 133;
 
     // Employees
-    private static final int EMPLOYEES = 132;
-    private static final int EMPLOYEES_ID = 133;
+    private static final int EMPLOYEES = 134;
+    private static final int EMPLOYEES_ID = 135;
 
     private static final UriMatcher URI_MATCHER = new UriMatcher(UriMatcher.NO_MATCH);
 
@@ -129,9 +133,13 @@ public class ImsProvider extends ContentProvider {
         URI_MATCHER.addURI(ImsContract.CONTENT_AUTHORITY, ImsContract.PATH_SURGICAL_PROCEDURES, SURGICAL_PROCEDURES);
         URI_MATCHER.addURI(ImsContract.CONTENT_AUTHORITY, ImsContract.PATH_SURGICAL_PROCEDURES + "/#", SURGICAL_PROCEDURES_ID);
 
-        // Patient vaccines
-        URI_MATCHER.addURI(ImsContract.CONTENT_AUTHORITY, ImsContract.PATH_PATIENT_VACCINES, PATIENT_VACCINES);
-        URI_MATCHER.addURI(ImsContract.CONTENT_AUTHORITY, ImsContract.PATH_PATIENT_VACCINES + "/#", PATIENT_VACCINES_ID);
+        // Bisic patient vaccines
+        URI_MATCHER.addURI(ImsContract.CONTENT_AUTHORITY, ImsContract.PATH_BASIC_PATIENT_VACCINES, BASIC_PATIENT_VACCINES);
+        URI_MATCHER.addURI(ImsContract.CONTENT_AUTHORITY, ImsContract.PATH_BASIC_PATIENT_VACCINES + "/#", BASIC_PATIENT_VACCINES_ID);
+
+        // Other patient vaccines
+        URI_MATCHER.addURI(ImsContract.CONTENT_AUTHORITY, ImsContract.PATH_OTHER_PATIENT_VACCINES, OTHER_PATIENT_VACCINES);
+        URI_MATCHER.addURI(ImsContract.CONTENT_AUTHORITY, ImsContract.PATH_OTHER_PATIENT_VACCINES + "/#", OTHER_PATIENT_VACCINES_ID);
 
         // Doctor diagnosis
         URI_MATCHER.addURI(ImsContract.CONTENT_AUTHORITY, ImsContract.PATH_DOCTOR_DIAGNOSIS, DOCTOR_DIAGNOSIS);
@@ -264,13 +272,22 @@ public class ImsProvider extends ContentProvider {
                 cursor = database.query(SurgicalProceduresEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
                 break;
 
-            case PATIENT_VACCINES:
-                cursor = database.query(PatientVaccinesEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
+            case BASIC_PATIENT_VACCINES:
+                cursor = database.query(BasicPatientVaccinesEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
                 break;
-            case PATIENT_VACCINES_ID:
-                selection = PatientVaccinesEntry._ID + "=?";
+            case BASIC_PATIENT_VACCINES_ID:
+                selection = BasicPatientVaccinesEntry._ID + "=?";
                 selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
-                cursor = database.query(PatientVaccinesEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
+                cursor = database.query(BasicPatientVaccinesEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
+                break;
+
+            case OTHER_PATIENT_VACCINES:
+                cursor = database.query(OtherPatientVaccinesEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
+                break;
+            case OTHER_PATIENT_VACCINES_ID:
+                selection = OtherPatientVaccinesEntry._ID + "=?";
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+                cursor = database.query(OtherPatientVaccinesEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
                 break;
 
             case DOCTOR_DIAGNOSIS:
@@ -390,10 +407,15 @@ public class ImsProvider extends ContentProvider {
             case SURGICAL_PROCEDURES_ID:
                 return SurgicalProceduresEntry.CONTENT_ITEM_TYPE;
 
-            case PATIENT_VACCINES:
-                return PatientVaccinesEntry.CONTENT_LIST_TYPE;
-            case PATIENT_VACCINES_ID:
-                return PatientVaccinesEntry.CONTENT_ITEM_TYPE;
+            case BASIC_PATIENT_VACCINES:
+                return BasicPatientVaccinesEntry.CONTENT_LIST_TYPE;
+            case BASIC_PATIENT_VACCINES_ID:
+                return BasicPatientVaccinesEntry.CONTENT_ITEM_TYPE;
+
+            case OTHER_PATIENT_VACCINES:
+                return OtherPatientVaccinesEntry.CONTENT_LIST_TYPE;
+            case OTHER_PATIENT_VACCINES_ID:
+                return OtherPatientVaccinesEntry.CONTENT_ITEM_TYPE;
 
             case DOCTOR_DIAGNOSIS:
                 return DoctorDiagnosisEntry.CONTENT_LIST_TYPE;
@@ -456,8 +478,10 @@ public class ImsProvider extends ContentProvider {
                 return insertMajorIllnesses(uri, values);
             case SURGICAL_PROCEDURES:
                 return insertSurgicalProcedures(uri, values);
-            case PATIENT_VACCINES:
-                return insertPatientVaccines(uri, values);
+            case BASIC_PATIENT_VACCINES:
+                return insertBasicPatientVaccines(uri, values);
+            case OTHER_PATIENT_VACCINES:
+                return insertOtherPatientVaccines(uri, values);
             case DOCTOR_DIAGNOSIS:
                 return insertDoctorDiagnosis(uri, values);
             case PATIENT_DATA_TO_PHARMACY:
@@ -1070,66 +1094,88 @@ public class ImsProvider extends ContentProvider {
         return ContentUris.withAppendedId(uri, id);
     }
 
-    // Insert patient vaccines
-    private Uri insertPatientVaccines(Uri uri, ContentValues values) {
+    // Insert basic patient vaccines
+    private Uri insertBasicPatientVaccines(Uri uri, ContentValues values) {
 
         // tetanus
-        String tetanus = values.getAsString(PatientVaccinesEntry.COLUMN_TETANUS);
+        String tetanus = values.getAsString(BasicPatientVaccinesEntry.COLUMN_TETANUS);
         if (tetanus == null) {
             throw new IllegalArgumentException("Patient vaccines requires a tetanus");
         }
 
         // Influenza vaccine
-        String influenzaVaccine = values.getAsString(PatientVaccinesEntry.COLUMN_INFLUENZA_VACCINE);
+        String influenzaVaccine = values.getAsString(BasicPatientVaccinesEntry.COLUMN_INFLUENZA_VACCINE);
         if (influenzaVaccine == null) {
             throw new IllegalArgumentException("Patient vaccines requires a influenza vaccine");
         }
 
         // zostavax
-        String zostavax = values.getAsString(PatientVaccinesEntry.COLUMN_INFLUENZA_VACCINE);
+        String zostavax = values.getAsString(BasicPatientVaccinesEntry.COLUMN_INFLUENZA_VACCINE);
         if (zostavax == null) {
             throw new IllegalArgumentException("Patient vaccines requires a zostavax");
         }
 
         // meningitis
-        String meningitis = values.getAsString(PatientVaccinesEntry.COLUMN_INFLUENZA_VACCINE);
+        String meningitis = values.getAsString(BasicPatientVaccinesEntry.COLUMN_INFLUENZA_VACCINE);
         if (meningitis == null) {
             throw new IllegalArgumentException("Patient vaccines requires a meningitis");
         }
 
         // Yellow fever
-        String yellowFever = values.getAsString(PatientVaccinesEntry.COLUMN_INFLUENZA_VACCINE);
+        String yellowFever = values.getAsString(BasicPatientVaccinesEntry.COLUMN_INFLUENZA_VACCINE);
         if (yellowFever == null) {
             throw new IllegalArgumentException("Patient vaccines requires a yellowFever");
         }
 
         // polio
-        String polio = values.getAsString(PatientVaccinesEntry.COLUMN_INFLUENZA_VACCINE);
+        String polio = values.getAsString(BasicPatientVaccinesEntry.COLUMN_INFLUENZA_VACCINE);
         if (polio == null) {
             throw new IllegalArgumentException("Patient vaccines requires a polio");
         }
 
-        // Name of vaccination
-        Integer nameOfVaccination = values.getAsInteger(PatientVaccinesEntry.COLUMN_NAME_OF_VACCINATION);
-        if (nameOfVaccination == null) {
-            throw new IllegalArgumentException("Patient vaccines requires a name of vaccination");
-        }
-
-        // History of vaccination
-        String historyOfVaccination = values.getAsString(PatientVaccinesEntry.COLUMN_HISTORY_OF_VACCINATION);
-        if (historyOfVaccination == null) {
-            throw new IllegalArgumentException("Patient vaccines requires a history of vaccination");
-        }
-
         // Patient id
-        Integer patientId = values.getAsInteger(PatientVaccinesEntry.COLUMN_PATIENT_ID);
+        Integer patientId = values.getAsInteger(BasicPatientVaccinesEntry.COLUMN_PATIENT_ID);
         if (patientId == null) {
             throw new IllegalArgumentException("Patient vaccines requires a patient id");
         }
 
         SQLiteDatabase database = mImsDbHelper.getWritableDatabase();
 
-        long id = database.insert(PatientVaccinesEntry.TABLE_NAME, null, values);
+        long id = database.insert(BasicPatientVaccinesEntry.TABLE_NAME, null, values);
+        if (id == -1) {
+            Log.e(LOG_TAG, "Failed to insert row for " + uri);
+            return null;
+        }
+
+        getContext().getContentResolver().notifyChange(uri, null);
+
+        return ContentUris.withAppendedId(uri, id);
+    }
+
+    // Insert other patient vaccines
+    private Uri insertOtherPatientVaccines(Uri uri, ContentValues values) {
+
+        // Name of vaccination
+        Integer nameOfVaccination = values.getAsInteger(OtherPatientVaccinesEntry.COLUMN_NAME_OF_VACCINATION);
+        if (nameOfVaccination == null) {
+            throw new IllegalArgumentException("Patient vaccines requires a name of vaccination");
+        }
+
+        // History of vaccination
+        String historyOfVaccination = values.getAsString(OtherPatientVaccinesEntry.COLUMN_HISTORY_OF_VACCINATION);
+        if (historyOfVaccination == null) {
+            throw new IllegalArgumentException("Patient vaccines requires a history of vaccination");
+        }
+
+        // Patient id
+        Integer patientId = values.getAsInteger(OtherPatientVaccinesEntry.COLUMN_PATIENT_ID);
+        if (patientId == null) {
+            throw new IllegalArgumentException("Patient vaccines requires a patient id");
+        }
+
+        SQLiteDatabase database = mImsDbHelper.getWritableDatabase();
+
+        long id = database.insert(OtherPatientVaccinesEntry.TABLE_NAME, null, values);
         if (id == -1) {
             Log.e(LOG_TAG, "Failed to insert row for " + uri);
             return null;
@@ -1532,13 +1578,22 @@ public class ImsProvider extends ContentProvider {
                 rowsDeleted = database.delete(SurgicalProceduresEntry.TABLE_NAME, selection, selectionArgs);
                 break;
 
-            case PATIENT_VACCINES:
-                rowsDeleted = database.delete(PatientVaccinesEntry.TABLE_NAME, selection, selectionArgs);
+            case BASIC_PATIENT_VACCINES:
+                rowsDeleted = database.delete(BasicPatientVaccinesEntry.TABLE_NAME, selection, selectionArgs);
                 break;
-            case PATIENT_VACCINES_ID:
-                selection = PatientVaccinesEntry._ID + "=?";
+            case BASIC_PATIENT_VACCINES_ID:
+                selection = BasicPatientVaccinesEntry._ID + "=?";
                 selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
-                rowsDeleted = database.delete(PatientVaccinesEntry.TABLE_NAME, selection, selectionArgs);
+                rowsDeleted = database.delete(BasicPatientVaccinesEntry.TABLE_NAME, selection, selectionArgs);
+                break;
+
+            case OTHER_PATIENT_VACCINES:
+                rowsDeleted = database.delete(OtherPatientVaccinesEntry.TABLE_NAME, selection, selectionArgs);
+                break;
+            case OTHER_PATIENT_VACCINES_ID:
+                selection = OtherPatientVaccinesEntry._ID + "=?";
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+                rowsDeleted = database.delete(OtherPatientVaccinesEntry.TABLE_NAME, selection, selectionArgs);
                 break;
 
             case DOCTOR_DIAGNOSIS:
@@ -1680,12 +1735,19 @@ public class ImsProvider extends ContentProvider {
                 selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
                 return updateSurgicalProcedures(uri, values, selection, selectionArgs);
 
-            case PATIENT_VACCINES:
-                return updatePatientVaccines(uri, values, selection, selectionArgs);
-            case PATIENT_VACCINES_ID:
-                selection = PatientVaccinesEntry._ID + "=?";
+            case BASIC_PATIENT_VACCINES:
+                return updateBasicPatientVaccines(uri, values, selection, selectionArgs);
+            case BASIC_PATIENT_VACCINES_ID:
+                selection = BasicPatientVaccinesEntry._ID + "=?";
                 selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
-                return updatePatientVaccines(uri, values, selection, selectionArgs);
+                return updateBasicPatientVaccines(uri, values, selection, selectionArgs);
+
+            case OTHER_PATIENT_VACCINES:
+                return updateOtherPatientVaccines(uri, values, selection, selectionArgs);
+            case OTHER_PATIENT_VACCINES_ID:
+                selection = OtherPatientVaccinesEntry._ID + "=?";
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+                return updateOtherPatientVaccines(uri, values, selection, selectionArgs);
 
             case DOCTOR_DIAGNOSIS:
                 return updateDoctorDiagnosis(uri, values, selection, selectionArgs);
@@ -1992,7 +2054,7 @@ public class ImsProvider extends ContentProvider {
                 throw new IllegalArgumentException("Patient progress requires a progress notes");
             }
         }
-            //add column date
+        //add column date
         if (values.containsKey(PatientProgressEntry.COLUMN_DATE)) {
             String date = values.getAsString(PatientProgressEntry.COLUMN_DATE);
             if (date == null) {
@@ -2503,36 +2565,60 @@ public class ImsProvider extends ContentProvider {
         return rowsUpdated;
     }
 
-    // Update patient vaccines
-    private int updatePatientVaccines(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+    // Update basic patient vaccines
+    private int updateBasicPatientVaccines(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
 
         // tetanus
-        if (values.containsKey(PatientVaccinesEntry.COLUMN_TETANUS)) {
-            Integer tetanus = values.getAsInteger(PatientVaccinesEntry.COLUMN_TETANUS);
+        if (values.containsKey(BasicPatientVaccinesEntry.COLUMN_TETANUS)) {
+            String tetanus = values.getAsString(BasicPatientVaccinesEntry.COLUMN_TETANUS);
             if (tetanus == null) {
                 throw new IllegalArgumentException("Patient vaccines requires a tetanus");
             }
         }
 
-        // Name of vaccination
-        if (values.containsKey(PatientVaccinesEntry.COLUMN_NAME_OF_VACCINATION)) {
-            Integer nameOfVaccination = values.getAsInteger(PatientVaccinesEntry.COLUMN_NAME_OF_VACCINATION);
-            if (nameOfVaccination == null) {
-                throw new IllegalArgumentException("Patient vaccines requires a name of vaccination");
+        // Influenza vaccine
+        if (values.containsKey(BasicPatientVaccinesEntry.COLUMN_INFLUENZA_VACCINE)) {
+            String influenzaVaccine = values.getAsString(BasicPatientVaccinesEntry.COLUMN_INFLUENZA_VACCINE);
+            if (influenzaVaccine == null) {
+                throw new IllegalArgumentException("Patient vaccines requires a influenza vaccine");
             }
         }
 
-        // History of vaccination
-        if (values.containsKey(PatientVaccinesEntry.COLUMN_HISTORY_OF_VACCINATION)) {
-            String historyOfVaccination = values.getAsString(PatientVaccinesEntry.COLUMN_HISTORY_OF_VACCINATION);
-            if (historyOfVaccination == null) {
-                throw new IllegalArgumentException("Patient vaccines requires a history of vaccination");
+        // zostavax
+        if (values.containsKey(BasicPatientVaccinesEntry.COLUMN_ZOSTAVAX)) {
+            String zostavax = values.getAsString(BasicPatientVaccinesEntry.COLUMN_ZOSTAVAX);
+            if (zostavax == null) {
+                throw new IllegalArgumentException("Patient vaccines requires a zostavax");
+            }
+        }
+
+        // meningitis
+        if (values.containsKey(BasicPatientVaccinesEntry.COLUMN_MENINGITIS)) {
+            String meningitis = values.getAsString(BasicPatientVaccinesEntry.COLUMN_MENINGITIS);
+            if (meningitis == null) {
+                throw new IllegalArgumentException("Patient vaccines requires a meningitis");
+            }
+        }
+
+        // Yellow fever
+        if (values.containsKey(BasicPatientVaccinesEntry.COLUMN_YELLOW_FEVER)) {
+            String yellowFever = values.getAsString(BasicPatientVaccinesEntry.COLUMN_YELLOW_FEVER);
+            if (yellowFever == null) {
+                throw new IllegalArgumentException("Patient vaccines requires a yellowFever");
+            }
+        }
+
+        // polio
+        if (values.containsKey(BasicPatientVaccinesEntry.COLUMN_POLIO)) {
+            String polio = values.getAsString(BasicPatientVaccinesEntry.COLUMN_POLIO);
+            if (polio == null) {
+                throw new IllegalArgumentException("Patient vaccines requires a polio");
             }
         }
 
         // Patient id
-        if (values.containsKey(PatientVaccinesEntry.COLUMN_PATIENT_ID)) {
-            Integer patientId = values.getAsInteger(PatientVaccinesEntry.COLUMN_PATIENT_ID);
+        if (values.containsKey(BasicPatientVaccinesEntry.COLUMN_PATIENT_ID)) {
+            Integer patientId = values.getAsInteger(BasicPatientVaccinesEntry.COLUMN_PATIENT_ID);
             if (patientId == null) {
                 throw new IllegalArgumentException("Patient vaccines requires a patient id");
             }
@@ -2544,7 +2630,49 @@ public class ImsProvider extends ContentProvider {
 
         SQLiteDatabase database = mImsDbHelper.getWritableDatabase();
 
-        int rowsUpdated = database.update(PatientVaccinesEntry.TABLE_NAME, values, selection, selectionArgs);
+        int rowsUpdated = database.update(BasicPatientVaccinesEntry.TABLE_NAME, values, selection, selectionArgs);
+
+        if (rowsUpdated != 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+
+        return rowsUpdated;
+    }
+
+    // Update other patient vaccines
+    private int updateOtherPatientVaccines(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+
+        // Name of vaccination
+        if (values.containsKey(OtherPatientVaccinesEntry.COLUMN_NAME_OF_VACCINATION)) {
+            Integer nameOfVaccination = values.getAsInteger(OtherPatientVaccinesEntry.COLUMN_NAME_OF_VACCINATION);
+            if (nameOfVaccination == null) {
+                throw new IllegalArgumentException("Patient vaccines requires a name of vaccination");
+            }
+        }
+
+        // History of vaccination
+        if (values.containsKey(OtherPatientVaccinesEntry.COLUMN_HISTORY_OF_VACCINATION)) {
+            String historyOfVaccination = values.getAsString(OtherPatientVaccinesEntry.COLUMN_HISTORY_OF_VACCINATION);
+            if (historyOfVaccination == null) {
+                throw new IllegalArgumentException("Patient vaccines requires a history of vaccination");
+            }
+        }
+
+        // Patient id
+        if (values.containsKey(OtherPatientVaccinesEntry.COLUMN_PATIENT_ID)) {
+            Integer patientId = values.getAsInteger(OtherPatientVaccinesEntry.COLUMN_PATIENT_ID);
+            if (patientId == null) {
+                throw new IllegalArgumentException("Patient vaccines requires a patient id");
+            }
+        }
+
+        if (values.size() == 0) {
+            return 0;
+        }
+
+        SQLiteDatabase database = mImsDbHelper.getWritableDatabase();
+
+        int rowsUpdated = database.update(OtherPatientVaccinesEntry.TABLE_NAME, values, selection, selectionArgs);
 
         if (rowsUpdated != 0) {
             getContext().getContentResolver().notifyChange(uri, null);

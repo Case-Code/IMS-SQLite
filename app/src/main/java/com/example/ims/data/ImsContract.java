@@ -23,7 +23,8 @@ public class ImsContract {
     public static final String PATH_CURRENT_AND_PAST_MEDICATIONS = "current_and_past_medications";
     public static final String PATH_MAJOR_ILLNESSES = "major_illnesses";
     public static final String PATH_SURGICAL_PROCEDURES = "surgical_procedures";
-    public static final String PATH_PATIENT_VACCINES = "patient_vaccines";
+    public static final String PATH_BASIC_PATIENT_VACCINES = "basic_patient_vaccines";
+    public static final String PATH_OTHER_PATIENT_VACCINES = "other_patient_vaccines";
     public static final String PATH_DOCTOR_DIAGNOSIS = "doctor_diagnosis";
     public static final String PATH_PATIENT_DATA_TO_PHARMACY = "patient_data_to_pharmacy";
     public static final String PATH_PATIENT_DATA_TO_RADIOLOGY = "patient_data_to_radiology";
@@ -305,15 +306,15 @@ public class ImsContract {
         public static final String COLUMN_PATIENT_ID = "patient_id";
     }
 
-    // Patient vaccines
-    public static final class PatientVaccinesEntry implements BaseColumns {
+    // Basic patient vaccines
+    public static final class BasicPatientVaccinesEntry implements BaseColumns {
 
-        public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_PATIENT_VACCINES);
-        public static final String CONTENT_LIST_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_PATIENT_VACCINES;
-        public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_PATIENT_VACCINES;
+        public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_BASIC_PATIENT_VACCINES);
+        public static final String CONTENT_LIST_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_BASIC_PATIENT_VACCINES;
+        public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_BASIC_PATIENT_VACCINES;
 
-        // Patient vaccines table
-        public static final String TABLE_NAME = PATH_PATIENT_VACCINES;
+        // Basic patient vaccines table
+        public static final String TABLE_NAME = PATH_BASIC_PATIENT_VACCINES;
         public static final String _ID = BaseColumns._ID;
         public static final String COLUMN_TETANUS = "tetanus";
         public static final String COLUMN_INFLUENZA_VACCINE = "influenza_vaccine";
@@ -321,18 +322,31 @@ public class ImsContract {
         public static final String COLUMN_MENINGITIS = "meningitis";
         public static final String COLUMN_YELLOW_FEVER = "yellow_fever";
         public static final String COLUMN_POLIO = "polio";
+        public static final String COLUMN_PATIENT_ID = "patient_id";
+    }
+
+    // Other patient vaccines
+    public static final class OtherPatientVaccinesEntry implements BaseColumns {
+
+        public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_OTHER_PATIENT_VACCINES);
+        public static final String CONTENT_LIST_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_OTHER_PATIENT_VACCINES;
+        public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_OTHER_PATIENT_VACCINES;
+
+        // Basic patient vaccines table
+        public static final String TABLE_NAME = PATH_OTHER_PATIENT_VACCINES;
+        public static final String _ID = BaseColumns._ID;
         public static final String COLUMN_NAME_OF_VACCINATION = "name_of_vaccination";
         public static final String COLUMN_HISTORY_OF_VACCINATION = "history_of_vaccination";
         public static final String COLUMN_PATIENT_ID = "patient_id";
 
-        // Types of patient vaccines tetanus
+        // Names of vaccination
         public static final int TETANUS_UNKNOWN = 0;
         public static final int TETANUS_D_T = 1;
         public static final int TETANUS_D_T_A_P = 2;
         public static final int TETANUS_T_D = 3;
         public static final int TETANUS_T_DAP = 4;
 
-        public static boolean isValidTypesOfPatientVaccinesTetanus(int typesOfPatientVaccinesTetanus) {
+        public static boolean isValidNamesOfVaccination(int typesOfPatientVaccinesTetanus) {
             return typesOfPatientVaccinesTetanus == TETANUS_UNKNOWN ||
                     typesOfPatientVaccinesTetanus == TETANUS_D_T ||
                     typesOfPatientVaccinesTetanus == TETANUS_D_T_A_P ||

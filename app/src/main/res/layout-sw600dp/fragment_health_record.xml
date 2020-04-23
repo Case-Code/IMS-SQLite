@@ -717,7 +717,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Name of vaccination"
+                            android:text="Names of vaccination"
                             android:textColor="@color/primaryText" />
 
                         <androidx.cardview.widget.CardView
@@ -728,7 +728,7 @@
                             app:cardCornerRadius="5dp">
 
                             <Spinner
-                                android:id="@+id/spinner_pv_tetanus"
+                                android:id="@+id/spinner_pv_names_of_vaccination"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="10dp"
