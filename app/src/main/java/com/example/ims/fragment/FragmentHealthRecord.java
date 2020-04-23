@@ -82,7 +82,7 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
     private ListView patientVaccinesListView;
 
     private Spinner pvNamesOfVaccinationSpinner;
-    public static int pvNamesOfVaccination = ImsContract.BasicPatientVaccinesEntry.VACCINATION_UNKNOWN;
+    public static int pvNamesOfVaccination = ImsContract.PatientVaccinesEntry.VACCINATION_UNKNOWN;
 
     private static final int HR_LOADER = 120;
     private static final int CAPM_LOADER = 121;
@@ -468,7 +468,7 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
     }
 
     // Add other patient vaccines
-    private void addOtherPatientVaccines() {
+    private void addPatientVaccines() {
         String historyOfVaccinationString = pvHistoryOfVaccinationTextView.getText().toString().trim();
 
         if (TextUtils.isEmpty(historyOfVaccinationString)) {
@@ -479,9 +479,9 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
         ContentValues values = new ContentValues();
 
         // Name of vaccination
-        if (ImsContract.BasicPatientVaccinesEntry.isValidNamesOfVaccination(pvNamesOfVaccination)) {
+        if (ImsContract.PatientVaccinesEntry.isValidNamesOfVaccination(pvNamesOfVaccination)) {
             Log.i(getTag(), "Names of vaccination: " + pvNamesOfVaccination);
-            values.put(ImsContract.BasicPatientVaccinesEntry.COLUMN_NAME_OF_VACCINATION, pvNamesOfVaccination);
+            values.put(ImsContract.PatientVaccinesEntry.COLUMN_NAME_OF_VACCINATION, pvNamesOfVaccination);
         } else {
 //            pvPolioTextView.setError("Choose name of vaccination");
         }
@@ -491,17 +491,17 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
             pvHistoryOfVaccinationTextView.setError("please write history Of Vaccination");
             return;
         } else {
-            values.put(ImsContract.BasicPatientVaccinesEntry.COLUMN_HISTORY_OF_VACCINATION, historyOfVaccinationString);
+            values.put(ImsContract.PatientVaccinesEntry.COLUMN_HISTORY_OF_VACCINATION, historyOfVaccinationString);
         }
 
         // Patient id
         if (TextUtils.isEmpty(String.valueOf(mPatientId))) {
             return;
         } else {
-            values.put(ImsContract.BasicPatientVaccinesEntry.COLUMN_PATIENT_ID, mPatientId);
+            values.put(ImsContract.PatientVaccinesEntry.COLUMN_PATIENT_ID, mPatientId);
         }
 
-        Uri newUri = getContext().getContentResolver().insert(ImsContract.BasicPatientVaccinesEntry.CONTENT_URI, values);
+        Uri newUri = getContext().getContentResolver().insert(ImsContract.PatientVaccinesEntry.CONTENT_URI, values);
         if (newUri == null) {
             Toast.makeText(getContext(), getString(R.string.editor_insert_other_patient_vaccines_failed), Toast.LENGTH_SHORT).show();
         } else {
@@ -525,34 +525,34 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
                 String selection = (String) parent.getItemAtPosition(position);
                 if (!TextUtils.isEmpty(selection)) {
                     if (selection.equals("Diphtheria and tetanus (DT) vaccines")) { // TODO chane the text
-                        pvNamesOfVaccination = ImsContract.BasicPatientVaccinesEntry.VACCINATION_D_T;
+                        pvNamesOfVaccination = ImsContract.PatientVaccinesEntry.VACCINATION_D_T;
                     } else if (selection.equals("Diphtheria, tetanus, and pertussis (DTaP) vaccines")) {
-                        pvNamesOfVaccination = ImsContract.BasicPatientVaccinesEntry.VACCINATION_D_T_A_P;
+                        pvNamesOfVaccination = ImsContract.PatientVaccinesEntry.VACCINATION_D_T_A_P;
                     } else if (selection.equals("Tetanus and diphtheria (Td) vaccines")) {
-                        pvNamesOfVaccination = ImsContract.BasicPatientVaccinesEntry.VACCINATION_T_D;
+                        pvNamesOfVaccination = ImsContract.PatientVaccinesEntry.VACCINATION_T_D;
                     } else if (selection.equals("Tetanus, diphtheria, and pertussis (Tdap) vaccines")) {
-                        pvNamesOfVaccination = ImsContract.BasicPatientVaccinesEntry.VACCINATION_TETANUS_T_DAP;
+                        pvNamesOfVaccination = ImsContract.PatientVaccinesEntry.VACCINATION_TETANUS_T_DAP;
                     } else if (selection.equals("Tetanus")) {
-                        pvNamesOfVaccination = ImsContract.BasicPatientVaccinesEntry.VACCINATION_TETANUS;
+                        pvNamesOfVaccination = ImsContract.PatientVaccinesEntry.VACCINATION_TETANUS;
                     } else if (selection.equals("Influenza vaccine")) {
-                        pvNamesOfVaccination = ImsContract.BasicPatientVaccinesEntry.VACCINATION_INFLUENZA_VACCINE;
+                        pvNamesOfVaccination = ImsContract.PatientVaccinesEntry.VACCINATION_INFLUENZA_VACCINE;
                     } else if (selection.equals("ZOSTAVAX")) {
-                        pvNamesOfVaccination = ImsContract.BasicPatientVaccinesEntry.VACCINATION_ZOSTAVAX;
+                        pvNamesOfVaccination = ImsContract.PatientVaccinesEntry.VACCINATION_ZOSTAVAX;
                     } else if (selection.equals("Meningitis")) {
-                        pvNamesOfVaccination = ImsContract.BasicPatientVaccinesEntry.VACCINATION_MENINGITIS;
+                        pvNamesOfVaccination = ImsContract.PatientVaccinesEntry.VACCINATION_MENINGITIS;
                     } else if (selection.equals("Yellow fever")) {
-                        pvNamesOfVaccination = ImsContract.BasicPatientVaccinesEntry.VACCINATION_YELLOW_FEVER;
+                        pvNamesOfVaccination = ImsContract.PatientVaccinesEntry.VACCINATION_YELLOW_FEVER;
                     } else if (selection.equals("Polio")) {
-                        pvNamesOfVaccination = ImsContract.BasicPatientVaccinesEntry.VACCINATION_POLIO;
+                        pvNamesOfVaccination = ImsContract.PatientVaccinesEntry.VACCINATION_POLIO;
                     } else {
-                        pvNamesOfVaccination = ImsContract.BasicPatientVaccinesEntry.VACCINATION_UNKNOWN;
+                        pvNamesOfVaccination = ImsContract.PatientVaccinesEntry.VACCINATION_UNKNOWN;
                     }
                 }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                pvNamesOfVaccination = ImsContract.BasicPatientVaccinesEntry.VACCINATION_UNKNOWN;
+                pvNamesOfVaccination = ImsContract.PatientVaccinesEntry.VACCINATION_UNKNOWN;
             }
         });
     }
@@ -770,7 +770,7 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
         pvAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addOtherPatientVaccines();
+                addPatientVaccines();
             }
         });
 
