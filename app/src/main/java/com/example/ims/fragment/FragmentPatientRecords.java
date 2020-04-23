@@ -288,12 +288,13 @@ return view;
     @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
+        CursorLoader c=null;
 
             if(id==PP_LOADER) {
 
                 String[] projection =
-                        {       ImsContract.PatientProgressEntry.COLUMN_PROGRESS_NOTES,
-                                ImsContract.PatientProgressEntry.COLUMN_DATE,};
+                        { ImsContract.PatientProgressEntry.COLUMN_PROGRESS_NOTES,
+                          ImsContract.PatientProgressEntry.COLUMN_DATE,};
 
 
                 if (mPatientId > 0) {
@@ -315,8 +316,11 @@ return view;
                     );
 
                 }
+
+            }else if(id==PR_LOADER){
+                return c;
             }
-            return null;
+            return c;
 
     }
 
@@ -325,6 +329,11 @@ return view;
 
         if(mPatientRecordUri ==null){
             mPatientProgressCursorAdapter.swapCursor(data);
+
+        }else{
+            if (data == null || data.getCount() < 1) {
+                return;
+            }
 
         }
 
@@ -348,7 +357,7 @@ return view;
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 
         mPatientRecordUri=  ContentUris.withAppendedId(ImsContract.PatientRecordsEntry.CONTENT_URI, mPatientId);
-        mPatientProgressUri=ContentUris.withAppendedId(ImsContract.PatientProgressEntry.CONTENT_URI, mPatientId);
+       // mPatientProgressUri=ContentUris.withAppendedId(ImsContract.PatientProgressEntry.CONTENT_URI, mPatientId);
         getLoaderManager().initLoader(PR_LOADER, null,  this);
         getLoaderManager().initLoader(PP_LOADER, null,  this);
 

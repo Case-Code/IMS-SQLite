@@ -12,14 +12,14 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/text_illness"
+            android:id="@+id/text_item_mi_illnesses"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Illness"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/text_physician"
+            android:id="@+id/text_item_mi_physician"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Physician" />
@@ -32,7 +32,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/text_start_date"
+            android:id="@+id/text_item_mi_start_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="end"
@@ -40,7 +40,7 @@
             android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/text_end_date"
+            android:id="@+id/text_item_mi_end_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="end"
