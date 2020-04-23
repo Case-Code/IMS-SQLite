@@ -536,11 +536,10 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
 
         // Name of vaccination
         if (ImsContract.OtherPatientVaccinesEntry.isValidNamesOfVaccination(pvNamesOfVaccination)) {
-            pvPolioTextView.setError("Choose name of vaccination");
+            values.put(ImsContract.OtherPatientVaccinesEntry.COLUMN_NAME_OF_VACCINATION, pvNamesOfVaccination);
             return;
         } else {
-            Log.i(getTag(), "Names of vaccination:" + 1);
-            values.put(ImsContract.OtherPatientVaccinesEntry.COLUMN_NAME_OF_VACCINATION, 1);
+            pvPolioTextView.setError("Choose name of vaccination");
         }
 
         // History of vaccination
