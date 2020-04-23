@@ -503,7 +503,6 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
 
         // Polio
         if (TextUtils.isEmpty(polioString)) {
-            pvPolioTextView.setError("please write to polio");
             return;
         } else {
             values.put(ImsContract.PatientVaccinesEntry.COLUMN_POLIO, polioString);
