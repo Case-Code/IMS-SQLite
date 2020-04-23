@@ -24,7 +24,6 @@ public class ImsContract {
     public static final String PATH_MAJOR_ILLNESSES = "major_illnesses";
     public static final String PATH_SURGICAL_PROCEDURES = "surgical_procedures";
     public static final String PATH_BASIC_PATIENT_VACCINES = "basic_patient_vaccines";
-    public static final String PATH_OTHER_PATIENT_VACCINES = "other_patient_vaccines";
     public static final String PATH_DOCTOR_DIAGNOSIS = "doctor_diagnosis";
     public static final String PATH_PATIENT_DATA_TO_PHARMACY = "patient_data_to_pharmacy";
     public static final String PATH_PATIENT_DATA_TO_RADIOLOGY = "patient_data_to_radiology";
@@ -316,42 +315,36 @@ public class ImsContract {
         // Basic patient vaccines table
         public static final String TABLE_NAME = PATH_BASIC_PATIENT_VACCINES;
         public static final String _ID = BaseColumns._ID;
-        public static final String COLUMN_TETANUS = "tetanus";
-        public static final String COLUMN_INFLUENZA_VACCINE = "influenza_vaccine";
-        public static final String COLUMN_ZOSTAVAX = "zostavax";
-        public static final String COLUMN_MENINGITIS = "meningitis";
-        public static final String COLUMN_YELLOW_FEVER = "yellow_fever";
-        public static final String COLUMN_POLIO = "polio";
-        public static final String COLUMN_PATIENT_ID = "patient_id";
-    }
-
-    // Other patient vaccines
-    public static final class OtherPatientVaccinesEntry implements BaseColumns {
-
-        public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_OTHER_PATIENT_VACCINES);
-        public static final String CONTENT_LIST_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_OTHER_PATIENT_VACCINES;
-        public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_OTHER_PATIENT_VACCINES;
-
-        // Basic patient vaccines table
-        public static final String TABLE_NAME = PATH_OTHER_PATIENT_VACCINES;
-        public static final String _ID = BaseColumns._ID;
         public static final String COLUMN_NAME_OF_VACCINATION = "name_of_vaccination";
         public static final String COLUMN_HISTORY_OF_VACCINATION = "history_of_vaccination";
         public static final String COLUMN_PATIENT_ID = "patient_id";
 
         // Names of vaccination
-        public static final int TETANUS_UNKNOWN = 0;
-        public static final int TETANUS_D_T = 1;
-        public static final int TETANUS_D_T_A_P = 2;
-        public static final int TETANUS_T_D = 3;
-        public static final int TETANUS_T_DAP = 4;
+        public static final int VACCINATION_UNKNOWN = 0;
+        public static final int VACCINATION_D_T = 1;
+        public static final int VACCINATION_D_T_A_P = 2;
+        public static final int VACCINATION_T_D = 3;
+        public static final int VACCINATION_TETANUS_T_DAP = 4;
+
+        public static final int VACCINATION_TETANUS = 5;
+        public static final int VACCINATION_INFLUENZA_VACCINE = 6;
+        public static final int VACCINATION_ZOSTAVAX = 7;
+        public static final int VACCINATION_MENINGITIS = 8;
+        public static final int VACCINATION_YELLOW_FEVER = 9;
+        public static final int VACCINATION_POLIO = 10;
 
         public static boolean isValidNamesOfVaccination(int typesOfPatientVaccinesTetanus) {
-            return typesOfPatientVaccinesTetanus == TETANUS_UNKNOWN ||
-                    typesOfPatientVaccinesTetanus == TETANUS_D_T ||
-                    typesOfPatientVaccinesTetanus == TETANUS_D_T_A_P ||
-                    typesOfPatientVaccinesTetanus == TETANUS_T_D ||
-                    typesOfPatientVaccinesTetanus == TETANUS_T_DAP;
+            return typesOfPatientVaccinesTetanus == VACCINATION_UNKNOWN ||
+                    typesOfPatientVaccinesTetanus == VACCINATION_D_T ||
+                    typesOfPatientVaccinesTetanus == VACCINATION_D_T_A_P ||
+                    typesOfPatientVaccinesTetanus == VACCINATION_T_D ||
+                    typesOfPatientVaccinesTetanus == VACCINATION_TETANUS_T_DAP ||
+                    typesOfPatientVaccinesTetanus == VACCINATION_TETANUS ||
+                    typesOfPatientVaccinesTetanus == VACCINATION_INFLUENZA_VACCINE ||
+                    typesOfPatientVaccinesTetanus == VACCINATION_ZOSTAVAX ||
+                    typesOfPatientVaccinesTetanus == VACCINATION_MENINGITIS ||
+                    typesOfPatientVaccinesTetanus == VACCINATION_YELLOW_FEVER ||
+                    typesOfPatientVaccinesTetanus == VACCINATION_POLIO;
         }
     }
 

@@ -70,10 +70,16 @@
     <!-- city menu -->
 
     <!-- name of vaccination menu -->
-    <string name="tetanus_d_t">Diphtheria and tetanus (DT) vaccines</string>
-    <string name="tetanus_d_t_a_p">Diphtheria, tetanus, and pertussis (DTaP) vaccines</string>
-    <string name="tetanus_t_d">Tetanus and diphtheria (Td) vaccines</string>
-    <string name="tetanus_t_dap">Tetanus, diphtheria, and pertussis (Tdap) vaccines</string>
+    <string name="vaccination_d_t">Diphtheria and tetanus (DT) vaccines</string>
+    <string name="vaccination_d_t_a_p">Diphtheria, tetanus, and pertussis (DTaP) vaccines</string>
+    <string name="vaccination_t_d">Tetanus and diphtheria (Td) vaccines</string>
+    <string name="vaccination_tetanus_t_dap">Tetanus, diphtheria, and pertussis (Tdap) vaccines</string>
+    <string name="vaccination_tetanus">Tetanus</string>
+    <string name="vaccination_influenza_vaccine">Influenza vaccine</string>
+    <string name="vaccination_zostavax">ZOSTAVAX</string>
+    <string name="vaccination_meningitis">Meningitis</string>
+    <string name="vaccination_yellow_fever">Yellow fever</string>
+    <string name="vaccination_polio">Polio</string>
 
     <!-- patient -->
     <string name="editor_insert_patient_failed">Error with saving patient</string>
