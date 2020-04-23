@@ -58,9 +58,9 @@ public class ImsProvider extends ContentProvider {
     private static final int SURGICAL_PROCEDURES = 118;
     private static final int SURGICAL_PROCEDURES_ID = 119;
 
-    // Basic patient vaccines
-    private static final int BASIC_PATIENT_VACCINES = 120;
-    private static final int BASIC_PATIENT_VACCINES_ID = 121;
+    // Patient vaccines
+    private static final int PATIENT_VACCINES = 120;
+    private static final int PATIENT_VACCINES_ID = 121;
 
     // Doctor diagnosis
     private static final int DOCTOR_DIAGNOSIS = 122;
@@ -129,9 +129,9 @@ public class ImsProvider extends ContentProvider {
         URI_MATCHER.addURI(ImsContract.CONTENT_AUTHORITY, ImsContract.PATH_SURGICAL_PROCEDURES, SURGICAL_PROCEDURES);
         URI_MATCHER.addURI(ImsContract.CONTENT_AUTHORITY, ImsContract.PATH_SURGICAL_PROCEDURES + "/#", SURGICAL_PROCEDURES_ID);
 
-        // Basic patient vaccines
-        URI_MATCHER.addURI(ImsContract.CONTENT_AUTHORITY, ImsContract.PATH_BASIC_PATIENT_VACCINES, BASIC_PATIENT_VACCINES);
-        URI_MATCHER.addURI(ImsContract.CONTENT_AUTHORITY, ImsContract.PATH_BASIC_PATIENT_VACCINES + "/#", BASIC_PATIENT_VACCINES_ID);
+        // Patient vaccines
+        URI_MATCHER.addURI(ImsContract.CONTENT_AUTHORITY, ImsContract.PATH_PATIENT_VACCINES, PATIENT_VACCINES);
+        URI_MATCHER.addURI(ImsContract.CONTENT_AUTHORITY, ImsContract.PATH_PATIENT_VACCINES + "/#", PATIENT_VACCINES_ID);
 
         // Doctor diagnosis
         URI_MATCHER.addURI(ImsContract.CONTENT_AUTHORITY, ImsContract.PATH_DOCTOR_DIAGNOSIS, DOCTOR_DIAGNOSIS);
@@ -264,13 +264,13 @@ public class ImsProvider extends ContentProvider {
                 cursor = database.query(SurgicalProceduresEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
                 break;
 
-            case BASIC_PATIENT_VACCINES:
-                cursor = database.query(BasicPatientVaccinesEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
+            case PATIENT_VACCINES:
+                cursor = database.query(PatientVaccinesEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
                 break;
-            case BASIC_PATIENT_VACCINES_ID:
-                selection = BasicPatientVaccinesEntry._ID + "=?";
+            case PATIENT_VACCINES_ID:
+                selection = PatientVaccinesEntry._ID + "=?";
                 selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
-                cursor = database.query(BasicPatientVaccinesEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
+                cursor = database.query(PatientVaccinesEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
                 break;
 
             case DOCTOR_DIAGNOSIS:
@@ -390,10 +390,10 @@ public class ImsProvider extends ContentProvider {
             case SURGICAL_PROCEDURES_ID:
                 return SurgicalProceduresEntry.CONTENT_ITEM_TYPE;
 
-            case BASIC_PATIENT_VACCINES:
-                return BasicPatientVaccinesEntry.CONTENT_LIST_TYPE;
-            case BASIC_PATIENT_VACCINES_ID:
-                return BasicPatientVaccinesEntry.CONTENT_ITEM_TYPE;
+            case PATIENT_VACCINES:
+                return PatientVaccinesEntry.CONTENT_LIST_TYPE;
+            case PATIENT_VACCINES_ID:
+                return PatientVaccinesEntry.CONTENT_ITEM_TYPE;
 
             case DOCTOR_DIAGNOSIS:
                 return DoctorDiagnosisEntry.CONTENT_LIST_TYPE;
@@ -456,7 +456,7 @@ public class ImsProvider extends ContentProvider {
                 return insertMajorIllnesses(uri, values);
             case SURGICAL_PROCEDURES:
                 return insertSurgicalProcedures(uri, values);
-            case BASIC_PATIENT_VACCINES:
+            case PATIENT_VACCINES:
                 return insertOtherPatientVaccines(uri, values);
             case DOCTOR_DIAGNOSIS:
                 return insertDoctorDiagnosis(uri, values);
@@ -1070,30 +1070,30 @@ public class ImsProvider extends ContentProvider {
         return ContentUris.withAppendedId(uri, id);
     }
 
-    // Insert basic patient vaccines
+    // Insert patient vaccines
     private Uri insertOtherPatientVaccines(Uri uri, ContentValues values) {
 
         // Name of vaccination
-        Integer nameOfVaccination = values.getAsInteger(BasicPatientVaccinesEntry.COLUMN_NAME_OF_VACCINATION);
+        Integer nameOfVaccination = values.getAsInteger(PatientVaccinesEntry.COLUMN_NAME_OF_VACCINATION);
         if (nameOfVaccination == null) {
             throw new IllegalArgumentException("Patient vaccines requires a name of vaccination");
         }
 
         // History of vaccination
-        String historyOfVaccination = values.getAsString(BasicPatientVaccinesEntry.COLUMN_HISTORY_OF_VACCINATION);
+        String historyOfVaccination = values.getAsString(PatientVaccinesEntry.COLUMN_HISTORY_OF_VACCINATION);
         if (historyOfVaccination == null) {
             throw new IllegalArgumentException("Patient vaccines requires a history of vaccination");
         }
 
         // Patient id
-        Integer patientId = values.getAsInteger(BasicPatientVaccinesEntry.COLUMN_PATIENT_ID);
+        Integer patientId = values.getAsInteger(PatientVaccinesEntry.COLUMN_PATIENT_ID);
         if (patientId == null) {
             throw new IllegalArgumentException("Patient vaccines requires a patient id");
         }
 
         SQLiteDatabase database = mImsDbHelper.getWritableDatabase();
 
-        long id = database.insert(BasicPatientVaccinesEntry.TABLE_NAME, null, values);
+        long id = database.insert(PatientVaccinesEntry.TABLE_NAME, null, values);
         if (id == -1) {
             Log.e(LOG_TAG, "Failed to insert row for " + uri);
             return null;
@@ -1496,13 +1496,13 @@ public class ImsProvider extends ContentProvider {
                 rowsDeleted = database.delete(SurgicalProceduresEntry.TABLE_NAME, selection, selectionArgs);
                 break;
 
-            case BASIC_PATIENT_VACCINES:
-                rowsDeleted = database.delete(BasicPatientVaccinesEntry.TABLE_NAME, selection, selectionArgs);
+            case PATIENT_VACCINES:
+                rowsDeleted = database.delete(PatientVaccinesEntry.TABLE_NAME, selection, selectionArgs);
                 break;
-            case BASIC_PATIENT_VACCINES_ID:
-                selection = BasicPatientVaccinesEntry._ID + "=?";
+            case PATIENT_VACCINES_ID:
+                selection = PatientVaccinesEntry._ID + "=?";
                 selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
-                rowsDeleted = database.delete(BasicPatientVaccinesEntry.TABLE_NAME, selection, selectionArgs);
+                rowsDeleted = database.delete(PatientVaccinesEntry.TABLE_NAME, selection, selectionArgs);
                 break;
 
             case DOCTOR_DIAGNOSIS:
@@ -1644,10 +1644,10 @@ public class ImsProvider extends ContentProvider {
                 selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
                 return updateSurgicalProcedures(uri, values, selection, selectionArgs);
 
-            case BASIC_PATIENT_VACCINES:
+            case PATIENT_VACCINES:
                 return updateOtherPatientVaccines(uri, values, selection, selectionArgs);
-            case BASIC_PATIENT_VACCINES_ID:
-                selection = BasicPatientVaccinesEntry._ID + "=?";
+            case PATIENT_VACCINES_ID:
+                selection = PatientVaccinesEntry._ID + "=?";
                 selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
                 return updateOtherPatientVaccines(uri, values, selection, selectionArgs);
 
@@ -2467,28 +2467,28 @@ public class ImsProvider extends ContentProvider {
         return rowsUpdated;
     }
 
-    // Update basic patient vaccines
+    // Update patient vaccines
     private int updateOtherPatientVaccines(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
 
         // Name of vaccination
-        if (values.containsKey(BasicPatientVaccinesEntry.COLUMN_NAME_OF_VACCINATION)) {
-            Integer nameOfVaccination = values.getAsInteger(BasicPatientVaccinesEntry.COLUMN_NAME_OF_VACCINATION);
+        if (values.containsKey(PatientVaccinesEntry.COLUMN_NAME_OF_VACCINATION)) {
+            Integer nameOfVaccination = values.getAsInteger(PatientVaccinesEntry.COLUMN_NAME_OF_VACCINATION);
             if (nameOfVaccination == null) {
                 throw new IllegalArgumentException("Patient vaccines requires a name of vaccination");
             }
         }
 
         // History of vaccination
-        if (values.containsKey(BasicPatientVaccinesEntry.COLUMN_HISTORY_OF_VACCINATION)) {
-            String historyOfVaccination = values.getAsString(BasicPatientVaccinesEntry.COLUMN_HISTORY_OF_VACCINATION);
+        if (values.containsKey(PatientVaccinesEntry.COLUMN_HISTORY_OF_VACCINATION)) {
+            String historyOfVaccination = values.getAsString(PatientVaccinesEntry.COLUMN_HISTORY_OF_VACCINATION);
             if (historyOfVaccination == null) {
                 throw new IllegalArgumentException("Patient vaccines requires a history of vaccination");
             }
         }
 
         // Patient id
-        if (values.containsKey(BasicPatientVaccinesEntry.COLUMN_PATIENT_ID)) {
-            Integer patientId = values.getAsInteger(BasicPatientVaccinesEntry.COLUMN_PATIENT_ID);
+        if (values.containsKey(PatientVaccinesEntry.COLUMN_PATIENT_ID)) {
+            Integer patientId = values.getAsInteger(PatientVaccinesEntry.COLUMN_PATIENT_ID);
             if (patientId == null) {
                 throw new IllegalArgumentException("Patient vaccines requires a patient id");
             }
@@ -2500,7 +2500,7 @@ public class ImsProvider extends ContentProvider {
 
         SQLiteDatabase database = mImsDbHelper.getWritableDatabase();
 
-        int rowsUpdated = database.update(BasicPatientVaccinesEntry.TABLE_NAME, values, selection, selectionArgs);
+        int rowsUpdated = database.update(PatientVaccinesEntry.TABLE_NAME, values, selection, selectionArgs);
 
         if (rowsUpdated != 0) {
             getContext().getContentResolver().notifyChange(uri, null);

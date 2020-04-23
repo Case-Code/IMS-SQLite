@@ -75,12 +75,6 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
     private TextView miStartDateTextView;
     private TextView miEndDateTextView;
     private TextView spDateTextView;
-    private TextView pvTetanusTextView;
-    private TextView pvInfluenzaVaccineTextView;
-    private TextView pvZostavaxTextView;
-    private TextView pvMeningitisTextView;
-    private TextView pvYellowFeverTextView;
-    private TextView pvPolioTextView;
     private TextView pvHistoryOfVaccinationTextView;
 
     private ListView majorIllnessesListView;
@@ -88,7 +82,7 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
     private ListView patientVaccinesListView;
 
     private Spinner pvNamesOfVaccinationSpinner;
-    public static int pvNamesOfVaccination = ImsContract.OtherPatientVaccinesEntry.TETANUS_UNKNOWN;
+    public static int pvNamesOfVaccination = ImsContract.PatientVaccinesEntry.VACCINATION_UNKNOWN;
 
     private static final int HR_LOADER = 120;
     private static final int CAPM_LOADER = 121;
@@ -473,58 +467,8 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
         }
     }
 
-    // Add basic patient vaccines
-    private void addBasicPatientVaccines() {
-        String tetanusString = pvTetanusTextView.getText().toString().trim();
-        String influenzaVaccineString = pvInfluenzaVaccineTextView.getText().toString().trim();
-        String zostavaxString = pvZostavaxTextView.getText().toString().trim();
-        String meningitisString = pvMeningitisTextView.getText().toString().trim();
-        String yellowFeverString = pvYellowFeverTextView.getText().toString().trim();
-        String polioString = pvPolioTextView.getText().toString().trim();
-        String historyOfVaccinationString = pvHistoryOfVaccinationTextView.getText().toString().trim();
-
-        if (TextUtils.isEmpty(historyOfVaccinationString)) {
-            pvHistoryOfVaccinationTextView.setError("please write history Of Vaccination");
-            return;
-        }
-
-        ContentValues values = new ContentValues();
-
-        // Tetanus
-        values.put(ImsContract.BasicPatientVaccinesEntry.COLUMN_TETANUS, tetanusString);
-
-        // Influenza vaccine
-        values.put(ImsContract.BasicPatientVaccinesEntry.COLUMN_INFLUENZA_VACCINE, influenzaVaccineString);
-
-        // ZOSTAVAX
-        values.put(ImsContract.BasicPatientVaccinesEntry.COLUMN_ZOSTAVAX, zostavaxString);
-
-        // Meningitis
-        values.put(ImsContract.BasicPatientVaccinesEntry.COLUMN_MENINGITIS, meningitisString);
-
-        // Yellow fever
-        values.put(ImsContract.BasicPatientVaccinesEntry.COLUMN_YELLOW_FEVER, yellowFeverString);
-
-        // Polio
-        values.put(ImsContract.BasicPatientVaccinesEntry.COLUMN_POLIO, polioString);
-
-        // Patient id
-        if (TextUtils.isEmpty(String.valueOf(mPatientId))) {
-            return;
-        } else {
-            values.put(ImsContract.BasicPatientVaccinesEntry.COLUMN_PATIENT_ID, mPatientId);
-        }
-
-        Uri newUri = getContext().getContentResolver().insert(ImsContract.BasicPatientVaccinesEntry.CONTENT_URI, values);
-        if (newUri == null) {
-            Toast.makeText(getContext(), getString(R.string.editor_insert_basic_patient_vaccines_failed), Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(getContext(), getString(R.string.editor_insert_basic_patient_vaccines_successful), Toast.LENGTH_SHORT).show();
-        }
-    }
-
     // Add other patient vaccines
-    private void addOtherPatientVaccines() {
+    private void addPatientVaccines() {
         String historyOfVaccinationString = pvHistoryOfVaccinationTextView.getText().toString().trim();
 
         if (TextUtils.isEmpty(historyOfVaccinationString)) {
@@ -535,14 +479,11 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
         ContentValues values = new ContentValues();
 
         // Name of vaccination
-        if (ImsContract.OtherPatientVaccinesEntry.isValidNamesOfVaccination(pvNamesOfVaccination)) {
+        if (ImsContract.PatientVaccinesEntry.isValidNamesOfVaccination(pvNamesOfVaccination)) {
             Log.i(getTag(), "Names of vaccination: " + pvNamesOfVaccination);
-            Log.e("mahmoud iin ","yes sure man");
-            values.put(ImsContract.OtherPatientVaccinesEntry.COLUMN_NAME_OF_VACCINATION, pvNamesOfVaccination);
-
+            values.put(ImsContract.PatientVaccinesEntry.COLUMN_NAME_OF_VACCINATION, pvNamesOfVaccination);
         } else {
-            pvPolioTextView.setError("Choose name of vaccination");
-            return;
+//            pvPolioTextView.setError("Choose name of vaccination");
         }
 
         // History of vaccination
@@ -550,18 +491,17 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
             pvHistoryOfVaccinationTextView.setError("please write history Of Vaccination");
             return;
         } else {
-            Log.i(getTag(), "History of vaccination: " + historyOfVaccinationString);
-            values.put(ImsContract.OtherPatientVaccinesEntry.COLUMN_HISTORY_OF_VACCINATION, historyOfVaccinationString);
+            values.put(ImsContract.PatientVaccinesEntry.COLUMN_HISTORY_OF_VACCINATION, historyOfVaccinationString);
         }
 
         // Patient id
         if (TextUtils.isEmpty(String.valueOf(mPatientId))) {
             return;
         } else {
-            values.put(ImsContract.OtherPatientVaccinesEntry.COLUMN_PATIENT_ID, mPatientId);
+            values.put(ImsContract.PatientVaccinesEntry.COLUMN_PATIENT_ID, mPatientId);
         }
 
-        Uri newUri = getContext().getContentResolver().insert(ImsContract.OtherPatientVaccinesEntry.CONTENT_URI, values);
+        Uri newUri = getContext().getContentResolver().insert(ImsContract.PatientVaccinesEntry.CONTENT_URI, values);
         if (newUri == null) {
             Toast.makeText(getContext(), getString(R.string.editor_insert_other_patient_vaccines_failed), Toast.LENGTH_SHORT).show();
         } else {
@@ -585,22 +525,34 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
                 String selection = (String) parent.getItemAtPosition(position);
                 if (!TextUtils.isEmpty(selection)) {
                     if (selection.equals("Diphtheria and tetanus (DT) vaccines")) { // TODO chane the text
-                        pvNamesOfVaccination = ImsContract.OtherPatientVaccinesEntry.TETANUS_D_T;
+                        pvNamesOfVaccination = ImsContract.PatientVaccinesEntry.VACCINATION_D_T;
                     } else if (selection.equals("Diphtheria, tetanus, and pertussis (DTaP) vaccines")) {
-                        pvNamesOfVaccination = ImsContract.OtherPatientVaccinesEntry.TETANUS_D_T_A_P;
+                        pvNamesOfVaccination = ImsContract.PatientVaccinesEntry.VACCINATION_D_T_A_P;
                     } else if (selection.equals("Tetanus and diphtheria (Td) vaccines")) {
-                        pvNamesOfVaccination = ImsContract.OtherPatientVaccinesEntry.TETANUS_T_D;
+                        pvNamesOfVaccination = ImsContract.PatientVaccinesEntry.VACCINATION_T_D;
                     } else if (selection.equals("Tetanus, diphtheria, and pertussis (Tdap) vaccines")) {
-                        pvNamesOfVaccination = ImsContract.OtherPatientVaccinesEntry.TETANUS_T_DAP;
+                        pvNamesOfVaccination = ImsContract.PatientVaccinesEntry.VACCINATION_TETANUS_T_DAP;
+                    } else if (selection.equals("Tetanus")) {
+                        pvNamesOfVaccination = ImsContract.PatientVaccinesEntry.VACCINATION_TETANUS;
+                    } else if (selection.equals("Influenza vaccine")) {
+                        pvNamesOfVaccination = ImsContract.PatientVaccinesEntry.VACCINATION_INFLUENZA_VACCINE;
+                    } else if (selection.equals("ZOSTAVAX")) {
+                        pvNamesOfVaccination = ImsContract.PatientVaccinesEntry.VACCINATION_ZOSTAVAX;
+                    } else if (selection.equals("Meningitis")) {
+                        pvNamesOfVaccination = ImsContract.PatientVaccinesEntry.VACCINATION_MENINGITIS;
+                    } else if (selection.equals("Yellow fever")) {
+                        pvNamesOfVaccination = ImsContract.PatientVaccinesEntry.VACCINATION_YELLOW_FEVER;
+                    } else if (selection.equals("Polio")) {
+                        pvNamesOfVaccination = ImsContract.PatientVaccinesEntry.VACCINATION_POLIO;
                     } else {
-                        pvNamesOfVaccination = ImsContract.OtherPatientVaccinesEntry.TETANUS_UNKNOWN;
+                        pvNamesOfVaccination = ImsContract.PatientVaccinesEntry.VACCINATION_UNKNOWN;
                     }
                 }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                pvNamesOfVaccination = ImsContract.OtherPatientVaccinesEntry.TETANUS_UNKNOWN;
+                pvNamesOfVaccination = ImsContract.PatientVaccinesEntry.VACCINATION_UNKNOWN;
             }
         });
     }
@@ -645,12 +597,6 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
         surgicalProceduresListView = view.findViewById(R.id.list_surgical_procedures);
 
         // Patient vaccines
-        pvTetanusTextView = view.findViewById(R.id.text_pv_tetanus);
-        pvInfluenzaVaccineTextView = view.findViewById(R.id.text_pv_influenza_vaccine);
-        pvZostavaxTextView = view.findViewById(R.id.text_pv_zostavax);
-        pvMeningitisTextView = view.findViewById(R.id.text_pv_meningitis);
-        pvYellowFeverTextView = view.findViewById(R.id.text_pv_yellow_fever);
-        pvPolioTextView = view.findViewById(R.id.text_pv_polio);
         pvNamesOfVaccinationSpinner = view.findViewById(R.id.spinner_pv_names_of_vaccination);
         pvHistoryOfVaccinationTextView = view.findViewById(R.id.text_pv_history_of_vaccination);
         pvAddButton = view.findViewById(R.id.button_pv_add);
@@ -804,103 +750,6 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
             }
         });
 
-        // P.V. tetanus: date in patient vaccines
-        pvTetanusTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        month += 1;
-                        String date = month + "/" + dayOfMonth + "/" + year;
-                        pvTetanusTextView.setText(date);
-                    }
-                };
-                Utils.showDatePicker(getContext(), dateSetListener);
-            }
-        });
-
-        // P.V. influenza vaccine: date in patient vaccines
-        pvInfluenzaVaccineTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        month += 1;
-                        String date = month + "/" + dayOfMonth + "/" + year;
-                        pvInfluenzaVaccineTextView.setText(date);
-                    }
-                };
-                Utils.showDatePicker(getContext(), dateSetListener);
-            }
-        });
-
-        // P.V. ZOSTAVAX: date in patient vaccines
-        pvZostavaxTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        month += 1;
-                        String date = month + "/" + dayOfMonth + "/" + year;
-                        pvZostavaxTextView.setText(date);
-                    }
-                };
-                Utils.showDatePicker(getContext(), dateSetListener);
-            }
-        });
-
-        // P.V. meningitis: date in patient vaccines
-        pvMeningitisTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        month += 1;
-                        String date = month + "/" + dayOfMonth + "/" + year;
-                        pvMeningitisTextView.setText(date);
-                    }
-                };
-                Utils.showDatePicker(getContext(), dateSetListener);
-            }
-        });
-
-        // P.V. yellow fever: date in patient vaccines
-        pvYellowFeverTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        month += 1;
-                        String date = month + "/" + dayOfMonth + "/" + year;
-                        pvYellowFeverTextView.setText(date);
-                    }
-                };
-                Utils.showDatePicker(getContext(), dateSetListener);
-
-            }
-        });
-
-        // P.V. polio: date in patient vaccines
-        pvPolioTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        month += 1;
-                        String date = month + "/" + dayOfMonth + "/" + year;
-                        pvPolioTextView.setText(date);
-                    }
-                };
-                Utils.showDatePicker(getContext(), dateSetListener);
-            }
-        });
-
         // P.V. history of vaccination: date in patient vaccines
         pvHistoryOfVaccinationTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -921,7 +770,7 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
         pvAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addOtherPatientVaccines();
+                addPatientVaccines();
             }
         });
 
@@ -1091,214 +940,210 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
 
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
-
-
-
-        int id = loader.getId();
-        if (id == CAPM_LOADER) {
-            if (mCurrentAndPastMedicationsUri == null) {
-                if (mPatientId == 0) {
-
-                }
-
-
-            } else {
-                if (data == null || data.getCount() < 1) {
-                    return;
-                }
-                if (data.moveToFirst()) {
-                    //get row Current and past medications
-                    int medicamentNameColumnIndex = data.getColumnIndex(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_MEDICAMENT_NAME);
-                    int dosageColumnIndex = data.getColumnIndex(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_DOSAGE);
-                    int freqColumnIndex = data.getColumnIndex(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_FREQ);
-                    int startDateColumnIndex = data.getColumnIndex(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_START_DATE);
-                    int endDateColumnIndex = data.getColumnIndex(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_END_DATE);
-                    int physicianColumnIndex = data.getColumnIndex(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_PHYSICIAN);
-                    int purposeColumnIndex = data.getColumnIndex(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_PURPOSE);
-
-                    String medicamentName = data.getString(medicamentNameColumnIndex);
-                    String dosage = data.getString(dosageColumnIndex);
-                    String freq = data.getString(freqColumnIndex);
-                    String startDate = data.getString(startDateColumnIndex);
-                    String endDate = data.getString(endDateColumnIndex);
-                    String physician = data.getString(physicianColumnIndex);
-                    String purpose = data.getString(purposeColumnIndex);
-
-                    capmMedicamentNameEditText.setText(medicamentName);
-                    capmDosageEditText.setText(dosage);
-                    capmFreqEditText.setText(freq);
-                    capmStartDateTextView.setText(startDate);
-                    capmEndDateTextView.setText(endDate);
-                    capmPhysicianEditText.setText(physician);
-                    capmPurposeEditText.setText(purpose);
-                }
-            }
-        } else if (id == HR_LOADER) {
-            if (mHealthRecordUri == null) {
-                if (mPatientId == 0) {
-
-                }
-            } else {
-                if (data == null || data.getCount() < 1) {
-                    return;
-                }
-
-                if (data.moveToFirst()) {
-                    //get data all
-
-                    //get row health record
-                    int physicianNameColumnIndex = data.getColumnIndex(ImsContract.HealthRecordEntry.COLUMN_CURRENT_PHYSICIAN_NAME);
-                    int pharmacyNameColumnIndex = data.getColumnIndex(ImsContract.HealthRecordEntry.COLUMN_CURRENT_PHARMACY_NAME);
-                    int pharmacyPhoneColumnIndex = data.getColumnIndex(ImsContract.HealthRecordEntry.COLUMN_PHARMACY_PHONE);
-                    int doctorPhoneColumnIndex = data.getColumnIndex(ImsContract.HealthRecordEntry.COLUMN_DOCTORS_PHONE);
-                    int dateOfLastUpdateColumnIndex = data.getColumnIndex(ImsContract.HealthRecordEntry.COLUMN_DATE_OF_THE_LAST_UPDATE);
-
-                    String physicianName = data.getString(physicianNameColumnIndex);
-                    String pharmacyName = data.getString(pharmacyNameColumnIndex);
-                    String pharmacyPhone = data.getString(pharmacyPhoneColumnIndex);
-                    String doctorPhone = data.getString(doctorPhoneColumnIndex);
-                    String dateOfLastUpdate = data.getString(dateOfLastUpdateColumnIndex);
-
-                    hrCurrentPhysicianNameEditText.setText(physicianName);
-                    hrCurrentPharmacyNameEditText.setText(pharmacyName);
-                    hrPharmacyPhoneEditText.setText(pharmacyPhone);
-                    hrDoctorsPhoneEditText.setText(doctorPhone);
-                    hrDateOfTheLastUpdateTextView.setText(dateOfLastUpdate);
-                }
-            }
-
-        } else if (id == MI_LOADER) {
-
-            if (mMajorIllnessesUri == null) {
-                if (mPatientId == 0) {
-
-                }
-            } else {
-                if (data == null || data.getCount() < 1) {
-                    return;
-                }
-                if (data.moveToFirst()) {
-                    //get data all
-                }
-
-                //get row  Major illnesses
-                int miIllnessColumnIndex = data.getColumnIndex(ImsContract.MajorIllnessesEntry.COLUMN_ILLNESS);
-                int miStartDateColumnIndex = data.getColumnIndex(ImsContract.MajorIllnessesEntry.COLUMN_START_DATE);
-                int miEndDateColumnIndex = data.getColumnIndex(ImsContract.MajorIllnessesEntry.COLUMN_END_DATE);
-                int miPhysicianColumnIndex = data.getColumnIndex(ImsContract.MajorIllnessesEntry.COLUMN_PHYSICIAN);
-                int miTreatmentNotesColumnIndex = data.getColumnIndex(ImsContract.MajorIllnessesEntry.COLUMN_TREATMENT_NOTES);
-
-                String miIllness = data.getString(miIllnessColumnIndex);
-                String miStartDate = data.getString(miStartDateColumnIndex);
-                String miEndDate = data.getString(miEndDateColumnIndex);
-                String miPhysician = data.getString(miPhysicianColumnIndex);
-                String miTreatmentNotes = data.getString(miTreatmentNotesColumnIndex);
-
-
-                miIllnessEditText.setText(miIllness);
-                miStartDateTextView.setText(miStartDate);
-                miEndDateTextView.setText(miEndDate);
-                miPhysicianEditText.setText(miPhysician);
-                miTreatmentNotesEditText.setText(miTreatmentNotes);
-            }
-
-
-        } else if (id == SP_LOADER) {
-            if (mSurgicalProceduresUri == null) {
-                if (mPatientId == 0) {
-
-                }
-            } else {
-                if (data == null || data.getCount() < 1) {
-                    return;
-                }
-
-                if (data.moveToFirst()) {
-                    //get data all
-                }
-
-                //get row Surgical procedures
-                int spProcedureColumnIndex = data.getColumnIndex(ImsContract.SurgicalProceduresEntry.COLUMN_PROCEDURE);
-                int spPhysicianColumnIndex = data.getColumnIndex(ImsContract.SurgicalProceduresEntry.COLUMN_PHYSICIAN);
-                int spHospitalColumnIndex = data.getColumnIndex(ImsContract.SurgicalProceduresEntry.COLUMN_HOSPITAL);
-                int spDateColumnIndex = data.getColumnIndex(ImsContract.SurgicalProceduresEntry.COLUMN_DATE_SURGICAL_PROCEDURES);
-                int spNotesEColumnIndex = data.getColumnIndex(ImsContract.SurgicalProceduresEntry.COLUMN_NOTES);
-
-                String spProcedure = data.getString(spProcedureColumnIndex);
-                String spPhysician = data.getString(spPhysicianColumnIndex);
-                String spHospital = data.getString(spHospitalColumnIndex);
-                String spDate = data.getString(spDateColumnIndex);
-                String spNotesE = data.getString(spNotesEColumnIndex);
-
-                spProcedureEditText.setText(spProcedure);
-                spPhysicianEditText.setText(spPhysician);
-                spHospitalEditText.setText(spHospital);
-                spDateTextView.setText(spDate);
-                spNotesEditText.setText(spNotesE);
-            }
-
-        } else if (id == PV_LOADER) {
-
-
-            if (mPatientVaccinesUri == null) {
-                if (mPatientId == 0) {
-
-                }
-            } else {
-                if (data == null || data.getCount() < 1) {
-                    return;
-                }
-
-                if (data.moveToFirst()) {
-                    //get data all
-                }
-
-                //get row Patient vaccines
-                int pvTetanusColumnIndex = data.getColumnIndex(ImsContract.PatientVaccinesEntry.COLUMN_TETANUS);
-                int pvInfluenzaVaccineColumnIndex = data.getColumnIndex(ImsContract.PatientVaccinesEntry.COLUMN_INFLUENZA_VACCINE);
-                int pvZostavaxColumnIndex = data.getColumnIndex(ImsContract.PatientVaccinesEntry.COLUMN_ZOSTAVAX);
-                int pvMeningitisColumnIndex = data.getColumnIndex(ImsContract.PatientVaccinesEntry.COLUMN_MENINGITIS);
-                int pvYellowFeverColumnIndex = data.getColumnIndex(ImsContract.PatientVaccinesEntry.COLUMN_YELLOW_FEVER);
-                int pvPolioColumnIndex = data.getColumnIndex(ImsContract.PatientVaccinesEntry.COLUMN_POLIO);
-                //   int pvTetanusTypeColumnIndex=data.getColumnIndex(ImsContract.PatientVaccinesEntry.COLUMN_NAME_OF_VACCINATION);
-                int pvHistoryOfVaccinationColumnIndex = data.getColumnIndex(ImsContract.PatientVaccinesEntry.COLUMN_HISTORY_OF_VACCINATION);
-
-                String pvTetanus = data.getString(pvTetanusColumnIndex);
-                String pvInfluenzaVaccine = data.getString(pvInfluenzaVaccineColumnIndex);
-                String pvZostavax = data.getString(pvZostavaxColumnIndex);
-                String pvMeningitis = data.getString(pvMeningitisColumnIndex);
-                String pvYellowFever = data.getString(pvYellowFeverColumnIndex);
-                String pvPolio = data.getString(pvPolioColumnIndex);
-                // String pvTetanusType=data.getString(pvTetanusTypeColumnIndex);
-                String pvHistoryOfVaccination = data.getString(pvHistoryOfVaccinationColumnIndex);
-
-                pvTetanusTextView.setText(pvTetanus);
-                pvInfluenzaVaccineTextView.setText(pvInfluenzaVaccine);
-                pvZostavaxTextView.setText(pvZostavax);
-                pvMeningitisTextView.setText(pvMeningitis);
-                pvYellowFeverTextView.setText(pvYellowFever);
-                pvPolioTextView.setText(pvPolio);
-
-                switch (pvTypesOfVaccination) {
-                    case ImsContract.PatientVaccinesEntry.TETANUS_D_T:
-                        pvTypesOfVaccinationSpinner.setSelection(ImsContract.PatientVaccinesEntry.TETANUS_D_T);
-                        break;
-                    case ImsContract.PatientVaccinesEntry.TETANUS_D_T_A_P:
-                        pvTypesOfVaccinationSpinner.setSelection(ImsContract.PatientVaccinesEntry.TETANUS_D_T_A_P);
-                        break;
-                    case ImsContract.PatientVaccinesEntry.TETANUS_T_D:
-                        pvTypesOfVaccinationSpinner.setSelection(ImsContract.PatientVaccinesEntry.TETANUS_T_D);
-                        break;
-                    case ImsContract.PatientVaccinesEntry.TETANUS_T_DAP:
-                        pvTypesOfVaccinationSpinner.setSelection(ImsContract.PatientVaccinesEntry.TETANUS_T_DAP);
-                        break;
-                    default:
-                        pvTypesOfVaccinationSpinner.setSelection(ImsContract.PatientVaccinesEntry.TETANUS_UNKNOWN);
-                }
-                pvHistoryOfVaccinationTextView.setText(pvHistoryOfVaccination);
-            }
-        }
-
+//        int id = loader.getId();
+//        if (id == CAPM_LOADER) {
+//            if (mCurrentAndPastMedicationsUri == null) {
+//                if (mPatientId == 0) {
+//
+//                }
+//
+//
+//            } else {
+//                if (data == null || data.getCount() < 1) {
+//                    return;
+//                }
+//                if (data.moveToFirst()) {
+//                    //get row Current and past medications
+//                    int medicamentNameColumnIndex = data.getColumnIndex(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_MEDICAMENT_NAME);
+//                    int dosageColumnIndex = data.getColumnIndex(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_DOSAGE);
+//                    int freqColumnIndex = data.getColumnIndex(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_FREQ);
+//                    int startDateColumnIndex = data.getColumnIndex(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_START_DATE);
+//                    int endDateColumnIndex = data.getColumnIndex(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_END_DATE);
+//                    int physicianColumnIndex = data.getColumnIndex(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_PHYSICIAN);
+//                    int purposeColumnIndex = data.getColumnIndex(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_PURPOSE);
+//
+//                    String medicamentName = data.getString(medicamentNameColumnIndex);
+//                    String dosage = data.getString(dosageColumnIndex);
+//                    String freq = data.getString(freqColumnIndex);
+//                    String startDate = data.getString(startDateColumnIndex);
+//                    String endDate = data.getString(endDateColumnIndex);
+//                    String physician = data.getString(physicianColumnIndex);
+//                    String purpose = data.getString(purposeColumnIndex);
+//
+//                    capmMedicamentNameEditText.setText(medicamentName);
+//                    capmDosageEditText.setText(dosage);
+//                    capmFreqEditText.setText(freq);
+//                    capmStartDateTextView.setText(startDate);
+//                    capmEndDateTextView.setText(endDate);
+//                    capmPhysicianEditText.setText(physician);
+//                    capmPurposeEditText.setText(purpose);
+//                }
+//            }
+//        } else if (id == HR_LOADER) {
+//            if (mHealthRecordUri == null) {
+//                if (mPatientId == 0) {
+//
+//                }
+//            } else {
+//                if (data == null || data.getCount() < 1) {
+//                    return;
+//                }
+//
+//                if (data.moveToFirst()) {
+//                    //get data all
+//
+//                    //get row health record
+//                    int physicianNameColumnIndex = data.getColumnIndex(ImsContract.HealthRecordEntry.COLUMN_CURRENT_PHYSICIAN_NAME);
+//                    int pharmacyNameColumnIndex = data.getColumnIndex(ImsContract.HealthRecordEntry.COLUMN_CURRENT_PHARMACY_NAME);
+//                    int pharmacyPhoneColumnIndex = data.getColumnIndex(ImsContract.HealthRecordEntry.COLUMN_PHARMACY_PHONE);
+//                    int doctorPhoneColumnIndex = data.getColumnIndex(ImsContract.HealthRecordEntry.COLUMN_DOCTORS_PHONE);
+//                    int dateOfLastUpdateColumnIndex = data.getColumnIndex(ImsContract.HealthRecordEntry.COLUMN_DATE_OF_THE_LAST_UPDATE);
+//
+//                    String physicianName = data.getString(physicianNameColumnIndex);
+//                    String pharmacyName = data.getString(pharmacyNameColumnIndex);
+//                    String pharmacyPhone = data.getString(pharmacyPhoneColumnIndex);
+//                    String doctorPhone = data.getString(doctorPhoneColumnIndex);
+//                    String dateOfLastUpdate = data.getString(dateOfLastUpdateColumnIndex);
+//
+//                    hrCurrentPhysicianNameEditText.setText(physicianName);
+//                    hrCurrentPharmacyNameEditText.setText(pharmacyName);
+//                    hrPharmacyPhoneEditText.setText(pharmacyPhone);
+//                    hrDoctorsPhoneEditText.setText(doctorPhone);
+//                    hrDateOfTheLastUpdateTextView.setText(dateOfLastUpdate);
+//                }
+//            }
+//
+//        } else if (id == MI_LOADER) {
+//
+//            if (mMajorIllnessesUri == null) {
+//                if (mPatientId == 0) {
+//
+//                }
+//            } else {
+//                if (data == null || data.getCount() < 1) {
+//                    return;
+//                }
+//                if (data.moveToFirst()) {
+//                    //get data all
+//                }
+//
+//                //get row  Major illnesses
+//                int miIllnessColumnIndex = data.getColumnIndex(ImsContract.MajorIllnessesEntry.COLUMN_ILLNESS);
+//                int miStartDateColumnIndex = data.getColumnIndex(ImsContract.MajorIllnessesEntry.COLUMN_START_DATE);
+//                int miEndDateColumnIndex = data.getColumnIndex(ImsContract.MajorIllnessesEntry.COLUMN_END_DATE);
+//                int miPhysicianColumnIndex = data.getColumnIndex(ImsContract.MajorIllnessesEntry.COLUMN_PHYSICIAN);
+//                int miTreatmentNotesColumnIndex = data.getColumnIndex(ImsContract.MajorIllnessesEntry.COLUMN_TREATMENT_NOTES);
+//
+//                String miIllness = data.getString(miIllnessColumnIndex);
+//                String miStartDate = data.getString(miStartDateColumnIndex);
+//                String miEndDate = data.getString(miEndDateColumnIndex);
+//                String miPhysician = data.getString(miPhysicianColumnIndex);
+//                String miTreatmentNotes = data.getString(miTreatmentNotesColumnIndex);
+//
+//
+//                miIllnessEditText.setText(miIllness);
+//                miStartDateTextView.setText(miStartDate);
+//                miEndDateTextView.setText(miEndDate);
+//                miPhysicianEditText.setText(miPhysician);
+//                miTreatmentNotesEditText.setText(miTreatmentNotes);
+//            }
+//
+//
+//        } else if (id == SP_LOADER) {
+//            if (mSurgicalProceduresUri == null) {
+//                if (mPatientId == 0) {
+//
+//                }
+//            } else {
+//                if (data == null || data.getCount() < 1) {
+//                    return;
+//                }
+//
+//                if (data.moveToFirst()) {
+//                    //get data all
+//                }
+//
+//                //get row Surgical procedures
+//                int spProcedureColumnIndex = data.getColumnIndex(ImsContract.SurgicalProceduresEntry.COLUMN_PROCEDURE);
+//                int spPhysicianColumnIndex = data.getColumnIndex(ImsContract.SurgicalProceduresEntry.COLUMN_PHYSICIAN);
+//                int spHospitalColumnIndex = data.getColumnIndex(ImsContract.SurgicalProceduresEntry.COLUMN_HOSPITAL);
+//                int spDateColumnIndex = data.getColumnIndex(ImsContract.SurgicalProceduresEntry.COLUMN_DATE_SURGICAL_PROCEDURES);
+//                int spNotesEColumnIndex = data.getColumnIndex(ImsContract.SurgicalProceduresEntry.COLUMN_NOTES);
+//
+//                String spProcedure = data.getString(spProcedureColumnIndex);
+//                String spPhysician = data.getString(spPhysicianColumnIndex);
+//                String spHospital = data.getString(spHospitalColumnIndex);
+//                String spDate = data.getString(spDateColumnIndex);
+//                String spNotesE = data.getString(spNotesEColumnIndex);
+//
+//                spProcedureEditText.setText(spProcedure);
+//                spPhysicianEditText.setText(spPhysician);
+//                spHospitalEditText.setText(spHospital);
+//                spDateTextView.setText(spDate);
+//                spNotesEditText.setText(spNotesE);
+//            }
+//
+//        } else if (id == PV_LOADER) {
+//
+//
+//            if (mPatientVaccinesUri == null) {
+//                if (mPatientId == 0) {
+//
+//                }
+//            } else {
+//                if (data == null || data.getCount() < 1) {
+//                    return;
+//                }
+//
+//                if (data.moveToFirst()) {
+//                    //get data all
+//                }
+//
+//                //get row Patient vaccines
+//                int pvTetanusColumnIndex = data.getColumnIndex(ImsContract.PatientVaccinesEntry.COLUMN_TETANUS);
+//                int pvInfluenzaVaccineColumnIndex = data.getColumnIndex(ImsContract.PatientVaccinesEntry.COLUMN_INFLUENZA_VACCINE);
+//                int pvZostavaxColumnIndex = data.getColumnIndex(ImsContract.PatientVaccinesEntry.COLUMN_ZOSTAVAX);
+//                int pvMeningitisColumnIndex = data.getColumnIndex(ImsContract.PatientVaccinesEntry.COLUMN_MENINGITIS);
+//                int pvYellowFeverColumnIndex = data.getColumnIndex(ImsContract.PatientVaccinesEntry.COLUMN_YELLOW_FEVER);
+//                int pvPolioColumnIndex = data.getColumnIndex(ImsContract.PatientVaccinesEntry.COLUMN_POLIO);
+//                //   int pvTetanusTypeColumnIndex=data.getColumnIndex(ImsContract.PatientVaccinesEntry.COLUMN_NAME_OF_VACCINATION);
+//                int pvHistoryOfVaccinationColumnIndex = data.getColumnIndex(ImsContract.PatientVaccinesEntry.COLUMN_HISTORY_OF_VACCINATION);
+//
+//                String pvTetanus = data.getString(pvTetanusColumnIndex);
+//                String pvInfluenzaVaccine = data.getString(pvInfluenzaVaccineColumnIndex);
+//                String pvZostavax = data.getString(pvZostavaxColumnIndex);
+//                String pvMeningitis = data.getString(pvMeningitisColumnIndex);
+//                String pvYellowFever = data.getString(pvYellowFeverColumnIndex);
+//                String pvPolio = data.getString(pvPolioColumnIndex);
+//                // String pvTetanusType=data.getString(pvTetanusTypeColumnIndex);
+//                String pvHistoryOfVaccination = data.getString(pvHistoryOfVaccinationColumnIndex);
+//
+//                pvTetanusTextView.setText(pvTetanus);
+//                pvInfluenzaVaccineTextView.setText(pvInfluenzaVaccine);
+//                pvZostavaxTextView.setText(pvZostavax);
+//                pvMeningitisTextView.setText(pvMeningitis);
+//                pvYellowFeverTextView.setText(pvYellowFever);
+//                pvPolioTextView.setText(pvPolio);
+//
+//                switch (pvTypesOfVaccination) {
+//                    case ImsContract.PatientVaccinesEntry.TETANUS_D_T:
+//                        pvTypesOfVaccinationSpinner.setSelection(ImsContract.PatientVaccinesEntry.TETANUS_D_T);
+//                        break;
+//                    case ImsContract.PatientVaccinesEntry.TETANUS_D_T_A_P:
+//                        pvTypesOfVaccinationSpinner.setSelection(ImsContract.PatientVaccinesEntry.TETANUS_D_T_A_P);
+//                        break;
+//                    case ImsContract.PatientVaccinesEntry.TETANUS_T_D:
+//                        pvTypesOfVaccinationSpinner.setSelection(ImsContract.PatientVaccinesEntry.TETANUS_T_D);
+//                        break;
+//                    case ImsContract.PatientVaccinesEntry.TETANUS_T_DAP:
+//                        pvTypesOfVaccinationSpinner.setSelection(ImsContract.PatientVaccinesEntry.TETANUS_T_DAP);
+//                        break;
+//                    default:
+//                        pvTypesOfVaccinationSpinner.setSelection(ImsContract.PatientVaccinesEntry.TETANUS_UNKNOWN);
+//                }
+//                pvHistoryOfVaccinationTextView.setText(pvHistoryOfVaccination);
+//            }
+//        }
     }
 
     @Override
