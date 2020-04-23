@@ -149,8 +149,8 @@ public class ImsDbHelper extends SQLiteOpenHelper {
     // Create a String that contains the SQL statement to create the 'other patient vaccines' table
     private static final String SQL_CREATE_OTHER_PATIENT_VACCINES_TABLE = "CREATE TABLE IF NOT EXISTS " + OtherPatientVaccinesEntry.TABLE_NAME + " ("
             + OtherPatientVaccinesEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + OtherPatientVaccinesEntry.COLUMN_NAME_OF_VACCINATION + " INTEGER NOT NULL DEFAULT 0,"
-            + OtherPatientVaccinesEntry.COLUMN_HISTORY_OF_VACCINATION + " TEXT NOT NULL,"
+            + OtherPatientVaccinesEntry.COLUMN_NAME_OF_VACCINATION + " INTEGER NOT NULL DEFAULT 0, "
+            + OtherPatientVaccinesEntry.COLUMN_HISTORY_OF_VACCINATION + " TEXT NOT NULL, "
             + OtherPatientVaccinesEntry.COLUMN_PATIENT_ID + " INTEGER NOT NULL); ";
 
     // Create a String that contains the SQL statement to create the 'doctor diagnosis' table

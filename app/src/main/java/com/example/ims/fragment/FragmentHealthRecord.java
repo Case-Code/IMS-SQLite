@@ -536,6 +536,7 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
 
         // Name of vaccination
         if (ImsContract.OtherPatientVaccinesEntry.isValidNamesOfVaccination(pvNamesOfVaccination)) {
+            Log.i(getTag(), "Names of vaccination: " + pvNamesOfVaccination);
             values.put(ImsContract.OtherPatientVaccinesEntry.COLUMN_NAME_OF_VACCINATION, pvNamesOfVaccination);
             return;
         } else {
@@ -547,6 +548,7 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
             pvHistoryOfVaccinationTextView.setError("please write history Of Vaccination");
             return;
         } else {
+            Log.i(getTag(), "History of vaccination: " + historyOfVaccinationString);
             values.put(ImsContract.OtherPatientVaccinesEntry.COLUMN_HISTORY_OF_VACCINATION, historyOfVaccinationString);
         }
 
