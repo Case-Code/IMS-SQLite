@@ -137,9 +137,11 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
                 && TextUtils.isEmpty(pharmacyPhoneString)
                 && TextUtils.isEmpty(doctorsPhoneString)
                 && TextUtils.isEmpty(dateOfTheLastUpdateString)) {
-            hrCurrentPharmacyNameEditText.setError("Please write to current pharmacy name");
-            hrCurrentPhysicianNameEditText.setError("Please write to current physician name");
-            hrPharmacyPhoneEditText.setError("Please write to pharmacy phone");
+            hrCurrentPhysicianNameEditText.setError("please write current physician name");
+            hrCurrentPharmacyNameEditText.setError("please write current pharmacy name");
+            hrPharmacyPhoneEditText.setError("please write pharmacy phone");
+            hrDoctorsPhoneEditText.setError("please write doctors phone");
+            hrDateOfTheLastUpdateTextView.setError("please write date of the last update");
             return;
         }
 
@@ -211,16 +213,20 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
         String purposeString = capmPurposeEditText.getText().toString().trim();
 
         if (TextUtils.isEmpty(medicamentNameString)
+                && TextUtils.isEmpty(dosageString)
+                && TextUtils.isEmpty(freqString)
+                && TextUtils.isEmpty(startDateString)
+                && TextUtils.isEmpty(endDateString)
                 && TextUtils.isEmpty(physicianString)
                 && TextUtils.isEmpty(purposeString)
-                && TextUtils.isEmpty(freqString)
-                && TextUtils.isEmpty(endDateString)
-                && TextUtils.isEmpty(startDateString)
-                && TextUtils.isEmpty(dosageString)
         ) {
-            capmMedicamentNameEditText.setError("please write to medicament name");
-            capmPhysicianEditText.setError("please write medications physician");
-            capmPurposeEditText.setError("please write to purpose");
+            capmMedicamentNameEditText.setError("please write medicament name");
+            capmDosageEditText.setError("please write dosage");
+            capmFreqEditText.setError("please write FREQ.");
+            capmStartDateTextView.setError("please write start date");
+            capmEndDateTextView.setError("please write end date");
+            capmPhysicianEditText.setError("please write physician");
+            capmPurposeEditText.setError("please write purpose");
             return;
         }
 
@@ -305,6 +311,20 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
         String startDateString = miStartDateTextView.getText().toString().trim();
         String endDateString = miEndDateTextView.getText().toString().trim();
 
+        if (TextUtils.isEmpty(illnessString)
+                && TextUtils.isEmpty(physicianString)
+                && TextUtils.isEmpty(treatmentNotesString)
+                && TextUtils.isEmpty(startDateString)
+                && TextUtils.isEmpty(endDateString)
+        ) {
+            miIllnessEditText.setError("please write illness");
+            miPhysicianEditText.setError("please write physician");
+            miTreatmentNotesEditText.setError("please write treatment notes");
+            miStartDateTextView.setError("please write start date");
+            miEndDateTextView.setError("please write end date");
+            return;
+        }
+
         ContentValues values = new ContentValues();
 
         // Illness
@@ -369,6 +389,20 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
         String hospitalString = spHospitalEditText.getText().toString().trim();
         String dateString = spDateTextView.getText().toString().trim();
         String notesString = spNotesEditText.getText().toString().trim();
+
+        if (TextUtils.isEmpty(procedureString)
+                && TextUtils.isEmpty(physicianString)
+                && TextUtils.isEmpty(hospitalString)
+                && TextUtils.isEmpty(dateString)
+                && TextUtils.isEmpty(notesString)
+        ) {
+            spProcedureEditText.setError("please write Procedure");
+            spPhysicianEditText.setError("please write physician");
+            spHospitalEditText.setError("please write hospital");
+            spDateTextView.setError("please write date");
+            spNotesEditText.setError("please write note");
+            return;
+        }
 
         ContentValues values = new ContentValues();
 
@@ -437,11 +471,29 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
         String polioString = pvPolioTextView.getText().toString().trim();
         String historyOfVaccinationString = pvHistoryOfVaccinationTextView.getText().toString().trim();
 
+        if (TextUtils.isEmpty(tetanusString)
+                && TextUtils.isEmpty(influenzaVaccineString)
+                && TextUtils.isEmpty(zostavaxString)
+                && TextUtils.isEmpty(meningitisString)
+                && TextUtils.isEmpty(yellowFeverString)
+                && TextUtils.isEmpty(polioString)
+                && TextUtils.isEmpty(historyOfVaccinationString)
+        ) {
+            pvTetanusTextView.setError("please write to tetanus");
+            pvInfluenzaVaccineTextView.setError("please write influenza vaccine");
+            pvZostavaxTextView.setError("please write ZOSTAVAX");
+            pvMeningitisTextView.setError("please write meningitis");
+            pvYellowFeverTextView.setError("please write yellow Fever");
+            pvPolioTextView.setError("please write to polio");
+            pvHistoryOfVaccinationTextView.setError("please write history Of Vaccination");
+            return;
+        }
+
         ContentValues values = new ContentValues();
 
         // Tetanus
         if (TextUtils.isEmpty(tetanusString)) {
-            pvTetanusTextView.setError("please return  write to tetanus");
+            pvTetanusTextView.setError("please write tetanus");
             return;
         } else {
             values.put(ImsContract.PatientVaccinesEntry.COLUMN_TETANUS, tetanusString);
@@ -449,7 +501,7 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
 
         // Influenza vaccine
         if (TextUtils.isEmpty(influenzaVaccineString)) {
-            pvInfluenzaVaccineTextView.setError("please return  write to influenza vaccine");
+            pvInfluenzaVaccineTextView.setError("please write influenza vaccine");
             return;
         } else {
             values.put(ImsContract.PatientVaccinesEntry.COLUMN_INFLUENZA_VACCINE, influenzaVaccineString);
@@ -457,7 +509,7 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
 
         // ZOSTAVAX
         if (TextUtils.isEmpty(zostavaxString)) {
-            pvZostavaxTextView.setError("please return  write to ZOSTAVAX");
+            pvZostavaxTextView.setError("please write ZOSTAVAX");
             return;
         } else {
             values.put(ImsContract.PatientVaccinesEntry.COLUMN_ZOSTAVAX, zostavaxString);
@@ -465,7 +517,7 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
 
         // Meningitis
         if (TextUtils.isEmpty(meningitisString)) {
-            pvMeningitisTextView.setError("please return  write to meningitis");
+            pvMeningitisTextView.setError("please write meningitis");
             return;
         } else {
             values.put(ImsContract.PatientVaccinesEntry.COLUMN_MENINGITIS, meningitisString);
@@ -489,7 +541,6 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
 
         // Name of vaccination
         if (ImsContract.PatientVaccinesEntry.isValidTypesOfPatientVaccinesTetanus(pvTetanus)) {
-            values.put(ImsContract.PatientVaccinesEntry.COLUMN_NAME_OF_VACCINATION, pvTetanus);
             pvPolioTextView.setError("Choose name of vaccination");
             return;
         } else {
@@ -625,6 +676,7 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
         // initialization
         init();
 
+        // H.R. date of the last update
         hrDateOfTheLastUpdateTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -640,6 +692,7 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
             }
         });
 
+        // M.I. start date
         miStartDateTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -655,6 +708,7 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
             }
         });
 
+        // M.I. end date
         miEndDateTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -670,6 +724,7 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
             }
         });
 
+        // H.R. save
         hrSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -677,6 +732,7 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
             }
         });
 
+        // M.I. add
         miAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -684,6 +740,7 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
             }
         });
 
+        // C.A.P.M. start date
         capmStartDateTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -699,6 +756,7 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
             }
         });
 
+        // C.A.P.M. End date
         capmEndDateTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -714,6 +772,7 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
             }
         });
 
+        // C.A.P.M. save
         capmSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -722,6 +781,7 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
             }
         });
 
+        // S.P date
         spDateTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -734,9 +794,10 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
                     }
                 };
                 Utils.showDatePicker(getContext(), dateSetListener);
-
             }
         });
+
+        // S.P. add
         spAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -744,7 +805,7 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
             }
         });
 
-        //set date in PatientVaccines
+        // P.V. tetanus: date in patient vaccines
         pvTetanusTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -757,10 +818,10 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
                     }
                 };
                 Utils.showDatePicker(getContext(), dateSetListener);
-
             }
         });
 
+        // P.V. influenza vaccine: date in patient vaccines
         pvInfluenzaVaccineTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -773,10 +834,10 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
                     }
                 };
                 Utils.showDatePicker(getContext(), dateSetListener);
-
             }
         });
 
+        // P.V. ZOSTAVAX: date in patient vaccines
         pvZostavaxTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -789,9 +850,10 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
                     }
                 };
                 Utils.showDatePicker(getContext(), dateSetListener);
-
             }
         });
+
+        // P.V. meningitis: date in patient vaccines
         pvMeningitisTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -804,10 +866,10 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
                     }
                 };
                 Utils.showDatePicker(getContext(), dateSetListener);
-
             }
         });
 
+        // P.V. yellow fever: date in patient vaccines
         pvYellowFeverTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -824,6 +886,7 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
             }
         });
 
+        // P.V. polio: date in patient vaccines
         pvPolioTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -836,10 +899,10 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
                     }
                 };
                 Utils.showDatePicker(getContext(), dateSetListener);
-
             }
         });
 
+        // P.V. history of vaccination: date in patient vaccines
         pvHistoryOfVaccinationTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -852,10 +915,10 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
                     }
                 };
                 Utils.showDatePicker(getContext(), dateSetListener);
-
             }
         });
 
+        // P.V. add
         pvAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -864,7 +927,6 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
         });
 
         setupSpinnerTypesOfPatientVaccinesTetanus(getContext());
-
         return view;
     }
 
