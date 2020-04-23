@@ -944,7 +944,7 @@ if(id ==HR_LOADER) {
         );
     }else{
 
-        new CursorLoader(this.getActivity(),
+        return new CursorLoader(this.getActivity(),
                 mHealthRecordUri,
                 projection,
                 null,
@@ -979,7 +979,7 @@ if(id ==HR_LOADER) {
 
         );
     } else {
-        new CursorLoader(this.getActivity(),
+      return   new CursorLoader(this.getActivity(),
                 mHealthRecordUri,
                 projectionCAPM,
                 null,
@@ -1012,7 +1012,7 @@ else if(id==MI_LOADER){
         );
     }else{
 
-        new CursorLoader(this.getActivity(),
+      return   new CursorLoader(this.getActivity(),
                 mMajorIllnessesUri,
                 projection,
                 null,
@@ -1044,7 +1044,7 @@ else if(id==SP_LOADER){
         );
     }else{
 
-        new CursorLoader(this.getActivity(),
+     return    new CursorLoader(this.getActivity(),
                 mSurgicalProceduresUri,
                 projection,
                 null,
@@ -1080,7 +1080,7 @@ else if(id==PV_LOADER){
         );
     }else{
 
-        new CursorLoader(this.getActivity(),
+     return    new CursorLoader(this.getActivity(),
                 mPatientVaccinesUri,
                 projection,
                 null,
@@ -1090,7 +1090,6 @@ else if(id==PV_LOADER){
     }
 
 }
-return null;
 
 
 

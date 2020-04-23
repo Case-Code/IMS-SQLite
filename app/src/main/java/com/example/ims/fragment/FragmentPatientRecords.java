@@ -1,6 +1,7 @@
 package com.example.ims.fragment;
 
 import android.app.DatePickerDialog;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
@@ -52,8 +53,11 @@ public class FragmentPatientRecords extends Fragment implements LoaderManager.Lo
     ListView ReceptionFprPatientProgressListView;
         View view ;
 
-    public Uri mCurrentPatientUri;
+    public Uri mPatientRecordUri;
+    public Uri mPatientProgressUri;
     private PatientProgressCursorAdapter mPatientProgressCursorAdapter;
+    private static final int PR_LOADER=131;
+    private static final int PP_LOADER=132;
 
 
     public void init (){
@@ -125,8 +129,8 @@ public class FragmentPatientRecords extends Fragment implements LoaderManager.Lo
             return; } else { values.put(ImsContract.PatientProgressEntry.COLUMN_DATE , dateString);
         }
 
-        if (TextUtils.isEmpty(String.valueOf(idpatient))) {
-            return; } else { values.put(ImsContract.PatientProgressEntry.COLUMN_PATIENT_ID , idpatient); }
+        if (TextUtils.isEmpty(String.valueOf(mPatientId))) {
+            return; } else { values.put(ImsContract.PatientProgressEntry.COLUMN_PATIENT_ID , mPatientId); }
         Uri newUri =
                 getContext().getContentResolver().insert(ImsContract.PatientProgressEntry.CONTENT_URI, values);
         if (newUri == null) {
@@ -151,11 +155,11 @@ public class FragmentPatientRecords extends Fragment implements LoaderManager.Lo
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    int idpatient;
+    int mPatientId;
 
-    public FragmentPatientRecords(int id) {
+    public FragmentPatientRecords(int patientId) {
         // Required empty public constructor
-        this.idpatient=id;
+        this.mPatientId =patientId;
     }
     public FragmentPatientRecords() {}
 
@@ -284,57 +288,43 @@ return view;
     @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
-CursorLoader c=null;
-        String[] projection =
-                { ImsContract.PatientProgressEntry._ID,
-                        ImsContract.PatientProgressEntry.COLUMN_PROGRESS_NOTES,
-                        ImsContract.PatientProgressEntry.COLUMN_PATIENT_ID,};
+
+            if(id==PP_LOADER) {
+                CursorLoader c = null;
+                String[] projection =
+                        {       ImsContract.PatientProgressEntry.COLUMN_PROGRESS_NOTES,
+                                ImsContract.PatientProgressEntry.COLUMN_DATE,};
 
 
+                if (mPatientId > 0) {
+                    c = new CursorLoader(
+                            this.getActivity(),
+                            ImsContract.PatientProgressEntry.CONTENT_URI,
+                            projection,
+                            ImsContract.PatientProgressEntry.COLUMN_PATIENT_ID + " =" + mPatientId
+                            , null, null
+                    );
+                    return c;
+                } else {
+                    c = new CursorLoader(
+                            this.getActivity(),
+                            mPatientRecordUri,
+                            projection,
+                            null
+                            , null, null
+                    );
 
+                }
+            }
+            return null;
 
-
-
-       if(idpatient>0){
-        c= new CursorLoader(
-                this.getActivity(),
-                ImsContract.PatientProgressEntry.CONTENT_URI,
-                projection,
-                ImsContract.PatientProgressEntry.COLUMN_PATIENT_ID+" ="+idpatient
-                ,null,null
-        );
-        return c;
-      }
-       else {
-           c= new CursorLoader(
-                   this.getActivity(),
-                   mCurrentPatientUri,
-                   projection,
-                        null
-                   ,null,null
-           );
-
-           return c;
-       }
     }
 
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
 
-        if(mCurrentPatientUri==null){
+        if(mPatientRecordUri ==null){
             mPatientProgressCursorAdapter.swapCursor(data);
-       /* }else{
-            if(data==null||data.getCount()<1){
-                return;
-            }
-            if(data.moveToFirst()){
-                int patientIdColumnIndex = data.getColumnIndex(ImsContract.PatientProgressEntry.COLUMN_PATIENT_ID);
-                int textProgressColumnIndex = data.getColumnIndex(ImsContract.PatientProgressEntry.COLUMN_PROGRESS_NOTES);
-
-                String textProgress = data.getString(patientIdColumnIndex);
-                String patientId = data.getString(textProgressColumnIndex);
-
-            }*/
 
         }
 
@@ -343,7 +333,7 @@ CursorLoader c=null;
 
     @Override
     public void onLoaderReset(@NonNull Loader<Cursor> loader) {
-        if (mCurrentPatientUri == null) {
+        if (mPatientRecordUri == null) {
             mPatientProgressCursorAdapter.swapCursor(null);
         }
       /*  else{
@@ -356,7 +346,11 @@ CursorLoader c=null;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        getLoaderManager().initLoader(21, null,  this);
+
+        mPatientRecordUri=  ContentUris.withAppendedId(ImsContract.PatientRecordsEntry.CONTENT_URI, mPatientId);
+        mPatientProgressUri=ContentUris.withAppendedId(ImsContract.PatientProgressEntry.CONTENT_URI, mPatientId);
+        getLoaderManager().initLoader(PR_LOADER, null,  this);
+        getLoaderManager().initLoader(PP_LOADER, null,  this);
 
 
         super.onActivityCreated(savedInstanceState);
@@ -364,11 +358,4 @@ CursorLoader c=null;
 
 
 
-  /*  @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        LiveData<ImsContract.PatientRecordsEntry> pa = new MutableLiveData<ImsContract.PatientRecordsEntry>();
-        pa.observe(getViewLifecycleOwner(),);
-    }*/
 }
