@@ -290,23 +290,23 @@ return view;
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
 
             if(id==PP_LOADER) {
-                CursorLoader c = null;
+
                 String[] projection =
                         {       ImsContract.PatientProgressEntry.COLUMN_PROGRESS_NOTES,
                                 ImsContract.PatientProgressEntry.COLUMN_DATE,};
 
 
                 if (mPatientId > 0) {
-                    c = new CursorLoader(
+                    return new CursorLoader(
                             this.getActivity(),
                             ImsContract.PatientProgressEntry.CONTENT_URI,
                             projection,
                             ImsContract.PatientProgressEntry.COLUMN_PATIENT_ID + " =" + mPatientId
                             , null, null
                     );
-                    return c;
+
                 } else {
-                    c = new CursorLoader(
+                    return new CursorLoader(
                             this.getActivity(),
                             mPatientRecordUri,
                             projection,
