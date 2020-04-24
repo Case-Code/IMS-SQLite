@@ -109,7 +109,7 @@ public class FragmentInvoices extends Fragment implements LoaderManager.LoaderCa
         costEditText = view.findViewById(R.id.edit_invoices_cost);
         svcInvoicesButton=view.findViewById(R.id.button_invoices_save);
 
-        minvoicesListView = view.findViewById(R.id.list_invoices_svc);
+        invoicesListView = view.findViewById(R.id.list_invoices_svc);
 
         subtotalEditText = view.findViewById(R.id.edit_invoices_suptotal);
         taxRateEditText = view.findViewById(R.id.edit_invoices_taxrate);
@@ -173,7 +173,7 @@ public class FragmentInvoices extends Fragment implements LoaderManager.LoaderCa
         // minvoicesListView.setEmptyView(mEmptyInvoicesImageView);
 
         mInvoicesSvcCursorAdapter = new InvoicesCursorAdapter(this.getActivity(), null);
-        minvoicesListView.setAdapter(mInvoicesSvcCursorAdapter);
+        invoicesListView.setAdapter(mInvoicesSvcCursorAdapter);
 
 
         dateOfSvcTextView.setOnClickListener(new View.OnClickListener() {
