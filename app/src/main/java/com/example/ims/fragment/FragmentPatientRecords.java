@@ -83,6 +83,7 @@ public class FragmentPatientRecords extends Fragment implements LoaderManager.Lo
         String medicalRecordIdString= ReceptionFprMedicalRecordIdEditText.getText().toString().trim();
         String physicianSignatureString=  ReceptionFprPhysicanSignatureEditText.getText().toString().trim();
         String dateSignedString= ReceptionFprDateSignedTextView.getText().toString().trim();
+        String notAdd ="00/00/0000";
 
         String appointmentDateString=  ReceptionFprNextAppointmentDateTextView.getText().toString().trim();
         String treatmentPlanDateString=  ReceptionFprNextTreatmentPlanReviewDateTextView.getText().toString().trim();
@@ -97,14 +98,14 @@ public class FragmentPatientRecords extends Fragment implements LoaderManager.Lo
         if (TextUtils.isEmpty(physicianSignatureString)) {ReceptionFprPhysicanSignatureEditText.setError("please return write to physician Signature ");
             return; } else { values.put(ImsContract.PatientRecordsEntry.COLUMN_PHYSICIAN_SIGNATURE ,physicianSignatureString );
         }
-        if (TextUtils.isEmpty(dateSignedString)) {ReceptionFprNextAppointmentDateTextView.setError("please return write to date Signed ");
-            return; } else { values.put(ImsContract.PatientRecordsEntry.COLUMN_DATE_SIGNED , dateSignedString);
-        }
-        if (TextUtils.isEmpty(appointmentDateString)) {ReceptionFprNextAppointmentDateTextView.setError("please return write to appointment Date ");
+        if (appointmentDateString.equals(notAdd)) {ReceptionFprNextAppointmentDateTextView.setError("please return write to appointment Date ");
             return; } else { values.put(ImsContract.PatientRecordsEntry.COLUMN_NEXT_APPOINTMENT_DATE , appointmentDateString);
         }
-        if (TextUtils.isEmpty(treatmentPlanDateString)) {ReceptionFprNextTreatmentPlanReviewDateTextView.setError("please return write to  treatment Plan Date");
+        if (treatmentPlanDateString.equals(notAdd)) {ReceptionFprNextTreatmentPlanReviewDateTextView.setError("please return write to  treatment Plan Date");
             return; } else { values.put(ImsContract.PatientRecordsEntry.COLUMN_NEXT_TREATMENT_PLAN_REVIEW_DATE ,treatmentPlanDateString );
+        }
+        if (dateSignedString.equals(notAdd)) {ReceptionFprDateSignedTextView.setError("please return write to date Signed ");
+            return; } else { values.put(ImsContract.PatientRecordsEntry.COLUMN_DATE_SIGNED , dateSignedString);
         }
         Uri newUri =
                 getContext().getContentResolver().insert(ImsContract.PatientRecordsEntry.CONTENT_URI, values);
@@ -133,7 +134,7 @@ public class FragmentPatientRecords extends Fragment implements LoaderManager.Lo
             return; } else { values.put(ImsContract.PatientProgressEntry.COLUMN_PATIENT_ID , mPatientId); }
         Uri newUri =
                 getContext().getContentResolver().insert(ImsContract.PatientProgressEntry.CONTENT_URI, values);
-        if (newUri == null) {
+            if (newUri == null) {
             Toast.makeText(getContext(), getString(R.string.insert_progress_notes_failed), Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(getContext(), getString(R.string.insert_progress_notes_successful), Toast.LENGTH_SHORT).show();
@@ -200,8 +201,9 @@ public class FragmentPatientRecords extends Fragment implements LoaderManager.Lo
 
         view= inflater.inflate(R.layout.fragment_patient_records, container, false);
         init();
-            ReceptionFprPatientProgressListView.setAdapter(mPatientProgressCursorAdapter);
+        ReceptionFprPatientIdEditText.setText(String.valueOf(mPatientId));
 
+            ReceptionFprPatientProgressListView.setAdapter(mPatientProgressCursorAdapter);
 
         ReceptionFprNextAppointmentDateTextView .setOnClickListener(new View.OnClickListener() {
             @Override
@@ -288,13 +290,12 @@ return view;
     @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
-        CursorLoader c=null;
 
             if(id==PP_LOADER) {
 
-                String[] projection =
-                        { ImsContract.PatientProgressEntry.COLUMN_PROGRESS_NOTES,
-                          ImsContract.PatientProgressEntry.COLUMN_DATE,};
+                String[] projection ={ImsContract.PatientProgressEntry._ID,
+                                ImsContract.PatientProgressEntry.COLUMN_PROGRESS_NOTES,
+                           ImsContract.PatientProgressEntry.COLUMN_DATE,};
 
 
                 if (mPatientId > 0) {
@@ -309,7 +310,7 @@ return view;
                 } else {
                     return new CursorLoader(
                             this.getActivity(),
-                            mPatientRecordUri,
+                            mPatientProgressUri,
                             projection,
                             null
                             , null, null
@@ -317,39 +318,57 @@ return view;
 
                 }
 
+/*
             }else if(id==PR_LOADER){
-                return c;
+*/
             }
-            return c;
+            return null;
 
     }
 
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
+        int loaderId = loader.getId();
+            if(loaderId==PP_LOADER) {
+                if (mPatientProgressUri == null) {
+                    mPatientProgressCursorAdapter.swapCursor(data);
 
-        if(mPatientRecordUri ==null){
-            mPatientProgressCursorAdapter.swapCursor(data);
+                } else {
+                    if (data == null || data.getCount() < 1) {
+                        return;
+                    }
 
-        }else{
-            if (data == null || data.getCount() < 1) {
-                return;
+                }
+            }else if(loaderId==PR_LOADER){
+
+                if (mPatientRecordUri == null) {
+
+                } else {
+                    if (data == null || data.getCount() < 1) {
+                        return;
+                    }
+
+
+                }
+
             }
-
-        }
 
 
     }
 
     @Override
     public void onLoaderReset(@NonNull Loader<Cursor> loader) {
-        if (mPatientRecordUri == null) {
-            mPatientProgressCursorAdapter.swapCursor(null);
-        }
-      /*  else{
-            textProgressTextView.setText("");
-            textDateTextView.setText("");
+        int loaderId = loader.getId();
 
-        }*/
+        if(loaderId==PP_LOADER) {
+            if (mPatientProgressUri == null) {
+                mPatientProgressCursorAdapter.swapCursor(null);
+            }
+
+        }else if(loaderId==PR_LOADER){
+
+
+        }
 
     }
 
@@ -358,7 +377,7 @@ return view;
 
         mPatientRecordUri=  ContentUris.withAppendedId(ImsContract.PatientRecordsEntry.CONTENT_URI, mPatientId);
        // mPatientProgressUri=ContentUris.withAppendedId(ImsContract.PatientProgressEntry.CONTENT_URI, mPatientId);
-        getLoaderManager().initLoader(PR_LOADER, null,  this);
+//        getLoaderManager().initLoader(PR_LOADER, null,  this);
         getLoaderManager().initLoader(PP_LOADER, null,  this);
 
 

@@ -62,7 +62,7 @@ public class ImsDbHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_PATIENT_PROGRESS_TABLE = "CREATE TABLE IF NOT EXISTS " + PatientProgressEntry.TABLE_NAME + " ("
             + PatientProgressEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + PatientProgressEntry.COLUMN_PROGRESS_NOTES + " TEXT NOT NULL, "
-            + PatientProgressEntry.COLUMN_DATE + "TEXT NOT NULL ,"
+            + PatientProgressEntry.COLUMN_DATE + " TEXT NOT NULL,"
             + PatientProgressEntry.COLUMN_PATIENT_ID + " INTEGER NOT NULL); ";
 
     // Create a String that contains the SQL statement to create the 'invoices' table

@@ -801,7 +801,6 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
     @Override
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
 
-        CursorLoader c = null;
 
         if (id == HR_LOADER) {
             String[] projection = {

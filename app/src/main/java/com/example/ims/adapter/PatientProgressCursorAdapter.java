@@ -28,17 +28,17 @@ public class PatientProgressCursorAdapter extends CursorAdapter {
     public void bindView(View view, Context context, Cursor cursor) {
         TextView textProgressTextView = view.findViewById(R.id.text_progress_notes);
         TextView textDateTextView = view.findViewById(R.id.text_date);
-       // int id = cursor.getColumnIndex(ImsContract.PatientProgressEntry._ID);
 
+
+        int id = cursor.getColumnIndex(ImsContract.PatientProgressEntry._ID);
         int textProgressColumnIndex = cursor.getColumnIndex(ImsContract.PatientProgressEntry.COLUMN_PROGRESS_NOTES);
         int dateColumnIndex = cursor.getColumnIndex(ImsContract.PatientProgressEntry.COLUMN_DATE);
-     //   String stringid = cursor.getString(id);
 
         String textProgress = cursor.getString(textProgressColumnIndex);
         String date = cursor.getString(dateColumnIndex);
 
         textProgressTextView.setText(textProgress);
-        textDateTextView.setText(dateColumnIndex);
+        textDateTextView.setText(date);
 
 
     }

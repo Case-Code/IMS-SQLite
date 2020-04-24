@@ -602,17 +602,18 @@ public class ImsProvider extends ContentProvider {
     private Uri insertPatientRecords(Uri uri, ContentValues values) {
 
         // Bill to name
-        String billToName = values.getAsString(PatientRecordsEntry.COLUMN_BILL_TO_NAME);
+       /* String billToName = values.getAsString(PatientRecordsEntry.COLUMN_BILL_TO_NAME);
         if (billToName == null) {
             throw new IllegalArgumentException("Patient records requires a bill to name");
-        }
+
+        }*/
 
         // Date of birth
-        String dateOfBirth = values.getAsString(PatientRecordsEntry.COLUMN_DATE_OF_BIRTH);
+      /*  String dateOfBirth = values.getAsString(PatientRecordsEntry.COLUMN_DATE_OF_BIRTH);
         if (dateOfBirth == null) {
             throw new IllegalArgumentException("Patient records requires a date of birth");
-        }
-
+        }*/
+/*
         // Medical record id
         Integer medicalRecordId = values.getAsInteger(PatientRecordsEntry.COLUMN_MEDICAL_RECORD_ID);
         if (medicalRecordId == null) {
@@ -623,9 +624,9 @@ public class ImsProvider extends ContentProvider {
         String nextAppointmentDate = values.getAsString(PatientRecordsEntry.COLUMN_NEXT_APPOINTMENT_DATE);
         if (nextAppointmentDate == null) {
             throw new IllegalArgumentException("Patient records requires a next appointment date");
-        }
+        }*/
 
-        // Next treatment plan review date
+      /*  // Next treatment plan review date
         String nextTreatmentPlanReviewDate = values.getAsString(PatientRecordsEntry.COLUMN_NEXT_TREATMENT_PLAN_REVIEW_DATE);
         if (nextTreatmentPlanReviewDate == null) {
             throw new IllegalArgumentException("Patient records requires a next treatment plan review date");
@@ -635,19 +636,19 @@ public class ImsProvider extends ContentProvider {
         String physicianSignature = values.getAsString(PatientRecordsEntry.COLUMN_PHYSICIAN_SIGNATURE);
         if (physicianSignature == null) {
             throw new IllegalArgumentException("Patient records requires a physician signature");
-        }
+        }*/
 
         // Date signed
-        String dateSigned = values.getAsString(PatientRecordsEntry.COLUMN_DATE_SIGNED);
+      /*  String dateSigned = values.getAsString(PatientRecordsEntry.COLUMN_DATE_SIGNED);
         if (dateSigned == null) {
             throw new IllegalArgumentException("Patient records requires a date signed");
         }
-
+*/
         // X-ray image
-        String xRayImage = values.getAsString(PatientRecordsEntry.COLUMN_X_RAY_IMAGE);
+       /* String xRayImage = values.getAsString(PatientRecordsEntry.COLUMN_X_RAY_IMAGE);
         if (xRayImage == null) {
             throw new IllegalArgumentException("Patient records requires a x-ray image");
-        }
+        }*/
 
         // Patient id
         Integer patientId = values.getAsInteger(PatientRecordsEntry.COLUMN_PATIENT_ID);
