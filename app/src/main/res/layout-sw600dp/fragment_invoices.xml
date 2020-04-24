@@ -44,7 +44,7 @@
                         android:textColor="@color/primaryText" />
 
                     <TextView
-                        android:id="@+id/text_patient_id"
+                        android:id="@+id/text_invoices_patientId"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
@@ -65,7 +65,7 @@
                             android:text="DATE OF SVC:" />
 
                         <TextView
-                            android:id="@+id/text_invoices_data_of_svc"
+                            android:id="@+id/text_invoices_dateOfSvc"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -89,7 +89,7 @@
                             android:text="INVOICE DATE:" />
 
                         <TextView
-                            android:id="@+id/text_invoice_date"
+                            android:id="@+id/text_invoices_invoiceDate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -112,7 +112,7 @@
                             android:text="DATE DUE:" />
 
                         <TextView
-                            android:id="@+id/text_invoices_date_due"
+                            android:id="@+id/text_invoices_dateDue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -125,6 +125,7 @@
                 </LinearLayout>
 
                 <ImageView
+                    android:id="@+id/imageview_invoices_photo"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="5dp"
@@ -195,7 +196,7 @@
                                 android:inputType="phone" />
 
                             <EditText
-                                android:id="@+id/edit_invoices_bill_to_fax"
+                                android:id="@+id/edit_invoices_billtoix"
                                 android:layout_width="176dp"
                                 android:layout_height="match_parent"
                                 android:layout_marginLeft="5dp"
@@ -214,7 +215,7 @@
                         android:orientation="vertical">
 
                         <EditText
-                            android:id="@+id/edit_invoices_bill_to_address"
+                            android:id="@+id/edit_invoices_billtoadress"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ems="10"
@@ -222,7 +223,7 @@
                             android:inputType="textPersonName" />
 
                         <EditText
-                            android:id="@+id/edit_invoices_bill_to_email"
+                            android:id="@+id/edit_invoices_billtoemail"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -259,7 +260,7 @@
                         android:inputType="textPersonName" />
 
                     <EditText
-                        android:id="@+id/edit_invoices_medicalservis"
+                        android:id="@+id/edit_invoices_medicalservices"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -268,7 +269,7 @@
                         android:inputType="textPersonName" />
 
                     <EditText
-                        android:id="@+id/edit_invoices_medication"
+                        android:id="@+id/edit_invoices_mediction"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -286,7 +287,7 @@
                         android:inputType="textPersonName" />
 
                     <Button
-                        android:id="@+id/button_billtosave"
+                        android:id="@+id/button_invoices_add"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
@@ -313,7 +314,7 @@
                     android:orientation="horizontal">
 
                     <EditText
-                        android:id="@+id/edit_invoices_sub_total"
+                        android:id="@+id/edit_invoices_suptotal"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -322,7 +323,7 @@
                         android:inputType="number" />
 
                     <EditText
-                        android:id="@+id/edit_invoices_tex_rate"
+                        android:id="@+id/edit_invoices_taxrate"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -331,7 +332,7 @@
                         android:inputType="number" />
 
                     <EditText
-                        android:id="@+id/edit_invoices_total_tax"
+                        android:id="@+id/edit_invoices_totaltax"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -391,7 +392,7 @@
                         android:orientation="vertical">
 
                         <EditText
-                            android:id="@+id/edit_invoices_questions_name"
+                            android:id="@+id/edit_invoices_questionsname"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ems="10"
@@ -399,7 +400,7 @@
                             android:inputType="textPersonName" />
 
                         <EditText
-                            android:id="@+id/edit_invoices_questions_phone"
+                            android:id="@+id/edit_invoices_questionsphone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ems="10"
@@ -416,7 +417,7 @@
                         android:orientation="vertical">
 
                         <EditText
-                            android:id="@+id/edit_invoices_questions_email"
+                            android:id="@+id/edit_invoices_questionsemail"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ems="10"
@@ -424,7 +425,7 @@
                             android:inputType="textPersonName" />
 
                         <EditText
-                            android:id="@+id/edit_invoices_questions_web"
+                            android:id="@+id/edit_invoices_questionsweb"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"

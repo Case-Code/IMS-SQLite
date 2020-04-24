@@ -41,6 +41,7 @@ public class FragmentInvoices extends Fragment implements LoaderManager.LoaderCa
     private static final String ARG_PARAM2 = "param2";
 
     Button saveInvoicesButton;
+    Button svcInvoicesButton;
 
 
     public TextView patientIdTextView;
@@ -89,38 +90,42 @@ public class FragmentInvoices extends Fragment implements LoaderManager.LoaderCa
 
     public void init() {
 
-        minvoicesListView = view.findViewById(R.id.list_invoices_svc);
         //  mEmptyInvoicesImageView=view.findViewById(R.id.image_empty_invoice);
-        saveInvoicesButton = view.findViewById(R.id.button_invoices_save);
         //    svcAddButton = view.findViewById(R.id.button_svcadd);
 
-        patientIdTextView = view.findViewById(R.id.text_patient_id);
-        dateOfSvcTextView = view.findViewById(R.id.text_invoices_data_of_svc);
-        invoiceDateTextView = view.findViewById(R.id.text_invoice_date);
-        dateDueTextView = view.findViewById(R.id.text_invoices_date_due);
+        patientIdTextView = view.findViewById(R.id.text_invoices_patientId);
+        dateOfSvcTextView = view.findViewById(R.id.text_invoices_dateOfSvc);
+        invoiceDateTextView = view.findViewById(R.id.text_invoices_invoiceDate);
+        dateDueTextView = view.findViewById(R.id.text_invoices_dateDue);
 
         billNameEditText = view.findViewById(R.id.edit_invoices_billtoname);
         billPhoneEditText = view.findViewById(R.id.edit_invoices_billtophone);
-        billAddressEditText = view.findViewById(R.id.edit_invoices_bill_to_address);
-        billFixEditText = view.findViewById(R.id.edit_invoices_bill_to_fax);
-        billEmailEditText = view.findViewById(R.id.edit_invoices_bill_to_email);
+        billFixEditText = view.findViewById(R.id.edit_invoices_billtoix);
+        billAddressEditText = view.findViewById(R.id.edit_invoices_billtoadress);
+        billEmailEditText = view.findViewById(R.id.edit_invoices_billtoemail);
 
         svcIdEditText = view.findViewById(R.id.edit_invoices_svcid);
-        medicalServicesEditText = view.findViewById(R.id.edit_invoices_medicalservis);
-        medicationEditText = view.findViewById(R.id.edit_invoices_medication);
+        medicalServicesEditText = view.findViewById(R.id.edit_invoices_medicalservices);
+        medicationEditText = view.findViewById(R.id.edit_invoices_mediction);
         costEditText = view.findViewById(R.id.edit_invoices_cost);
+        svcInvoicesButton=view.findViewById(R.id.button_invoices_save);
 
-        subtotalEditText = view.findViewById(R.id.edit_invoices_sub_total);
-        taxRateEditText = view.findViewById(R.id.edit_invoices_tex_rate);
-        totalTaxEditText = view.findViewById(R.id.edit_invoices_total_tax);
+        minvoicesListView = view.findViewById(R.id.list_invoices_svc);
+
+        subtotalEditText = view.findViewById(R.id.edit_invoices_suptotal);
+        taxRateEditText = view.findViewById(R.id.edit_invoices_taxrate);
+        totalTaxEditText = view.findViewById(R.id.edit_invoices_totaltax);
         otherEditText = view.findViewById(R.id.edit_invoices_other);
         totalEditText = view.findViewById(R.id.edit_invoices_total);
 
-        questionsNameEditText = view.findViewById(R.id.edit_invoices_questions_name);
-        questionEmailEditText = view.findViewById(R.id.edit_invoices_questions_email);
-        questionsPhoneEditText = view.findViewById(R.id.edit_invoices_questions_phone);
-        questionsWebEditText = view.findViewById(R.id.edit_invoices_questions_web);
+        questionsNameEditText = view.findViewById(R.id.edit_invoices_questionsname);
+        questionsPhoneEditText = view.findViewById(R.id.edit_invoices_questionsphone);
+        questionEmailEditText = view.findViewById(R.id.edit_invoices_questionsemail);
+        questionsWebEditText = view.findViewById(R.id.edit_invoices_questionsweb);
+
         procedureEditText = view.findViewById(R.id.edit_invoices_procedure);
+
+        saveInvoicesButton = view.findViewById(R.id.button_invoices_save);
     }
 
     public FragmentInvoices(int patientId) {
