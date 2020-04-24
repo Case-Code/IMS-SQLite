@@ -73,7 +73,7 @@ public class FragmentInvoices extends Fragment implements LoaderManager.LoaderCa
     ContentValues mValues;
 
      Uri mCurrentPatientInvoicesUri;
-     ListView minvoicesListView;
+    private ListView invoicesListView;
 
 
     private InvoicesCursorAdapter mInvoicesSvcCursorAdapter;
