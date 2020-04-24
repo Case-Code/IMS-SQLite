@@ -19,7 +19,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.loader.app.LoaderManager;
@@ -27,7 +26,6 @@ import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
 
 import com.example.ims.R;
-import com.example.ims.ReceptionActivity;
 import com.example.ims.adapter.FragmentInvoicesCursorAdapter;
 import com.example.ims.adapter.InvoicesCursorAdapter;
 import com.example.ims.data.ImsContract;
@@ -40,41 +38,42 @@ public class FragmentInvoices extends Fragment implements LoaderManager.LoaderCa
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    Button saveInvoicesButton;
-    Button svcInvoicesButton;
+    private Button saveInvoicesButton;
+    private Button svcInvoicesButton;
 
 
-    public TextView patientIdTextView;
-    TextView dateOfSvcTextView;
-    TextView invoiceDateTextView;
-    TextView dateDueTextView;
+    private TextView patientIdTextView;
+    private TextView dateOfSvcTextView;
+    private TextView invoiceDateTextView;
+    private TextView dateDueTextView;
 
-    public EditText billNameEditText;
-    EditText billPhoneEditText;
-    EditText billAddressEditText;
-    EditText billFixEditText;
-    EditText billEmailEditText;
-    EditText svcIdEditText;
-    EditText medicalServicesEditText;
-    EditText medicationEditText;
-    EditText costEditText;
-    EditText subtotalEditText;
-    EditText taxRateEditText;
-    EditText totalTaxEditText;
-    EditText otherEditText;
-    EditText totalEditText;
-    EditText questionsNameEditText;
-    EditText questionEmailEditText;
-    EditText questionsPhoneEditText;
-    EditText questionsWebEditText;
-    EditText procedureEditText;
-    private ImageView mEmptyInvoicesImageView;
+    private EditText billNameEditText;
+    private EditText billPhoneEditText;
+    private EditText billAddressEditText;
+    private EditText billFixEditText;
+    private EditText billEmailEditText;
+    private  EditText svcIdEditText;
+    private EditText medicalServicesEditText;
+    private EditText medicationEditText;
+    private EditText costEditText;
+    private EditText subtotalEditText;
+    private EditText taxRateEditText;
+    private EditText totalTaxEditText;
+    private EditText otherEditText;
+    private  EditText totalEditText;
+    private EditText questionsNameEditText;
+    private EditText questionEmailEditText;
+    private EditText questionsPhoneEditText;
+    private EditText questionsWebEditText;
+    private EditText procedureEditText;
+
+     ImageView mEmptyInvoicesImageView;
 
 
-    ContentValues values;
+    ContentValues mValues;
 
-    private Uri mCurrentPatientInvoicesUri;
-    public ListView minvoicesListView;
+     Uri mCurrentPatientInvoicesUri;
+     ListView minvoicesListView;
 
 
     private InvoicesCursorAdapter mInvoicesSvcCursorAdapter;
@@ -226,7 +225,7 @@ public class FragmentInvoices extends Fragment implements LoaderManager.LoaderCa
         saveInvoicesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                values = new ContentValues();
+                mValues = new ContentValues();
                 totalSave();
                 svcSave();
                 questionsSend();
@@ -235,10 +234,10 @@ public class FragmentInvoices extends Fragment implements LoaderManager.LoaderCa
                 billToSave();
                 saveDate();
 
-                Log.e("dsa", "data::::" + values);
+                Log.e("dsa", "data::::" + mValues);
 
                 Uri newUri =
-                        getContext().getContentResolver().insert(ImsContract.InvoicesEntry.CONTENT_URI, values);
+                        getContext().getContentResolver().insert(ImsContract.InvoicesEntry.CONTENT_URI, mValues);
                 if (newUri == null) {
                     Toast.makeText(getContext(), getString(R.string.editor_insert_patient_failed), Toast.LENGTH_SHORT).show();
                 } else {
@@ -274,22 +273,22 @@ public class FragmentInvoices extends Fragment implements LoaderManager.LoaderCa
         if (TextUtils.isEmpty(patientIdString)) {
             Toast.makeText(getContext(), "First name is required", Toast.LENGTH_SHORT).show();
         } else {
-            values.put(ImsContract.InvoicesEntry.COLUMN_PATIENT_ID, patientIdString);
+            mValues.put(ImsContract.InvoicesEntry.COLUMN_PATIENT_ID, patientIdString);
         }
         if (TextUtils.isEmpty(dateOfSvcString)) {
             Toast.makeText(getContext(), "First name is required", Toast.LENGTH_SHORT).show();
         } else {
-            values.put(ImsContract.InvoicesEntry.COLUMN_DATE_OF_SVC, dateOfSvcString);
+            mValues.put(ImsContract.InvoicesEntry.COLUMN_DATE_OF_SVC, dateOfSvcString);
         }
         if (TextUtils.isEmpty(invoiceDateString)) {
             Toast.makeText(getContext(), "First name is required", Toast.LENGTH_SHORT).show();
         } else {
-            values.put(ImsContract.InvoicesEntry.COLUMN_INVOICE_DATE, invoiceDateString);
+            mValues.put(ImsContract.InvoicesEntry.COLUMN_INVOICE_DATE, invoiceDateString);
         }
         if (TextUtils.isEmpty(dataOfDueString)) {
             Toast.makeText(getContext(), "First name is required", Toast.LENGTH_SHORT).show();
         } else {
-            values.put(ImsContract.InvoicesEntry.COLUMN_DATE_DUE, dataOfDueString);
+            mValues.put(ImsContract.InvoicesEntry.COLUMN_DATE_DUE, dataOfDueString);
         }
 
 
@@ -320,27 +319,27 @@ public class FragmentInvoices extends Fragment implements LoaderManager.LoaderCa
         if (TextUtils.isEmpty(billNameString)) {
             Toast.makeText(getContext(), "First name is required", Toast.LENGTH_SHORT).show();
         } else {
-            values.put(ImsContract.InvoicesEntry.COLUMN_BILL_TO_NAME, billNameString);
+            mValues.put(ImsContract.InvoicesEntry.COLUMN_BILL_TO_NAME, billNameString);
         }
         if (TextUtils.isEmpty(billAddressString)) {
             Toast.makeText(getContext(), "COLUMN_BILL_TO_ADDRESS is required", Toast.LENGTH_SHORT).show();
         } else {
-            values.put(ImsContract.InvoicesEntry.COLUMN_BILL_TO_ADDRESS, billAddressString);
+            mValues.put(ImsContract.InvoicesEntry.COLUMN_BILL_TO_ADDRESS, billAddressString);
         }
         if (TextUtils.isEmpty(billEmailString)) {
             Toast.makeText(getContext(), "COLUMN_BILL_TO_EMAIL is required", Toast.LENGTH_SHORT).show();
         } else {
-            values.put(ImsContract.InvoicesEntry.COLUMN_BILL_TO_EMAIL, billEmailString);
+            mValues.put(ImsContract.InvoicesEntry.COLUMN_BILL_TO_EMAIL, billEmailString);
         }
         if (TextUtils.isEmpty(billPhoneString)) {
             Toast.makeText(getContext(), "COLUMN_BILL_TO_PHONE is required", Toast.LENGTH_SHORT).show();
         } else {
-            values.put(ImsContract.InvoicesEntry.COLUMN_BILL_TO_PHONE, billPhoneString);
+            mValues.put(ImsContract.InvoicesEntry.COLUMN_BILL_TO_PHONE, billPhoneString);
         }
         if (TextUtils.isEmpty(billFaxString)) {
             Toast.makeText(getContext(), "COLUMN_BILL_TO_FAX is required", Toast.LENGTH_SHORT).show();
         } else {
-            values.put(ImsContract.InvoicesEntry.COLUMN_BILL_TO_FAX, billFaxString);
+            mValues.put(ImsContract.InvoicesEntry.COLUMN_BILL_TO_FAX, billFaxString);
         }
 
 
@@ -367,22 +366,22 @@ public class FragmentInvoices extends Fragment implements LoaderManager.LoaderCa
         if (TextUtils.isEmpty(svcIdString)) {
             Toast.makeText(getContext(), "First name is required", Toast.LENGTH_SHORT).show();
         } else {
-            values.put(ImsContract.InvoicesEntry.COLUMN_SVC_ID, svcIdString);
+            mValues.put(ImsContract.InvoicesEntry.COLUMN_SVC_ID, svcIdString);
         }
         if (TextUtils.isEmpty(medicalServiceString)) {
             Toast.makeText(getContext(), "First name is required", Toast.LENGTH_SHORT).show();
         } else {
-            values.put(ImsContract.InvoicesEntry.COLUMN_MEDICAL_SERVICES, medicalServiceString);
+            mValues.put(ImsContract.InvoicesEntry.COLUMN_MEDICAL_SERVICES, medicalServiceString);
         }
         if (TextUtils.isEmpty(medicationString)) {
             Toast.makeText(getContext(), "First name is required", Toast.LENGTH_SHORT).show();
         } else {
-            values.put(ImsContract.InvoicesEntry.COLUMN_MEDICATION, medicationString);
+            mValues.put(ImsContract.InvoicesEntry.COLUMN_MEDICATION, medicationString);
         }
         if (TextUtils.isEmpty(costString)) {
             Toast.makeText(getContext(), "First name is required", Toast.LENGTH_SHORT).show();
         } else {
-            values.put(ImsContract.InvoicesEntry.COLUMN_COST, costString);
+            mValues.put(ImsContract.InvoicesEntry.COLUMN_COST, costString);
         }
 
 
@@ -410,27 +409,27 @@ public class FragmentInvoices extends Fragment implements LoaderManager.LoaderCa
         if (TextUtils.isEmpty(subTotalString)) {
             Toast.makeText(getContext(), "First name is required", Toast.LENGTH_SHORT).show();
         } else {
-            values.put(ImsContract.InvoicesEntry.COLUMN_SUBTOTAL, subTotalString);
+            mValues.put(ImsContract.InvoicesEntry.COLUMN_SUBTOTAL, subTotalString);
         }
         if (TextUtils.isEmpty(taxRateString)) {
             Toast.makeText(getContext(), "First name is required", Toast.LENGTH_SHORT).show();
         } else {
-            values.put(ImsContract.InvoicesEntry.COLUMN_TAX_RATE, taxRateString);
+            mValues.put(ImsContract.InvoicesEntry.COLUMN_TAX_RATE, taxRateString);
         }
         if (TextUtils.isEmpty(totalTaxString)) {
             Toast.makeText(getContext(), "First name is required", Toast.LENGTH_SHORT).show();
         } else {
-            values.put(ImsContract.InvoicesEntry.COLUMN_TOTAL_TAX, totalTaxString);
+            mValues.put(ImsContract.InvoicesEntry.COLUMN_TOTAL_TAX, totalTaxString);
         }
         if (TextUtils.isEmpty(otherString)) {
             Toast.makeText(getContext(), "First name is required", Toast.LENGTH_SHORT).show();
         } else {
-            values.put(ImsContract.InvoicesEntry.COLUMN_OTHER, otherString);
+            mValues.put(ImsContract.InvoicesEntry.COLUMN_OTHER, otherString);
         }
         if (TextUtils.isEmpty(totalString)) {
             Toast.makeText(getContext(), "First name is required", Toast.LENGTH_SHORT).show();
         } else {
-            values.put(ImsContract.InvoicesEntry.COLUMN_TOTAL, totalString);
+            mValues.put(ImsContract.InvoicesEntry.COLUMN_TOTAL, totalString);
         }
 
     }
@@ -454,27 +453,27 @@ public class FragmentInvoices extends Fragment implements LoaderManager.LoaderCa
         if (TextUtils.isEmpty(questionsNameString)) {
             Toast.makeText(getContext(), "First name is required", Toast.LENGTH_SHORT).show();
         } else {
-            values.put(ImsContract.InvoicesEntry.COLUMN_QUESTIONS_NAME, questionsNameString);
+            mValues.put(ImsContract.InvoicesEntry.COLUMN_QUESTIONS_NAME, questionsNameString);
         }
         if (TextUtils.isEmpty(questionsPhoneString)) {
             Toast.makeText(getContext(), "First name is required", Toast.LENGTH_SHORT).show();
         } else {
-            values.put(ImsContract.InvoicesEntry.COLUMN_QUESTIONS_PHONE, questionsPhoneString);
+            mValues.put(ImsContract.InvoicesEntry.COLUMN_QUESTIONS_PHONE, questionsPhoneString);
         }
         if (TextUtils.isEmpty(questionsEmailString)) {
             Toast.makeText(getContext(), "First name is required", Toast.LENGTH_SHORT).show();
         } else {
-            values.put(ImsContract.InvoicesEntry.COLUMN_QUESTIONS_EMAIL, questionsEmailString);
+            mValues.put(ImsContract.InvoicesEntry.COLUMN_QUESTIONS_EMAIL, questionsEmailString);
         }
         if (TextUtils.isEmpty(questionsWebString)) {
             Toast.makeText(getContext(), "First name is required", Toast.LENGTH_SHORT).show();
         } else {
-            values.put(ImsContract.InvoicesEntry.COLUMN_QUESTIONS_WEB, questionsWebString);
+            mValues.put(ImsContract.InvoicesEntry.COLUMN_QUESTIONS_WEB, questionsWebString);
         }
         if (TextUtils.isEmpty(procedureString)) {
             Toast.makeText(getContext(), "First name is required", Toast.LENGTH_SHORT).show();
         } else {
-            values.put(ImsContract.InvoicesEntry.COLUMN_PROCEDURE, procedureString);
+            mValues.put(ImsContract.InvoicesEntry.COLUMN_PROCEDURE, procedureString);
         }
 
     }
