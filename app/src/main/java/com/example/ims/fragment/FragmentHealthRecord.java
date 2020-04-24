@@ -31,6 +31,7 @@ import androidx.loader.content.Loader;
 
 import com.example.ims.R;
 import com.example.ims.adapter.MajorIllnessesCursorAdapter;
+import com.example.ims.adapter.PatientVaccinesCursorAdapter;
 import com.example.ims.adapter.SurgicalProceduresCursorAdapter;
 import com.example.ims.data.ImsContract;
 import com.example.logutil.Utils;
@@ -102,6 +103,7 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
 
     MajorIllnessesCursorAdapter mMajorIllnessesCursorAdapter;
     SurgicalProceduresCursorAdapter mSurgicalProceduresCursorAdapter;
+    PatientVaccinesCursorAdapter mPatientVaccinesCursorAdapter;
 
     // ContentValues values;
     View view;
@@ -625,13 +627,17 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_health_record, container, false);
         init();
-        //add items a MajorIllnesses in item
+        //add items a MajorIllnesses in list View
         mMajorIllnessesCursorAdapter = new MajorIllnessesCursorAdapter(getActivity() ,null);
         majorIllnessesListView.setAdapter(mMajorIllnessesCursorAdapter);
 
+        //add items a surgical procedures  in listView
         mSurgicalProceduresCursorAdapter=new SurgicalProceduresCursorAdapter(getActivity() ,null);
         surgicalProceduresListView.setAdapter(mSurgicalProceduresCursorAdapter);
 
+        //add items a Patient vaccines  in listView
+        mPatientVaccinesCursorAdapter = new PatientVaccinesCursorAdapter(getActivity() ,null);
+            patientVaccinesListView.setAdapter(mPatientVaccinesCursorAdapter);
         // initialization
 
         // H.R. date of the last update
@@ -919,6 +925,7 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
 
         } else if (id == PV_LOADER) {
             String[] projection = {
+                    ImsContract.PatientVaccinesEntry._ID,
                     ImsContract.PatientVaccinesEntry.COLUMN_NAME_OF_VACCINATION,
                     ImsContract.PatientVaccinesEntry.COLUMN_HISTORY_OF_VACCINATION
 
@@ -1036,34 +1043,7 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
                     return;
                 }
                 if (data.moveToFirst()) {
-                    //get data all
 
-/*
-                    //get row  Major illnesses
-                    int
-                            miIllnessColumnIndex =
-                            data.getColumnIndex(ImsContract.MajorIllnessesEntry.COLUMN_ILLNESS);
-                    int
-                            miStartDateColumnIndex =
-                            data.getColumnIndex(ImsContract.MajorIllnessesEntry.COLUMN_START_DATE);
-                    int
-                            miEndDateColumnIndex =
-                            data.getColumnIndex(ImsContract.MajorIllnessesEntry.COLUMN_END_DATE);
-                    int
-                            miPhysicianColumnIndex =
-                            data.getColumnIndex(ImsContract.MajorIllnessesEntry.COLUMN_PHYSICIAN);
-
-
-                    String miIllness = data.getString(miIllnessColumnIndex);
-                    String miStartDate = data.getString(miStartDateColumnIndex);
-                    String miEndDate = data.getString(miEndDateColumnIndex);
-                    String miPhysician = data.getString(miPhysicianColumnIndex);
-
-
-                    miIllnessEditText.setText(miIllness);
-                    miStartDateTextView.setText(miStartDate);
-                    miEndDateTextView.setText(miEndDate);
-                    miPhysicianEditText.setText(miPhysician);*/
                 }
             }
 
@@ -1076,97 +1056,24 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
                     return;
                 }
 
-                if (data.moveToFirst()) {
-                    //get data all
 
-/*
-                    //get row Surgical procedures
-                    int
-                            spProcedureColumnIndex =
-                            data.getColumnIndex(ImsContract.SurgicalProceduresEntry.COLUMN_PROCEDURE);
-                    int
-                            spPhysicianColumnIndex =
-                            data.getColumnIndex(ImsContract.SurgicalProceduresEntry.COLUMN_PHYSICIAN);
-                    int
-                            spHospitalColumnIndex =
-                            data.getColumnIndex(ImsContract.SurgicalProceduresEntry.COLUMN_HOSPITAL);
-                    int
-                            spDateColumnIndex =
-                            data.getColumnIndex(ImsContract.SurgicalProceduresEntry.COLUMN_DATE_SURGICAL_PROCEDURES);
-                    int
-                            spNotesEColumnIndex =
-                            data.getColumnIndex(ImsContract.SurgicalProceduresEntry.COLUMN_NOTES);
-
-                    String spProcedure = data.getString(spProcedureColumnIndex);
-                    String spPhysician = data.getString(spPhysicianColumnIndex);
-                    String spHospital = data.getString(spHospitalColumnIndex);
-                    String spDate = data.getString(spDateColumnIndex);
-                    String spNotesE = data.getString(spNotesEColumnIndex);
-
-                    spProcedureEditText.setText(spProcedure);
-                    spPhysicianEditText.setText(spPhysician);
-                    spHospitalEditText.setText(spHospital);
-                    spDateTextView.setText(spDate);
-                    spNotesEditText.setText(spNotesE);*/
-                }
             }
 
         } else if (id == PV_LOADER) {
 
 
             if (mPatientVaccinesUri == null) {
-                if (mPatientId == 0) {
+                mPatientVaccinesCursorAdapter.swapCursor(data);
 
-                }
             } else {
                 if (data == null || data.getCount() < 1) {
                     return;
                 }
 
-                if (data.moveToFirst()) {
-                    //get data all
-                }
 
 
-                //   int pvTetanusTypeColumnIndex=data.getColumnIndex(ImsContract.PatientVaccinesEntry.COLUMN_NAME_OF_VACCINATION);
-                int
-                        pvHistoryOfVaccinationColumnIndex =
-                        data.getColumnIndex(ImsContract.PatientVaccinesEntry.COLUMN_HISTORY_OF_VACCINATION);
 
-              /*  String pvTetanus = data.getString(pvTetanusColumnIndex);
-                String pvInfluenzaVaccine = data.getString(pvInfluenzaVaccineColumnIndex);
-                String pvZostavax = data.getString(pvZostavaxColumnIndex);
-                String pvMeningitis = data.getString(pvMeningitisColumnIndex);
-                String pvYellowFever = data.getString(pvYellowFeverColumnIndex);
-                String pvPolio = data.getString(pvPolioColumnIndex);
-                // String pvTetanusType=data.getString(pvTetanusTypeColumnIndex);
-                String pvHistoryOfVaccination = data.getString(pvHistoryOfVaccinationColumnIndex);
 
-                pvTetanusTextView.setText(pvTetanus);
-                pvInfluenzaVaccineTextView.setText(pvInfluenzaVaccine);
-                pvZostavaxTextView.setText(pvZostavax);
-                pvMeningitisTextView.setText(pvMeningitis);
-                pvYellowFeverTextView.setText(pvYellowFever);
-                pvPolioTextView.setText(pvPolio);
-
-                switch (pvTypesOfVaccination) {
-                    case ImsContract.PatientVaccinesEntry.TETANUS_D_T:
-                        pvTypesOfVaccinationSpinner.setSelection(ImsContract.PatientVaccinesEntry.TETANUS_D_T);
-                        break;
-                    case ImsContract.PatientVaccinesEntry.TETANUS_D_T_A_P:
-                        pvTypesOfVaccinationSpinner.setSelection(ImsContract.PatientVaccinesEntry.TETANUS_D_T_A_P);
-                        break;
-                    case ImsContract.PatientVaccinesEntry.TETANUS_T_D:
-                        pvTypesOfVaccinationSpinner.setSelection(ImsContract.PatientVaccinesEntry.TETANUS_T_D);
-                        break;
-                    case ImsContract.PatientVaccinesEntry.TETANUS_T_DAP:
-                        pvTypesOfVaccinationSpinner.setSelection(ImsContract.PatientVaccinesEntry.TETANUS_T_DAP);
-                        break;
-                    default:
-                        pvTypesOfVaccinationSpinner.setSelection(ImsContract.PatientVaccinesEntry.TETANUS_UNKNOWN);
-                }
-                pvHistoryOfVaccinationTextView.setText(pvHistoryOfVaccination);
-            }*/
             }
         }
     }
@@ -1200,12 +1107,9 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
         super.onActivityCreated(savedInstanceState);
 
 
-        //add search with content column id
         mHealthRecordUri = ContentUris.withAppendedId(ImsContract.HealthRecordEntry.CONTENT_URI, mPatientId);
         mCurrentAndPastMedicationsUri = ContentUris.withAppendedId(ImsContract.CurrentAndPastMedicationsEntry.CONTENT_URI, mPatientId);
-       // mMajorIllnessesUri = ContentUris.withAppendedId(ImsContract.MajorIllnessesEntry.CONTENT_URI, mPatientId);
-      //  mSurgicalProceduresUri = ContentUris.withAppendedId(ImsContract.SurgicalProceduresEntry.CONTENT_URI, mPatientId);
-        mPatientVaccinesUri = ContentUris.withAppendedId(ImsContract.PatientVaccinesEntry.CONTENT_URI, mPatientId);
+
 
         //get data in loader activity
         getLoaderManager().initLoader(HR_LOADER, null, this);

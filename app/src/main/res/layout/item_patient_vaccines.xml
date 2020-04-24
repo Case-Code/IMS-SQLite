@@ -6,14 +6,14 @@
     android:padding="10dp">
 
     <TextView
-        android:id="@+id/text_name_of_vaccination"
+        android:id="@+id/text_item_pv_name_of_vaccination"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="Name of vaccination" />
 
     <TextView
-        android:id="@+id/text_history_of_vaccination"
+        android:id="@+id/text_item_pv_history_of_vaccination"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"

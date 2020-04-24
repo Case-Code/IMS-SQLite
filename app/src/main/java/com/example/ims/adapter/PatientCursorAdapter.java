@@ -143,7 +143,6 @@ public class PatientCursorAdapter extends CursorAdapter {
                 final Uri patientId = ContentUris.withAppendedId(PatientEntry.CONTENT_URI, id);
 
                 int idPatient = getIdPatient(context, patientId);
-                Log.e(TAG ,"patientid::::"+idPatient);
                 new ReceptionActivity().showTransferredToClinicsDialog(context);
 
                 final AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -264,6 +263,7 @@ public class PatientCursorAdapter extends CursorAdapter {
             Log.e(TAG, "Issue with upload value of quantity");
         }
     }
+
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private int getIdPatient(Context context, Uri currentPatientUri) {
