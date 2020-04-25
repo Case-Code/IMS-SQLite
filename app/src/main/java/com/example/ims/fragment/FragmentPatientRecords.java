@@ -199,7 +199,7 @@ public class FragmentPatientRecords extends Fragment implements LoaderManager.Lo
         // Inflate the layout for this fragment
         mPatientProgressCursorAdapter= new PatientProgressCursorAdapter(getActivity() ,null);
 
-        view= inflater.inflate(R.layout.fragment_patient_records, container, false);
+        view= inflater.inflate(R.layout.fragment_patientrecords, container, false);
         init();
         ReceptionFprPatientIdEditText.setText(String.valueOf(mPatientId));
 

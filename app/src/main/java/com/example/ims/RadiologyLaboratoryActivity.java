@@ -46,7 +46,7 @@ public class RadiologyLaboratoryActivity extends AppCompatActivity implements Na
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_radiology_laboratory);
+        setContentView(R.layout.activity_radiologylaboratory);
 
         init();
 

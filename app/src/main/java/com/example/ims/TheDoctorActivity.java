@@ -104,7 +104,7 @@ ContentValues values = new ContentValues();
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_the_doctor);
+        setContentView(R.layout.activity_thedoctor);
 
         init();
 

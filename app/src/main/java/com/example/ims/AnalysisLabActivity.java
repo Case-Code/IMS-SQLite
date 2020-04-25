@@ -49,7 +49,7 @@ public class AnalysisLabActivity extends AppCompatActivity implements Navigation
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_analysis_lab);
+        setContentView(R.layout.activity_analysislab);
 
         init();
 
