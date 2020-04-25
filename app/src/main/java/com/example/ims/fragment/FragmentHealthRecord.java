@@ -476,7 +476,7 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
         }
     }
 
-    // Add other patient vaccines
+    // Add patient vaccines
     private void addPatientVaccines() {
         String historyOfVaccinationString = pvHistoryOfVaccinationTextView.getText().toString().trim();
 
@@ -625,7 +625,7 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_health_record, container, false);
+        view = inflater.inflate(R.layout.fragment_healthrecord, container, false);
         init();
         //add items a MajorIllnesses in list View
         mMajorIllnessesCursorAdapter = new MajorIllnessesCursorAdapter(getActivity() ,null);

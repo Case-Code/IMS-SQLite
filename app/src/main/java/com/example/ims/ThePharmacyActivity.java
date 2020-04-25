@@ -38,7 +38,7 @@ public class ThePharmacyActivity extends AppCompatActivity implements Navigation
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_the_pharmacy);
+        setContentView(R.layout.activity_thepharmacy);
 
         init();
 

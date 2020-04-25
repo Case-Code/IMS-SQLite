@@ -27,7 +27,7 @@ public class FinancialAccountsActivity extends AppCompatActivity implements Navi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_financial_accounts);
+        setContentView(R.layout.activity_financialaccounts);
 
         init();
 

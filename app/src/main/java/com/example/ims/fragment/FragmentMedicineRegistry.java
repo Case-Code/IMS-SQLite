@@ -87,6 +87,6 @@ public void init (){
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_medicine_registry, container, false);
+        return inflater.inflate(R.layout.fragment_medicineregistry, container, false);
     }
 }
