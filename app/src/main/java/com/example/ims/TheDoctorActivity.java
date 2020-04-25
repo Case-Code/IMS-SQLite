@@ -21,7 +21,6 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -47,28 +46,28 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
     private Spinner mTheNameOfTheClinicSpinner;
 
     //List of clients referred to the clinic
-    private AutoCompleteTextView doctorLocPatientNameAutoCompleteTextView;
-    private ListView doctorLocPatientNameListView;
+    private AutoCompleteTextView searchClinicAutoCompleteTextView;
+    private ListView patientListView;
 
     //Doctor diagnosis
-    private AutoCompleteTextView doctorDdPatientNameSearchAutoCompleteTextView;
-    private ListView doctorDdPatientListView;
-    private TextView doctorDdPatientNameTextView;
-    private TextView doctorDdPatientDateOfBirthTextView;
-    private TextView doctorDdDateOfServiceTextView;
-    private EditText doctorDdDiagnosisEditText;
-    private EditText doctorDdAdditionalNotesEditText;
-    private EditText doctorDdPerformingPhysicianSignatureEditText;
-    private Button doctorDdSaveButton;
-    private Button doctorDdPrintButton;
+    private AutoCompleteTextView patienttransformationAutoCompleteTextView;
+    private ListView transformationListView;
+    private TextView firstlastnameTextView;
+    private TextView dateofbirthTextView;
+    private TextView dateofserviceTextView;
+    private EditText diagnosisEditText;
+    private EditText additionalNotesEditText;
+    private EditText performingPhysicianSignatureEditText;
+    private Button saveButton;
+    private Button printButton;
 
     private String mTheNamesOfTheClinics = "null";
 
     public void save(){
-        String doctorDdDateOfServiceString =doctorDdDateOfServiceTextView.getText().toString().trim();
-        String doctorDdDiagnosisString =doctorDdDiagnosisEditText.getText().toString().trim();
-        String doctorDdAdditionalNotesString =doctorDdAdditionalNotesEditText.getText().toString().trim();
-        String doctorDdPerformingPhysicianSignatureString =doctorDdPerformingPhysicianSignatureEditText.getText().toString().trim();
+        String doctorDdDateOfServiceString = dateofserviceTextView.getText().toString().trim();
+        String doctorDdDiagnosisString = diagnosisEditText.getText().toString().trim();
+        String doctorDdAdditionalNotesString = additionalNotesEditText.getText().toString().trim();
+        String doctorDdPerformingPhysicianSignatureString = performingPhysicianSignatureEditText.getText().toString().trim();
 ContentValues values = new ContentValues();
 
       /*  if (TextUtils.isEmpty(doctorDdDateOfServiceString)) {
@@ -178,21 +177,20 @@ ContentValues values = new ContentValues();
         mActionMenuImageButton = findViewById(R.id.image_button_action_menu);
         mDialogTransferredToClinicsView = getLayoutInflater().inflate(R.layout.dialog_doctor_transferred_to_clinics, null);
 
-        //List of clients referred to the clinic
-         doctorLocPatientNameAutoCompleteTextView=findViewById(R.id.text_doctor_loc_patient_name);
-         doctorLocPatientNameListView=findViewById(R.id.list_item_clinic);
+         searchClinicAutoCompleteTextView =findViewById(R.id.actv_doctor_searchclinic);
+         patientListView =findViewById(R.id.list_doctor_patient);
 
         //Doctor diagnosis
-         doctorDdPatientNameSearchAutoCompleteTextView=findViewById(R.id.text_doctor_dd_patient_name_search);
-         doctorDdPatientListView=findViewById(R.id.list_item_transformation);
-         doctorDdPatientNameTextView=findViewById(R.id.text_doctor_dd_patient_name);
-         doctorDdPatientDateOfBirthTextView=findViewById(R.id.text_doctor_dd_patient_date_of_birth);
-         doctorDdDateOfServiceTextView=findViewById(R.id.text_doctor_dd_date_of_service);
-         doctorDdDiagnosisEditText=findViewById(R.id.edit_doctor_dd_diagnosis);
-         doctorDdAdditionalNotesEditText=findViewById(R.id.edit_doctor_dd_additional_notes);
-         doctorDdPerformingPhysicianSignatureEditText=findViewById(R.id.edit_doctor_dd_performing_physician_signature);
-         doctorDdSaveButton=findViewById(R.id.button_doctor_dd_save);
-         doctorDdPrintButton=findViewById(R.id.button_doctor_dd_print);
+        patienttransformationAutoCompleteTextView =findViewById(R.id.actv_doctor_patienttransformation);
+        transformationListView =findViewById(R.id.list_doctor_transformation);
+        firstlastnameTextView =findViewById(R.id.text_doctor_firstlastname);
+        dateofbirthTextView =findViewById(R.id.text_doctor_dateofbirth);
+        dateofserviceTextView =findViewById(R.id.text_doctor_dateofservice);
+        diagnosisEditText =findViewById(R.id.edit_doctor_diagnosis);
+        additionalNotesEditText =findViewById(R.id.edit_doctor_additionalnotes);
+        performingPhysicianSignatureEditText =findViewById(R.id.edit_doctor_performingphysiciansignature);
+        saveButton =findViewById(R.id.button_doctor_save);
+        printButton =findViewById(R.id.button_doctor_print);
     }
 
     private void setupSpinnerTheNamesOfTheClinics(Context context) {
@@ -261,7 +259,7 @@ ContentValues values = new ContentValues();
 
     public void showTransferredToClinicsDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        doctorLocPatientNameAutoCompleteTextView = mDialogTransferredToClinicsView.findViewById(R.id.tv_search_patient_clinic);
+        searchClinicAutoCompleteTextView = mDialogTransferredToClinicsView.findViewById(R.id.tv_search_patient_clinic);
         ArrayList arr = new ArrayList();
         Uri uri = ImsContract.PatientEntry.CONTENT_URI;
         Cursor cursor = getContentResolver().query(uri, new String[]{ImsContract.PatientEntry.COLUMN_FIRST_NAME},
@@ -280,7 +278,7 @@ ContentValues values = new ContentValues();
         }
 
         ArrayAdapter<String> adabterEdittext = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arr);
-        doctorLocPatientNameAutoCompleteTextView.setAdapter(adabterEdittext);
+        searchClinicAutoCompleteTextView.setAdapter(adabterEdittext);
 
         mTheNameOfTheClinicSpinner = mDialogTransferredToClinicsView.findViewById(R.id.spinner_doc_types_of_clinics);
         setupSpinnerTheNamesOfTheClinics(this);
