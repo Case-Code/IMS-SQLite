@@ -23,18 +23,24 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.CursorLoader;
+import androidx.loader.content.Loader;
 
+import com.example.ims.adapter.ClinicCursorAdapter;
 import com.example.ims.data.ImsContract;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 
-public class TheDoctorActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class TheDoctorActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
+        LoaderManager.LoaderCallbacks<Cursor> {
 
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigationView;
@@ -48,6 +54,7 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
     //List of clients referred to the clinic
     private AutoCompleteTextView searchClinicAutoCompleteTextView;
     private ListView patientListView;
+    ClinicCursorAdapter mClinicCursorAdapter;
 
     //Doctor diagnosis
     private AutoCompleteTextView patienttransformationAutoCompleteTextView;
@@ -60,6 +67,8 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
     private EditText performingPhysicianSignatureEditText;
     private Button saveButton;
     private Button printButton;
+
+    private static final int CLINIC_LOADER=141;
 
     private String mTheNamesOfTheClinics = "null";
 
@@ -103,6 +112,12 @@ ContentValues values = new ContentValues();
         mDrawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
         mNavigationView.setNavigationItemSelectedListener(this);
+
+        mClinicCursorAdapter = new ClinicCursorAdapter(this, null);
+        patientListView.setAdapter(mClinicCursorAdapter);
+
+
+                getLoaderManager().initLoader(CLINIC_LOADER ,null ,null);
 
 //        mActionMenuImageButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -306,6 +321,38 @@ ContentValues values = new ContentValues();
         AlertDialog alertDialog = builder.create();
         alertDialog.setCanceledOnTouchOutside(false);
         alertDialog.show();
+    }
+
+    @NonNull
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
+        if(id==CLINIC_LOADER){
+
+            String []projection= {
+                    ImsContract.PatientDataToClinicsEntry._ID
+                    ,ImsContract.PatientDataToClinicsEntry.COLUMN_CLINIC_NAME,
+                    ImsContract.PatientDataToClinicsEntry.COLUMN_TRANSFER_DATE
+            };
+            return  new CursorLoader(this,
+                    ImsContract.PatientDataToClinicsEntry.CONTENT_URI,
+                    projection,
+                    null,null,null
+                    );
+        }
+        return null;
+    }
+
+    @Override
+    public void onLoadFinished(@NonNull Loader loader, Cursor data) {
+        int id =loader.getId();
+        if(id==CLINIC_LOADER){
+
+        }
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull Loader loader) {
+
     }
 
 }

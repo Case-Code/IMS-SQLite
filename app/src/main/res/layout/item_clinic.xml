@@ -7,7 +7,7 @@
     android:weightSum="1">
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/text_clinic_firstlastname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="first name ,last name"
@@ -21,6 +21,7 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/text_clinic_clinicname"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -28,6 +29,7 @@
             android:textColor="#85C0BC" />
 
         <TextView
+            android:id="@+id/text_clinic_transferdata"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
