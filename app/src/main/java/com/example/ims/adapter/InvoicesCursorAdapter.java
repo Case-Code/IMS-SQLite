@@ -28,7 +28,7 @@ public class InvoicesCursorAdapter extends CursorAdapter {
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        TextView svcIdTextView = view.findViewById(R.id.text_svc_id);
+      /*  TextView svcIdTextView = view.findViewById(R.id.text_svc_id);
         TextView medicalServicesTextView = view.findViewById(R.id.text_medical_services);
         TextView medictionTextView = view.findViewById(R.id.text_mediction);
         TextView costTextView = view.findViewById(R.id.text_cost);
@@ -46,7 +46,7 @@ public class InvoicesCursorAdapter extends CursorAdapter {
         svcIdTextView.setText(svcId);
         medicalServicesTextView.setText(firstName);
         medictionTextView.setText(lastName);
-        costTextView.setText(costNumber);
+        costTextView.setText(costNumber);*/
 
 
     }

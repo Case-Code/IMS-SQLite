@@ -7,13 +7,13 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/text_svc_id"
+        android:id="@+id/text_iteminvoices_svcid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="svc id" />
 
     <TextView
-        android:id="@+id/text_medical_services"
+        android:id="@+id/text_iteminvoices_medicalservices"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="medical services"
@@ -28,7 +28,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/text_mediction"
+            android:id="@+id/text_iteminvoices_mediction"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -37,7 +37,7 @@
             android:textStyle="italic" />
 
         <TextView
-            android:id="@+id/text_cost"
+            android:id="@+id/text_iteminvoices_cost"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

@@ -23,43 +23,35 @@ public class FragmentInvoicesCursorAdapter extends CursorAdapter {
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
-        return LayoutInflater.from(context).inflate(R.layout.fragment_invoices, viewGroup, false);
+        return LayoutInflater.from(context).inflate(R.layout.item_invoices, viewGroup, false);
 
     }
 
     @Override
     public void bindView(View view, Context context, Cursor data) {
 
-
-    TextView    dateOfSvcTextView=view.findViewById(R.id.text_invoices_data_of_svc);
-        TextView     invoiceDateTextView=view.findViewById(R.id.text_invoice_date);
-        TextView  dateDueTextView=view.findViewById(R.id.text_invoices_date_due);
-
-
-   EditText     billNameEditText = view.findViewById(R.id.edit_invoices_billtoname);
-        EditText     billPhoneEditText = view.findViewById(R.id.edit_invoices_billtophone);
-        EditText  billAddressEditText = view.findViewById(R.id.edit_invoices_bill_to_address);
-        EditText  billFixEditText = view.findViewById(R.id.edit_invoices_bill_to_fax);
-        EditText   billEmailEditText = view.findViewById(R.id.edit_invoices_bill_to_email);
-
-        EditText svcIdEditText = view.findViewById(R.id.edit_invoices_svcid);
-        EditText  medicalServicesEditText = view.findViewById(R.id.edit_invoices_medicalservis);
-        EditText   medicationEditText = view.findViewById(R.id.edit_invoices_medication);
-        EditText  costEditText = view.findViewById(R.id.edit_invoices_cost);
-
-        EditText  subtotalEditText = view.findViewById(R.id.edit_invoices_sub_total);
-        EditText taxRateEditText = view.findViewById(R.id.edit_invoices_tex_rate);
-        EditText   totalTaxEditText = view.findViewById(R.id.edit_invoices_total_tax);
-        EditText   otherEditText = view.findViewById(R.id.edit_invoices_other);
-        EditText   totalEditText = view.findViewById(R.id.edit_invoices_total);
-
-        EditText    questionsNameEditText = view.findViewById(R.id.edit_invoices_questions_name);
-        EditText    questionEmailEditText = view.findViewById(R.id.edit_invoices_questions_email);
-        EditText    questionsPhoneEditText = view.findViewById(R.id.edit_invoices_questions_phone);
-        EditText   questionsWebEditText = view.findViewById(R.id.edit_invoices_questions_web);
-        EditText     procedureEditText = view.findViewById(R.id.edit_invoices_procedure);
+         TextView svcIdTextView=view.findViewById(R.id.text_iteminvoices_svcid);
+         TextView medicalServicesTextView=view.findViewById(R.id.text_iteminvoices_medicalservices);
+         TextView medicationTextView=view.findViewById(R.id.text_iteminvoices_mediction);
+         TextView costTextView=view.findViewById(R.id.text_iteminvoices_cost);
 
 
+         int svcIdColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_SVC_ID);
+         int medicalServicesColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_MEDICAL_SERVICES);
+         int medicationColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_MEDICATION);
+         int costColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_COST);
+
+         String svcId = data.getString(svcIdColumnIndex);
+         String medicalServices = data.getString(medicalServicesColumnIndex);
+         String medication = data.getString(medicationColumnIndex);
+         String cost = data.getString(costColumnIndex);
+
+         svcIdTextView.setText(svcId);
+         medicalServicesTextView.setText(medicalServices);
+         medicationTextView.setText(medication);
+         costTextView.setText(cost);
+
+/*
 
         int dateOfSvcColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_DATE_OF_SVC);
         int invoiceColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_INVOICE_DATE);
@@ -69,10 +61,7 @@ public class FragmentInvoicesCursorAdapter extends CursorAdapter {
         int billToPhoneColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_BILL_TO_PHONE);
         int billToFaxColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_BILL_TO_FAX);
         int billToEmailColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_BILL_TO_EMAIL);
-        int svcIdColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_SVC_ID);
-        int medicalServicesColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_MEDICAL_SERVICES);
-        int medicationColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_MEDICATION);
-        int costColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_COST);
+
         int supTotalColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_SUBTOTAL);
         int taxRateColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_TAX_RATE);
         int totalTaxColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_TOTAL_TAX);
@@ -136,6 +125,7 @@ public class FragmentInvoicesCursorAdapter extends CursorAdapter {
         questionEmailEditText.setText(questionsEmail);
         questionsWebEditText.setText(questionsWeb);
         procedureEditText.setText(procedure);
+*/
 
 
 
