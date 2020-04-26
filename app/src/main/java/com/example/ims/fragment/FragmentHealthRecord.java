@@ -48,8 +48,6 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private Uri mCurrentHealthRecordUri;
-
     private EditText hrCurrentPhysicianNameEditText;
     private EditText hrCurrentPharmacyNameEditText;
     private EditText hrPharmacyPhoneEditText;
@@ -95,7 +93,7 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
     private static final int PV_LOADER = 123;
     private static final int SP_LOADER = 124;
 
-    private Uri mHealthRecordUri;
+    private Uri mCurrentHealthRecordUri;
     private Uri mCurrentAndPastMedicationsUri;
     private Uri mMajorIllnessesUri;
     private Uri mPatientVaccinesUri;
@@ -111,7 +109,7 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
     private String mParam1;
     private String mParam2;
 
-    int mPatientId;
+    private int mPatientId;
 
     public FragmentHealthRecord(int patientId) {
         // Required empty public constructor
@@ -130,7 +128,7 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
      * @return A new instance of fragment health_record.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentHealthRecord newInstance(String param1, String param2) {
+    private static FragmentHealthRecord newInstance(String param1, String param2) {
         FragmentHealthRecord fragment = new FragmentHealthRecord(0);
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
@@ -394,6 +392,13 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
             Toast.makeText(getContext(), getString(R.string.editor_add_major_illnesses_failed), Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(getContext(), getString(R.string.editor_add_major_illnesses_successful), Toast.LENGTH_SHORT).show();
+
+            // Reset all text
+            miIllnessEditText.setText("");
+            miPhysicianEditText.setText("");
+            miTreatmentNotesEditText.setText("");
+            miStartDateTextView.setText("00/00/0000");
+            miEndDateTextView.setText("00/00/0000");
         }
     }
 
@@ -473,6 +478,13 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
             Toast.makeText(getContext(), getString(R.string.editor_Surgical_Procedures_record_failed), Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(getContext(), getString(R.string.editor_Surgical_Procedures_successful), Toast.LENGTH_SHORT).show();
+
+            // Reset all text
+            spProcedureEditText.setText("");
+            spPhysicianEditText.setText("");
+            spHospitalEditText.setText("");
+            spDateTextView.setText("00/00/0000");
+            spNotesEditText.setText("");
         }
     }
 
@@ -515,11 +527,15 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
             Toast.makeText(getContext(), getString(R.string.editor_insert_other_patient_vaccines_failed), Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(getContext(), getString(R.string.editor_insert_other_patient_vaccines_successful), Toast.LENGTH_SHORT).show();
+
+            // Reset all text
+            pvHistoryOfVaccinationTextView.setText("00/00/0000");
+            pvNamesOfVaccinationSpinner.setSelection(ImsContract.PatientVaccinesEntry.VACCINATION_UNKNOWN);
         }
     }
 
     // Setup spinner name of vaccination
-    public void setupSpinnerNameOfVaccination(Context context) {
+    private void setupSpinnerNameOfVaccination(Context context) {
         ArrayAdapter nameOfVaccinationSpinnerAdapter = ArrayAdapter.createFromResource(
                 context,
                 R.array.array_name_of_vaccination_options,
@@ -628,16 +644,16 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
         view = inflater.inflate(R.layout.fragment_healthrecord, container, false);
         init();
         //add items a MajorIllnesses in list View
-        mMajorIllnessesCursorAdapter = new MajorIllnessesCursorAdapter(getActivity() ,null);
+        mMajorIllnessesCursorAdapter = new MajorIllnessesCursorAdapter(getActivity(), null);
         majorIllnessesListView.setAdapter(mMajorIllnessesCursorAdapter);
 
         //add items a surgical procedures  in listView
-        mSurgicalProceduresCursorAdapter=new SurgicalProceduresCursorAdapter(getActivity() ,null);
+        mSurgicalProceduresCursorAdapter = new SurgicalProceduresCursorAdapter(getActivity(), null);
         surgicalProceduresListView.setAdapter(mSurgicalProceduresCursorAdapter);
 
         //add items a Patient vaccines  in listView
-        mPatientVaccinesCursorAdapter = new PatientVaccinesCursorAdapter(getActivity() ,null);
-            patientVaccinesListView.setAdapter(mPatientVaccinesCursorAdapter);
+        mPatientVaccinesCursorAdapter = new PatientVaccinesCursorAdapter(getActivity(), null);
+        patientVaccinesListView.setAdapter(mPatientVaccinesCursorAdapter);
         // initialization
 
         // H.R. date of the last update
@@ -801,34 +817,27 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
     @Override
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
 
-
+        // H.R.
         if (id == HR_LOADER) {
             String[] projection = {
                     ImsContract.HealthRecordEntry.COLUMN_CURRENT_PHYSICIAN_NAME,
                     ImsContract.HealthRecordEntry.COLUMN_CURRENT_PHARMACY_NAME,
                     ImsContract.HealthRecordEntry.COLUMN_DATE_OF_THE_LAST_UPDATE,
                     ImsContract.HealthRecordEntry.COLUMN_DOCTORS_PHONE,
-                    ImsContract.HealthRecordEntry.COLUMN_PHARMACY_PHONE
-            };
+                    ImsContract.HealthRecordEntry.COLUMN_PHARMACY_PHONE};
 
-            if (mPatientId > 0) {
-                return new CursorLoader(
-                        this.getActivity(),
-                        ImsContract.HealthRecordEntry.CONTENT_URI,
-                        projection,
-                        ImsContract.HealthRecordEntry.COLUMN_PATIENT_ID + " =" + mPatientId,
-                        null, null
-                );
-            } else {
-                return new CursorLoader(this.getActivity(),
-                        mHealthRecordUri,
-                        projection,
-                        null,
-                        null, null
-                );
-            }
+            return new CursorLoader(
+                    this.getActivity(),
+                    ImsContract.HealthRecordEntry.CONTENT_URI,
+                    projection,
+                    // TODO change this
+                    ImsContract.HealthRecordEntry.COLUMN_PATIENT_ID + " =" + mPatientId,
+                    null, null
+            );
+        }
 
-        } else if (id == CAPM_LOADER) {
+        // C.A.P.M.
+        else if (id == CAPM_LOADER) {
             String[] projectionCAPM = {
                     ImsContract.CurrentAndPastMedicationsEntry.COLUMN_MEDICAMENT_NAME,
                     ImsContract.CurrentAndPastMedicationsEntry.COLUMN_PHYSICIAN,
@@ -839,59 +848,36 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
                     ImsContract.CurrentAndPastMedicationsEntry.COLUMN_END_DATE
             };
 
-            if (mPatientId > 0) {
+            return new CursorLoader(
+                    this.getActivity(),
+                    ImsContract.CurrentAndPastMedicationsEntry.CONTENT_URI,
+                    projectionCAPM,
+                    ImsContract.CurrentAndPastMedicationsEntry.COLUMN_PATIENT_ID + " =" + mPatientId,
+                    null, null
+            );
+        }
 
-
-                return new CursorLoader(
-                        this.getActivity(),
-                        ImsContract.CurrentAndPastMedicationsEntry.CONTENT_URI,
-                        projectionCAPM,
-                        ImsContract.CurrentAndPastMedicationsEntry.COLUMN_PATIENT_ID + " =" + mPatientId,
-                        null, null
-
-                );
-            } else {
-                return new CursorLoader(this.getActivity(),
-                        mHealthRecordUri,
-                        projectionCAPM,
-                        null,
-                        null, null
-                );
-            }
-        } else if (id == MI_LOADER) {
-
+        // M.I.
+        else if (id == MI_LOADER) {
             String[] projection = {
                     ImsContract.MajorIllnessesEntry._ID,
                     ImsContract.MajorIllnessesEntry.COLUMN_ILLNESS,
                     ImsContract.MajorIllnessesEntry.COLUMN_START_DATE,
                     ImsContract.MajorIllnessesEntry.COLUMN_END_DATE,
                     ImsContract.MajorIllnessesEntry.COLUMN_PHYSICIAN
-                    };
+            };
 
-            if (mPatientId > 0) {
+            return new CursorLoader(
+                    this.getActivity(),
+                    ImsContract.MajorIllnessesEntry.CONTENT_URI,
+                    projection,
+                    ImsContract.MajorIllnessesEntry.COLUMN_PATIENT_ID + " =" + mPatientId,
+                    null, null
+            );
+        }
 
-
-                return new CursorLoader(
-                        this.getActivity(),
-                        ImsContract.MajorIllnessesEntry.CONTENT_URI,
-                        projection,
-                        ImsContract.MajorIllnessesEntry.COLUMN_PATIENT_ID + " =" + mPatientId,
-                        null, null
-
-                );
-            } else {
-
-                return new CursorLoader(this.getActivity(),
-                        mMajorIllnessesUri,
-                        projection,
-                        null,
-                        null, null
-                );
-
-            }
-
-
-        } else if (id == SP_LOADER) {
+        // S.P.
+        else if (id == SP_LOADER) {
             String[] projection = {
                     ImsContract.SurgicalProceduresEntry._ID,
                     ImsContract.SurgicalProceduresEntry.COLUMN_PROCEDURE,
@@ -900,179 +886,119 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
                     ImsContract.SurgicalProceduresEntry.COLUMN_DATE_SURGICAL_PROCEDURES,
                     ImsContract.SurgicalProceduresEntry.COLUMN_NOTES};
 
-            if (mPatientId > 0) {
+            return new CursorLoader(
+                    this.getActivity(),
+                    ImsContract.SurgicalProceduresEntry.CONTENT_URI,
+                    projection,
+                    ImsContract.SurgicalProceduresEntry.COLUMN_PATIENT_ID + " =" + mPatientId,
+                    null, null
 
+            );
+        }
 
-                return new CursorLoader(
-                        this.getActivity(),
-                        ImsContract.SurgicalProceduresEntry.CONTENT_URI,
-                        projection,
-                        ImsContract.SurgicalProceduresEntry.COLUMN_PATIENT_ID + " =" + mPatientId,
-                        null, null
-
-                );
-            } else {
-
-                return new CursorLoader(this.getActivity(),
-                        mSurgicalProceduresUri,
-                        projection,
-                        null,
-                        null, null
-                );
-
-            }
-
-        } else if (id == PV_LOADER) {
+        // P.V. : (id == PV_LOADER)
+        else {
             String[] projection = {
                     ImsContract.PatientVaccinesEntry._ID,
                     ImsContract.PatientVaccinesEntry.COLUMN_NAME_OF_VACCINATION,
                     ImsContract.PatientVaccinesEntry.COLUMN_HISTORY_OF_VACCINATION
-
             };
-            if (mPatientId > 0) {
 
-
-                return new CursorLoader(
-                        this.getActivity(),
-                        ImsContract.PatientVaccinesEntry.CONTENT_URI,
-                        projection,
-                        ImsContract.PatientVaccinesEntry.COLUMN_PATIENT_ID + " =" + mPatientId,
-                        null, null
-
-                );
-            } else {
-
-                return new CursorLoader(this.getActivity(),
-                        mPatientVaccinesUri,
-                        projection,
-                        null,
-                        null, null
-                );
-
-            }
-
+            return new CursorLoader(
+                    this.getActivity(),
+                    ImsContract.PatientVaccinesEntry.CONTENT_URI,
+                    projection,
+                    ImsContract.PatientVaccinesEntry.COLUMN_PATIENT_ID + " =" + mPatientId,
+                    null, null
+            );
         }
-
-        return null;
     }
 
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
-
         int id = loader.getId();
+
+        if (data == null || data.getCount() < 1) {
+            return;
+        }
+
+        // C.A.P.M.
         if (id == CAPM_LOADER) {
-            if (mCurrentAndPastMedicationsUri == null) {
-                if (mPatientId == 0) {
+            if (data.moveToFirst()) {
+                //get row Current and past medications
+                int medicamentNameColumnIndex = data.getColumnIndex(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_MEDICAMENT_NAME);
+                int dosageColumnIndex = data.getColumnIndex(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_DOSAGE);
+                int freqColumnIndex = data.getColumnIndex(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_FREQ);
+                int startDateColumnIndex = data.getColumnIndex(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_START_DATE);
+                int endDateColumnIndex = data.getColumnIndex(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_END_DATE);
+                int physicianColumnIndex = data.getColumnIndex(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_PHYSICIAN);
+                int purposeColumnIndex = data.getColumnIndex(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_PURPOSE);
 
-                }
+                String medicamentName = data.getString(medicamentNameColumnIndex);
+                String dosage = data.getString(dosageColumnIndex);
+                String freq = data.getString(freqColumnIndex);
+                String startDate = data.getString(startDateColumnIndex);
+                String endDate = data.getString(endDateColumnIndex);
+                String physician = data.getString(physicianColumnIndex);
+                String purpose = data.getString(purposeColumnIndex);
 
-
-            } else {
-                if (data == null || data.getCount() < 1) {
-                    return;
-                }
-                if (data.moveToFirst()) {
-                    //get row Current and past medications
-                    int medicamentNameColumnIndex = data.getColumnIndex(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_MEDICAMENT_NAME);
-                    int dosageColumnIndex = data.getColumnIndex(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_DOSAGE);
-                    int freqColumnIndex = data.getColumnIndex(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_FREQ);
-                    int startDateColumnIndex = data.getColumnIndex(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_START_DATE);
-                    int endDateColumnIndex = data.getColumnIndex(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_END_DATE);
-                    int physicianColumnIndex = data.getColumnIndex(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_PHYSICIAN);
-                    int purposeColumnIndex = data.getColumnIndex(ImsContract.CurrentAndPastMedicationsEntry.COLUMN_PURPOSE);
-
-                    String medicamentName = data.getString(medicamentNameColumnIndex);
-                    String dosage = data.getString(dosageColumnIndex);
-                    String freq = data.getString(freqColumnIndex);
-                    String startDate = data.getString(startDateColumnIndex);
-                    String endDate = data.getString(endDateColumnIndex);
-                    String physician = data.getString(physicianColumnIndex);
-                    String purpose = data.getString(purposeColumnIndex);
-
-                    capmMedicamentNameEditText.setText(medicamentName);
-                    capmDosageEditText.setText(dosage);
-                    capmFreqEditText.setText(freq);
-                    capmStartDateTextView.setText(startDate);
-                    capmEndDateTextView.setText(endDate);
-                    capmPhysicianEditText.setText(physician);
-                    capmPurposeEditText.setText(purpose);
-                }
+                capmMedicamentNameEditText.setText(medicamentName);
+                capmDosageEditText.setText(dosage);
+                capmFreqEditText.setText(freq);
+                capmStartDateTextView.setText(startDate);
+                capmEndDateTextView.setText(endDate);
+                capmPhysicianEditText.setText(physician);
+                capmPurposeEditText.setText(purpose);
             }
-        } else if (id == HR_LOADER) {
-            if (mHealthRecordUri == null) {
-                if (mPatientId == 0) {
+        }
 
-                }
-            } else {
-                if (data == null || data.getCount() < 1) {
-                    return;
-                }
+        // H.R.
+        else if (id == HR_LOADER) {
+            if (data.moveToFirst()) {
+                //get row health record
+                int physicianNameColumnIndex = data.getColumnIndex(ImsContract.HealthRecordEntry.COLUMN_CURRENT_PHYSICIAN_NAME);
+                int pharmacyNameColumnIndex = data.getColumnIndex(ImsContract.HealthRecordEntry.COLUMN_CURRENT_PHARMACY_NAME);
+                int pharmacyPhoneColumnIndex = data.getColumnIndex(ImsContract.HealthRecordEntry.COLUMN_PHARMACY_PHONE);
+                int doctorPhoneColumnIndex = data.getColumnIndex(ImsContract.HealthRecordEntry.COLUMN_DOCTORS_PHONE);
+                int dateOfLastUpdateColumnIndex = data.getColumnIndex(ImsContract.HealthRecordEntry.COLUMN_DATE_OF_THE_LAST_UPDATE);
 
-                if (data.moveToFirst()) {
-                    //get data all
+                String physicianName = data.getString(physicianNameColumnIndex);
+                String pharmacyName = data.getString(pharmacyNameColumnIndex);
+                String pharmacyPhone = data.getString(pharmacyPhoneColumnIndex);
+                String doctorPhone = data.getString(doctorPhoneColumnIndex);
+                String dateOfLastUpdate = data.getString(dateOfLastUpdateColumnIndex);
 
-                    //get row health record
-                    int physicianNameColumnIndex = data.getColumnIndex(ImsContract.HealthRecordEntry.COLUMN_CURRENT_PHYSICIAN_NAME);
-                    int pharmacyNameColumnIndex = data.getColumnIndex(ImsContract.HealthRecordEntry.COLUMN_CURRENT_PHARMACY_NAME);
-                    int pharmacyPhoneColumnIndex = data.getColumnIndex(ImsContract.HealthRecordEntry.COLUMN_PHARMACY_PHONE);
-                    int doctorPhoneColumnIndex = data.getColumnIndex(ImsContract.HealthRecordEntry.COLUMN_DOCTORS_PHONE);
-                    int dateOfLastUpdateColumnIndex = data.getColumnIndex(ImsContract.HealthRecordEntry.COLUMN_DATE_OF_THE_LAST_UPDATE);
-
-                    String physicianName = data.getString(physicianNameColumnIndex);
-                    String pharmacyName = data.getString(pharmacyNameColumnIndex);
-                    String pharmacyPhone = data.getString(pharmacyPhoneColumnIndex);
-                    String doctorPhone = data.getString(doctorPhoneColumnIndex);
-                    String dateOfLastUpdate = data.getString(dateOfLastUpdateColumnIndex);
-
-                    hrCurrentPhysicianNameEditText.setText(physicianName);
-                    hrCurrentPharmacyNameEditText.setText(pharmacyName);
-                    hrPharmacyPhoneEditText.setText(pharmacyPhone);
-                    hrDoctorsPhoneEditText.setText(doctorPhone);
-                    hrDateOfTheLastUpdateTextView.setText(dateOfLastUpdate);
-                }
+                hrCurrentPhysicianNameEditText.setText(physicianName);
+                hrCurrentPharmacyNameEditText.setText(pharmacyName);
+                hrPharmacyPhoneEditText.setText(pharmacyPhone);
+                hrDoctorsPhoneEditText.setText(doctorPhone);
+                hrDateOfTheLastUpdateTextView.setText(dateOfLastUpdate);
             }
+        }
 
-        } else if (id == MI_LOADER) {
-
+        // M.I.
+        else if (id == MI_LOADER) {
             if (mMajorIllnessesUri == null) {
                 mMajorIllnessesCursorAdapter.swapCursor(data);
-
             } else {
-                if (data == null || data.getCount() < 1) {
-                    return;
-                }
                 if (data.moveToFirst()) {
 
                 }
             }
 
+        }
 
-        } else if (id == SP_LOADER) {
+        // S.P
+        else if (id == SP_LOADER) {
             if (mSurgicalProceduresUri == null) {
-               mSurgicalProceduresCursorAdapter.swapCursor(data);
-            } else {
-                if (data == null || data.getCount() < 1) {
-                    return;
-                }
-
-
+                mSurgicalProceduresCursorAdapter.swapCursor(data);
             }
+        }
 
-        } else if (id == PV_LOADER) {
-
-
+        // P.V.
+        else if (id == PV_LOADER) {
             if (mPatientVaccinesUri == null) {
                 mPatientVaccinesCursorAdapter.swapCursor(data);
-
-            } else {
-                if (data == null || data.getCount() < 1) {
-                    return;
-                }
-
-
-
-
-
             }
         }
     }
@@ -1082,7 +1008,7 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
 
         int loaderId = loader.getId();
         if (loaderId == HR_LOADER) {
-            if (mHealthRecordUri == null) {
+            if (mCurrentHealthRecordUri == null) {
                 loader.reset();
             } else {
                 hrCurrentPhysicianNameEditText.setText("");
@@ -1094,21 +1020,16 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
         } else if (loaderId == CAPM_LOADER) {
             if (mCurrentAndPastMedicationsUri == null) {
                 loader.reset();
-            } else {
-
             }
         }
-
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-
-        mHealthRecordUri = ContentUris.withAppendedId(ImsContract.HealthRecordEntry.CONTENT_URI, mPatientId);
+        mCurrentHealthRecordUri = ContentUris.withAppendedId(ImsContract.HealthRecordEntry.CONTENT_URI, mPatientId);
         mCurrentAndPastMedicationsUri = ContentUris.withAppendedId(ImsContract.CurrentAndPastMedicationsEntry.CONTENT_URI, mPatientId);
-
 
         //get data in loader activity
         getLoaderManager().initLoader(HR_LOADER, null, this);
@@ -1116,6 +1037,5 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
         getLoaderManager().initLoader(MI_LOADER, null, this);
         getLoaderManager().initLoader(SP_LOADER, null, this);
         getLoaderManager().initLoader(PV_LOADER, null, this);
-
     }
 }

@@ -198,9 +198,7 @@ public class PatientCursorAdapter extends CursorAdapter {
                 final Uri patientId = ContentUris.withAppendedId(PatientEntry.CONTENT_URI, id);
 
                 int idPatient = getIdPatient(context, patientId);
-                Log.e(TAG ,"patientid::::"+idPatient);
-                ReceptionActivity.mFragmentManager.beginTransaction().replace(R.id.frame_layout_patient_records,
-                        new FragmentHealthRecord(idPatient), null).commit();
+                ReceptionActivity.mFragmentManager.beginTransaction().replace(R.id.frame_layout_patient_records, new FragmentHealthRecord(idPatient), null).commit();
             }
         });
 
@@ -212,9 +210,7 @@ public class PatientCursorAdapter extends CursorAdapter {
                 final Uri patientId = ContentUris.withAppendedId(PatientEntry.CONTENT_URI, id);
 
                 int idPatient = getIdPatient(context, patientId);
-                Log.e(TAG ,"patientid::::"+idPatient);
-                ReceptionActivity.mFragmentManager.beginTransaction().
-                        replace(R.id.frame_layout_patient_records, new FragmentPatientRecords(idPatient), null).commit();
+                ReceptionActivity.mFragmentManager.beginTransaction().replace(R.id.frame_layout_patient_records, new FragmentPatientRecords(idPatient), null).commit();
             }
         });
 
@@ -227,9 +223,7 @@ public class PatientCursorAdapter extends CursorAdapter {
                 final Uri patientId = ContentUris.withAppendedId(PatientEntry.CONTENT_URI, id);
 
                 int idPatient = getIdPatient(context, patientId);
-                Log.e(TAG ,"patientid::::"+idPatient);
-                ReceptionActivity.mFragmentManager.beginTransaction().replace(R.id.frame_layout_patient_records,
-                        new FragmentInvoices(idPatient), null).commit();
+                ReceptionActivity.mFragmentManager.beginTransaction().replace(R.id.frame_layout_patient_records, new FragmentInvoices(idPatient), null).commit();
             }
         });
     }
@@ -278,5 +272,4 @@ public class PatientCursorAdapter extends CursorAdapter {
         }
         return patientId;
     }
-
 }
