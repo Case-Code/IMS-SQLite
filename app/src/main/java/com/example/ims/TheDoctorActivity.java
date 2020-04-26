@@ -6,10 +6,16 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.app.LoaderManager;
+import android.content.Loader;
+
+
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,10 +23,13 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FilterQueryProvider;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.content.CursorLoader;
+
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,9 +38,6 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.loader.app.LoaderManager;
-import androidx.loader.content.CursorLoader;
-import androidx.loader.content.Loader;
 
 import com.example.ims.adapter.ClinicCursorAdapter;
 import com.example.ims.data.ImsContract;
@@ -52,9 +58,11 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
     private Spinner mTheNameOfTheClinicSpinner;
 
     //List of clients referred to the clinic
-    private AutoCompleteTextView searchClinicAutoCompleteTextView;
+    private EditText searchClinicAutoCompleteTextView;
     private ListView patientListView;
     ClinicCursorAdapter mClinicCursorAdapter;
+    public Uri mClinicUri;
+
 
     //Doctor diagnosis
     private AutoCompleteTextView patienttransformationAutoCompleteTextView;
@@ -100,6 +108,22 @@ ContentValues values = new ContentValues();
             values.put(ImsContract.InvoicesEntry., );
         }*/
     }
+   /* public String getNamePatient( String patientId ){
+        Cursor cursor;
+        Uri uri = ImsContract.PatientEntry.CONTENT_URI;
+        cursor =getContentResolver().query(uri, new String[]{ImsContract.PatientEntry.COLUMN_FIRST_NAME,ImsContract.PatientEntry.COLUMN_LAST_NAME},
+                ImsContract.PatientEntry.COLUMN_FIRST_NAME + " like '%"+patientId+"%'" , null, null);
+        cursor.moveToFirst();
+        while (cursor.) {
+
+            String patientFName = cursor.getString(cursor.getColumnIndex(ImsContract.PatientEntry.COLUMN_FIRST_NAME));
+            String patientLName = cursor.getString(cursor.getColumnIndex(ImsContract.PatientEntry.COLUMN_LAST_NAME));
+
+                return  patientFName+" "+patientLName ;
+            }
+        }
+
+    }*/
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -117,8 +141,16 @@ ContentValues values = new ContentValues();
         patientListView.setAdapter(mClinicCursorAdapter);
 
 
-                getLoaderManager().initLoader(CLINIC_LOADER ,null ,null);
-
+mClinicCursorAdapter.setFilterQueryProvider(new FilterQueryProvider() {
+    @Override
+    public Cursor runQuery(CharSequence charSequence) {
+        Cursor cursor;
+        Uri uri = ImsContract.PatientEntry.CONTENT_URI;
+        cursor =getContentResolver().query(uri, new String[]{ImsContract.PatientEntry._ID ,ImsContract.PatientEntry.COLUMN_FIRST_NAME,ImsContract.PatientEntry.COLUMN_LAST_NAME},
+                ImsContract.PatientEntry.COLUMN_FIRST_NAME + " like '%"+charSequence+"%'" , null, null);
+        return cursor;
+    }
+});
 //        mActionMenuImageButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -132,6 +164,27 @@ ContentValues values = new ContentValues();
 //                showTransferredToClinicsDialog();
 //            }
 //        });
+        searchClinicAutoCompleteTextView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2){
+
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(mClinicCursorAdapter!=null) {
+                    mClinicCursorAdapter.getFilter().filter(charSequence);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+
+            }
+        });
+        getLoaderManager().initLoader(CLINIC_LOADER ,null ,this);
+
+
     }
 
 
@@ -293,7 +346,7 @@ ContentValues values = new ContentValues();
         }
 
         ArrayAdapter<String> adabterEdittext = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arr);
-        searchClinicAutoCompleteTextView.setAdapter(adabterEdittext);
+     //   searchClinicAutoCompleteTextView.setAdapter(adabterEdittext);
 
         mTheNameOfTheClinicSpinner = mDialogTransferredToClinicsView.findViewById(R.id.spinner_doc_types_of_clinics);
         setupSpinnerTheNamesOfTheClinics(this);
@@ -331,8 +384,10 @@ ContentValues values = new ContentValues();
             String []projection= {
                     ImsContract.PatientDataToClinicsEntry._ID
                     ,ImsContract.PatientDataToClinicsEntry.COLUMN_CLINIC_NAME,
-                    ImsContract.PatientDataToClinicsEntry.COLUMN_TRANSFER_DATE
+                    ImsContract.PatientDataToClinicsEntry.COLUMN_TRANSFER_DATE,
+                    ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID
             };
+
             return  new CursorLoader(this,
                     ImsContract.PatientDataToClinicsEntry.CONTENT_URI,
                     projection,
@@ -346,13 +401,30 @@ ContentValues values = new ContentValues();
     public void onLoadFinished(@NonNull Loader loader, Cursor data) {
         int id =loader.getId();
         if(id==CLINIC_LOADER){
+                if(mClinicUri==null){
+            mClinicCursorAdapter.swapCursor(data);}
+                else{
+
+                }
+
 
         }
     }
 
     @Override
     public void onLoaderReset(@NonNull Loader loader) {
+        int id = loader.getId();
+        if (id == CLINIC_LOADER) {
+            if (mClinicUri == null) {
+                mClinicCursorAdapter.swapCursor(null);
+            }
+
+
+        }
+
+
 
     }
+
 
 }
