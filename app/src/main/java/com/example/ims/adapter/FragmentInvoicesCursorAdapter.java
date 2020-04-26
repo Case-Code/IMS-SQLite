@@ -29,7 +29,7 @@ public class FragmentInvoicesCursorAdapter extends CursorAdapter {
 
     @Override
     public void bindView(View view, Context context, Cursor data) {
-
+        //TODO: I am use IDS for look this IDS ;)
          TextView svcIdTextView=view.findViewById(R.id.text_iteminvoices_svcid);
          TextView medicalServicesTextView=view.findViewById(R.id.text_iteminvoices_medicalservices);
          TextView medicationTextView=view.findViewById(R.id.text_iteminvoices_mediction);
