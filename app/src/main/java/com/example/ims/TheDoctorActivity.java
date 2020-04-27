@@ -59,9 +59,9 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
     private Spinner mTheNameOfTheClinicSpinner;
 
     //List of clients referred to the clinic
-    private EditText searchClinicAutoCompleteTextView;
+    private AutoCompleteTextView searchClinicAutoCompleteTextView;
     private ListView patientListView;
-    ClinicCursorAdapter mClinicCursorAdapter;
+    private ClinicCursorAdapter mClinicCursorAdapter;
     public Uri mClinicUri;
 
 
@@ -133,6 +133,7 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
 
         init();
 
+        // Navigation view
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
         mDrawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
@@ -156,31 +157,35 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
 //                showTransferredToClinicsDialog();
 //            }
 //        });
+
         //TODO look in code this error in run code
         mClinicCursorAdapter.setFilterQueryProvider(new FilterQueryProvider() {
             @Override
             public Cursor runQuery(CharSequence charSequence) {
                 Uri uri = ImsContract.PatientDataToClinicsEntry.CONTENT_URI;
 
+                String[] projection = {
+                        ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID,
+                        ImsContract.PatientDataToClinicsEntry._ID};
 
-                Cursor c = getContentResolver().query(uri, new String[]{ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID, ImsContract.PatientDataToClinicsEntry._ID},
-                        ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID + " LIKE '%" + charSequence + "%'", null, null);
-
-
+                Cursor c = getContentResolver().query(
+                        uri,
+                        projection,
+                        ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID + " LIKE '%" + charSequence + "%'",
+                        null,
+                        null);
                 return c;
             }
 
         });
+
         searchClinicAutoCompleteTextView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-
                 if (mClinicCursorAdapter != null) {
                     mClinicCursorAdapter.getFilter().filter(charSequence);
                     mClinicCursorAdapter.notifyDataSetChanged();
@@ -191,14 +196,9 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
 
             @Override
             public void afterTextChanged(Editable editable) {
-
-
             }
-
         });
         getLoaderManager().initLoader(CLINIC_LOADER, null, this);
-
-
     }
 
 
@@ -342,6 +342,7 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
     public void showTransferredToClinicsDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         searchClinicAutoCompleteTextView = mDialogTransferredToClinicsView.findViewById(R.id.tv_search_patient_clinic);
+
         ArrayList arr = new ArrayList();
         Uri uri = ImsContract.PatientEntry.CONTENT_URI;
         Cursor cursor = getContentResolver().query(uri, new String[]{ImsContract.PatientEntry.COLUMN_FIRST_NAME},
@@ -396,16 +397,17 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
         if (id == CLINIC_LOADER) {
 
             String[] projection = {
-                    ImsContract.PatientDataToClinicsEntry._ID
-                    , ImsContract.PatientDataToClinicsEntry.COLUMN_CLINIC_NAME,
+                    ImsContract.PatientDataToClinicsEntry._ID,
+                    ImsContract.PatientDataToClinicsEntry.COLUMN_CLINIC_NAME,
                     ImsContract.PatientDataToClinicsEntry.COLUMN_TRANSFER_DATE,
-                    ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID
-            };
+                    ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID};
 
             return new CursorLoader(this,
                     ImsContract.PatientDataToClinicsEntry.CONTENT_URI,
                     projection,
-                    null, null, null
+                    null,
+                    null,
+                    null
             );
         }
         return null;
@@ -418,10 +420,7 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
             if (mClinicUri == null) {
                 mClinicCursorAdapter.swapCursor(data);
             } else {
-
             }
-
-
         }
     }
 
@@ -432,11 +431,7 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
             if (mClinicUri == null) {
                 mClinicCursorAdapter.swapCursor(null);
             }
-
-
         }
-
-
     }
 
 /*
@@ -494,15 +489,11 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
                 return cursor;
             }
         }
-
-
         return null;
     }
 
     public Cursor search() {
         Cursor c = null;
-
         return c;
     }
-
 }

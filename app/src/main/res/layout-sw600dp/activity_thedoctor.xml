@@ -92,7 +92,7 @@
                         android:text="List of clients referred to the clinic"
                         android:textColor="@color/colorPrimaryDark" />
 
-                    <EditText
+                    <AutoCompleteTextView
                         android:id="@+id/actv_doctor_searchclinic"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -107,6 +107,7 @@
                         android:paddingLeft="10dp" />
 
                     <ListView
+                        android:layout_marginTop="10dp"
                         android:id="@+id/list_doctor_patient"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"

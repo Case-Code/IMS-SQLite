@@ -832,8 +832,7 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
                     projection,
                     // TODO change this
                     ImsContract.HealthRecordEntry.COLUMN_PATIENT_ID + " =" + mPatientId,
-                    null, null
-            );
+                    null, null);
         }
 
         // C.A.P.M.
@@ -845,16 +844,14 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
                     ImsContract.CurrentAndPastMedicationsEntry.COLUMN_FREQ,
                     ImsContract.CurrentAndPastMedicationsEntry.COLUMN_PURPOSE,
                     ImsContract.CurrentAndPastMedicationsEntry.COLUMN_START_DATE,
-                    ImsContract.CurrentAndPastMedicationsEntry.COLUMN_END_DATE
-            };
+                    ImsContract.CurrentAndPastMedicationsEntry.COLUMN_END_DATE};
 
             return new CursorLoader(
                     this.getActivity(),
                     ImsContract.CurrentAndPastMedicationsEntry.CONTENT_URI,
                     projectionCAPM,
                     ImsContract.CurrentAndPastMedicationsEntry.COLUMN_PATIENT_ID + " =" + mPatientId,
-                    null, null
-            );
+                    null, null);
         }
 
         // M.I.
@@ -864,16 +861,14 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
                     ImsContract.MajorIllnessesEntry.COLUMN_ILLNESS,
                     ImsContract.MajorIllnessesEntry.COLUMN_START_DATE,
                     ImsContract.MajorIllnessesEntry.COLUMN_END_DATE,
-                    ImsContract.MajorIllnessesEntry.COLUMN_PHYSICIAN
-            };
+                    ImsContract.MajorIllnessesEntry.COLUMN_PHYSICIAN};
 
             return new CursorLoader(
                     this.getActivity(),
                     ImsContract.MajorIllnessesEntry.CONTENT_URI,
                     projection,
                     ImsContract.MajorIllnessesEntry.COLUMN_PATIENT_ID + " =" + mPatientId,
-                    null, null
-            );
+                    null, null);
         }
 
         // S.P.
@@ -891,9 +886,7 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
                     ImsContract.SurgicalProceduresEntry.CONTENT_URI,
                     projection,
                     ImsContract.SurgicalProceduresEntry.COLUMN_PATIENT_ID + " =" + mPatientId,
-                    null, null
-
-            );
+                    null, null);
         }
 
         // P.V. : (id == PV_LOADER)
@@ -901,16 +894,14 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
             String[] projection = {
                     ImsContract.PatientVaccinesEntry._ID,
                     ImsContract.PatientVaccinesEntry.COLUMN_NAME_OF_VACCINATION,
-                    ImsContract.PatientVaccinesEntry.COLUMN_HISTORY_OF_VACCINATION
-            };
+                    ImsContract.PatientVaccinesEntry.COLUMN_HISTORY_OF_VACCINATION};
 
             return new CursorLoader(
                     this.getActivity(),
                     ImsContract.PatientVaccinesEntry.CONTENT_URI,
                     projection,
                     ImsContract.PatientVaccinesEntry.COLUMN_PATIENT_ID + " =" + mPatientId,
-                    null, null
-            );
+                    null, null);
         }
     }
 
