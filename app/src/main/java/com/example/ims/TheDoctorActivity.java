@@ -77,16 +77,16 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
     private Button saveButton;
     private Button printButton;
 
-    private static final int CLINIC_LOADER=141;
+    private static final int CLINIC_LOADER = 141;
 
     private String mTheNamesOfTheClinics = "null";
 
-    public void save(){
+    public void save() {
         String doctorDdDateOfServiceString = dateofserviceTextView.getText().toString().trim();
         String doctorDdDiagnosisString = diagnosisEditText.getText().toString().trim();
         String doctorDdAdditionalNotesString = additionalNotesEditText.getText().toString().trim();
         String doctorDdPerformingPhysicianSignatureString = performingPhysicianSignatureEditText.getText().toString().trim();
-ContentValues values = new ContentValues();
+        ContentValues values = new ContentValues();
 
       /*  if (TextUtils.isEmpty(doctorDdDateOfServiceString)) {
         } else {
@@ -163,7 +163,7 @@ ContentValues values = new ContentValues();
                 Uri uri = ImsContract.PatientDataToClinicsEntry.CONTENT_URI;
 
 
-                Cursor c =    getContentResolver().query(uri, new String[]{ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID ,ImsContract.PatientDataToClinicsEntry._ID},
+                Cursor c = getContentResolver().query(uri, new String[]{ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID, ImsContract.PatientDataToClinicsEntry._ID},
                         ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID + " LIKE '%" + charSequence + "%'", null, null);
 
 
@@ -173,14 +173,15 @@ ContentValues values = new ContentValues();
         });
         searchClinicAutoCompleteTextView.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2){
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
             }
+
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
 
-                if(mClinicCursorAdapter!=null) {
+                if (mClinicCursorAdapter != null) {
                     mClinicCursorAdapter.getFilter().filter(charSequence);
                     mClinicCursorAdapter.notifyDataSetChanged();
 
@@ -195,7 +196,7 @@ ContentValues values = new ContentValues();
             }
 
         });
-        getLoaderManager().initLoader(CLINIC_LOADER ,null ,this);
+        getLoaderManager().initLoader(CLINIC_LOADER, null, this);
 
 
     }
@@ -258,20 +259,20 @@ ContentValues values = new ContentValues();
         mActionMenuImageButton = findViewById(R.id.image_button_action_menu);
         mDialogTransferredToClinicsView = getLayoutInflater().inflate(R.layout.dialog_doctor_transferred_to_clinics, null);
 
-         searchClinicAutoCompleteTextView =findViewById(R.id.actv_doctor_searchclinic);
-         patientListView =findViewById(R.id.list_doctor_patient);
+        searchClinicAutoCompleteTextView = findViewById(R.id.actv_doctor_searchclinic);
+        patientListView = findViewById(R.id.list_doctor_patient);
 
         //Doctor diagnosis
-        patienttransformationAutoCompleteTextView =findViewById(R.id.actv_doctor_patienttransformation);
-        transformationListView =findViewById(R.id.list_doctor_transformation);
-        firstlastnameTextView =findViewById(R.id.text_doctor_firstlastname);
-        dateofbirthTextView =findViewById(R.id.text_doctor_dateofbirth);
-        dateofserviceTextView =findViewById(R.id.text_doctor_dateofservice);
-        diagnosisEditText =findViewById(R.id.edit_doctor_diagnosis);
-        additionalNotesEditText =findViewById(R.id.edit_doctor_additionalnotes);
-        performingPhysicianSignatureEditText =findViewById(R.id.edit_doctor_performingphysiciansignature);
-        saveButton =findViewById(R.id.button_doctor_save);
-        printButton =findViewById(R.id.button_doctor_print);
+        patienttransformationAutoCompleteTextView = findViewById(R.id.actv_doctor_patienttransformation);
+        transformationListView = findViewById(R.id.list_doctor_transformation);
+        firstlastnameTextView = findViewById(R.id.text_doctor_firstlastname);
+        dateofbirthTextView = findViewById(R.id.text_doctor_dateofbirth);
+        dateofserviceTextView = findViewById(R.id.text_doctor_dateofservice);
+        diagnosisEditText = findViewById(R.id.edit_doctor_diagnosis);
+        additionalNotesEditText = findViewById(R.id.edit_doctor_additionalnotes);
+        performingPhysicianSignatureEditText = findViewById(R.id.edit_doctor_performingphysiciansignature);
+        saveButton = findViewById(R.id.button_doctor_save);
+        printButton = findViewById(R.id.button_doctor_print);
     }
 
     private void setupSpinnerTheNamesOfTheClinics(Context context) {
@@ -359,7 +360,7 @@ ContentValues values = new ContentValues();
         }
 
         ArrayAdapter<String> adabterEdittext = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arr);
-     //   searchClinicAutoCompleteTextView.setAdapter(adabterEdittext);
+        //   searchClinicAutoCompleteTextView.setAdapter(adabterEdittext);
 
         mTheNameOfTheClinicSpinner = mDialogTransferredToClinicsView.findViewById(R.id.spinner_doc_types_of_clinics);
         setupSpinnerTheNamesOfTheClinics(this);
@@ -392,33 +393,33 @@ ContentValues values = new ContentValues();
     @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
-        if(id==CLINIC_LOADER){
+        if (id == CLINIC_LOADER) {
 
-            String []projection= {
+            String[] projection = {
                     ImsContract.PatientDataToClinicsEntry._ID
-                    ,ImsContract.PatientDataToClinicsEntry.COLUMN_CLINIC_NAME,
+                    , ImsContract.PatientDataToClinicsEntry.COLUMN_CLINIC_NAME,
                     ImsContract.PatientDataToClinicsEntry.COLUMN_TRANSFER_DATE,
                     ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID
             };
 
-            return  new CursorLoader(this,
+            return new CursorLoader(this,
                     ImsContract.PatientDataToClinicsEntry.CONTENT_URI,
                     projection,
-                    null,null,null
-                    );
+                    null, null, null
+            );
         }
         return null;
     }
 
     @Override
     public void onLoadFinished(@NonNull Loader loader, Cursor data) {
-        int id =loader.getId();
-        if(id==CLINIC_LOADER){
-                if(mClinicUri==null){
-            mClinicCursorAdapter.swapCursor(data);}
-                else{
+        int id = loader.getId();
+        if (id == CLINIC_LOADER) {
+            if (mClinicUri == null) {
+                mClinicCursorAdapter.swapCursor(data);
+            } else {
 
-                }
+            }
 
 
         }
@@ -434,7 +435,6 @@ ContentValues values = new ContentValues();
 
 
         }
-
 
 
     }
@@ -469,39 +469,40 @@ ContentValues values = new ContentValues();
     }
 */
 
-        public Cursor getFilterCursor(String namePatient){
-            Cursor cursor;
+    public Cursor getFilterCursor(String namePatient) {
+        Cursor cursor;
 
-                    int id =  mClinicCursorAdapter.getIddPatient(namePatient ,this);
-            Log.e("mClinicCursorAdapter::",namePatient);
-            Uri uri = ImsContract.PatientDataToClinicsEntry.CONTENT_URI;
-            cursor =
-                    getContentResolver().query(uri, new String[]{ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID },
-                            ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID + "="+id, null, null);
-            cursor.moveToFirst();
-
-
-            while (cursor.isAfterLast() == false) {
-
-                   id =cursor.getInt(cursor.getColumnIndex(ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID));
-               // namePatient =
-                 //       cursor.getString(cursor.getColumnIndex(ImsContract.PatientEntry._ID));
-
-                if (id != 0 ) {
-                    Log.e("search::" ,"idpatient"+id);
+        int id = mClinicCursorAdapter.getIddPatient(namePatient, this);
+        Log.e("mClinicCursorAdapter::", namePatient);
+        Uri uri = ImsContract.PatientDataToClinicsEntry.CONTENT_URI;
+        cursor =
+                getContentResolver().query(uri, new String[]{ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID},
+                        ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID + "=" + id, null, null);
+        cursor.moveToFirst();
 
 
-                    return  cursor;
-                }
+        while (cursor.isAfterLast() == false) {
+
+            id = cursor.getInt(cursor.getColumnIndex(ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID));
+            // namePatient =
+            //       cursor.getString(cursor.getColumnIndex(ImsContract.PatientEntry._ID));
+
+            if (id != 0) {
+                Log.e("search::", "idpatient" + id);
+
+
+                return cursor;
             }
+        }
 
 
-return  null;
+        return null;
     }
-    public Cursor search(){
-            Cursor c =null;
 
-            return  c;
+    public Cursor search() {
+        Cursor c = null;
+
+        return c;
     }
 
 }

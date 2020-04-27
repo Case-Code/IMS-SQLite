@@ -42,36 +42,25 @@ public class ClinicCursorAdapter extends CursorAdapter {
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
-
         return LayoutInflater.from(context).inflate(R.layout.item_clinic, viewGroup, false);
-
     }
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-
         TextView firstLastNameTextView = view.findViewById(R.id.text_clinic_firstlastname);
         TextView clinicNameTextView = view.findViewById(R.id.text_clinic_clinicname);
         TextView transferDataTextView = view.findViewById(R.id.text_clinic_transferdata);
 
-        int
-                patientIdColumnIndex =
-                cursor.getColumnIndex(ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID);
-        int
-                clinicNameColumnIndex =
-                cursor.getColumnIndex(ImsContract.PatientDataToClinicsEntry.COLUMN_CLINIC_NAME);
-        int
-                transferDataColumnIndex =
-                cursor.getColumnIndex(ImsContract.PatientDataToClinicsEntry.COLUMN_TRANSFER_DATE);
+        int patientIdColumnIndex = cursor.getColumnIndex(ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID);
+        int clinicNameColumnIndex = cursor.getColumnIndex(ImsContract.PatientDataToClinicsEntry.COLUMN_CLINIC_NAME);
+        int transferDataColumnIndex = cursor.getColumnIndex(ImsContract.PatientDataToClinicsEntry.COLUMN_TRANSFER_DATE);
 
         String patientId = cursor.getString(patientIdColumnIndex);
         String clinicName = cursor.getString(clinicNameColumnIndex);
         String transferDate = cursor.getString(transferDataColumnIndex);
 
-
         int name = Integer.parseInt(clinicName);
         int idPatient = Integer.parseInt(patientId);
-
 
         firstLastNameTextView.setText(getNamePatient(idPatient, context));
 
@@ -84,13 +73,10 @@ public class ClinicCursorAdapter extends CursorAdapter {
     public String getNameClinic(int name) {
         if (CLINICS_ENDEMIC_DISEASES == name) {
             return "Endemic diseases:";
-
         } else if (name == CLINICS_MEDICAL_AND_MICROBIOLOGICAL_ANALYZES) {
             return "Medical and microbiological analyzes";
-
         } else if (name == CLINICS_PSYCHOLOGICAL_DISEASES) {
             return "Psychological diseases";
-
         } else if (name == CLINICS_PHONETIC_AND_PHONEME) {
             return "Phonetic and phoneme";
         } else if (name == CLINICS_EAR_NOSE_AND_THROAT) {
@@ -128,70 +114,58 @@ public class ClinicCursorAdapter extends CursorAdapter {
         } else if (name == CLINICS_LEATHER_AND_GENITAL) {
             return "Leather and genital";
         }
-
         return "CLINICS_UNKNOWN";
-
-
     }
 
     public String getNamePatient(int patientId, Context context) {
         Cursor cursor;
         Uri uri = ImsContract.PatientEntry.CONTENT_URI;
         if (patientId >= 1) {
-            cursor =
-                    context.getContentResolver().query(uri, new String[]{ImsContract.PatientEntry.COLUMN_FIRST_NAME, ImsContract.PatientEntry.COLUMN_LAST_NAME},
-                            ImsContract.PatientEntry._ID + " =" + patientId, null, null);
+            cursor = context.getContentResolver().query(
+                    uri,
+                    new String[]{ImsContract.PatientEntry.COLUMN_FIRST_NAME,
+                            ImsContract.PatientEntry.COLUMN_LAST_NAME},
+                    ImsContract.PatientEntry._ID + " =" + patientId,
+                    null, null);
+
             cursor.moveToFirst();
 
-
             while (cursor.isAfterLast() == false) {
-
-                String
-                        patientFName =
-                        cursor.getString(cursor.getColumnIndex(ImsContract.PatientEntry.COLUMN_FIRST_NAME));
-                String
-                        patientLName =
-                        cursor.getString(cursor.getColumnIndex(ImsContract.PatientEntry.COLUMN_LAST_NAME));
+                String patientFName = cursor.getString(cursor.getColumnIndex(ImsContract.PatientEntry.COLUMN_FIRST_NAME));
+                String patientLName = cursor.getString(cursor.getColumnIndex(ImsContract.PatientEntry.COLUMN_LAST_NAME));
 
                 if (patientFName != null & patientLName != null) {
                     return patientFName + " " + patientLName;
                 }
             }
-
         }
         return null;
     }
 
-
     public int getIddPatient(String name, Context context) {
-
         Cursor cursor;
         Uri uri = ImsContract.PatientEntry.CONTENT_URI;
 
         if (name != null) {
-            cursor =
-                    context.getContentResolver().query(uri, new String[]{ImsContract.PatientEntry._ID},
-                            ImsContract.PatientEntry.COLUMN_FIRST_NAME + " LIKE '%" + name + "%'", null, null);
+            cursor = context.getContentResolver().query(
+                    uri,
+                    new String[]{ImsContract.PatientEntry._ID},
+                    ImsContract.PatientEntry.COLUMN_FIRST_NAME + " LIKE '%" + name + "%'",
+                    null, null);
+
             cursor.moveToFirst();
 
-
             while (cursor.isAfterLast() == false) {
-
-                int idPatient =
-                        cursor.getInt(cursor.getColumnIndex(ImsContract.PatientEntry._ID));
-
+                int idPatient = cursor.getInt(cursor.getColumnIndex(ImsContract.PatientEntry._ID));
 
                 if (idPatient > 0) {
                     Log.e("search::;", "id::" + idPatient);
-
                     return idPatient;
                 }
             }
-
         }
-        return  0;
+        return 0;
     }
-
 }
 
 

@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.example.ims.R;
 import com.example.ims.data.ImsContract;
 
-public class  DoctorCursorAdapter extends CursorAdapter {
+public class DoctorCursorAdapter extends CursorAdapter {
     public DoctorCursorAdapter(Context context, Cursor c) {
         super(context, c, 0);
     }
@@ -36,13 +36,9 @@ public class  DoctorCursorAdapter extends CursorAdapter {
         String firstName = cursor.getString(firstNameColumnIndex);
         String lastName = cursor.getString(lastNameColumnIndex);
 
-
         firstNameTextView.setText(firstName);
         lastNameTextView.setText(lastName);
 
-
         Uri productUri = ContentUris.withAppendedId(ImsContract.PatientEntry.CONTENT_URI, id);
-
-
     }
 }

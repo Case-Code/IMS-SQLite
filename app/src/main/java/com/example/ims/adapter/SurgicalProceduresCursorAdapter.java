@@ -16,9 +16,8 @@ import com.example.ims.data.ImsContract;
 
 public class SurgicalProceduresCursorAdapter extends CursorAdapter {
 
-
     public SurgicalProceduresCursorAdapter(Context context, Cursor c) {
-        super(context, c,12);
+        super(context, c, 12);
     }
 
     @Override
@@ -29,27 +28,25 @@ public class SurgicalProceduresCursorAdapter extends CursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
 
-        TextView procedureTextView =view.findViewById(R.id.text_item_sp_procedure);
-        TextView physicianTextView =view.findViewById(R.id.text_item_sp_physician);
-        TextView hospitalTextView =view.findViewById(R.id.text_item_sp_hospital);
-        TextView dateTextView =view.findViewById(R.id.text_item_sp_date);
+        TextView procedureTextView = view.findViewById(R.id.text_item_sp_procedure);
+        TextView physicianTextView = view.findViewById(R.id.text_item_sp_physician);
+        TextView hospitalTextView = view.findViewById(R.id.text_item_sp_hospital);
+        TextView dateTextView = view.findViewById(R.id.text_item_sp_date);
 
-        int surgicalIdColumnIndex=cursor.getColumnIndex(ImsContract.SurgicalProceduresEntry._ID);
-        int procedureColumnIndex=cursor.getColumnIndex(ImsContract.SurgicalProceduresEntry.COLUMN_PROCEDURE);
-        int physicianColumnIndex=cursor.getColumnIndex(ImsContract.SurgicalProceduresEntry.COLUMN_PHYSICIAN);
-        int hospitalColumnIndex=cursor.getColumnIndex(ImsContract.SurgicalProceduresEntry.COLUMN_HOSPITAL);
-        int dateColumnIndex=cursor.getColumnIndex(ImsContract.SurgicalProceduresEntry.COLUMN_DATE_SURGICAL_PROCEDURES);
+        int surgicalIdColumnIndex = cursor.getColumnIndex(ImsContract.SurgicalProceduresEntry._ID);
+        int procedureColumnIndex = cursor.getColumnIndex(ImsContract.SurgicalProceduresEntry.COLUMN_PROCEDURE);
+        int physicianColumnIndex = cursor.getColumnIndex(ImsContract.SurgicalProceduresEntry.COLUMN_PHYSICIAN);
+        int hospitalColumnIndex = cursor.getColumnIndex(ImsContract.SurgicalProceduresEntry.COLUMN_HOSPITAL);
+        int dateColumnIndex = cursor.getColumnIndex(ImsContract.SurgicalProceduresEntry.COLUMN_DATE_SURGICAL_PROCEDURES);
 
-        String  procedure=cursor.getString(procedureColumnIndex);
-        String physician=cursor.getString(physicianColumnIndex);
-        String hospital=cursor.getString(hospitalColumnIndex);
-        String date=cursor.getString(dateColumnIndex);
+        String procedure = cursor.getString(procedureColumnIndex);
+        String physician = cursor.getString(physicianColumnIndex);
+        String hospital = cursor.getString(hospitalColumnIndex);
+        String date = cursor.getString(dateColumnIndex);
 
         procedureTextView.setText(procedure);
         physicianTextView.setText(physician);
-        hospitalTextView .setText(hospital);
-        dateTextView .setText(date);
-
-
+        hospitalTextView.setText(hospital);
+        dateTextView.setText(date);
     }
 }

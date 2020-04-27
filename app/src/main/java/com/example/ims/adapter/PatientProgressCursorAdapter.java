@@ -15,20 +15,18 @@ public class PatientProgressCursorAdapter extends CursorAdapter {
     private static final String TAG = PatientProgressCursorAdapter.class.getSimpleName();
 
     public PatientProgressCursorAdapter(Context context, Cursor c) {
-        super(context, c,1101);
+        super(context, c, 1101);
     }
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
         return LayoutInflater.from(context).inflate(R.layout.item_patient_progress, viewGroup, false);
-
     }
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
         TextView textProgressTextView = view.findViewById(R.id.text_progress_notes);
         TextView textDateTextView = view.findViewById(R.id.text_date);
-
 
         int id = cursor.getColumnIndex(ImsContract.PatientProgressEntry._ID);
         int textProgressColumnIndex = cursor.getColumnIndex(ImsContract.PatientProgressEntry.COLUMN_PROGRESS_NOTES);
@@ -39,7 +37,5 @@ public class PatientProgressCursorAdapter extends CursorAdapter {
 
         textProgressTextView.setText(textProgress);
         textDateTextView.setText(date);
-
-
     }
 }

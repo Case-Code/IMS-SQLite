@@ -18,38 +18,36 @@ public class FragmentInvoicesCursorAdapter extends CursorAdapter {
     private static final String TAG = FragmentInvoicesCursorAdapter.class.getSimpleName();
 
     public FragmentInvoicesCursorAdapter(Context context, Cursor c) {
-        super(context, c,121);
+        super(context, c, 121);
     }
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
         return LayoutInflater.from(context).inflate(R.layout.item_invoices, viewGroup, false);
-
     }
 
     @Override
     public void bindView(View view, Context context, Cursor data) {
         //TODO: I am use IDS for look this IDS ;)
-         TextView svcIdTextView=view.findViewById(R.id.text_iteminvoices_svcid);
-         TextView medicalServicesTextView=view.findViewById(R.id.text_iteminvoices_medicalservices);
-         TextView medicationTextView=view.findViewById(R.id.text_iteminvoices_mediction);
-         TextView costTextView=view.findViewById(R.id.text_iteminvoices_cost);
+        TextView svcIdTextView = view.findViewById(R.id.text_iteminvoices_svcid);
+        TextView medicalServicesTextView = view.findViewById(R.id.text_iteminvoices_medicalservices);
+        TextView medicationTextView = view.findViewById(R.id.text_iteminvoices_mediction);
+        TextView costTextView = view.findViewById(R.id.text_iteminvoices_cost);
 
+        int svcIdColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_SVC_ID);
+        int medicalServicesColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_MEDICAL_SERVICES);
+        int medicationColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_MEDICATION);
+        int costColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_COST);
 
-         int svcIdColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_SVC_ID);
-         int medicalServicesColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_MEDICAL_SERVICES);
-         int medicationColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_MEDICATION);
-         int costColumnIndex = data.getColumnIndex(ImsContract.InvoicesEntry.COLUMN_COST);
+        String svcId = data.getString(svcIdColumnIndex);
+        String medicalServices = data.getString(medicalServicesColumnIndex);
+        String medication = data.getString(medicationColumnIndex);
+        String cost = data.getString(costColumnIndex);
 
-         String svcId = data.getString(svcIdColumnIndex);
-         String medicalServices = data.getString(medicalServicesColumnIndex);
-         String medication = data.getString(medicationColumnIndex);
-         String cost = data.getString(costColumnIndex);
-
-         svcIdTextView.setText(svcId);
-         medicalServicesTextView.setText(medicalServices);
-         medicationTextView.setText(medication);
-         costTextView.setText(cost);
+        svcIdTextView.setText(svcId);
+        medicalServicesTextView.setText(medicalServices);
+        medicationTextView.setText(medication);
+        costTextView.setText(cost);
 
 /*
 
@@ -126,7 +124,6 @@ public class FragmentInvoicesCursorAdapter extends CursorAdapter {
         questionsWebEditText.setText(questionsWeb);
         procedureEditText.setText(procedure);
 */
-
 
 
     }

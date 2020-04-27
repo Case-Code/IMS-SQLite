@@ -158,7 +158,7 @@ public class PatientCursorAdapter extends CursorAdapter {
                         String dateString = Utils.formatDate(date);
                         int theNamesOfTheClinics = ReceptionActivity.mTheNamesOfTheClinics;
                         int idPatient = getIdPatient(context, patientId);
-                        Log.e(TAG ,"patientid::::"+idPatient);
+                        Log.e(TAG, "patientid::::" + idPatient);
 
                         ContentValues values = new ContentValues();
                         values.put(ImsContract.PatientDataToClinicsEntry.COLUMN_TRANSFER_DATE, dateString);
@@ -259,6 +259,7 @@ public class PatientCursorAdapter extends CursorAdapter {
     }
 
 
+    // Get id patient
     @RequiresApi(api = Build.VERSION_CODES.O)
     private int getIdPatient(Context context, Uri currentPatientUri) {
         int patientId = 0;
