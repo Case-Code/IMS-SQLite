@@ -590,21 +590,12 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
                 PatientEntry.COLUMN_WEIGHT,
                 PatientEntry.COLUMN_HEIGHT};
 
-        if (mCurrentPatientUri ==  null) {
             return new CursorLoader(this,
                     PatientEntry.CONTENT_URI,
                     projection,
                     null,
                     null,
                     null);
-        } else {
-            return new CursorLoader(this,
-                    mCurrentPatientUri,
-                    projection,
-                    null,
-                    null,
-                    null);
-        }
     }
 
     @Override
@@ -613,7 +604,6 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
         if (mCurrentPatientUri == null) {
             mPatientCursorAdapter.swapCursor(data);
         } else {
-
             if (data == null || data.getCount() < 1) {
                 return;
             }
@@ -655,9 +645,7 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
                         break;
                 }
             }
-
         }
-
     }
 
     @Override
@@ -675,8 +663,6 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
             mPatientGenderSpinner.setSelection(0);
         }
     }
-
-
 }
 
 
