@@ -140,6 +140,7 @@ ContentValues values = new ContentValues();
 
         mClinicCursorAdapter = new ClinicCursorAdapter(this, null);
         patientListView.setAdapter(mClinicCursorAdapter);
+        patientListView.setTextFilterEnabled(true);
 
 
 //        mActionMenuImageButton.setOnClickListener(new View.OnClickListener() {
@@ -155,6 +156,21 @@ ContentValues values = new ContentValues();
 //                showTransferredToClinicsDialog();
 //            }
 //        });
+        //TODO look in code this error in run code
+        mClinicCursorAdapter.setFilterQueryProvider(new FilterQueryProvider() {
+            @Override
+            public Cursor runQuery(CharSequence charSequence) {
+                Uri uri = ImsContract.PatientDataToClinicsEntry.CONTENT_URI;
+
+
+                Cursor c =    getContentResolver().query(uri, new String[]{ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID ,ImsContract.PatientDataToClinicsEntry._ID},
+                        ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID + " LIKE '%" + charSequence + "%'", null, null);
+
+
+                return c;
+            }
+
+        });
         searchClinicAutoCompleteTextView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2){
@@ -163,15 +179,13 @@ ContentValues values = new ContentValues();
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-                mClinicCursorAdapter.setFilterQueryProvider(new FilterQueryProvider() {
-                    @Override
-                    public Cursor runQuery(CharSequence charSequence) {
-                        return getFilterCursor(charSequence.toString());
-                    }
 
-                });
-                mClinicCursorAdapter.getFilter().filter(charSequence);
+                if(mClinicCursorAdapter!=null) {
+                    mClinicCursorAdapter.getFilter().filter(charSequence);
+                    mClinicCursorAdapter.notifyDataSetChanged();
 
+                    Log.e("search::", "" + charSequence);
+                }
             }
 
             @Override
@@ -481,7 +495,13 @@ ContentValues values = new ContentValues();
                 }
             }
 
+
 return  null;
+    }
+    public Cursor search(){
+            Cursor c =null;
+
+            return  c;
     }
 
 }
