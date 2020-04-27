@@ -3,6 +3,7 @@ package com.example.ims.adapter;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +37,7 @@ import static com.example.ims.data.ImsContract.PatientDataToClinicsEntry.CLINICS
 
 public class ClinicCursorAdapter extends CursorAdapter {
     public ClinicCursorAdapter(Context context, Cursor c) {
-        super(context, c,15);
+        super(context, c, 15);
     }
 
     @Override
@@ -49,120 +50,150 @@ public class ClinicCursorAdapter extends CursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
 
-        TextView firstLastNameTextView=view.findViewById(R.id.text_clinic_firstlastname);
-        TextView clinicNameTextView=view.findViewById(R.id.text_clinic_clinicname);
-        TextView transferDataTextView=view.findViewById(R.id.text_clinic_transferdata);
+        TextView firstLastNameTextView = view.findViewById(R.id.text_clinic_firstlastname);
+        TextView clinicNameTextView = view.findViewById(R.id.text_clinic_clinicname);
+        TextView transferDataTextView = view.findViewById(R.id.text_clinic_transferdata);
 
-        int patientIdColumnIndex = cursor.getColumnIndex(ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID);
-        int clinicNameColumnIndex = cursor.getColumnIndex(ImsContract.PatientDataToClinicsEntry.COLUMN_CLINIC_NAME);
-        int transferDataColumnIndex = cursor.getColumnIndex(ImsContract.PatientDataToClinicsEntry.COLUMN_TRANSFER_DATE);
+        int
+                patientIdColumnIndex =
+                cursor.getColumnIndex(ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID);
+        int
+                clinicNameColumnIndex =
+                cursor.getColumnIndex(ImsContract.PatientDataToClinicsEntry.COLUMN_CLINIC_NAME);
+        int
+                transferDataColumnIndex =
+                cursor.getColumnIndex(ImsContract.PatientDataToClinicsEntry.COLUMN_TRANSFER_DATE);
 
         String patientId = cursor.getString(patientIdColumnIndex);
         String clinicName = cursor.getString(clinicNameColumnIndex);
-        String transferDate  = cursor.getString(transferDataColumnIndex);
+        String transferDate = cursor.getString(transferDataColumnIndex);
 
 
-     int name =Integer.parseInt(clinicName) ;
-     int idPatient = Integer.parseInt(patientId);
+        int name = Integer.parseInt(clinicName);
+        int idPatient = Integer.parseInt(patientId);
 
 
-        firstLastNameTextView.setText(getNamePatient(idPatient ,context));
+        firstLastNameTextView.setText(getNamePatient(idPatient, context));
 
         clinicNameTextView.setText(getNameClinic(name));
         transferDataTextView.setText(transferDate);
 
 
-
-
-
-
     }
 
-    public String getNameClinic(int name ){
-        if(CLINICS_ENDEMIC_DISEASES == name){
-            return  "Endemic diseases:";
+    public String getNameClinic(int name) {
+        if (CLINICS_ENDEMIC_DISEASES == name) {
+            return "Endemic diseases:";
 
-        }else if(name==CLINICS_MEDICAL_AND_MICROBIOLOGICAL_ANALYZES){
+        } else if (name == CLINICS_MEDICAL_AND_MICROBIOLOGICAL_ANALYZES) {
             return "Medical and microbiological analyzes";
 
-        }else if(name==CLINICS_PSYCHOLOGICAL_DISEASES){
-            return"Psychological diseases";
+        } else if (name == CLINICS_PSYCHOLOGICAL_DISEASES) {
+            return "Psychological diseases";
 
-        }else if(name==CLINICS_PHONETIC_AND_PHONEME){
-        return"Phonetic and phoneme";
-    }
-        else if(name==CLINICS_EAR_NOSE_AND_THROAT){
-            return"Ear, nose and throat";
-        }
-        else if(name==CLINICS_COLON_AND_ANUS){
-            return"Colon and anus";
-        }
-        else if(name==CLINICS_BLOOD_VESSELS){
-            return"Blood vessels";
-        }
-        else if(name==CLINICS_ENDOCRINE_GLANDS){
-            return"Endocrine glands";
-        }
-        else if(name==CLINICS_RHEUMATISM_AND_IMMUNITY){
-            return"Rheumatism and immunity";
-        }
-        else if(name==CLINICS_KIDNEY){
-            return"Kidney";
-        } else if(name==CLINICS_THE_PAIN){
-            return"The pain";
-        }
-        else if(name==CLINICS_CHESTS_DISEASES){
-            return"Chest's diseases";
-        }
-        else if(name==CLINICS_HEART_DRAWING){
-            return"Heart drawing";
-        }
-        else if(name==CLINICS_CARDIOTHORACIC_SURGERY){
-            return"Cardiothoracic surgery";
-        }
-        else if(name==CLINICS_FERTILITY_UNIT){
-            return"Fertility unit";
-        }
-        else if(name==CLINICS_GENERAL_INTERIOR){
-            return"General interior";
-        }
-        else if(name==CLINICS_RHEUMATISM_AND_REHABILITATION){
-            return"Rheumatism and rehabilitation";
-        }
-        else if(name==CLINICS_PLASTIC_SURGERY){
-            return"Plastic surgery";
-        }
-        else if(name==CLINICS_GENERAL_SURGERY){
-            return"General surgery";
-        }
-        else if(name==CLINICS_ONCOLOGY_AND_NUCLEAR_MEDICINE){
-            return"Oncology and nuclear medicine";
-        }
-        else if(name==CLINICS_LEATHER_AND_GENITAL){
-            return"Leather and genital";
+        } else if (name == CLINICS_PHONETIC_AND_PHONEME) {
+            return "Phonetic and phoneme";
+        } else if (name == CLINICS_EAR_NOSE_AND_THROAT) {
+            return "Ear, nose and throat";
+        } else if (name == CLINICS_COLON_AND_ANUS) {
+            return "Colon and anus";
+        } else if (name == CLINICS_BLOOD_VESSELS) {
+            return "Blood vessels";
+        } else if (name == CLINICS_ENDOCRINE_GLANDS) {
+            return "Endocrine glands";
+        } else if (name == CLINICS_RHEUMATISM_AND_IMMUNITY) {
+            return "Rheumatism and immunity";
+        } else if (name == CLINICS_KIDNEY) {
+            return "Kidney";
+        } else if (name == CLINICS_THE_PAIN) {
+            return "The pain";
+        } else if (name == CLINICS_CHESTS_DISEASES) {
+            return "Chest's diseases";
+        } else if (name == CLINICS_HEART_DRAWING) {
+            return "Heart drawing";
+        } else if (name == CLINICS_CARDIOTHORACIC_SURGERY) {
+            return "Cardiothoracic surgery";
+        } else if (name == CLINICS_FERTILITY_UNIT) {
+            return "Fertility unit";
+        } else if (name == CLINICS_GENERAL_INTERIOR) {
+            return "General interior";
+        } else if (name == CLINICS_RHEUMATISM_AND_REHABILITATION) {
+            return "Rheumatism and rehabilitation";
+        } else if (name == CLINICS_PLASTIC_SURGERY) {
+            return "Plastic surgery";
+        } else if (name == CLINICS_GENERAL_SURGERY) {
+            return "General surgery";
+        } else if (name == CLINICS_ONCOLOGY_AND_NUCLEAR_MEDICINE) {
+            return "Oncology and nuclear medicine";
+        } else if (name == CLINICS_LEATHER_AND_GENITAL) {
+            return "Leather and genital";
         }
 
-            return"CLINICS_UNKNOWN";
-
+        return "CLINICS_UNKNOWN";
 
 
     }
 
-    public String getNamePatient( int patientId ,Context context){
+    public String getNamePatient(int patientId, Context context) {
         Cursor cursor;
         Uri uri = ImsContract.PatientEntry.CONTENT_URI;
-        cursor =context.getContentResolver().query(uri, new String[]{ImsContract.PatientEntry.COLUMN_FIRST_NAME,ImsContract.PatientEntry.COLUMN_LAST_NAME},
-                ImsContract.PatientEntry._ID + " ="+patientId , null, null);
-        cursor.moveToFirst();
-        while (cursor.isAfterLast() == false) {
+        if (patientId >= 1) {
+            cursor =
+                    context.getContentResolver().query(uri, new String[]{ImsContract.PatientEntry.COLUMN_FIRST_NAME, ImsContract.PatientEntry.COLUMN_LAST_NAME},
+                            ImsContract.PatientEntry._ID + " =" + patientId, null, null);
+            cursor.moveToFirst();
 
-            String patientFName = cursor.getString(cursor.getColumnIndex(ImsContract.PatientEntry.COLUMN_FIRST_NAME));
-            String patientLName = cursor.getString(cursor.getColumnIndex(ImsContract.PatientEntry.COLUMN_LAST_NAME));
 
-            if (patientFName != null& patientLName!=null) {
-                        return  patientFName+" "+patientLName ;
+            while (cursor.isAfterLast() == false) {
+
+                String
+                        patientFName =
+                        cursor.getString(cursor.getColumnIndex(ImsContract.PatientEntry.COLUMN_FIRST_NAME));
+                String
+                        patientLName =
+                        cursor.getString(cursor.getColumnIndex(ImsContract.PatientEntry.COLUMN_LAST_NAME));
+
+                if (patientFName != null & patientLName != null) {
+                    return patientFName + " " + patientLName;
                 }
+            }
+
         }
-     return null;
+        return null;
     }
+
+
+    public int getIddPatient(String name, Context context) {
+
+        Cursor cursor;
+        Uri uri = ImsContract.PatientEntry.CONTENT_URI;
+
+        if (name != null) {
+            cursor =
+                    context.getContentResolver().query(uri, new String[]{ImsContract.PatientEntry._ID},
+                            ImsContract.PatientEntry.COLUMN_FIRST_NAME + " LIKE '%" + name + "%'", null, null);
+            cursor.moveToFirst();
+
+
+            while (cursor.isAfterLast() == false) {
+
+                int idPatient =
+                        cursor.getInt(cursor.getColumnIndex(ImsContract.PatientEntry._ID));
+
+
+                if (idPatient > 0) {
+                    Log.e("search::;", "id::" + idPatient);
+
+                    return idPatient;
+                }
+            }
+
+        }
+        return  0;
+    }
+
 }
+
+
+
+

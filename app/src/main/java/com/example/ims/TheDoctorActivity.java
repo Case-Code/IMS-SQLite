@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -141,16 +142,6 @@ ContentValues values = new ContentValues();
         patientListView.setAdapter(mClinicCursorAdapter);
 
 
-mClinicCursorAdapter.setFilterQueryProvider(new FilterQueryProvider() {
-    @Override
-    public Cursor runQuery(CharSequence charSequence) {
-        Cursor cursor;
-        Uri uri = ImsContract.PatientEntry.CONTENT_URI;
-        cursor =getContentResolver().query(uri, new String[]{ImsContract.PatientEntry._ID ,ImsContract.PatientEntry.COLUMN_FIRST_NAME,ImsContract.PatientEntry.COLUMN_LAST_NAME},
-                ImsContract.PatientEntry.COLUMN_FIRST_NAME + " like '%"+charSequence+"%'" , null, null);
-        return cursor;
-    }
-});
 //        mActionMenuImageButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -171,9 +162,16 @@ mClinicCursorAdapter.setFilterQueryProvider(new FilterQueryProvider() {
             }
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(mClinicCursorAdapter!=null) {
-                    mClinicCursorAdapter.getFilter().filter(charSequence);
-                }
+
+                mClinicCursorAdapter.setFilterQueryProvider(new FilterQueryProvider() {
+                    @Override
+                    public Cursor runQuery(CharSequence charSequence) {
+                        return getFilterCursor(charSequence.toString());
+                    }
+
+                });
+                mClinicCursorAdapter.getFilter().filter(charSequence);
+
             }
 
             @Override
@@ -181,6 +179,7 @@ mClinicCursorAdapter.setFilterQueryProvider(new FilterQueryProvider() {
 
 
             }
+
         });
         getLoaderManager().initLoader(CLINIC_LOADER ,null ,this);
 
@@ -426,5 +425,63 @@ mClinicCursorAdapter.setFilterQueryProvider(new FilterQueryProvider() {
 
     }
 
+/*
+    public void searchNamePatient(CharSequence query) {
+        if (patientListView == null) return;
+
+        mClinicCursorAdapter.setFilterQueryProvider(new FilterQueryProvider() {
+            @Override
+            public Cursor runQuery(CharSequence charSequence) {
+
+                Cursor cursor;
+                Uri uri = ImsContract.PatientEntry.CONTENT_URI;
+                cursor =
+                        getContentResolver().query(uri, new String[]{ImsContract.PatientEntry._ID,ImsContract.PatientEntry.COLUMN_FIRST_NAME, ImsContract.PatientEntry.COLUMN_LAST_NAME},
+                                ImsContract.PatientEntry.COLUMN_FIRST_NAME + " LIKE '%" + charSequence+"%'", null, null);
+                cursor.moveToFirst();
+                while (cursor.isAfterLast() == false) {
+
+
+                    charSequence =
+                            cursor.getString(cursor.getColumnIndex(ImsContract.PatientEntry.COLUMN_FIRST_NAME));
+
+                }
+
+                    return cursor;
+
+            }
+        });
+
+    }
+*/
+
+        public Cursor getFilterCursor(String namePatient){
+            Cursor cursor;
+
+                    int id =  mClinicCursorAdapter.getIddPatient(namePatient ,this);
+            Log.e("mClinicCursorAdapter::",namePatient);
+            Uri uri = ImsContract.PatientDataToClinicsEntry.CONTENT_URI;
+            cursor =
+                    getContentResolver().query(uri, new String[]{ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID },
+                            ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID + "="+id, null, null);
+            cursor.moveToFirst();
+
+
+            while (cursor.isAfterLast() == false) {
+
+                   id =cursor.getInt(cursor.getColumnIndex(ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID));
+               // namePatient =
+                 //       cursor.getString(cursor.getColumnIndex(ImsContract.PatientEntry._ID));
+
+                if (id != 0 ) {
+                    Log.e("search::" ,"idpatient"+id);
+
+
+                    return  cursor;
+                }
+            }
+
+return  null;
+    }
 
 }
