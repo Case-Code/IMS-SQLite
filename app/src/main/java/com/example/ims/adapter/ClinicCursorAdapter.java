@@ -7,14 +7,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
+import android.widget.Filter;
 import android.widget.TextView;
 
 import com.example.ims.R;
 import com.example.ims.data.ImsContract;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.example.ims.data.ImsContract.PatientDataToClinicsEntry.*;
 
 public class ClinicCursorAdapter extends CursorAdapter {
+
     public ClinicCursorAdapter(Context context, Cursor c) {
         super(context, c, 15);
     }

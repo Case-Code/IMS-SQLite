@@ -99,6 +99,10 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
         patientListView.setAdapter(mClinicCursorAdapter);
         patientListView.setTextFilterEnabled(true);
 
+        // TODO search
+        searchClinicAutoCompleteTextView.setAdapter(mClinicCursorAdapter);
+        searchClinicAutoCompleteTextView.setThreshold(1);
+
 
         mActionMenuImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -168,13 +172,14 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
         return true;
     }
 
-    // initial
+    // Initialization
     private void init() {
         mDrawerLayout = findViewById(R.id.activity_the_doctor);
         mNavigationView = findViewById(R.id.navigation_view);
         mActionMenuImageButton = findViewById(R.id.image_button_action_menu);
         mDialogTransferredToClinicsView = getLayoutInflater().inflate(R.layout.dialog_doctor_transferred_to_clinics, null);
 
+        //List of clients referred to the clinic
         searchClinicAutoCompleteTextView = findViewById(R.id.actv_doctor_searchclinic);
         patientListView = findViewById(R.id.list_doctor_patient);
 
