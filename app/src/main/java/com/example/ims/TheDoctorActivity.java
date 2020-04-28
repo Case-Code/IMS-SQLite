@@ -81,50 +81,6 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
 
     private String mTheNamesOfTheClinics = "null";
 
-    public void save() {
-        String doctorDdDateOfServiceString = dateofserviceTextView.getText().toString().trim();
-        String doctorDdDiagnosisString = diagnosisEditText.getText().toString().trim();
-        String doctorDdAdditionalNotesString = additionalNotesEditText.getText().toString().trim();
-        String doctorDdPerformingPhysicianSignatureString = performingPhysicianSignatureEditText.getText().toString().trim();
-        ContentValues values = new ContentValues();
-
-      /*  if (TextUtils.isEmpty(doctorDdDateOfServiceString)) {
-        } else {
-            values.put(ImsContract.DoctorDiagnosisEntry.,doctorDdDateOfServiceString );
-        }
-        if (TextUtils.isEmpty()) {
-        } else {
-            values.put(ImsContract.InvoicesEntry., );
-        }
-        if (TextUtils.isEmpty()) {
-        } else {
-            values.put(ImsContract.InvoicesEntry., );
-        }
-        if (TextUtils.isEmpty()) {
-        } else {
-            values.put(ImsContract.InvoicesEntry., );
-        }
-        if (TextUtils.isEmpty()) {
-        } else {
-            values.put(ImsContract.InvoicesEntry., );
-        }*/
-    }
-   /* public String getNamePatient( String patientId ){
-        Cursor cursor;
-        Uri uri = ImsContract.PatientEntry.CONTENT_URI;
-        cursor =getContentResolver().query(uri, new String[]{ImsContract.PatientEntry.COLUMN_FIRST_NAME,ImsContract.PatientEntry.COLUMN_LAST_NAME},
-                ImsContract.PatientEntry.COLUMN_FIRST_NAME + " like '%"+patientId+"%'" , null, null);
-        cursor.moveToFirst();
-        while (cursor.) {
-
-            String patientFName = cursor.getString(cursor.getColumnIndex(ImsContract.PatientEntry.COLUMN_FIRST_NAME));
-            String patientLName = cursor.getString(cursor.getColumnIndex(ImsContract.PatientEntry.COLUMN_LAST_NAME));
-
-                return  patientFName+" "+patientLName ;
-            }
-        }
-
-    }*/
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -144,12 +100,12 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
         patientListView.setTextFilterEnabled(true);
 
 
-//        mActionMenuImageButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mDrawerLayout.openDrawer(GravityCompat.START);
-//            }
-//        });
+        mActionMenuImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDrawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
 
 //        mButtonClinic.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -158,46 +114,6 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
 //            }
 //        });
 
-        //TODO look in code this error in run code
-        mClinicCursorAdapter.setFilterQueryProvider(new FilterQueryProvider() {
-            @Override
-            public Cursor runQuery(CharSequence charSequence) {
-                Uri uri = ImsContract.PatientDataToClinicsEntry.CONTENT_URI;
-
-                String[] projection = {
-                        ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID,
-                        ImsContract.PatientDataToClinicsEntry._ID};
-
-                Cursor c = getContentResolver().query(
-                        uri,
-                        projection,
-                        ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID + " LIKE '%" + charSequence + "%'",
-                        null,
-                        null);
-                return c;
-            }
-
-        });
-
-        searchClinicAutoCompleteTextView.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (mClinicCursorAdapter != null) {
-                    mClinicCursorAdapter.getFilter().filter(charSequence);
-                    mClinicCursorAdapter.notifyDataSetChanged();
-
-                    Log.e("search::", "" + charSequence);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-            }
-        });
         getLoaderManager().initLoader(CLINIC_LOADER, null, this);
     }
 
@@ -309,36 +225,6 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
     }
 
 
-    public ArrayList<ImsContract.PatientEntry> searchPatient() {
-        ArrayList<ImsContract.PatientEntry> arr = new ArrayList<>();
-
-        if (TextUtils.isEmpty(arr.toString())) {
-            return null;
-        }
-
-        Uri uri = ImsContract.PatientEntry.CONTENT_URI;
-        Cursor cursor = getContentResolver().query(uri, new String[]{ImsContract.PatientEntry.COLUMN_FIRST_NAME}, null, null, "ASC");
-        cursor.moveToFirst();
-        while (cursor.isAfterLast() == false) {
-        }
-        if (null == cursor) {
-
-        } else if (cursor.getCount() < 1) {
-
-        } else {
-            String resultname = cursor.getString(cursor.getColumnIndex(ImsContract.PatientEntry.COLUMN_FIRST_NAME));
-            ImsContract.PatientEntry p = new ImsContract.PatientEntry();
-            if (p != null) {
-                arr.add(p);
-            }
-            cursor.moveToNext();
-        }
-        cursor.close();
-
-        return arr;
-
-    }
-
     public void showTransferredToClinicsDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         searchClinicAutoCompleteTextView = mDialogTransferredToClinicsView.findViewById(R.id.tv_search_patient_clinic);
@@ -394,23 +280,19 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
     @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
-        if (id == CLINIC_LOADER) {
 
-            String[] projection = {
-                    ImsContract.PatientDataToClinicsEntry._ID,
-                    ImsContract.PatientDataToClinicsEntry.COLUMN_CLINIC_NAME,
-                    ImsContract.PatientDataToClinicsEntry.COLUMN_TRANSFER_DATE,
-                    ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID};
+        String[] projection = {
+                ImsContract.PatientDataToClinicsEntry._ID,
+                ImsContract.PatientDataToClinicsEntry.COLUMN_CLINIC_NAME,
+                ImsContract.PatientDataToClinicsEntry.COLUMN_TRANSFER_DATE,
+                ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID};
 
-            return new CursorLoader(this,
-                    ImsContract.PatientDataToClinicsEntry.CONTENT_URI,
-                    projection,
-                    null,
-                    null,
-                    null
-            );
-        }
-        return null;
+        return new CursorLoader(this,
+                ImsContract.PatientDataToClinicsEntry.CONTENT_URI,
+                projection,
+                null,
+                null,
+                null);
     }
 
     @Override
@@ -434,66 +316,32 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
         }
     }
 
-/*
-    public void searchNamePatient(CharSequence query) {
-        if (patientListView == null) return;
+    public void save() {
+        String doctorDdDateOfServiceString = dateofserviceTextView.getText().toString().trim();
+        String doctorDdDiagnosisString = diagnosisEditText.getText().toString().trim();
+        String doctorDdAdditionalNotesString = additionalNotesEditText.getText().toString().trim();
+        String doctorDdPerformingPhysicianSignatureString = performingPhysicianSignatureEditText.getText().toString().trim();
+        ContentValues values = new ContentValues();
 
-        mClinicCursorAdapter.setFilterQueryProvider(new FilterQueryProvider() {
-            @Override
-            public Cursor runQuery(CharSequence charSequence) {
-
-                Cursor cursor;
-                Uri uri = ImsContract.PatientEntry.CONTENT_URI;
-                cursor =
-                        getContentResolver().query(uri, new String[]{ImsContract.PatientEntry._ID,ImsContract.PatientEntry.COLUMN_FIRST_NAME, ImsContract.PatientEntry.COLUMN_LAST_NAME},
-                                ImsContract.PatientEntry.COLUMN_FIRST_NAME + " LIKE '%" + charSequence+"%'", null, null);
-                cursor.moveToFirst();
-                while (cursor.isAfterLast() == false) {
-
-
-                    charSequence =
-                            cursor.getString(cursor.getColumnIndex(ImsContract.PatientEntry.COLUMN_FIRST_NAME));
-
-                }
-
-                    return cursor;
-
-            }
-        });
-
-    }
-*/
-
-    public Cursor getFilterCursor(String namePatient) {
-        Cursor cursor;
-
-        int id = mClinicCursorAdapter.getIddPatient(namePatient, this);
-        Log.e("mClinicCursorAdapter::", namePatient);
-        Uri uri = ImsContract.PatientDataToClinicsEntry.CONTENT_URI;
-        cursor =
-                getContentResolver().query(uri, new String[]{ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID},
-                        ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID + "=" + id, null, null);
-        cursor.moveToFirst();
-
-
-        while (cursor.isAfterLast() == false) {
-
-            id = cursor.getInt(cursor.getColumnIndex(ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID));
-            // namePatient =
-            //       cursor.getString(cursor.getColumnIndex(ImsContract.PatientEntry._ID));
-
-            if (id != 0) {
-                Log.e("search::", "idpatient" + id);
-
-
-                return cursor;
-            }
+      /*  if (TextUtils.isEmpty(doctorDdDateOfServiceString)) {
+        } else {
+            values.put(ImsContract.DoctorDiagnosisEntry.,doctorDdDateOfServiceString );
         }
-        return null;
-    }
-
-    public Cursor search() {
-        Cursor c = null;
-        return c;
+        if (TextUtils.isEmpty()) {
+        } else {
+            values.put(ImsContract.InvoicesEntry., );
+        }
+        if (TextUtils.isEmpty()) {
+        } else {
+            values.put(ImsContract.InvoicesEntry., );
+        }
+        if (TextUtils.isEmpty()) {
+        } else {
+            values.put(ImsContract.InvoicesEntry., );
+        }
+        if (TextUtils.isEmpty()) {
+        } else {
+            values.put(ImsContract.InvoicesEntry., );
+        }*/
     }
 }
