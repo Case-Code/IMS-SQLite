@@ -104,14 +104,13 @@
                         android:drawablePadding="10dp"
                         android:hint="Patient Name"
                         android:inputType="textPersonName"
-                        android:paddingLeft="10dp"
-                        />
+                        android:paddingLeft="10dp" />
 
                     <ListView
-                        android:layout_marginTop="10dp"
                         android:id="@+id/list_doctor_patient"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
                         tools:listitem="@layout/item_clinic" />
 
                     <ImageView
@@ -166,38 +165,9 @@
                         android:layout_height="match_parent"
                         android:orientation="horizontal">
 
-
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:orientation="vertical"
-                            android:padding="10dp">
-
-                            <AutoCompleteTextView
-                                android:id="@+id/actv_doctor_patienttransformation"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:completionThreshold="1"
-                                android:drawableStart="@drawable/ic_search_black_24dp"
-                                android:drawableLeft="@drawable/ic_search_black_24dp"
-                                android:drawablePadding="10dp"
-                                android:hint="Patient Name"
-                                android:inputType="textPersonName"
-                                android:paddingLeft="10dp" />
-
-                            <ListView
-                                android:id="@+id/list_doctor_transformation"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                tools:listitem="@layout/item_transformation" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="2"
                             android:orientation="vertical"
                             android:padding="10dp">
 

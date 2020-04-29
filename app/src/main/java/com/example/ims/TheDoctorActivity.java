@@ -16,7 +16,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -24,7 +23,6 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FilterQueryProvider;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -59,15 +57,13 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
     private Spinner mTheNameOfTheClinicSpinner;
 
     //List of clients referred to the clinic
-    private AutoCompleteTextView searchClinicAutoCompleteTextView;
+    private EditText doctorSearchClinicEditText;
     private ListView patientListView;
     private ClinicCursorAdapter mClinicCursorAdapter;
     public Uri mClinicUri;
 
 
     //Doctor diagnosis
-    private AutoCompleteTextView patienttransformationAutoCompleteTextView;
-    private ListView transformationListView;
     private TextView firstlastnameTextView;
     private TextView dateofbirthTextView;
     private TextView dateofserviceTextView;
@@ -99,11 +95,6 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
         patientListView.setAdapter(mClinicCursorAdapter);
         patientListView.setTextFilterEnabled(true);
 
-        // TODO search
-        searchClinicAutoCompleteTextView.setAdapter(mClinicCursorAdapter);
-        searchClinicAutoCompleteTextView.setThreshold(1);
-
-
         mActionMenuImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,12 +102,20 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
             }
         });
 
-//        mButtonClinic.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                showTransferredToClinicsDialog();
-//            }
-//        });
+        doctorSearchClinicEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                mClinicCursorAdapter.getFilter().filter(charSequence);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
 
         getLoaderManager().initLoader(CLINIC_LOADER, null, this);
     }
@@ -180,12 +179,10 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
         mDialogTransferredToClinicsView = getLayoutInflater().inflate(R.layout.dialog_doctor_transferred_to_clinics, null);
 
         //List of clients referred to the clinic
-        searchClinicAutoCompleteTextView = findViewById(R.id.actv_doctor_searchclinic);
+        doctorSearchClinicEditText = findViewById(R.id.edit_doctor_searchclinic);
         patientListView = findViewById(R.id.list_doctor_patient);
 
         //Doctor diagnosis
-        patienttransformationAutoCompleteTextView = findViewById(R.id.actv_doctor_patienttransformation);
-        transformationListView = findViewById(R.id.list_doctor_transformation);
         firstlastnameTextView = findViewById(R.id.text_doctor_firstlastname);
         dateofbirthTextView = findViewById(R.id.text_doctor_dateofbirth);
         dateofserviceTextView = findViewById(R.id.text_doctor_dateofservice);
@@ -232,7 +229,7 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
 
     public void showTransferredToClinicsDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        searchClinicAutoCompleteTextView = mDialogTransferredToClinicsView.findViewById(R.id.tv_search_patient_clinic);
+        doctorSearchClinicEditText = mDialogTransferredToClinicsView.findViewById(R.id.tv_search_patient_clinic);
 
         ArrayList arr = new ArrayList();
         Uri uri = ImsContract.PatientEntry.CONTENT_URI;
@@ -319,34 +316,5 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
                 mClinicCursorAdapter.swapCursor(null);
             }
         }
-    }
-
-    public void save() {
-        String doctorDdDateOfServiceString = dateofserviceTextView.getText().toString().trim();
-        String doctorDdDiagnosisString = diagnosisEditText.getText().toString().trim();
-        String doctorDdAdditionalNotesString = additionalNotesEditText.getText().toString().trim();
-        String doctorDdPerformingPhysicianSignatureString = performingPhysicianSignatureEditText.getText().toString().trim();
-        ContentValues values = new ContentValues();
-
-      /*  if (TextUtils.isEmpty(doctorDdDateOfServiceString)) {
-        } else {
-            values.put(ImsContract.DoctorDiagnosisEntry.,doctorDdDateOfServiceString );
-        }
-        if (TextUtils.isEmpty()) {
-        } else {
-            values.put(ImsContract.InvoicesEntry., );
-        }
-        if (TextUtils.isEmpty()) {
-        } else {
-            values.put(ImsContract.InvoicesEntry., );
-        }
-        if (TextUtils.isEmpty()) {
-        } else {
-            values.put(ImsContract.InvoicesEntry., );
-        }
-        if (TextUtils.isEmpty()) {
-        } else {
-            values.put(ImsContract.InvoicesEntry., );
-        }*/
     }
 }

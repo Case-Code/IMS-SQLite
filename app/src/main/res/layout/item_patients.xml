@@ -108,7 +108,8 @@
             android:clickable="true"
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"
-            android:text="analysis lab"
+            android:text="Analysis Lab"
+            android:textAllCaps="false"
             android:textColor="@color/colorAccent"
             android:textSize="12sp" />
 
@@ -126,7 +127,8 @@
             android:clickable="true"
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"
-            android:text="clinic"
+            android:text="Clinic"
+            android:textAllCaps="false"
             android:textColor="@color/colorAccent"
             android:textSize="12sp" />
 
@@ -144,7 +146,8 @@
             android:clickable="true"
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"
-            android:text="health record"
+            android:text="Health Record"
+            android:textAllCaps="false"
             android:textColor="@color/colorAccent"
             android:textSize="12sp" />
 
@@ -162,7 +165,8 @@
             android:clickable="true"
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"
-            android:text="patient records"
+            android:text="Patient Records"
+            android:textAllCaps="false"
             android:textColor="@color/colorAccent"
             android:textSize="12sp" />
 
@@ -180,7 +184,8 @@
             android:clickable="true"
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"
-            android:text="invoices"
+            android:text="Invoices"
+            android:textAllCaps="false"
             android:textColor="@color/colorAccent"
             android:textSize="12sp" />
     </LinearLayout>
