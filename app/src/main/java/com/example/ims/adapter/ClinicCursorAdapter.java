@@ -18,19 +18,22 @@ import java.util.List;
 
 import static com.example.ims.data.ImsContract.PatientDataToClinicsEntry.*;
 
-public class ClinicCursorAdapter extends CursorAdapter {
+public class ClinicCursorAdapter extends CursorAdapter
+{
 
     public ClinicCursorAdapter(Context context, Cursor c) {
         super(context, c, 15);
     }
 
     @Override
-    public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
+    public View newView(Context context, Cursor cursor, ViewGroup viewGroup)
+    {
         return LayoutInflater.from(context).inflate(R.layout.item_clinic, viewGroup, false);
     }
 
     @Override
-    public void bindView(View view, Context context, Cursor cursor) {
+    public void bindView(View view, Context context, Cursor cursor)
+    {
         TextView firstLastNameTextView = view.findViewById(R.id.text_clinic_firstlastname);
         TextView clinicNameTextView = view.findViewById(R.id.text_clinic_clinicname);
         TextView transferDataTextView = view.findViewById(R.id.text_clinic_transferdata);
@@ -50,16 +53,20 @@ public class ClinicCursorAdapter extends CursorAdapter {
     }
 
     // Get patient name
-    private String getPatientName(int patientId, Context context) {
+    private String getPatientName(int patientId, Context context)
+    {
         String patientName = null;
 
         // Column name
-        String[] projection = {
+        String[] projection =
+                {
                 ImsContract.PatientEntry.COLUMN_FIRST_NAME,
-                ImsContract.PatientEntry.COLUMN_LAST_NAME};
+                ImsContract.PatientEntry.COLUMN_LAST_NAME
+                };
 
         // SQL query
-        @SuppressLint("Recycle") Cursor cursor = context.getContentResolver().query(
+        @SuppressLint("Recycle")
+        Cursor cursor = context.getContentResolver().query(
                 ImsContract.PatientEntry.CONTENT_URI,
                 projection,
                 ImsContract.PatientEntry._ID + " =" + patientId,
@@ -67,7 +74,8 @@ public class ClinicCursorAdapter extends CursorAdapter {
                 null);
 
         assert cursor != null;
-        while (cursor.moveToNext()) {
+        while (cursor.moveToNext())
+        {
 
             // Firs name and last name column index
             int patientFirsNameColumnIndex = cursor.getColumnIndex(ImsContract.PatientEntry.COLUMN_FIRST_NAME);
@@ -86,47 +94,90 @@ public class ClinicCursorAdapter extends CursorAdapter {
 
     // Get clinic name
     private String getClinicName(int clinicName) {
-        if (CLINICS_ENDEMIC_DISEASES == clinicName) {
+        if (CLINICS_ENDEMIC_DISEASES == clinicName)
+        {
             return "Endemic diseases:";
-        } else if (clinicName == CLINICS_MEDICAL_AND_MICROBIOLOGICAL_ANALYZES) {
+        }
+        else if (clinicName == CLINICS_MEDICAL_AND_MICROBIOLOGICAL_ANALYZES)
+        {
             return "Medical and microbiological analyzes";
-        } else if (clinicName == CLINICS_PSYCHOLOGICAL_DISEASES) {
+        }
+        else if (clinicName == CLINICS_PSYCHOLOGICAL_DISEASES)
+        {
             return "Psychological diseases";
-        } else if (clinicName == CLINICS_PHONETIC_AND_PHONEME) {
+        }
+        else if (clinicName == CLINICS_PHONETIC_AND_PHONEME)
+        {
             return "Phonetic and phoneme";
-        } else if (clinicName == CLINICS_EAR_NOSE_AND_THROAT) {
+        }
+        else if (clinicName == CLINICS_EAR_NOSE_AND_THROAT)
+        {
             return "Ear, nose and throat";
-        } else if (clinicName == CLINICS_COLON_AND_ANUS) {
+        }
+        else if (clinicName == CLINICS_COLON_AND_ANUS)
+        {
             return "Colon and anus";
-        } else if (clinicName == CLINICS_BLOOD_VESSELS) {
+        }
+        else if (clinicName == CLINICS_BLOOD_VESSELS)
+        {
             return "Blood vessels";
-        } else if (clinicName == CLINICS_ENDOCRINE_GLANDS) {
+        }
+        else if (clinicName == CLINICS_ENDOCRINE_GLANDS)
+
+        {
             return "Endocrine glands";
-        } else if (clinicName == CLINICS_RHEUMATISM_AND_IMMUNITY) {
+
+        }
+        else if (clinicName == CLINICS_RHEUMATISM_AND_IMMUNITY)
+        {
             return "Rheumatism and immunity";
-        } else if (clinicName == CLINICS_KIDNEY) {
+        }
+        else if (clinicName == CLINICS_KIDNEY)
+        {
             return "Kidney";
-        } else if (clinicName == CLINICS_THE_PAIN) {
+        }
+        else if (clinicName == CLINICS_THE_PAIN)
+        {
             return "The pain";
-        } else if (clinicName == CLINICS_CHESTS_DISEASES) {
+        }
+        else if (clinicName == CLINICS_CHESTS_DISEASES)
+        {
             return "Chest's diseases";
-        } else if (clinicName == CLINICS_HEART_DRAWING) {
+        }
+        else if (clinicName == CLINICS_HEART_DRAWING)
+        {
             return "Heart drawing";
-        } else if (clinicName == CLINICS_CARDIOTHORACIC_SURGERY) {
+        }
+        else if (clinicName == CLINICS_CARDIOTHORACIC_SURGERY)
+        {
             return "Cardiothoracic surgery";
-        } else if (clinicName == CLINICS_FERTILITY_UNIT) {
+        }
+        else if (clinicName == CLINICS_FERTILITY_UNIT)
+        {
             return "Fertility unit";
-        } else if (clinicName == CLINICS_GENERAL_INTERIOR) {
+        }
+        else if (clinicName == CLINICS_GENERAL_INTERIOR)
+        {
             return "General interior";
-        } else if (clinicName == CLINICS_RHEUMATISM_AND_REHABILITATION) {
+        }
+        else if (clinicName == CLINICS_RHEUMATISM_AND_REHABILITATION)
+        {
             return "Rheumatism and rehabilitation";
-        } else if (clinicName == CLINICS_PLASTIC_SURGERY) {
+        }
+        else if (clinicName == CLINICS_PLASTIC_SURGERY)
+        {
             return "Plastic surgery";
-        } else if (clinicName == CLINICS_GENERAL_SURGERY) {
+        }
+        else if (clinicName == CLINICS_GENERAL_SURGERY)
+        {
             return "General surgery";
-        } else if (clinicName == CLINICS_ONCOLOGY_AND_NUCLEAR_MEDICINE) {
+        }
+        else if (clinicName == CLINICS_ONCOLOGY_AND_NUCLEAR_MEDICINE)
+        {
             return "Oncology and nuclear medicine";
-        } else if (clinicName == CLINICS_LEATHER_AND_GENITAL) {
+        }
+        else if (clinicName == CLINICS_LEATHER_AND_GENITAL)
+        {
             return "Leather and genital";
         }
         return "CLINICS_UNKNOWN";

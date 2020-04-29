@@ -168,7 +168,8 @@ public class ImsProvider extends ContentProvider {
 
     @Nullable
     @Override
-    public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
+    public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder)
+    {
         SQLiteDatabase database = mImsDbHelper.getReadableDatabase();
         Cursor cursor;
 
@@ -428,6 +429,7 @@ public class ImsProvider extends ContentProvider {
             default:
                 throw new IllegalStateException("Unknown URI " + uri + " with match " + match);
         }
+
     }
 
     @Nullable
