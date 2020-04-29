@@ -1,5 +1,6 @@
 package com.example.ims;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
@@ -23,8 +24,10 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FilterQueryProvider;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.content.CursorLoader;
@@ -62,7 +65,6 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
     private ClinicCursorAdapter mClinicCursorAdapter;
     public Uri mClinicUri;
 
-
     //Doctor diagnosis
     private TextView firstlastnameTextView;
     private TextView dateofbirthTextView;
@@ -77,6 +79,7 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
 
     private String mTheNamesOfTheClinics = "null";
 
+    private SimpleCursorAdapter simpleCursorAdapter;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -94,28 +97,6 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
         mClinicCursorAdapter = new ClinicCursorAdapter(this, null);
         patientListView.setAdapter(mClinicCursorAdapter);
         patientListView.setTextFilterEnabled(true);
-
-        mActionMenuImageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mDrawerLayout.openDrawer(GravityCompat.START);
-            }
-        });
-
-        doctorSearchClinicEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                mClinicCursorAdapter.getFilter().filter(charSequence);
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-            }
-        });
 
         getLoaderManager().initLoader(CLINIC_LOADER, null, this);
     }
@@ -226,63 +207,71 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
         });
     }
 
+    // Get patient id
+    private int getPatientId(String patientName, Context context) {
+        int patientId = 0;
 
-    public void showTransferredToClinicsDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        doctorSearchClinicEditText = mDialogTransferredToClinicsView.findViewById(R.id.tv_search_patient_clinic);
-
-        ArrayList arr = new ArrayList();
+        // Uri
         Uri uri = ImsContract.PatientEntry.CONTENT_URI;
-        Cursor cursor = getContentResolver().query(uri, new String[]{ImsContract.PatientEntry.COLUMN_FIRST_NAME},
-                null, null, ImsContract.PatientEntry.COLUMN_FIRST_NAME);
-        cursor.moveToFirst();
-        while (cursor.isAfterLast() == false) {
 
-            String patientname = cursor.getString(cursor.getColumnIndex(ImsContract.PatientEntry.COLUMN_FIRST_NAME));
+        // Column name
+        String[] projection = {
+                ImsContract.PatientEntry._ID,
+                ImsContract.PatientEntry.COLUMN_FIRST_NAME,
+                ImsContract.PatientEntry.COLUMN_LAST_NAME};
 
-            if (patientname != null) {
-                arr.add(patientname);
+        // Selection
+        String selection = ImsContract.PatientEntry.COLUMN_FIRST_NAME + " AND " + ImsContract.PatientEntry.COLUMN_FIRST_NAME + " like '" + patientName + "%'";
+
+        // SQL query
+        @SuppressLint("Recycle")
+        Cursor cursor = context.getContentResolver().query(
+                uri,
+                projection,
+                selection,
+                null,
+                null);
+
+        assert cursor != null;
+        while (cursor.moveToNext()) {
+
+            // Id column index
+            int patientIdColumnIndex = cursor.getColumnIndex(ImsContract.PatientEntry._ID);
+
+            // Id
+            int id = cursor.getInt(patientIdColumnIndex);
+
+            if (id >= 0) {
+                patientId = id;
             }
-
-            cursor.moveToNext();
-
         }
+        return patientId;
+    }
 
-        ArrayAdapter<String> adabterEdittext = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arr);
-        //   searchClinicAutoCompleteTextView.setAdapter(adabterEdittext);
+    // Get get doctor search clinic : getContacts
+    private Cursor getDoctorSearchClinic(String patientName, Context context) {
+        // Run query
+        Uri uri = ImsContract.PatientDataToClinicsEntry.CONTENT_URI;
 
-        mTheNameOfTheClinicSpinner = mDialogTransferredToClinicsView.findViewById(R.id.spinner_doc_types_of_clinics);
-        setupSpinnerTheNamesOfTheClinics(this);
+        String[] projection = {
+                ImsContract.PatientDataToClinicsEntry._ID,
+                ImsContract.PatientDataToClinicsEntry.COLUMN_CLINIC_NAME,
+                ImsContract.PatientDataToClinicsEntry.COLUMN_TRANSFER_DATE,
+                ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID};
 
-        builder.setView(mDialogTransferredToClinicsView);
-        builder.setTitle("Transferred to clinics");
-        builder.setPositiveButton("Transfer", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        String selection = ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID + " = " + getPatientId(patientName, context);
 
-            }
-        });
-        builder.setNegativeButton("Decline", new DialogInterface.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (dialog != null) {
-
-                    dialog.dismiss();
-
-                }
-            }
-        });
-
-        AlertDialog alertDialog = builder.create();
-        alertDialog.setCanceledOnTouchOutside(false);
-        alertDialog.show();
+        return context.getContentResolver().query(
+                uri,
+                projection,
+                selection,
+                null,
+                null);
     }
 
     @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
-
         String[] projection = {
                 ImsContract.PatientDataToClinicsEntry._ID,
                 ImsContract.PatientDataToClinicsEntry.COLUMN_CLINIC_NAME,

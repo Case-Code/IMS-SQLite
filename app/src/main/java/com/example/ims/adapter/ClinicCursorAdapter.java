@@ -3,6 +3,7 @@ package com.example.ims.adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +44,6 @@ public class ClinicCursorAdapter extends CursorAdapter {
         int clinicName = cursor.getInt(clinicNameColumnIndex);
         String transferDate = cursor.getString(transferDataColumnIndex);
 
-
         firstLastNameTextView.setText(getPatientName(patientId, context));
         clinicNameTextView.setText(getClinicName(clinicName));
         transferDataTextView.setText(transferDate);
@@ -53,6 +53,9 @@ public class ClinicCursorAdapter extends CursorAdapter {
     private String getPatientName(int patientId, Context context) {
         String patientName = null;
 
+        // Uri
+        Uri uri = ImsContract.PatientEntry.CONTENT_URI;
+
         // Column name
         String[] projection =
                 {
@@ -60,12 +63,15 @@ public class ClinicCursorAdapter extends CursorAdapter {
                         ImsContract.PatientEntry.COLUMN_LAST_NAME
                 };
 
+        // Selection
+        String selection = ImsContract.PatientEntry._ID + " =" + patientId;
+
         // SQL query
         @SuppressLint("Recycle")
         Cursor cursor = context.getContentResolver().query(
-                ImsContract.PatientEntry.CONTENT_URI,
+                uri,
                 projection,
-                ImsContract.PatientEntry._ID + " =" + patientId,
+                selection,
                 null,
                 null);
 
@@ -133,14 +139,6 @@ public class ClinicCursorAdapter extends CursorAdapter {
             return "Leather and genital";
         }
         return "CLINICS_UNKNOWN";
-    }
-
-    @Override
-    public CharSequence convertToString(Cursor cursor) {
-        int patientIdColumnIndex = cursor.getColumnIndex(ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID);
-        int patientId = cursor.getInt(patientIdColumnIndex);
-
-        return String.valueOf(patientId);
     }
 }
 
