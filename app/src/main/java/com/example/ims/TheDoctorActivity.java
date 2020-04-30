@@ -13,7 +13,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -22,7 +21,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.content.CursorLoader;
@@ -74,7 +72,9 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
 
     private String mTheNamesOfTheClinics = null;
 
-    private String doctorSearch;
+    private String patientSearch;
+    private String firstName;
+    private String lastName;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -101,10 +101,14 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (charSequence.length() == 0) {
-                    doctorSearch = null;
+                    patientSearch = null;
                     getLoaderManager().restartLoader(CLINIC_LOADER, null, TheDoctorActivity.this);
                 } else {
-                    doctorSearch = charSequence.toString();
+                    patientSearch = charSequence.toString();
+
+                    firstName = getFirstName(patientSearch);
+                    lastName = getLastName(patientSearch);
+
                     getLoaderManager().restartLoader(CLINIC_LOADER, null, TheDoctorActivity.this);
                 }
             }
@@ -224,12 +228,11 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
     }
 
     // Get patient id
-    private int getPatientId(String patientName, Context context) {
+    private int getPatientId(String firstName, String lastName, Context context) {
         int patientId = 0;
 
         // Uri
         Uri uri = ImsContract.PatientEntry.CONTENT_URI;
-        String[] selectionArgs = {patientName};
 
         // Column name
         String[] projection = {
@@ -240,17 +243,22 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
         // Selection
         // first_name like '%' AND last_name like '%'
         // TODO add last name in search
-        String selection = ImsContract.PatientEntry.COLUMN_FIRST_NAME + "= ?";
-            //   +" AND  " +ImsContract.PatientEntry.COLUMN_LAST_NAME + "= ?";
-       // selectionArgs[]=paientName;
-        selectionArgs[0]=patientName;
+        String selection = null;
+        if (firstName != null && lastName == null) {
+            selection = ImsContract.PatientEntry.COLUMN_FIRST_NAME + " LIKE '" + firstName + "%'";
+        } else if (firstName == null && lastName != null) {
+            selection = ImsContract.PatientEntry.COLUMN_LAST_NAME + " LIKE '" + lastName + "%'";
+        } else if (firstName != null && lastName != null) {
+            selection = ImsContract.PatientEntry.COLUMN_FIRST_NAME + " LIKE '" + firstName + "%' AND " + ImsContract.PatientEntry.COLUMN_LAST_NAME + " LIKE '" + lastName + "%'";
+        }
+
         // SQL query
         @SuppressLint("Recycle")
         Cursor cursor = context.getContentResolver().query(
                 uri,
                 projection,
                 selection,
-                selectionArgs,
+                null,
                 null);
 
         assert cursor != null;
@@ -265,14 +273,14 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
             if (id >= 0) {
                 patientId = id;
             } else {
-                doctorSearch = null;
+                patientSearch = null;
             }
         }
         return patientId;
     }
 
     // Get get doctor search clinic : getContacts
-    private CursorLoader getDoctorSearch(String patientName, Context context) {
+    private CursorLoader getDoctorSearch(String firstName, String lastName, Context context) {
         // Run query
         Uri uri = ImsContract.PatientDataToClinicsEntry.CONTENT_URI;
 
@@ -282,7 +290,7 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
                 ImsContract.PatientDataToClinicsEntry.COLUMN_TRANSFER_DATE,
                 ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID};
 
-        String selection = ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID + " = " + getPatientId(patientName, context);
+        String selection = ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID + " = " + getPatientId(firstName, lastName, context);
 
         return new CursorLoader(context,
                 uri,
@@ -292,11 +300,39 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
                 null);
     }
 
+    // Get first name
+    public static String getFirstName(String username) {
+
+        String un = username;
+
+        int indexOf = username.indexOf(" ");
+
+        if (indexOf == -1) {
+            un = username;
+        } else {
+            un = username.substring(0, indexOf);
+        }
+        return un;
+    }
+
+    // Get last name
+    public static String getLastName(String username) {
+
+        String un = username;
+
+        int indexOf = username.indexOf(" ");
+        if (indexOf == -1) {
+            un = null;
+        } else {
+            un = username.substring(indexOf + 1, username.length());
+        }
+        return un;
+    }
+
     @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
-
-        if (doctorSearch == null) {
+        if (patientSearch == null) {
             String[] projection = {
                     ImsContract.PatientDataToClinicsEntry._ID,
                     ImsContract.PatientDataToClinicsEntry.COLUMN_CLINIC_NAME,
@@ -309,9 +345,8 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
                     null,
                     null,
                     null);
-
         } else {
-            return getDoctorSearch(this.doctorSearch, this);
+            return getDoctorSearch(firstName, lastName, this);
         }
     }
 
