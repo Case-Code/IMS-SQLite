@@ -1,10 +1,7 @@
 package com.example.ims;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.content.ContentValues;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.app.LoaderManager;
@@ -12,19 +9,17 @@ import android.content.Loader;
 
 
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FilterQueryProvider;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -35,7 +30,6 @@ import android.content.CursorLoader;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
@@ -45,10 +39,10 @@ import com.example.ims.adapter.ClinicCursorAdapter;
 import com.example.ims.data.ImsContract;
 import com.google.android.material.navigation.NavigationView;
 
-import java.util.ArrayList;
-
 public class TheDoctorActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         LoaderManager.LoaderCallbacks<Cursor> {
+
+    private final static String TAG = TheDoctorActivity.class.getSimpleName();
 
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigationView;
@@ -60,7 +54,7 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
     private Spinner mTheNameOfTheClinicSpinner;
 
     //List of clients referred to the clinic
-    private EditText doctorSearchClinicEditText;
+    private EditText doctorSearchEditText;
     private ListView patientListView;
     private ClinicCursorAdapter mClinicCursorAdapter;
     public Uri mClinicUri;
@@ -75,11 +69,12 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
     private Button saveButton;
     private Button printButton;
 
-    private static final int CLINIC_LOADER = 141;
+    private static final int CLINIC_LOADER = 1;
+    private static final int CLINIC_SEARCH_LOADER = 2;
 
-    private String mTheNamesOfTheClinics = "null";
+    private String mTheNamesOfTheClinics = null;
 
-    private SimpleCursorAdapter simpleCursorAdapter;
+    private String doctorSearch;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -97,6 +92,27 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
         mClinicCursorAdapter = new ClinicCursorAdapter(this, null);
         patientListView.setAdapter(mClinicCursorAdapter);
         patientListView.setTextFilterEnabled(true);
+
+        doctorSearchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (charSequence.length() == 0) {
+                    doctorSearch = null;
+                    getLoaderManager().restartLoader(CLINIC_LOADER, null, TheDoctorActivity.this);
+                } else {
+                    doctorSearch = charSequence.toString();
+                    getLoaderManager().restartLoader(CLINIC_LOADER, null, TheDoctorActivity.this);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
 
         getLoaderManager().initLoader(CLINIC_LOADER, null, this);
     }
@@ -160,7 +176,7 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
         mDialogTransferredToClinicsView = getLayoutInflater().inflate(R.layout.dialog_doctor_transferred_to_clinics, null);
 
         //List of clients referred to the clinic
-        doctorSearchClinicEditText = findViewById(R.id.edit_doctor_searchclinic);
+        doctorSearchEditText = findViewById(R.id.edit_doctor_search);
         patientListView = findViewById(R.id.list_doctor_patient);
 
         //Doctor diagnosis
@@ -221,7 +237,9 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
                 ImsContract.PatientEntry.COLUMN_LAST_NAME};
 
         // Selection
-        String selection = ImsContract.PatientEntry.COLUMN_FIRST_NAME + " AND " + ImsContract.PatientEntry.COLUMN_FIRST_NAME + " like '" + patientName + "%'";
+        // first_name like '%' AND last_name like '%'
+        // TODO add last name in search
+        String selection = ImsContract.PatientEntry.COLUMN_FIRST_NAME + " LIKE '" + patientName + "%'";
 
         // SQL query
         @SuppressLint("Recycle")
@@ -243,13 +261,15 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
 
             if (id >= 0) {
                 patientId = id;
+            } else {
+                doctorSearch = null;
             }
         }
         return patientId;
     }
 
     // Get get doctor search clinic : getContacts
-    private Cursor getDoctorSearchClinic(String patientName, Context context) {
+    private CursorLoader getDoctorSearch(String patientName, Context context) {
         // Run query
         Uri uri = ImsContract.PatientDataToClinicsEntry.CONTENT_URI;
 
@@ -261,7 +281,7 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
 
         String selection = ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID + " = " + getPatientId(patientName, context);
 
-        return context.getContentResolver().query(
+        return new CursorLoader(context,
                 uri,
                 projection,
                 selection,
@@ -272,18 +292,24 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
     @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
-        String[] projection = {
-                ImsContract.PatientDataToClinicsEntry._ID,
-                ImsContract.PatientDataToClinicsEntry.COLUMN_CLINIC_NAME,
-                ImsContract.PatientDataToClinicsEntry.COLUMN_TRANSFER_DATE,
-                ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID};
 
-        return new CursorLoader(this,
-                ImsContract.PatientDataToClinicsEntry.CONTENT_URI,
-                projection,
-                null,
-                null,
-                null);
+        if (doctorSearch == null) {
+            String[] projection = {
+                    ImsContract.PatientDataToClinicsEntry._ID,
+                    ImsContract.PatientDataToClinicsEntry.COLUMN_CLINIC_NAME,
+                    ImsContract.PatientDataToClinicsEntry.COLUMN_TRANSFER_DATE,
+                    ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID};
+
+            return new CursorLoader(this,
+                    ImsContract.PatientDataToClinicsEntry.CONTENT_URI,
+                    projection,
+                    null,
+                    null,
+                    null);
+
+        } else {
+            return getDoctorSearch(this.doctorSearch, this);
+        }
     }
 
     @Override

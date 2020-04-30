@@ -598,7 +598,6 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
                     null,
                     null);
         } else {
-
          return    new CursorLoader(this,
                     mCurrentPatientUri,
                     projection,
