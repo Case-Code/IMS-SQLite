@@ -229,6 +229,7 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
 
         // Uri
         Uri uri = ImsContract.PatientEntry.CONTENT_URI;
+        String[] selectionArgs = {patientName};
 
         // Column name
         String[] projection = {
@@ -239,15 +240,17 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
         // Selection
         // first_name like '%' AND last_name like '%'
         // TODO add last name in search
-        String selection = ImsContract.PatientEntry.COLUMN_FIRST_NAME + " LIKE '" + patientName + "%'";
-
+        String selection = ImsContract.PatientEntry.COLUMN_FIRST_NAME + "= ?";
+            //   +" AND  " +ImsContract.PatientEntry.COLUMN_LAST_NAME + "= ?";
+       // selectionArgs[]=paientName;
+        selectionArgs[0]=patientName;
         // SQL query
         @SuppressLint("Recycle")
         Cursor cursor = context.getContentResolver().query(
                 uri,
                 projection,
                 selection,
-                null,
+                selectionArgs,
                 null);
 
         assert cursor != null;
