@@ -1,6 +1,8 @@
 package com.example.ims;
 
+import android.content.CursorLoader;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -8,6 +10,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.app.LoaderManager;
+import android.content.Loader;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -15,9 +19,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.ims.adapter.AnalysisCursorAdapter;
+import com.example.ims.data.ImsContract;
 import com.google.android.material.navigation.NavigationView;
 
-public class AnalysisLabActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class AnalysisLabActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener ,
+        LoaderManager.LoaderCallbacks<Cursor>{
 
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigationView;
@@ -27,8 +34,8 @@ public class AnalysisLabActivity extends AppCompatActivity implements Navigation
     private ActionBarDrawerToggle actionBarDrawerToggle;
 
     //List of clients referred to the laboratory for analysis
-    private EditText locPatientNameEditText;
-    private ListView locPatientListView;
+    private EditText searchNameEditText;
+    private ListView patientNameListView;
 
     //Patient records
     private  TextView prBillToNameTextView;
@@ -42,6 +49,8 @@ public class AnalysisLabActivity extends AppCompatActivity implements Navigation
 
     private ListView ppProgressNotesListView;
 
+    AnalysisCursorAdapter mAnalysisCursorAdapter;
+
 
 
 
@@ -52,6 +61,11 @@ public class AnalysisLabActivity extends AppCompatActivity implements Navigation
         setContentView(R.layout.activity_analysislab);
 
         init();
+
+        mAnalysisCursorAdapter = new AnalysisCursorAdapter(this,null);
+        patientNameListView.setAdapter(mAnalysisCursorAdapter);
+        getLoaderManager().initLoader(21, null, this);
+
 
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
         mDrawerLayout.addDrawerListener(actionBarDrawerToggle);
@@ -124,8 +138,8 @@ public class AnalysisLabActivity extends AppCompatActivity implements Navigation
 
 
         //List of clients referred to the laboratory for analysis
-        locPatientNameEditText=findViewById(R.id.edit_loc_patient_name);
-       locPatientListView=findViewById(R.id.list_loc_patient);
+        searchNameEditText =findViewById(R.id.edit_analysislab_searchname);
+       patientNameListView =findViewById(R.id.list_analysislab_patientname);
 
         //Patient records
          prBillToNameTextView=findViewById(R.id.text_pr_bill_to_name);;
@@ -145,6 +159,37 @@ public class AnalysisLabActivity extends AppCompatActivity implements Navigation
 
 
 
+
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle bundle)
+    {
+        String[] projection = {
+                ImsContract.PatientDataToAnalysisEntry._ID,
+                ImsContract.PatientDataToAnalysisEntry.COLUMN_ANALYSIS_NAME,
+                ImsContract.PatientDataToAnalysisEntry.COLUMN_TRANSFER_DATE,
+                ImsContract.PatientDataToAnalysisEntry.COLUMN_PATIENT_NAME};
+
+        return new CursorLoader(this,
+                ImsContract.PatientDataToAnalysisEntry.CONTENT_URI,
+                projection,
+                null,
+                null,
+                null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor)
+    {
+            mAnalysisCursorAdapter.swapCursor(cursor);
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader)
+    {
+        mAnalysisCursorAdapter.swapCursor(null);
 
     }
 }

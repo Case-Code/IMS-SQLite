@@ -92,8 +92,8 @@
                         android:text="List of clients referred to the laboratory for analysis"
                         android:textColor="@color/colorPrimaryDark" />
 
-                    <AutoCompleteTextView
-                        android:id="@+id/edit_loc_patient_name"
+                    <EditText
+                        android:id="@+id/edit_analysislab_searchname"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -107,7 +107,7 @@
                         android:paddingLeft="10dp" />
 
                     <ListView
-                        android:id="@+id/list_loc_patient"
+                        android:id="@+id/list_analysislab_patientname"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         tools:listitem="@layout/item_analysis_lab" />

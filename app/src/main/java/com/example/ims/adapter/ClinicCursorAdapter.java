@@ -143,4 +143,3 @@ public class ClinicCursorAdapter extends CursorAdapter {
 }
 
 
-
