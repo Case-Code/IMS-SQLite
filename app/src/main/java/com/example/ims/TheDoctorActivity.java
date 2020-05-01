@@ -496,11 +496,9 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
     public int  getIdPatient(Uri uri , Context context)
     {
         int id =0;
-        String[] projection =
-                {
-                        ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID,
-                };
 
+        String[] projection = {ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID,};
+        // select  COLUMN_PATIENT_ID;
         Cursor cursor = context.getContentResolver().query(
                 uri,
                 projection,
@@ -511,11 +509,11 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
         assert cursor != null;
         while (cursor.moveToNext()) {
 
-            // Firs name and last name column index
+            // patient id column index
             int patientIdColumnIndex = cursor.getColumnIndex(ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID);
 
 
-            // Firs name and last name
+            // patient id
            int  idPatient= cursor.getInt(patientIdColumnIndex);
 
             if(id ==0)return idPatient;
