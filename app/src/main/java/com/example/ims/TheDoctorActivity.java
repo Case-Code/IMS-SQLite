@@ -1,6 +1,9 @@
 package com.example.ims;
 
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
+import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -18,12 +21,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.content.CursorLoader;
+import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
@@ -35,6 +40,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.ims.adapter.ClinicCursorAdapter;
 import com.example.ims.data.ImsContract;
+import com.example.logutil.Utils;
 import com.google.android.material.navigation.NavigationView;
 
 public class TheDoctorActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
@@ -56,6 +62,7 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
     private ListView patientListView;
     private ClinicCursorAdapter mClinicCursorAdapter;
     public Uri mClinicUri;
+    Uri mUri;
 
     //Doctor diagnosis
     private TextView firstlastnameTextView;
@@ -64,7 +71,7 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
     private EditText diagnosisEditText;
     private EditText additionalNotesEditText;
     private EditText performingPhysicianSignatureEditText;
-    private Button saveButton;
+    private Button addButton;
     private Button printButton;
 
     private static final int CLINIC_LOADER = 1;
@@ -75,6 +82,7 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
     private String patientSearch;
     private String firstName;
     private String lastName;
+    private int patientId;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -82,7 +90,29 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
         setContentView(R.layout.activity_thedoctor);
 
         init();
+        dateofserviceTextView .setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        month += 1;
+                        String date = month + "/" + dayOfMonth + "/" + year;
+                        dateofserviceTextView.setText(date);
+                    }
+                };
+                Utils.showDatePicker(TheDoctorActivity.this, dateSetListener);
 
+
+            }
+        });
+
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addDoctor();
+            }
+        });
         // Navigation view
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
         mDrawerLayout.addDrawerListener(actionBarDrawerToggle);
@@ -91,6 +121,17 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
 
         mClinicCursorAdapter = new ClinicCursorAdapter(this, null);
         patientListView.setAdapter(mClinicCursorAdapter);
+        patientListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long id) {
+
+                mUri = ContentUris.withAppendedId(ImsContract.PatientDataToClinicsEntry.CONTENT_URI, id);
+                patientId = getIdPatient(mUri,TheDoctorActivity.this);
+                getPatient(patientId , TheDoctorActivity.this);
+
+            }
+        });
+
         patientListView.setTextFilterEnabled(true);
 
         doctorSearchEditText.addTextChangedListener(new TextWatcher() {
@@ -190,8 +231,43 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
         diagnosisEditText = findViewById(R.id.edit_doctor_diagnosis);
         additionalNotesEditText = findViewById(R.id.edit_doctor_additionalnotes);
         performingPhysicianSignatureEditText = findViewById(R.id.edit_doctor_performingphysiciansignature);
-        saveButton = findViewById(R.id.button_doctor_save);
+        addButton = findViewById(R.id.button_doctor_save);
         printButton = findViewById(R.id.button_doctor_print);
+    }
+    public void addDoctor()
+    {
+
+        String dateOfService=dateofserviceTextView.getText().toString().trim();
+        String diagnosis=diagnosisEditText.getText().toString().trim();
+        String additionalNotes=additionalNotesEditText .getText().toString().trim();
+        String performingPhysicianSignature=performingPhysicianSignatureEditText.getText().toString().trim();
+
+        ContentValues values = new ContentValues();
+
+        if (TextUtils.isEmpty(dateOfService)) {dateofserviceTextView.setError("please return a touch item to  date Of Service");
+            return; } else { values.put(ImsContract.DoctorDiagnosisEntry.COLUMN_Date_of_Service ,dateOfService );
+        }
+        if (TextUtils.isEmpty(diagnosis)) {diagnosisEditText.setError("please return a touch item to  diagnosis");
+            return; } else { values.put(ImsContract.DoctorDiagnosisEntry.COLUMN_DIAGNOSIS ,diagnosis );
+        }
+        if (TextUtils.isEmpty(additionalNotes)) {additionalNotesEditText.setError("please return a touch item to  additional notes");
+            return; } else { values.put(ImsContract.DoctorDiagnosisEntry.COLUMN_ADDITIONAL_NOTES , additionalNotes);
+        }
+        if (TextUtils.isEmpty(performingPhysicianSignature)) {performingPhysicianSignatureEditText.setError("please return a touch item to  performing Physician Signature");
+            return; } else { values.put(ImsContract.DoctorDiagnosisEntry.COLUMN_PERFORMING_PHYSICIAN_SIGNATURE , performingPhysicianSignature);
+        }
+        if (patientId<=0) {additionalNotesEditText.setError("get id equals 0 return click item please ");
+            return; } else { values.put(ImsContract.DoctorDiagnosisEntry.COLUMN_PATIENT_ID , patientId);
+        }
+
+        Uri newUri =
+                getContentResolver().insert(ImsContract.DoctorDiagnosisEntry.CONTENT_URI, values);
+        if (newUri == null) {
+            Toast.makeText(this, getString(R.string.insert_doctor_failed), Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, getString(R.string.insert_doctor_successful), Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     private void setupSpinnerTheNamesOfTheClinics(Context context) {
@@ -370,4 +446,82 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
             }
         }
     }
+
+    private void getPatient(int patientId, Context context) {
+        String patientName = null;
+
+        Uri uri = ImsContract.PatientEntry.CONTENT_URI;
+
+        // Column name
+        String[] projection =
+                {
+                        ImsContract.PatientEntry.COLUMN_FIRST_NAME,
+                        ImsContract.PatientEntry.COLUMN_LAST_NAME,
+                        ImsContract.PatientEntry.COLUMN_BIRTH_DATE
+                };
+
+        // Selection
+        String selection = ImsContract.PatientEntry._ID + " =" + patientId;
+
+        // SQL query
+        @SuppressLint("Recycle")
+        Cursor cursor = context.getContentResolver().query(
+                uri,
+                projection,
+                selection,
+                null,
+                null);
+
+        assert cursor != null;
+        while (cursor.moveToNext()) {
+
+            // Firs name and last name column index
+            int patientFirsNameColumnIndex = cursor.getColumnIndex(ImsContract.PatientEntry.COLUMN_FIRST_NAME);
+            int patientLastNameColumnIndex = cursor.getColumnIndex(ImsContract.PatientEntry.COLUMN_LAST_NAME);
+            int dateOfBirthColumnIndex = cursor.getColumnIndex(ImsContract.PatientEntry.COLUMN_BIRTH_DATE);
+
+            // Firs name and last name
+            String patientFirsName = cursor.getString(patientFirsNameColumnIndex);
+            String patientLastName = cursor.getString(patientLastNameColumnIndex);
+            String dateOfBirth = cursor.getString(patientLastNameColumnIndex);
+
+            if (patientFirsName != null & patientLastName != null) {
+                firstlastnameTextView.setText(patientFirsName.concat(" " + patientLastName));
+               dateofbirthTextView.setText(dateOfBirth);
+
+               // patientName = patientFirsName.concat(" " + patientLastName);
+            }
+        }
+    }
+    public int  getIdPatient(Uri uri , Context context)
+    {
+        int id =0;
+        String[] projection =
+                {
+                        ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID,
+                };
+
+        Cursor cursor = context.getContentResolver().query(
+                uri,
+                projection,
+                null,
+                null,
+                null);
+
+        assert cursor != null;
+        while (cursor.moveToNext()) {
+
+            // Firs name and last name column index
+            int patientIdColumnIndex = cursor.getColumnIndex(ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID);
+
+
+            // Firs name and last name
+           int  idPatient= cursor.getInt(patientIdColumnIndex);
+
+            if(id ==0)return idPatient;
+        }
+
+        return id;
+    }
+
 }
