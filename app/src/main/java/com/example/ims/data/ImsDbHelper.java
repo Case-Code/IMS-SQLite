@@ -36,7 +36,7 @@ public class ImsDbHelper extends SQLiteOpenHelper {
             + PatientDataToAnalysisEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + PatientDataToAnalysisEntry.COLUMN_TRANSFER_DATE + " TEXT NOT NULL, "
             + PatientDataToAnalysisEntry.COLUMN_ANALYSIS_NAME + " INTEGER NOT NULL DEFAULT 0, "
-            +PatientDataToAnalysisEntry.COLUMN_PATIENT_NAME + " TEXT NOT NULL,"
+
             + PatientDataToAnalysisEntry.COLUMN_PATIENT_ID + " INTEGER NOT NULL); ";
 
     // Create a String that contains the SQL statement to create the 'patient data to clinics' table

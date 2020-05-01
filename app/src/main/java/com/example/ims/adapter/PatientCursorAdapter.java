@@ -106,13 +106,12 @@ public class PatientCursorAdapter extends CursorAdapter {
                         String dateString = Utils.formatDate(date);
                         int mTypesOfAnalysis = ReceptionActivity.mTypesOfAnalysis;
                         int idPatient = getIdPatient(context, patientId);
-                        String namePatient =getPatientName(idPatient ,context);
 
                         ContentValues values = new ContentValues();
                         values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_TRANSFER_DATE, dateString);
                         values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_ANALYSIS_NAME, mTypesOfAnalysis);
                         values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_PATIENT_ID, String.valueOf(idPatient));
-                        values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_PATIENT_NAME, namePatient);
+
 
                         // Insert and update patient
                         Uri newUri = context.getContentResolver().insert(ImsContract.PatientDataToAnalysisEntry.CONTENT_URI, values);
@@ -276,48 +275,6 @@ public class PatientCursorAdapter extends CursorAdapter {
         }
         return patientId;
     }
-    private String getPatientName(int patientId, Context context)
-    {
-        String patientName = null;
 
-        // Uri
-        Uri uri = ImsContract.PatientEntry.CONTENT_URI;
-
-        // Column name
-        String[] projection =
-                {
-                        ImsContract.PatientEntry.COLUMN_FIRST_NAME,
-                        ImsContract.PatientEntry.COLUMN_LAST_NAME
-                };
-
-        // Selection
-        String selection = ImsContract.PatientEntry._ID + " =" + patientId;
-
-        // SQL query
-        @SuppressLint("Recycle")
-        Cursor cursor = context.getContentResolver().query(
-                uri,
-                projection,
-                selection,
-                null,
-                null);
-
-        assert cursor != null;
-        while (cursor.moveToNext()) {
-
-            // Firs name and last name column index
-            int patientFirsNameColumnIndex = cursor.getColumnIndex(ImsContract.PatientEntry.COLUMN_FIRST_NAME);
-            int patientLastNameColumnIndex = cursor.getColumnIndex(ImsContract.PatientEntry.COLUMN_LAST_NAME);
-
-            // Firs name and last name
-            String patientFirsName = cursor.getString(patientFirsNameColumnIndex);
-            String patientLastName = cursor.getString(patientLastNameColumnIndex);
-
-            if (patientFirsName != null & patientLastName != null) {
-                patientName = patientFirsName.concat(" " + patientLastName);
-            }
-        }
-        return patientName;
-    }
 
 }

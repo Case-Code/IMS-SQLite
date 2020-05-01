@@ -546,10 +546,7 @@ public class ImsProvider extends ContentProvider {
         if (analysisName == null) {
             throw new IllegalArgumentException("Patient data to analysis  requires a analysis name");
         }
-        String patientName = values.getAsString(PatientDataToAnalysisEntry.COLUMN_PATIENT_NAME);
-        if (patientName == null) {
-            throw new IllegalArgumentException("Patient data to analysis  requires a patient name");
-        }
+
 
         // Patient id
         Integer patientId = values.getAsInteger(PatientDataToAnalysisEntry.COLUMN_PATIENT_ID);
@@ -1795,13 +1792,6 @@ public class ImsProvider extends ContentProvider {
             Integer analysisName = values.getAsInteger(PatientDataToAnalysisEntry.COLUMN_ANALYSIS_NAME);
             if (analysisName == null) {
                 throw new IllegalArgumentException("Patient data to analysis  requires a analysis name");
-            }
-        }
-        //patient name
-        if (values.containsKey(PatientDataToAnalysisEntry.COLUMN_PATIENT_NAME)) {
-            String patientName = values.getAsString(PatientDataToAnalysisEntry.COLUMN_PATIENT_NAME);
-            if (patientName == null) {
-                throw new IllegalArgumentException("Patient data to analysis  requires a patient name");
             }
         }
 

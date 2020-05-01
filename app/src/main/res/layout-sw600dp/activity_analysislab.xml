@@ -108,7 +108,7 @@
 
                     <ListView
                         android:id="@+id/list_analysislab_patientname"
-                        android:layout_width="match_parent"
+                        android:layout_width="270dp"
                         android:layout_height="match_parent"
                         tools:listitem="@layout/item_analysis_lab" />
 

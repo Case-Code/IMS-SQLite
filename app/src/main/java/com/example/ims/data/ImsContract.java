@@ -80,7 +80,6 @@ public class ImsContract {
         public static final String COLUMN_TRANSFER_DATE = "transfer_date";
         public static final String COLUMN_ANALYSIS_NAME = "analysis_name";
         public static final String COLUMN_PATIENT_ID = "patient_id";
-        public static final String COLUMN_PATIENT_NAME="patient_name";
 
         // Types of analysis
         public static final int ANALYSIS_UNKNOWN = 0;

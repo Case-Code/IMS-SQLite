@@ -448,7 +448,6 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
     }
 
     private void getPatient(int patientId, Context context) {
-        String patientName = null;
 
         Uri uri = ImsContract.PatientEntry.CONTENT_URI;
 
