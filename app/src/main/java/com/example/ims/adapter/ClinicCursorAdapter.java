@@ -7,15 +7,12 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CursorAdapter;
-import android.widget.Filter;
 import android.widget.TextView;
 
 import com.example.ims.R;
 import com.example.ims.data.ImsContract;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.example.ims.data.ImsContract.PatientDataToClinicsEntry.*;
 
@@ -36,6 +33,11 @@ public class ClinicCursorAdapter extends CursorAdapter {
         TextView clinicNameTextView = view.findViewById(R.id.text_clinic_clinicname);
         TextView transferDataTextView = view.findViewById(R.id.text_clinic_transferdata);
 
+        Button clinicPharmacyButton = view.findViewById(R.id.button_clinic_pharmacy);
+        Button clinicRadiologyLaboratoryButton = view.findViewById(R.id.button_clinic_radiologylaboratory);
+        Button clinicAnalysisLabButton = view.findViewById(R.id.button_clinic_analysislab);
+        Button clinicClinicButton = view.findViewById(R.id.button_clinic_clinic);
+
         int patientIdColumnIndex = cursor.getColumnIndex(ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID);
         int clinicNameColumnIndex = cursor.getColumnIndex(ImsContract.PatientDataToClinicsEntry.COLUMN_CLINIC_NAME);
         int transferDataColumnIndex = cursor.getColumnIndex(ImsContract.PatientDataToClinicsEntry.COLUMN_TRANSFER_DATE);
@@ -47,6 +49,34 @@ public class ClinicCursorAdapter extends CursorAdapter {
         firstLastNameTextView.setText(getPatientName(patientId, context));
         clinicNameTextView.setText(getClinicName(clinicName));
         transferDataTextView.setText(transferDate);
+
+        clinicPharmacyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        clinicRadiologyLaboratoryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        clinicAnalysisLabButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        clinicClinicButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     // Get patient name

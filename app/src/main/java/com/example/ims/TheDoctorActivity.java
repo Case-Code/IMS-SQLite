@@ -90,7 +90,7 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
         setContentView(R.layout.activity_thedoctor);
 
         init();
-        dateofserviceTextView .setOnClickListener(new View.OnClickListener() {
+        dateofserviceTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
@@ -113,6 +113,7 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
                 addDoctor();
             }
         });
+
         // Navigation view
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
         mDrawerLayout.addDrawerListener(actionBarDrawerToggle);
@@ -126,8 +127,8 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long id) {
 
                 mUri = ContentUris.withAppendedId(ImsContract.PatientDataToClinicsEntry.CONTENT_URI, id);
-                patientId = getIdPatient(mUri,TheDoctorActivity.this);
-                getPatient(patientId , TheDoctorActivity.this);
+                patientId = getIdPatient(mUri, TheDoctorActivity.this);
+                getPatient(patientId, TheDoctorActivity.this);
 
             }
         });
@@ -234,30 +235,45 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
         addButton = findViewById(R.id.button_doctor_save);
         printButton = findViewById(R.id.button_doctor_print);
     }
-    public void addDoctor()
-    {
 
-        String dateOfService=dateofserviceTextView.getText().toString().trim();
-        String diagnosis=diagnosisEditText.getText().toString().trim();
-        String additionalNotes=additionalNotesEditText .getText().toString().trim();
-        String performingPhysicianSignature=performingPhysicianSignatureEditText.getText().toString().trim();
+    public void addDoctor() {
+
+        String dateOfService = dateofserviceTextView.getText().toString().trim();
+        String diagnosis = diagnosisEditText.getText().toString().trim();
+        String additionalNotes = additionalNotesEditText.getText().toString().trim();
+        String performingPhysicianSignature = performingPhysicianSignatureEditText.getText().toString().trim();
 
         ContentValues values = new ContentValues();
 
-        if (TextUtils.isEmpty(dateOfService)) {dateofserviceTextView.setError("please return a touch item to  date Of Service");
-            return; } else { values.put(ImsContract.DoctorDiagnosisEntry.COLUMN_Date_of_Service ,dateOfService );
+        if (TextUtils.isEmpty(dateOfService)) {
+            dateofserviceTextView.setError("please return a touch item to  date Of Service");
+            return;
+        } else {
+            values.put(ImsContract.DoctorDiagnosisEntry.COLUMN_Date_of_Service, dateOfService);
         }
-        if (TextUtils.isEmpty(diagnosis)) {diagnosisEditText.setError("please return a touch item to  diagnosis");
-            return; } else { values.put(ImsContract.DoctorDiagnosisEntry.COLUMN_DIAGNOSIS ,diagnosis );
+        if (TextUtils.isEmpty(diagnosis)) {
+            diagnosisEditText.setError("please return a touch item to  diagnosis");
+            return;
+        } else {
+            values.put(ImsContract.DoctorDiagnosisEntry.COLUMN_DIAGNOSIS, diagnosis);
         }
-        if (TextUtils.isEmpty(additionalNotes)) {additionalNotesEditText.setError("please return a touch item to  additional notes");
-            return; } else { values.put(ImsContract.DoctorDiagnosisEntry.COLUMN_ADDITIONAL_NOTES , additionalNotes);
+        if (TextUtils.isEmpty(additionalNotes)) {
+            additionalNotesEditText.setError("please return a touch item to  additional notes");
+            return;
+        } else {
+            values.put(ImsContract.DoctorDiagnosisEntry.COLUMN_ADDITIONAL_NOTES, additionalNotes);
         }
-        if (TextUtils.isEmpty(performingPhysicianSignature)) {performingPhysicianSignatureEditText.setError("please return a touch item to  performing Physician Signature");
-            return; } else { values.put(ImsContract.DoctorDiagnosisEntry.COLUMN_PERFORMING_PHYSICIAN_SIGNATURE , performingPhysicianSignature);
+        if (TextUtils.isEmpty(performingPhysicianSignature)) {
+            performingPhysicianSignatureEditText.setError("please return a touch item to  performing Physician Signature");
+            return;
+        } else {
+            values.put(ImsContract.DoctorDiagnosisEntry.COLUMN_PERFORMING_PHYSICIAN_SIGNATURE, performingPhysicianSignature);
         }
-        if (patientId<=0) {additionalNotesEditText.setError("get id equals 0 return click item please ");
-            return; } else { values.put(ImsContract.DoctorDiagnosisEntry.COLUMN_PATIENT_ID , patientId);
+        if (patientId <= 0) {
+            additionalNotesEditText.setError("get id equals 0 return click item please ");
+            return;
+        } else {
+            values.put(ImsContract.DoctorDiagnosisEntry.COLUMN_PATIENT_ID, patientId);
         }
 
         Uri newUri =
@@ -486,15 +502,15 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
 
             if (patientFirsName != null & patientLastName != null) {//update code
                 firstlastnameTextView.setText(patientFirsName.concat(" " + patientLastName));
-               dateofbirthTextView.setText(dateOfBirth);
+                dateofbirthTextView.setText(dateOfBirth);
 
-               // patientName = patientFirsName.concat(" " + patientLastName);
+                // patientName = patientFirsName.concat(" " + patientLastName);
             }
         }
     }
-    public int  getIdPatient(Uri uri , Context context)
-    {
-        int id =0;
+
+    public int getIdPatient(Uri uri, Context context) {
+        int id = 0;
 
         String[] projection = {ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID,};
         // select  COLUMN_PATIENT_ID;
@@ -513,9 +529,9 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
 
 
             // patient id
-           int  idPatient= cursor.getInt(patientIdColumnIndex);
+            int idPatient = cursor.getInt(patientIdColumnIndex);
 
-            if(id ==0)return idPatient;
+            if (id == 0) return idPatient;
         }
 
         return id;

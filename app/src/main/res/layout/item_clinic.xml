@@ -77,7 +77,7 @@
             android:background="@android:color/white" />
 
         <Button
-            android:id="@+id/button_clinic_radiologyaboratory"
+            android:id="@+id/button_clinic_radiologylaboratory"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

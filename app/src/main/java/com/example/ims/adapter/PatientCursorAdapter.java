@@ -260,7 +260,6 @@ public class PatientCursorAdapter extends CursorAdapter {
         }
     }
 
-
     // Get id patient
     @RequiresApi(api = Build.VERSION_CODES.O)
     private int getIdPatient(Context context, Uri currentPatientUri) {
@@ -275,6 +274,4 @@ public class PatientCursorAdapter extends CursorAdapter {
         }
         return patientId;
     }
-
-
 }
