@@ -1,8 +1,10 @@
 package com.example.ims.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -55,6 +57,7 @@ public class FragmentPatientRecords extends Fragment implements LoaderManager.Lo
 
     public Uri mPatientRecordUri;
     public Uri mPatientProgressUri;
+    ContentValues mValues;
     private PatientProgressCursorAdapter mPatientProgressCursorAdapter;
     private static final int PR_LOADER=131;
     private static final int PP_LOADER=132;
@@ -77,6 +80,51 @@ public class FragmentPatientRecords extends Fragment implements LoaderManager.Lo
         ReceptionFprPatientProgressListView =view.findViewById(R.id.list_reception_fpr_patient_progress);
 
     }
+    private void getPatient(int patientId, Context context) {
+
+        Uri uri = ImsContract.PatientEntry.CONTENT_URI;
+
+        // Column name
+        String[] projection =
+                {
+                        ImsContract.PatientEntry.COLUMN_FIRST_NAME,
+                        ImsContract.PatientEntry.COLUMN_LAST_NAME,
+                        ImsContract.PatientEntry.COLUMN_BIRTH_DATE
+                };
+
+        // Selection
+        String selection = ImsContract.PatientEntry._ID + " =" + patientId;
+
+        // SQL query
+        @SuppressLint("Recycle")
+        Cursor cursor = context.getContentResolver().query(
+                uri,
+                projection,
+                selection,
+                null,
+                null);
+
+        assert cursor != null;
+        while (cursor.moveToNext()) {
+
+            // Firs name and last name column index
+            int patientFirsNameColumnIndex = cursor.getColumnIndex(ImsContract.PatientEntry.COLUMN_FIRST_NAME);
+            int patientLastNameColumnIndex = cursor.getColumnIndex(ImsContract.PatientEntry.COLUMN_LAST_NAME);
+            int dateOfBirthColumnIndex = cursor.getColumnIndex(ImsContract.PatientEntry.COLUMN_BIRTH_DATE);
+
+            // Firs name and last name
+            String patientFirsName = cursor.getString(patientFirsNameColumnIndex);
+            String patientLastName = cursor.getString(patientLastNameColumnIndex);
+            String dateOfBirth = cursor.getString(patientLastNameColumnIndex);
+
+            if (patientFirsName != null & patientLastName != null) {
+                mValues.put(ImsContract.PatientRecordsEntry.COLUMN_BILL_TO_NAME, patientFirsName.concat(" " + patientLastName) );
+                mValues.put(ImsContract.PatientRecordsEntry.COLUMN_DATE_OF_BIRTH,dateOfBirth);
+                  String date= dateOfBirth;
+            }
+
+            }
+        }
     public void savePatientRecord(){
 
        String patientIdString=  ReceptionFprPatientIdEditText.getText().toString().trim();
@@ -88,27 +136,29 @@ public class FragmentPatientRecords extends Fragment implements LoaderManager.Lo
         String appointmentDateString=  ReceptionFprNextAppointmentDateTextView.getText().toString().trim();
         String treatmentPlanDateString=  ReceptionFprNextTreatmentPlanReviewDateTextView.getText().toString().trim();
 
-        ContentValues values = new ContentValues();
+         mValues = new ContentValues();
+         getPatient(Integer.parseInt(patientIdString),getActivity());
+
         if (TextUtils.isEmpty(patientIdString)) {ReceptionFprPatientIdEditText.setError("please return a touch item to  patient Id");
-            return; } else { values.put(ImsContract.PatientRecordsEntry.COLUMN_PATIENT_ID , patientIdString);
+            return; } else { mValues.put(ImsContract.PatientRecordsEntry.COLUMN_PATIENT_ID , patientIdString);
         }
         if (TextUtils.isEmpty(medicalRecordIdString)) {ReceptionFprMedicalRecordIdEditText.setError("please return write to medical Record Id ");
-            return; } else { values.put(ImsContract.PatientRecordsEntry.COLUMN_MEDICAL_RECORD_ID ,medicalRecordIdString );
+            return; } else { mValues.put(ImsContract.PatientRecordsEntry.COLUMN_MEDICAL_RECORD_ID ,medicalRecordIdString );
         }
         if (TextUtils.isEmpty(physicianSignatureString)) {ReceptionFprPhysicanSignatureEditText.setError("please return write to physician Signature ");
-            return; } else { values.put(ImsContract.PatientRecordsEntry.COLUMN_PHYSICIAN_SIGNATURE ,physicianSignatureString );
+            return; } else { mValues.put(ImsContract.PatientRecordsEntry.COLUMN_PHYSICIAN_SIGNATURE ,physicianSignatureString );
         }
         if (appointmentDateString.equals(notAdd)) {ReceptionFprNextAppointmentDateTextView.setError("please return write to appointment Date ");
-            return; } else { values.put(ImsContract.PatientRecordsEntry.COLUMN_NEXT_APPOINTMENT_DATE , appointmentDateString);
+            return; } else { mValues.put(ImsContract.PatientRecordsEntry.COLUMN_NEXT_APPOINTMENT_DATE , appointmentDateString);
         }
         if (treatmentPlanDateString.equals(notAdd)) {ReceptionFprNextTreatmentPlanReviewDateTextView.setError("please return write to  treatment Plan Date");
-            return; } else { values.put(ImsContract.PatientRecordsEntry.COLUMN_NEXT_TREATMENT_PLAN_REVIEW_DATE ,treatmentPlanDateString );
+            return; } else { mValues.put(ImsContract.PatientRecordsEntry.COLUMN_NEXT_TREATMENT_PLAN_REVIEW_DATE ,treatmentPlanDateString );
         }
         if (dateSignedString.equals(notAdd)) {ReceptionFprDateSignedTextView.setError("please return write to date Signed ");
-            return; } else { values.put(ImsContract.PatientRecordsEntry.COLUMN_DATE_SIGNED , dateSignedString);
+            return; } else { mValues.put(ImsContract.PatientRecordsEntry.COLUMN_DATE_SIGNED , dateSignedString);
         }
         Uri newUri =
-                getContext().getContentResolver().insert(ImsContract.PatientRecordsEntry.CONTENT_URI, values);
+                getContext().getContentResolver().insert(ImsContract.PatientRecordsEntry.CONTENT_URI, mValues);
         if (newUri == null) {
             Toast.makeText(getContext(), getString(R.string.editor_insert_health_record_failed), Toast.LENGTH_SHORT).show();
         } else {
@@ -129,6 +179,7 @@ public class FragmentPatientRecords extends Fragment implements LoaderManager.Lo
         if (TextUtils.isEmpty(dateString)) {ReceptionFprDateTextView.setError("please return write to date");
             return; } else { values.put(ImsContract.PatientProgressEntry.COLUMN_DATE , dateString);
         }
+
 
         if (TextUtils.isEmpty(String.valueOf(mPatientId))) {
             return; } else { values.put(ImsContract.PatientProgressEntry.COLUMN_PATIENT_ID , mPatientId); }

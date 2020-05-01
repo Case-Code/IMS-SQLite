@@ -171,7 +171,7 @@
                             android:padding="10dp">
 
                             <ImageView
-                                android:id="@+id/imageView"
+                                android:id="@+id/image_analysislab_xray"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentTop="true"
@@ -180,7 +180,7 @@
                                 app:srcCompat="@drawable/analysis_lab_logo" />
 
                             <TextView
-                                android:id="@+id/text_pr_bill_to_name"
+                                android:id="@+id/text_analysislab_billtoname"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentStart="true"
@@ -193,10 +193,10 @@
                                 android:textSize="14sp" />
 
                             <TextView
-                                android:id="@+id/text_pr_date_of_birth"
+                                android:id="@+id/text_analysislab_dateofbirth"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/text_pr_bill_to_name"
+                                android:layout_below="@+id/text_analysislab_billtoname"
                                 android:layout_alignParentStart="true"
                                 android:layout_alignParentLeft="true"
                                 android:layout_marginBottom="10dp"
@@ -206,10 +206,10 @@
                                 android:textSize="14sp" />
 
                             <TextView
-                                android:id="@+id/text_pr_patient_id"
+                                android:id="@+id/text_analysislab_patientid"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/text_pr_date_of_birth"
+                                android:layout_below="@+id/text_analysislab_dateofbirth"
                                 android:layout_alignParentStart="true"
                                 android:layout_alignParentLeft="true"
                                 android:layout_marginBottom="10dp"
@@ -219,10 +219,10 @@
                                 android:textSize="14sp" />
 
                             <TextView
-                                android:id="@+id/text_pr_medical_record"
+                                android:id="@+id/text_analysislab_medicalrecord"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/text_pr_patient_id"
+                                android:layout_below="@+id/text_analysislab_patientid"
                                 android:layout_alignParentStart="true"
                                 android:layout_alignParentLeft="true"
                                 android:layout_marginBottom="10dp"
@@ -232,10 +232,10 @@
                                 android:textSize="14sp" />
 
                             <TextView
-                                android:id="@+id/text_pr_next_appointment_date"
+                                android:id="@+id/text_analysislab_nextappointmentdate"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/text_pr_medical_record"
+                                android:layout_below="@+id/text_analysislab_medicalrecord"
                                 android:layout_alignParentStart="true"
                                 android:layout_alignParentLeft="true"
                                 android:layout_marginBottom="10dp"
@@ -245,10 +245,10 @@
                                 android:textSize="14sp" />
 
                             <TextView
-                                android:id="@+id/text_pr_next_treatment_plan_review_date"
+                                android:id="@+id/text_analysislab_nexttreatmentplanreviewdate"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/text_pr_next_appointment_date"
+                                android:layout_below="@+id/text_analysislab_nextappointmentdate"
                                 android:layout_alignParentStart="true"
                                 android:layout_alignParentLeft="true"
                                 android:layout_marginBottom="10dp"
@@ -258,10 +258,10 @@
                                 android:textSize="14sp" />
 
                             <TextView
-                                android:id="@+id/text_pr_physician_signature"
+                                android:id="@+id/text_analysislab_physiciansignature"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/text_pr_next_treatment_plan_review_date"
+                                android:layout_below="@+id/text_analysislab_nexttreatmentplanreviewdate"
                                 android:layout_alignParentStart="true"
                                 android:layout_alignParentLeft="true"
                                 android:layout_marginBottom="10dp"
@@ -271,10 +271,10 @@
                                 android:textSize="14sp" />
 
                             <TextView
-                                android:id="@+id/text_pr_date_signed"
+                                android:id="@+id/text_analysislab_datesigned"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/text_pr_physician_signature"
+                                android:layout_below="@+id/text_analysislab_physiciansignature"
                                 android:layout_alignParentStart="true"
                                 android:layout_alignParentLeft="true"
                                 android:maxLines="2"

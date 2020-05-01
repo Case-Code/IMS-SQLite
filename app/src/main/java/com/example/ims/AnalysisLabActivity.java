@@ -1,6 +1,7 @@
 package com.example.ims;
 
 import android.annotation.SuppressLint;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -30,7 +32,7 @@ import com.example.ims.data.ImsContract;
 import com.google.android.material.navigation.NavigationView;
 
 public class AnalysisLabActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener ,
-        LoaderManager.LoaderCallbacks<Cursor>{
+        LoaderManager.LoaderCallbacks<Cursor> {
 
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigationView;
@@ -44,16 +46,16 @@ public class AnalysisLabActivity extends AppCompatActivity implements Navigation
     private ListView patientNameListView;
 
     //Patient records
-    private  TextView prBillToNameTextView;
-    private  TextView prDateOfBirthTextView;
-    private  TextView prPatientIdTextView;
-    private  TextView prMedicalRecordTextView;
-    private  TextView prNextAppointmentDateTextView;
-    private  TextView prNextTreatmentPlanReviewDateTextView;
-    private  TextView prPhysicianSignatureTextView;
-    private  TextView prDateSignedTextView;
+    private TextView billToNameTextView;
+    private TextView dateOfBirthTextView;
+    private TextView patientIdTextView;
+    private TextView medicalRecordTextView;
+    private TextView nextAppointmentDateTextView;
+    private TextView nextTreatmentPlanReviewDateTextView;
+    private TextView physicianSignatureTextView;
+    private TextView dateSignedTextView;
 
-    private ListView ppProgressNotesListView;
+    private ListView progressNotesListView;
 
     AnalysisCursorAdapter mAnalysisCursorAdapter;
     Uri mUri;
@@ -62,14 +64,17 @@ public class AnalysisLabActivity extends AppCompatActivity implements Navigation
     private String patientSearch;
     private String firstName;
     private String lastName;
+    private int patientId;
 
     private static final int ANALYSIS_LOADER = 161;
     private static final int ANALYSIS_SEARCH_LOADER = 160;
+    private static final int PATIENT_RECORD_LOADER = 162;
 
 
+    public void patientRecord() {
 
 
-
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,8 +83,20 @@ public class AnalysisLabActivity extends AppCompatActivity implements Navigation
 
         init();
 
-        mAnalysisCursorAdapter = new AnalysisCursorAdapter(this,null);
+        mAnalysisCursorAdapter = new AnalysisCursorAdapter(this, null);
         patientNameListView.setAdapter(mAnalysisCursorAdapter);
+        patientNameListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long id) {
+
+                mUri =
+                        ContentUris.withAppendedId(ImsContract.PatientDataToClinicsEntry.CONTENT_URI, id);
+                // patientId = getIdPatient(mUri,TheDoctorActivity.this);
+                //    getPatient(patientId , TheDoctorActivity.this);
+
+            }
+        });
+
         patientNameListView.setTextFilterEnabled(true);
         searchNameEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -111,9 +128,8 @@ public class AnalysisLabActivity extends AppCompatActivity implements Navigation
         getLoaderManager().initLoader(ANALYSIS_LOADER, null, this);
 
 
-
-
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
+        actionBarDrawerToggle =
+                new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
         mDrawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
         mNavigationView.setNavigationItemSelectedListener(this);
@@ -186,56 +202,79 @@ public class AnalysisLabActivity extends AppCompatActivity implements Navigation
 
 
         //List of clients referred to the laboratory for analysis
-        searchNameEditText =findViewById(R.id.edit_analysislab_searchname);
-       patientNameListView =findViewById(R.id.list_analysislab_patientname);
+        searchNameEditText = findViewById(R.id.edit_analysislab_searchname);
+        patientNameListView = findViewById(R.id.list_analysislab_patientname);
 
         //Patient records
-         prBillToNameTextView=findViewById(R.id.text_pr_bill_to_name);;
-         prDateOfBirthTextView=findViewById(R.id.text_pr_date_of_birth);;
-         prPatientIdTextView=findViewById(R.id.text_pr_patient_id);;
-         prMedicalRecordTextView=findViewById(R.id.text_pr_medical_record);;
-         prNextAppointmentDateTextView=findViewById(R.id.text_pr_next_appointment_date);;
-         prNextTreatmentPlanReviewDateTextView=findViewById(R.id.text_pr_next_treatment_plan_review_date);;
-         prPhysicianSignatureTextView=findViewById(R.id.text_pr_physician_signature);;
-         prDateSignedTextView=findViewById(R.id.text_pr_date_signed);
+        billToNameTextView = findViewById(R.id.text_analysislab_billtoname);
+        ;
+        dateOfBirthTextView = findViewById(R.id.text_analysislab_dateofbirth);
+        ;
+        patientIdTextView = findViewById(R.id.text_analysislab_patientid);
+        ;
+        medicalRecordTextView = findViewById(R.id.text_analysislab_medicalrecord);
+        ;
+        nextAppointmentDateTextView = findViewById(R.id.text_analysislab_nextappointmentdate);
+        ;
+        nextTreatmentPlanReviewDateTextView =
+                findViewById(R.id.text_analysislab_nexttreatmentplanreviewdate);
+        ;
+        physicianSignatureTextView = findViewById(R.id.text_analysislab_physiciansignature);
+        ;
+        dateSignedTextView = findViewById(R.id.text_analysislab_datesigned);
 
-         //Patient progress
-        ppProgressNotesListView=findViewById(R.id.list_pp_progress_notes);;
-
-
-
-
-
+        //Patient progress
+        progressNotesListView = findViewById(R.id.list_pp_progress_notes);
+        ;
 
 
     }
 
     @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle bundle)
-    {
-            if(id==ANALYSIS_LOADER) {
-                if (patientSearch == null) {
+    public Loader<Cursor> onCreateLoader(int id, Bundle bundle) {
+        if (id == ANALYSIS_LOADER) {
+            if (patientSearch == null) {
 
-                    String[] projection = {
-                            ImsContract.PatientDataToAnalysisEntry._ID,
-                            ImsContract.PatientDataToAnalysisEntry.COLUMN_PATIENT_ID,
-                            ImsContract.PatientDataToAnalysisEntry.COLUMN_ANALYSIS_NAME,
-                            ImsContract.PatientDataToAnalysisEntry.COLUMN_TRANSFER_DATE
-                    };
-                    return new CursorLoader(this,
-                            ImsContract.PatientDataToAnalysisEntry.CONTENT_URI,
-                            projection,
-                            null,
-                            null,
-                            null);
-                } else {
-                    return getDoctorSearch(firstName, lastName, this);
-
-                }
-            }else {
+                String[] projection = {
+                        ImsContract.PatientDataToAnalysisEntry._ID,
+                        ImsContract.PatientDataToAnalysisEntry.COLUMN_PATIENT_ID,
+                        ImsContract.PatientDataToAnalysisEntry.COLUMN_ANALYSIS_NAME,
+                        ImsContract.PatientDataToAnalysisEntry.COLUMN_TRANSFER_DATE
+                };
+                return new CursorLoader(this,
+                        ImsContract.PatientDataToAnalysisEntry.CONTENT_URI,
+                        projection,
+                        null,
+                        null,
+                        null);
+            } else {
+                return getDoctorSearch(firstName, lastName, this);
 
             }
+        } else if (id == PATIENT_RECORD_LOADER) {
+            String[] projection =
+                    {
+                            ImsContract.PatientRecordsEntry.COLUMN_BILL_TO_NAME,
+                            ImsContract.PatientRecordsEntry.COLUMN_DATE_OF_BIRTH,
+                            ImsContract.PatientRecordsEntry.COLUMN_PATIENT_ID,
+                            ImsContract.PatientRecordsEntry.COLUMN_MEDICAL_RECORD_ID,
+                            ImsContract.PatientRecordsEntry.COLUMN_NEXT_APPOINTMENT_DATE,
+                            ImsContract.PatientRecordsEntry.COLUMN_NEXT_TREATMENT_PLAN_REVIEW_DATE,
+                            ImsContract.PatientRecordsEntry.COLUMN_PHYSICIAN_SIGNATURE,
+                            ImsContract.PatientRecordsEntry.COLUMN_DATE_SIGNED,
+                            ImsContract.PatientRecordsEntry.COLUMN_X_RAY_IMAGE
+                    };
+
+            return new CursorLoader(this,
+                    mUri,
+                    projection,
+                    null, null, null);
+        }
+        return null;
     }
+
+
+
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor)
@@ -244,7 +283,37 @@ public class AnalysisLabActivity extends AppCompatActivity implements Navigation
         if (id == ANALYSIS_LOADER) {
             if (mUri == null) {
                 mAnalysisCursorAdapter.swapCursor(cursor);
-            }else {
+            }else if(id==PATIENT_RECORD_LOADER)
+            {
+                int billToNameColumnIndex = cursor.getColumnIndex(ImsContract.PatientRecordsEntry.COLUMN_BILL_TO_NAME);
+                int dateOfBirthColumnIndex = cursor.getColumnIndex(ImsContract.PatientRecordsEntry.COLUMN_DATE_OF_BIRTH);
+                int patientIdColumnIndex = cursor.getColumnIndex(ImsContract.PatientRecordsEntry.COLUMN_PATIENT_ID);
+                int medicalRecordIdColumnIndex = cursor.getColumnIndex(ImsContract.PatientRecordsEntry.COLUMN_MEDICAL_RECORD_ID);
+                int nextAppointmentColumnIndex = cursor.getColumnIndex(ImsContract.PatientRecordsEntry.COLUMN_NEXT_APPOINTMENT_DATE);
+                int nextTreatmentPlanColumnIndex = cursor.getColumnIndex(ImsContract.PatientRecordsEntry.COLUMN_NEXT_TREATMENT_PLAN_REVIEW_DATE);
+                int physicianSignatureColumnIndex = cursor.getColumnIndex(ImsContract.PatientRecordsEntry.COLUMN_PHYSICIAN_SIGNATURE);
+                int dateSignedColumnIndex = cursor.getColumnIndex(ImsContract.PatientRecordsEntry.COLUMN_DATE_SIGNED);
+                int xRayImageColumnIndex = cursor.getColumnIndex(ImsContract.PatientRecordsEntry.COLUMN_X_RAY_IMAGE);
+
+                String  billToName= cursor.getString(billToNameColumnIndex);
+                String  dateOfBirth= cursor.getString(dateOfBirthColumnIndex);
+                String  patientId= cursor.getString(patientIdColumnIndex);
+                String  medicalRecordId= cursor.getString(medicalRecordIdColumnIndex);
+                String  nextAppointment= cursor.getString(nextAppointmentColumnIndex);
+                String  nextTreatmentPlan= cursor.getString(nextTreatmentPlanColumnIndex);
+                String  physicianSignature= cursor.getString(physicianSignatureColumnIndex);
+                String dateSigned = cursor.getString(dateSignedColumnIndex);
+                String xRayImage = cursor.getString(xRayImageColumnIndex);
+
+
+                billToNameTextView.setText(billToName);
+                dateOfBirthTextView.setText(dateOfBirth);
+                patientIdTextView .setText(patientId);
+                medicalRecordTextView.setText(medicalRecordId);
+                nextAppointmentDateTextView .setText(nextAppointment);
+                nextTreatmentPlanReviewDateTextView .setText(nextTreatmentPlan);
+                physicianSignatureTextView .setText(physicianSignature);
+                dateSignedTextView.setText(dateSigned);
 
 
             }
