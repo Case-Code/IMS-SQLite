@@ -482,7 +482,7 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
             // Firs name and last name
             String patientFirsName = cursor.getString(patientFirsNameColumnIndex);
             String patientLastName = cursor.getString(patientLastNameColumnIndex);
-            String dateOfBirth = cursor.getString(patientLastNameColumnIndex);
+            String dateOfBirth = cursor.getString(dateOfBirthColumnIndex);
 
             if (patientFirsName != null & patientLastName != null) {
                 firstlastnameTextView.setText(patientFirsName.concat(" " + patientLastName));
