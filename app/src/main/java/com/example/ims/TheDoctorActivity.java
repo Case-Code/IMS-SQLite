@@ -484,7 +484,7 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
             String patientLastName = cursor.getString(patientLastNameColumnIndex);
             String dateOfBirth = cursor.getString(dateOfBirthColumnIndex);
 
-            if (patientFirsName != null & patientLastName != null) {
+            if (patientFirsName != null & patientLastName != null) {//update code
                 firstlastnameTextView.setText(patientFirsName.concat(" " + patientLastName));
                dateofbirthTextView.setText(dateOfBirth);
 
