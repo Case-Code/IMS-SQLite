@@ -546,12 +546,10 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
         Uri uri = ImsContract.PatientEntry.CONTENT_URI;
 
         // Column name
-        String[] projection =
-                {
-                        ImsContract.PatientEntry.COLUMN_FIRST_NAME,
-                        ImsContract.PatientEntry.COLUMN_LAST_NAME,
-                        ImsContract.PatientEntry.COLUMN_BIRTH_DATE
-                };
+        String[] projection = {
+                ImsContract.PatientEntry.COLUMN_FIRST_NAME,
+                ImsContract.PatientEntry.COLUMN_LAST_NAME,
+                ImsContract.PatientEntry.COLUMN_BIRTH_DATE};
 
         // Selection
         String selection = ImsContract.PatientEntry._ID + " =" + patientId;

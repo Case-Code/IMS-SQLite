@@ -89,7 +89,7 @@ public class ClinicCursorAdapter extends CursorAdapter {
                         values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_PATIENT_ID, String.valueOf(idPatient));
 
 
-                        // Insert and update patient
+                        // Insert patient data to analysis
                         Uri newUri = context.getContentResolver().insert(ImsContract.PatientDataToAnalysisEntry.CONTENT_URI, values);
                         if (newUri == null) {
                             Toast.makeText(view.getContext(), "Error with transfer patient", Toast.LENGTH_SHORT).show();
@@ -117,15 +117,58 @@ public class ClinicCursorAdapter extends CursorAdapter {
         // Transformation to radiology laboratory
         clinicRadiologyLaboratoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
+                new TheDoctorActivity().showTransferredToRadiologyDialog(context);
+                final Uri patientIdUri = ContentUris.withAppendedId(ImsContract.PatientEntry.CONTENT_URI, patientId);
 
+                final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setView(TheDoctorActivity.mDialogTransferredToRadiology);
+                builder.setTitle("Transferred to the radiology");
+
+                builder.setPositiveButton("Transfer", new DialogInterface.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.O)
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        final Date date = new Date();
+
+                        String dateString = Utils.formatDate(date);
+                        int mTypesOfRadiology = TheDoctorActivity.mTypesOfRadiology;
+                        int idPatient = getIdPatient(context, patientIdUri);
+
+                        ContentValues values = new ContentValues();
+                        values.put(ImsContract.PatientDataToRadiologyEntry.COLUMN_TRANSFER_DATE, dateString);
+                        values.put(ImsContract.PatientDataToRadiologyEntry.COLUMN_TYPES_OF_RADIATION, mTypesOfRadiology);
+                        values.put(ImsContract.PatientDataToRadiologyEntry.COLUMN_PATIENT_ID, String.valueOf(idPatient));
+
+
+                        // Insert patient data to radiology
+                        Uri newUri = context.getContentResolver().insert(ImsContract.PatientDataToRadiologyEntry.CONTENT_URI, values);
+                        if (newUri == null) {
+                            Toast.makeText(view.getContext(), "Error with transfer patient", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(view.getContext(), "Transferred", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+                builder.setNegativeButton("Decline", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (dialog != null) {
+                            dialog.dismiss();
+                        }
+                    }
+                });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.setCanceledOnTouchOutside(false);
+                alertDialog.show();
             }
         });
 
         // Transformation to the pharmacy
         clinicPharmacyButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
 
             }
         });
