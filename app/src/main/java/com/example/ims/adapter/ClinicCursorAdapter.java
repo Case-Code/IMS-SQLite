@@ -169,7 +169,50 @@ public class ClinicCursorAdapter extends CursorAdapter {
         clinicPharmacyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
+                new TheDoctorActivity().showTransferredToThePharmacyDialog(context);
+                final Uri patientIdUri = ContentUris.withAppendedId(ImsContract.PatientEntry.CONTENT_URI, patientId);
 
+                final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setView(TheDoctorActivity.mDialogTransferredToThePharmacy);
+                builder.setTitle("Transferred to the pharmacy");
+
+                builder.setPositiveButton("Transfer", new DialogInterface.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.O)
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        final Date date = new Date();
+
+                        String dateString = Utils.formatDate(date);
+                        int mTypesOfRadiology = TheDoctorActivity.mTypesOfRadiology;
+                        int idPatient = getIdPatient(context, patientIdUri);
+
+                        ContentValues values = new ContentValues();
+                        values.put(ImsContract.PatientDataToPharmacyEntry.COLUMN_TRANSFER_DATE, dateString);
+                        values.put(ImsContract.PatientDataToPharmacyEntry.COLUMN_DOCTOR_DIAGNOSIS_ID, mTypesOfRadiology);
+                        values.put(ImsContract.PatientDataToPharmacyEntry.COLUMN_PATIENT_ID, String.valueOf(idPatient));
+
+
+                        // Insert patient data to pharmacy
+                        Uri newUri = context.getContentResolver().insert(ImsContract.PatientDataToPharmacyEntry.CONTENT_URI, values);
+                        if (newUri == null) {
+                            Toast.makeText(view.getContext(), "Error with transfer patient", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(view.getContext(), "Transferred", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+                builder.setNegativeButton("Decline", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (dialog != null) {
+                            dialog.dismiss();
+                        }
+                    }
+                });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.setCanceledOnTouchOutside(false);
+                alertDialog.show();
             }
         });
     }
