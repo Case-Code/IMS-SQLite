@@ -1,18 +1,31 @@
 package com.example.ims.adapter;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
 
 import com.example.ims.R;
+import com.example.ims.ReceptionActivity;
+import com.example.ims.TheDoctorActivity;
 import com.example.ims.data.ImsContract;
+import com.example.logutil.Utils;
+
+import java.util.Date;
 
 import static com.example.ims.data.ImsContract.PatientDataToClinicsEntry.*;
 
@@ -28,21 +41,20 @@ public class ClinicCursorAdapter extends CursorAdapter {
     }
 
     @Override
-    public void bindView(View view, Context context, Cursor cursor) {
-        TextView firstLastNameTextView = view.findViewById(R.id.text_clinic_firstlastname);
+    public void bindView(View view, final Context context, Cursor cursor) {
+        TextView firstLastNameTextView = view.findViewById(R.id.text_transferredtopharmacy_firstlastname);
         TextView clinicNameTextView = view.findViewById(R.id.text_clinic_clinicname);
         TextView transferDataTextView = view.findViewById(R.id.text_clinic_transferdata);
 
-        Button clinicPharmacyButton = view.findViewById(R.id.button_clinic_pharmacy);
-        Button clinicRadiologyLaboratoryButton = view.findViewById(R.id.button_clinic_radiologylaboratory);
         Button clinicAnalysisLabButton = view.findViewById(R.id.button_clinic_analysislab);
-        Button clinicClinicButton = view.findViewById(R.id.button_clinic_clinic);
+        Button clinicRadiologyLaboratoryButton = view.findViewById(R.id.button_clinic_radiologylaboratory);
+        Button clinicPharmacyButton = view.findViewById(R.id.button_clinic_pharmacy);
 
         int patientIdColumnIndex = cursor.getColumnIndex(ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID);
         int clinicNameColumnIndex = cursor.getColumnIndex(ImsContract.PatientDataToClinicsEntry.COLUMN_CLINIC_NAME);
         int transferDataColumnIndex = cursor.getColumnIndex(ImsContract.PatientDataToClinicsEntry.COLUMN_TRANSFER_DATE);
 
-        int patientId = cursor.getInt(patientIdColumnIndex);
+        final int patientId = cursor.getInt(patientIdColumnIndex);
         int clinicName = cursor.getInt(clinicNameColumnIndex);
         String transferDate = cursor.getString(transferDataColumnIndex);
 
@@ -50,13 +62,59 @@ public class ClinicCursorAdapter extends CursorAdapter {
         clinicNameTextView.setText(getClinicName(clinicName));
         transferDataTextView.setText(transferDate);
 
-        clinicPharmacyButton.setOnClickListener(new View.OnClickListener() {
+        // Transformation to analysis lab
+        clinicAnalysisLabButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
+                new TheDoctorActivity().showTransferredToTheAnalysisLabDialog(context);
+                final Uri patientIdUri = ContentUris.withAppendedId(ImsContract.PatientEntry.CONTENT_URI, patientId);
+
+                final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setView(TheDoctorActivity.mDialogTransferredToTheAnalysisLab);
+                builder.setTitle("Transferred to the analysis lab");
+
+                builder.setPositiveButton("Transfer", new DialogInterface.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.O)
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        final Date date = new Date();
+
+                        String dateString = Utils.formatDate(date);
+                        int mTypesOfAnalysis = TheDoctorActivity.mTypesOfAnalysis;
+                        int idPatient = getIdPatient(context, patientIdUri);
+
+                        ContentValues values = new ContentValues();
+                        values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_TRANSFER_DATE, dateString);
+                        values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_ANALYSIS_NAME, mTypesOfAnalysis);
+                        values.put(ImsContract.PatientDataToAnalysisEntry.COLUMN_PATIENT_ID, String.valueOf(idPatient));
+
+
+                        // Insert and update patient
+                        Uri newUri = context.getContentResolver().insert(ImsContract.PatientDataToAnalysisEntry.CONTENT_URI, values);
+                        if (newUri == null) {
+                            Toast.makeText(view.getContext(), "Error with transfer patient", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(view.getContext(), "Transferred", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+                builder.setNegativeButton("Decline", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (dialog != null) {
+                            dialog.dismiss();
+                        }
+                    }
+                });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.setCanceledOnTouchOutside(false);
+                alertDialog.show();
 
             }
         });
 
+        // Transformation to radiology laboratory
         clinicRadiologyLaboratoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,14 +122,8 @@ public class ClinicCursorAdapter extends CursorAdapter {
             }
         });
 
-        clinicAnalysisLabButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
-        clinicClinicButton.setOnClickListener(new View.OnClickListener() {
+        // Transformation to the pharmacy
+        clinicPharmacyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -121,6 +173,21 @@ public class ClinicCursorAdapter extends CursorAdapter {
             }
         }
         return patientName;
+    }
+
+    // Get id patient
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private int getIdPatient(Context context, Uri currentPatientUri) {
+        int patientId = 0;
+        String[] projection = {ImsContract.PatientEntry._ID};
+        Cursor cursor = context.getContentResolver().query(currentPatientUri, projection, null, null);
+
+        assert cursor != null;
+        while (cursor.moveToNext()) {
+            int patientIdColumnIndex = cursor.getColumnIndex(ImsContract.PatientEntry._ID);
+            patientId = cursor.getInt(patientIdColumnIndex);
+        }
+        return patientId;
     }
 
     // Get clinic name

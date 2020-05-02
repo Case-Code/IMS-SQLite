@@ -196,7 +196,7 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
         return true;
     }
 
-    // initial
+    // Initialization
     private void init() {
         mDrawerLayout = findViewById(R.id.activity_reception);
         mNavigationView = findViewById(R.id.navigation_view);
@@ -447,7 +447,7 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
     }
 
     // Show transferred to the analysis lab dialog
-    public void showTransferredToTheAnalysisLabDialog(Context context) {
+    public  void showTransferredToTheAnalysisLabDialog(Context context) {
         if (mDialogTransferredToTheAnalysisLab.getParent() != null) {
             ((ViewGroup) mDialogTransferredToTheAnalysisLab.getParent()).removeView(mDialogTransferredToTheAnalysisLab);
         }

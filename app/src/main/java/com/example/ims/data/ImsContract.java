@@ -326,7 +326,6 @@ public class ImsContract {
         public static final int VACCINATION_D_T_A_P = 2;
         public static final int VACCINATION_T_D = 3;
         public static final int VACCINATION_TETANUS_T_DAP = 4;
-
         public static final int VACCINATION_TETANUS = 5;
         public static final int VACCINATION_INFLUENZA_VACCINE = 6;
         public static final int VACCINATION_ZOSTAVAX = 7;
@@ -395,6 +394,23 @@ public class ImsContract {
         public static final String COLUMN_TRANSFER_DATE = "transfer_date";
         public static final String COLUMN_TYPES_OF_RADIATION = "types_of_radiation";
         public static final String COLUMN_PATIENT_ID = "patient_id";
+
+        // Types of radiology
+        public static final int RADIOLOGY_UNKNOWN = 0;
+        public static final int RADIOLOGY_X_RAYS = 1;
+        public static final int RADIOLOGY_CT_SCAN = 2;
+        public static final int RADIOLOGY_MAGNETIC_RESONANCE_IMAGING = 3;
+        public static final int RADIOLOGY_ULTRASOUND = 4;
+        public static final int RADIOLOGY_SECTIONAL_TOMOGRAPHY_OF_THE_POSITRON_EMISSION = 5;
+
+        public static boolean isValidTypesOfRadiology(int typesOfPatientVaccinesTetanus) {
+            return typesOfPatientVaccinesTetanus == RADIOLOGY_UNKNOWN ||
+                    typesOfPatientVaccinesTetanus == RADIOLOGY_X_RAYS ||
+                    typesOfPatientVaccinesTetanus == RADIOLOGY_CT_SCAN ||
+                    typesOfPatientVaccinesTetanus == RADIOLOGY_MAGNETIC_RESONANCE_IMAGING ||
+                    typesOfPatientVaccinesTetanus == RADIOLOGY_ULTRASOUND ||
+                    typesOfPatientVaccinesTetanus == RADIOLOGY_SECTIONAL_TOMOGRAPHY_OF_THE_POSITRON_EMISSION;
+        }
     }
 
     // The pharmacy

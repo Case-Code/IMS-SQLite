@@ -89,7 +89,7 @@ public class PatientCursorAdapter extends CursorAdapter {
         // Analysis lab
         analysisLabButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(final View v) {
+            public void onClick(final View view) {
                 new ReceptionActivity().showTransferredToTheAnalysisLabDialog(context);
                 final Uri patientId = ContentUris.withAppendedId(PatientEntry.CONTENT_URI, id);
 
@@ -116,9 +116,9 @@ public class PatientCursorAdapter extends CursorAdapter {
                         // Insert and update patient
                         Uri newUri = context.getContentResolver().insert(ImsContract.PatientDataToAnalysisEntry.CONTENT_URI, values);
                         if (newUri == null) {
-                            Toast.makeText(v.getContext(), "Error with transfer patient", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(view.getContext(), "Error with transfer patient", Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(v.getContext(), "Transferred", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(view.getContext(), "Transferred", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

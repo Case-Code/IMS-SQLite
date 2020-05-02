@@ -18,6 +18,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -54,8 +55,6 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
     private ImageButton mActionMenuImageButton;
 
     private ActionBarDrawerToggle actionBarDrawerToggle;
-    public static View mDialogTransferredToClinicsView;
-    private Spinner mTheNameOfTheClinicSpinner;
 
     //List of clients referred to the clinic
     private EditText doctorSearchEditText;
@@ -75,7 +74,6 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
     private Button printButton;
 
     private static final int CLINIC_LOADER = 1;
-    private static final int CLINIC_SEARCH_LOADER = 2;
 
     private String mTheNamesOfTheClinics = null;
 
@@ -84,12 +82,25 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
     private String lastName;
     private int patientId;
 
+    private Spinner mTypeOfAnalysisSpinner;
+    private Spinner mTypeOfRadiationSpinner;
+
+    public static int mTypesOfAnalysis = ImsContract.PatientDataToAnalysisEntry.ANALYSIS_UNKNOWN;
+    public static int mTypesOfRadiology = ImsContract.PatientDataToRadiologyEntry.RADIOLOGY_UNKNOWN;
+
+    // Dialog analysis lab, radiology laboratory and Pharmacy
+    public static View mDialogTransferredToTheAnalysisLab;
+    public static View mDialogTransferredToRadiology;
+    public static View mDialogTransferredToThePharmacy;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thedoctor);
 
+        // Initialization
         init();
+
         dateofserviceTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,8 +113,6 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
                     }
                 };
                 Utils.showDatePicker(TheDoctorActivity.this, dateSetListener);
-
-
             }
         });
 
@@ -219,7 +228,6 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
         mDrawerLayout = findViewById(R.id.activity_the_doctor);
         mNavigationView = findViewById(R.id.navigation_view);
         mActionMenuImageButton = findViewById(R.id.image_button_action_menu);
-        mDialogTransferredToClinicsView = getLayoutInflater().inflate(R.layout.dialog_doctor_transferred_to_clinics, null);
 
         //List of clients referred to the clinic
         doctorSearchEditText = findViewById(R.id.edit_doctor_search);
@@ -234,8 +242,111 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
         performingPhysicianSignatureEditText = findViewById(R.id.edit_doctor_performingphysiciansignature);
         addButton = findViewById(R.id.button_doctor_save);
         printButton = findViewById(R.id.button_doctor_print);
+
+        // Dialog analysis lab, radiology laboratory and Pharmacy
+        mDialogTransferredToTheAnalysisLab = getLayoutInflater().inflate(R.layout.dialog_transferred_to_the_analysis_lab, null);
+        mDialogTransferredToRadiology = getLayoutInflater().inflate(R.layout.dialog_transferred_to_radiology, null);
+        mDialogTransferredToThePharmacy = getLayoutInflater().inflate(R.layout.dialog_transferred_to_pharmacy, null);
     }
 
+    // Setup spinner types of analysis
+    public void setupSpinnerTypesOfAnalysis(Context context) {
+        ArrayAdapter typeOfAnalysisSpinnerAdapter = ArrayAdapter.createFromResource(
+                context,
+                R.array.array_analysis_options,
+                android.R.layout.simple_spinner_item);
+
+        typeOfAnalysisSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+
+        mTypeOfAnalysisSpinner.setAdapter(typeOfAnalysisSpinnerAdapter);
+        mTypeOfAnalysisSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selection = (String) parent.getItemAtPosition(position);
+                if (!TextUtils.isEmpty(selection)) {
+                    if (selection.equals("Complete blood count")) { // TODO chane the text
+                        mTypesOfAnalysis = ImsContract.PatientDataToAnalysisEntry.ANALYSIS_COMPLETE_BLOOD_COUNT;
+                    } else if (selection.equals("Urine examination")) {
+                        mTypesOfAnalysis = ImsContract.PatientDataToAnalysisEntry.ANALYSIS_URINE_EXAMINATION;
+                    } else if (selection.equals("Stool examination")) {
+                        mTypesOfAnalysis = ImsContract.PatientDataToAnalysisEntry.ANALYSIS_STOOL_EXAMINATION;
+                    } else {
+                        mTypesOfAnalysis = ImsContract.PatientDataToAnalysisEntry.ANALYSIS_UNKNOWN;
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                mTypesOfAnalysis = ImsContract.PatientDataToAnalysisEntry.ANALYSIS_UNKNOWN;
+            }
+        });
+    }
+
+    // Setup spinner types of radiation
+    public void setupSpinnerTypesOfRadiation(Context context) {
+        ArrayAdapter typeOfRadiationSpinnerAdapter = ArrayAdapter.createFromResource(
+                context,
+                R.array.array_radiology_options,
+                android.R.layout.simple_spinner_item);
+
+        typeOfRadiationSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+
+        mTypeOfRadiationSpinner.setAdapter(typeOfRadiationSpinnerAdapter);
+        mTypeOfRadiationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selection = (String) parent.getItemAtPosition(position);
+                if (!TextUtils.isEmpty(selection)) {
+                    if (selection.equals("X-rays")) { // TODO chane the text
+                        mTypesOfRadiology = ImsContract.PatientDataToRadiologyEntry.RADIOLOGY_X_RAYS;
+                    } else if (selection.equals("CT scan")) {
+                        mTypesOfRadiology = ImsContract.PatientDataToRadiologyEntry.RADIOLOGY_CT_SCAN;
+                    } else if (selection.equals("Magnetic resonance imaging")) {
+                        mTypesOfRadiology = ImsContract.PatientDataToRadiologyEntry.RADIOLOGY_MAGNETIC_RESONANCE_IMAGING;
+                    } else if (selection.equals("Ultrasound")) {
+                        mTypesOfRadiology = ImsContract.PatientDataToRadiologyEntry.RADIOLOGY_ULTRASOUND;
+                    } else if (selection.equals("Sectional tomography of the positron emission")) {
+                        mTypesOfRadiology = ImsContract.PatientDataToRadiologyEntry.RADIOLOGY_SECTIONAL_TOMOGRAPHY_OF_THE_POSITRON_EMISSION;
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                mTypesOfRadiology = ImsContract.PatientDataToRadiologyEntry.RADIOLOGY_UNKNOWN;
+            }
+        });
+    }
+
+    // Show transferred to the analysis lab dialog
+    public void showTransferredToTheAnalysisLabDialog(Context context) {
+        if (mDialogTransferredToTheAnalysisLab.getParent() != null) {
+            ((ViewGroup) mDialogTransferredToTheAnalysisLab.getParent()).removeView(mDialogTransferredToTheAnalysisLab);
+        }
+
+        mTypeOfAnalysisSpinner = mDialogTransferredToTheAnalysisLab.findViewById(R.id.spinner_types_of_analysis);
+        setupSpinnerTypesOfAnalysis(context);
+    }
+
+    // Show transferred to radiology dialog
+    public void showTransferredToRadiologyDialog(Context context) {
+        if (mDialogTransferredToRadiology.getParent() != null) {
+            ((ViewGroup) mDialogTransferredToRadiology.getParent()).removeView(mDialogTransferredToRadiology);
+        }
+
+        mTypeOfRadiationSpinner = mDialogTransferredToRadiology.findViewById(R.id.spinner_transferredtoradiology_typesofradiation);
+        setupSpinnerTypesOfRadiation(context);
+    }
+
+    // Show transferred to the pharmacy dialog
+    public void showTransferredToThePharmacyDialog(Context context) {
+        if (mDialogTransferredToThePharmacy.getParent() != null) {
+            ((ViewGroup) mDialogTransferredToThePharmacy.getParent()).removeView(mDialogTransferredToThePharmacy);
+        }
+    }
+
+    // Add doctor
     public void addDoctor() {
 
         String dateOfService = dateofserviceTextView.getText().toString().trim();
@@ -284,39 +395,6 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
             Toast.makeText(this, getString(R.string.insert_doctor_successful), Toast.LENGTH_SHORT).show();
         }
 
-    }
-
-    private void setupSpinnerTheNamesOfTheClinics(Context context) {
-        ArrayAdapter theNameOfTheClinicSpinnerAdapter = ArrayAdapter.createFromResource(
-                context,
-                R.array.array_clinics_options,
-                android.R.layout.simple_spinner_item);
-
-        theNameOfTheClinicSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-
-        mTheNameOfTheClinicSpinner.setAdapter(theNameOfTheClinicSpinnerAdapter);
-        mTheNameOfTheClinicSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selection = (String) parent.getItemAtPosition(position);
-                if (!TextUtils.isEmpty(selection)) {
-                    if (selection.equals("Complete blood count")) { // TODO chane the text
-                        mTheNamesOfTheClinics = "Complete blood count";
-                    } else if (selection.equals("Urine examination")) {
-                        mTheNamesOfTheClinics = "Urine examination";
-                    } else if (selection.equals("Stool examination")) {
-                        mTheNamesOfTheClinics = "Stool examination";
-                    } else {
-                        mTheNamesOfTheClinics = "Unknown";
-                    }
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                mTheNamesOfTheClinics = "Unknown";
-            }
-        });
     }
 
     // Get patient id
