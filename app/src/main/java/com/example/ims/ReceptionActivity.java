@@ -14,11 +14,13 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -45,7 +47,15 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
         LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final String TAG = ReceptionActivity.class.getSimpleName();
-
+    private static final int PATIENT_REGISTRATION_LOADER = 1;
+    private static final int PATIENT_UPDATE_LOADER = 2;
+    public static int mTypesOfAnalysis = ImsContract.PatientDataToAnalysisEntry.ANALYSIS_UNKNOWN;
+    public static int mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_UNKNOWN;
+    public static FragmentManager mFragmentManager;
+    public static View mDialogTransferredToClinicsView;
+    public static View mDialogTransferredToTheAnalysisLab;
+    public Uri mCurrentPatientUri;
+    public PatientCursorAdapter mPatientCursorAdapter;
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigationView;
     private ImageButton mActionMenuImageButton;
@@ -53,7 +63,6 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
     private FloatingActionButton mFloatingActionButton;
     private ImageView mEmptyReceptionImageView;
     private ListView mPatientListView;
-
     private EditText mFirstNameEditText;
     private EditText mLastNameEditText;
     private EditText mPhoneNumberEditText;
@@ -61,26 +70,10 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
     private EditText mLocationEditText;
     private EditText mWeightEditText;
     private EditText mHeightEditText;
-
     private Spinner mPatientGenderSpinner;
     private Spinner mTypeOfAnalysisSpinner;
     private Spinner mTheNameOfTheClinicSpinner;
-
     private int mGender = PatientEntry.GENDER_UNKNOWN;
-    public static int mTypesOfAnalysis = ImsContract.PatientDataToAnalysisEntry.ANALYSIS_UNKNOWN;
-    public static int mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_UNKNOWN;
-
-    public Uri mCurrentPatientUri;
-
-    public PatientCursorAdapter mPatientCursorAdapter;
-
-    private static final int PATIENT_REGISTRATION_LOADER = 1;
-    private static final int PATIENT_UPDATE_LOADER = 2;
-
-    public static FragmentManager mFragmentManager;
-
-    public static View mDialogTransferredToClinicsView;
-    public static View mDialogTransferredToTheAnalysisLab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +89,8 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
         mPatientListView.setAdapter(mPatientCursorAdapter);
 
 
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
+        actionBarDrawerToggle =
+                new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
         mDrawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
         mNavigationView.setNavigationItemSelectedListener(this);
@@ -112,7 +106,7 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
             @Override
             public void onClick(View v) {
                 mCurrentPatientUri = null;
-                showPatientRegistrationDialog();
+                showPatientRegistrationDialog("add", "Patient registration");
             }
         });
 
@@ -125,7 +119,7 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
                 // if the product with ID 2 was clicked on
                 mCurrentPatientUri = ContentUris.withAppendedId(PatientEntry.CONTENT_URI, id);
                 getLoaderManager().initLoader(PATIENT_UPDATE_LOADER, null, ReceptionActivity.this);
-                showPatientRegistrationDialog();
+                showPatientRegistrationDialog("update", "Patient update");
             }
         });
 
@@ -204,8 +198,10 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
         mFloatingActionButton = findViewById(R.id.floating_action_button);
         mEmptyReceptionImageView = findViewById(R.id.image_empty_reception);
         mPatientListView = findViewById(R.id.list_reception_patient);
-        mDialogTransferredToClinicsView = getLayoutInflater().inflate(R.layout.dialog_transferred_to_clinics, null);
-        mDialogTransferredToTheAnalysisLab = getLayoutInflater().inflate(R.layout.dialog_transferred_to_the_analysis_lab, null);
+        mDialogTransferredToClinicsView =
+                getLayoutInflater().inflate(R.layout.dialog_transferred_to_clinics, null);
+        mDialogTransferredToTheAnalysisLab =
+                getLayoutInflater().inflate(R.layout.dialog_transferred_to_the_analysis_lab, null);
     }
 
     // Setup spinner gender
@@ -256,11 +252,14 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
                 String selection = (String) parent.getItemAtPosition(position);
                 if (!TextUtils.isEmpty(selection)) {
                     if (selection.equals("Complete blood count")) { // TODO chane the text
-                        mTypesOfAnalysis = ImsContract.PatientDataToAnalysisEntry.ANALYSIS_COMPLETE_BLOOD_COUNT;
+                        mTypesOfAnalysis =
+                                ImsContract.PatientDataToAnalysisEntry.ANALYSIS_COMPLETE_BLOOD_COUNT;
                     } else if (selection.equals("Urine examination")) {
-                        mTypesOfAnalysis = ImsContract.PatientDataToAnalysisEntry.ANALYSIS_URINE_EXAMINATION;
+                        mTypesOfAnalysis =
+                                ImsContract.PatientDataToAnalysisEntry.ANALYSIS_URINE_EXAMINATION;
                     } else if (selection.equals("Stool examination")) {
-                        mTypesOfAnalysis = ImsContract.PatientDataToAnalysisEntry.ANALYSIS_STOOL_EXAMINATION;
+                        mTypesOfAnalysis =
+                                ImsContract.PatientDataToAnalysisEntry.ANALYSIS_STOOL_EXAMINATION;
                     } else {
                         mTypesOfAnalysis = ImsContract.PatientDataToAnalysisEntry.ANALYSIS_UNKNOWN;
                     }
@@ -291,49 +290,71 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
                 String selection = (String) parent.getItemAtPosition(position);
                 if (!TextUtils.isEmpty(selection)) {
                     if (selection.equals("Endemic diseases")) {
-                        mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_ENDEMIC_DISEASES;
+                        mTheNamesOfTheClinics =
+                                ImsContract.PatientDataToClinicsEntry.CLINICS_ENDEMIC_DISEASES;
                     } else if (selection.equals("Medical and microbiological analyzes")) {
-                        mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_MEDICAL_AND_MICROBIOLOGICAL_ANALYZES;
+                        mTheNamesOfTheClinics =
+                                ImsContract.PatientDataToClinicsEntry.CLINICS_MEDICAL_AND_MICROBIOLOGICAL_ANALYZES;
                     } else if (selection.equals("Psychological diseases")) {
-                        mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_PSYCHOLOGICAL_DISEASES;
+                        mTheNamesOfTheClinics =
+                                ImsContract.PatientDataToClinicsEntry.CLINICS_PSYCHOLOGICAL_DISEASES;
                     } else if (selection.equals("Phonetic and phoneme")) {
-                        mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_PHONETIC_AND_PHONEME;
+                        mTheNamesOfTheClinics =
+                                ImsContract.PatientDataToClinicsEntry.CLINICS_PHONETIC_AND_PHONEME;
                     } else if (selection.equals("Ear, nose and throat")) {
-                        mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_EAR_NOSE_AND_THROAT;
+                        mTheNamesOfTheClinics =
+                                ImsContract.PatientDataToClinicsEntry.CLINICS_EAR_NOSE_AND_THROAT;
                     } else if (selection.equals("Colon and anus")) {
-                        mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_COLON_AND_ANUS;
+                        mTheNamesOfTheClinics =
+                                ImsContract.PatientDataToClinicsEntry.CLINICS_COLON_AND_ANUS;
                     } else if (selection.equals("Blood vessels")) {
-                        mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_BLOOD_VESSELS;
+                        mTheNamesOfTheClinics =
+                                ImsContract.PatientDataToClinicsEntry.CLINICS_BLOOD_VESSELS;
                     } else if (selection.equals("Endocrine glands")) {
-                        mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_ENDOCRINE_GLANDS;
+                        mTheNamesOfTheClinics =
+                                ImsContract.PatientDataToClinicsEntry.CLINICS_ENDOCRINE_GLANDS;
                     } else if (selection.equals("Rheumatism and immunity")) {
-                        mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_RHEUMATISM_AND_IMMUNITY;
+                        mTheNamesOfTheClinics =
+                                ImsContract.PatientDataToClinicsEntry.CLINICS_RHEUMATISM_AND_IMMUNITY;
                     } else if (selection.equals("Kidney")) {
-                        mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_KIDNEY;
+                        mTheNamesOfTheClinics =
+                                ImsContract.PatientDataToClinicsEntry.CLINICS_KIDNEY;
                     } else if (selection.equals("The pain")) {
-                        mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_THE_PAIN;
+                        mTheNamesOfTheClinics =
+                                ImsContract.PatientDataToClinicsEntry.CLINICS_THE_PAIN;
                     } else if (selection.equals("Chest's diseases")) {
-                        mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_CHESTS_DISEASES;
+                        mTheNamesOfTheClinics =
+                                ImsContract.PatientDataToClinicsEntry.CLINICS_CHESTS_DISEASES;
                     } else if (selection.equals("Heart drawing")) {
-                        mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_HEART_DRAWING;
+                        mTheNamesOfTheClinics =
+                                ImsContract.PatientDataToClinicsEntry.CLINICS_HEART_DRAWING;
                     } else if (selection.equals("Cardiothoracic surgery")) {
-                        mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_CARDIOTHORACIC_SURGERY;
+                        mTheNamesOfTheClinics =
+                                ImsContract.PatientDataToClinicsEntry.CLINICS_CARDIOTHORACIC_SURGERY;
                     } else if (selection.equals("Fertility unit")) {
-                        mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_FERTILITY_UNIT;
+                        mTheNamesOfTheClinics =
+                                ImsContract.PatientDataToClinicsEntry.CLINICS_FERTILITY_UNIT;
                     } else if (selection.equals("General interior")) {
-                        mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_GENERAL_INTERIOR;
+                        mTheNamesOfTheClinics =
+                                ImsContract.PatientDataToClinicsEntry.CLINICS_GENERAL_INTERIOR;
                     } else if (selection.equals("Rheumatism and rehabilitation")) {
-                        mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_RHEUMATISM_AND_REHABILITATION;
+                        mTheNamesOfTheClinics =
+                                ImsContract.PatientDataToClinicsEntry.CLINICS_RHEUMATISM_AND_REHABILITATION;
                     } else if (selection.equals("Plastic surgery")) {
-                        mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_PLASTIC_SURGERY;
+                        mTheNamesOfTheClinics =
+                                ImsContract.PatientDataToClinicsEntry.CLINICS_PLASTIC_SURGERY;
                     } else if (selection.equals("General surgery")) {
-                        mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_GENERAL_SURGERY;
+                        mTheNamesOfTheClinics =
+                                ImsContract.PatientDataToClinicsEntry.CLINICS_GENERAL_SURGERY;
                     } else if (selection.equals("Oncology and nuclear medicine")) {
-                        mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_ONCOLOGY_AND_NUCLEAR_MEDICINE;
+                        mTheNamesOfTheClinics =
+                                ImsContract.PatientDataToClinicsEntry.CLINICS_ONCOLOGY_AND_NUCLEAR_MEDICINE;
                     } else if (selection.equals("Leather and genital")) {
-                        mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_LEATHER_AND_GENITAL;
+                        mTheNamesOfTheClinics =
+                                ImsContract.PatientDataToClinicsEntry.CLINICS_LEATHER_AND_GENITAL;
                     } else {
-                        mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_UNKNOWN;
+                        mTheNamesOfTheClinics =
+                                ImsContract.PatientDataToClinicsEntry.CLINICS_UNKNOWN;
                     }
                 }
             }
@@ -346,9 +367,10 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
     }
 
     // Show patient registration dialog
-    private void showPatientRegistrationDialog() {
+    private void showPatientRegistrationDialog(String nameButton, String title) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View mView = getLayoutInflater().inflate(R.layout.dialog_patient_registration, null);
+
 
         mFirstNameEditText = mView.findViewById(R.id.edit_first_name);
         mLastNameEditText = mView.findViewById(R.id.edit_last_name);
@@ -359,68 +381,113 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
         mHeightEditText = mView.findViewById(R.id.edit_height);
         ImageButton actionDateImageButton = mView.findViewById(R.id.image_button_action_date);
         mPatientGenderSpinner = mView.findViewById(R.id.spinner_gender);
+        builder.setPositiveButton(nameButton, null);
+        builder.setNegativeButton("decline", null);
+        builder.setTitle(title);
+        builder.setView(mView);
 
         setupSpinnerGender();
 
         actionDateImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        month += 1;
-                        String date = month + "/" + dayOfMonth + "/" + year;
-                        mBirthDateEditText.setText(date);
-                    }
-                };
+                DatePickerDialog.OnDateSetListener
+                        dateSetListener =
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                month += 1;
+                                String date = month + "/" + dayOfMonth + "/" + year;
+                                mBirthDateEditText.setText(date);
+                            }
+                        };
                 Utils.showDatePicker(ReceptionActivity.this, dateSetListener);
             }
         });
 
+
+
+        final AlertDialog alertDialog = builder.create();
+        alertDialog.setCanceledOnTouchOutside(false);
+
+
         if (mCurrentPatientUri == null) {
+
             setupSpinnerGender(); // TODO change the code
 
-            builder.setView(mView);
-            builder.setTitle("Patient registration");
-            builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    patientRegistration();
-                }
-            });
-            builder.setNegativeButton("Decline", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    if (dialog != null) {
-                        dialog.dismiss();
-                    }
-                }
-            });
-        } else {
-            setupSpinnerGender(); // TODO change the code
 
-            builder.setView(mView);
-            builder.setTitle("Patient update");
-            builder.setPositiveButton("Update", new DialogInterface.OnClickListener() {
+            alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
                 @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    patientRegistration();
+                public void onShow(DialogInterface dialogInterface) {
+                    Button positiveButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+                    positiveButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            String fName = mFirstNameEditText.getText().toString();
+                            String lName =mLastNameEditText.getText().toString();
+
+
+                            if (uniFName(fName, ReceptionActivity.this) != null &
+                                    uniLName(lName,ReceptionActivity.this)!=null)
+                            {
+                                mFirstNameEditText.setError("name useed is database");
+                                mLastNameEditText.setError("name use in database");
+
+
+                                Log.e("nameclick", "not");
+                                return;
+                            } else {
+
+                                patientRegistration();
+                                alertDialog.dismiss();
+                            }
+                        }
+                    });
+                    Button negativeButton = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+                    negativeButton.setText("Decline");
+                    negativeButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            alertDialog.dismiss();
+                        }
+                    });
                 }
             });
-            builder.setNegativeButton("Decline", new DialogInterface.OnClickListener() {
+
+        }
+        // TODO update patient row
+        else {
+            setupSpinnerGender();
+
+            alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
                 @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    if (dialog != null) {
-                        dialog.dismiss();
-                        getLoaderManager().destroyLoader(PATIENT_UPDATE_LOADER);
-                    }
+                public void onShow(DialogInterface dialogInterface) {
+                    Button
+                            positiveButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+
+                    positiveButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                              patientRegistration();
+                            alertDialog.dismiss();
+
+                        }
+                    });
+                    Button negativeButton = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+                    negativeButton.setText("Decline");
+                    negativeButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            getLoaderManager().destroyLoader(PATIENT_UPDATE_LOADER);
+                            alertDialog.dismiss();
+                        }
+                    });
+
                 }
             });
         }
-
-        AlertDialog alertDialog = builder.create();
-        alertDialog.setCanceledOnTouchOutside(false);
         alertDialog.show();
+
     }
 
     // Show patient delete confirmation dialog
@@ -452,7 +519,8 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
             ((ViewGroup) mDialogTransferredToTheAnalysisLab.getParent()).removeView(mDialogTransferredToTheAnalysisLab);
         }
 
-        mTypeOfAnalysisSpinner = mDialogTransferredToTheAnalysisLab.findViewById(R.id.spinner_types_of_analysis);
+        mTypeOfAnalysisSpinner =
+                mDialogTransferredToTheAnalysisLab.findViewById(R.id.spinner_types_of_analysis);
         setupSpinnerTypesOfAnalysis(context);
     }
 
@@ -462,7 +530,8 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
             ((ViewGroup) mDialogTransferredToClinicsView.getParent()).removeView(mDialogTransferredToClinicsView);
         }
 
-        mTheNameOfTheClinicSpinner = mDialogTransferredToClinicsView.findViewById(R.id.spinner_name_the_clinics);
+        mTheNameOfTheClinicSpinner =
+                mDialogTransferredToClinicsView.findViewById(R.id.spinner_name_the_clinics);
         setupSpinnerTheNamesOfTheClinics(context);
     }
 
@@ -500,6 +569,7 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
             Toast.makeText(this, "First name is required", Toast.LENGTH_SHORT).show();
         } else {
             values.put(PatientEntry.COLUMN_FIRST_NAME, firstNameString);
+
         }
 
         if (TextUtils.isEmpty(lastNameString)) {
@@ -543,6 +613,15 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
         // optional values
         values.put(PatientEntry.COLUMN_GENDER, mGender);
 
+       /* if(getPatientName(firstNameString,lastNameString ,ReceptionActivity.this)==false){
+            mFirstNameEditText.setError("the name is error ");
+            Log.e("name","yse:::::::::");
+
+
+
+        }*/
+
+
         // Insert and update patient
         if (mCurrentPatientUri == null) {
             Uri newUri = getContentResolver().insert(PatientEntry.CONTENT_URI, values);
@@ -550,6 +629,7 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
                 Toast.makeText(this, getString(R.string.editor_insert_patient_failed), Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, getString(R.string.editor_insert_patient_successful), Toast.LENGTH_SHORT).show();
+
             }
 
         } else {
@@ -590,7 +670,7 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
                 PatientEntry.COLUMN_WEIGHT,
                 PatientEntry.COLUMN_HEIGHT};
 
-        if (mCurrentPatientUri ==  null) {
+        if (mCurrentPatientUri == null) {
             return new CursorLoader(this,
                     PatientEntry.CONTENT_URI,
                     projection,
@@ -598,7 +678,7 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
                     null,
                     null);
         } else {
-         return    new CursorLoader(this,
+            return new CursorLoader(this,
                     mCurrentPatientUri,
                     projection,
                     null,
@@ -671,6 +751,75 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
             mHeightEditText.setText("");
             mPatientGenderSpinner.setSelection(0);
         }
+    }
+
+
+    public String uniFName(String name, Context context) {
+        Uri uri = ImsContract.PatientEntry.CONTENT_URI;
+
+        // Column name
+        String[] projection = {ImsContract.PatientEntry.COLUMN_FIRST_NAME};
+
+        String selection = ImsContract.PatientEntry.COLUMN_FIRST_NAME + " LIKE '" + name + "%'";
+
+        Cursor cursor = context.getContentResolver().query(
+                uri,
+                projection,
+                selection,
+                null,
+                null);
+
+        while (cursor.moveToNext()) {
+
+            // Firs name and last name column index
+            int
+                    patientFirsNameColumnIndex =
+                    cursor.getColumnIndex(ImsContract.PatientEntry.COLUMN_FIRST_NAME);
+
+            String patientFirsName = cursor.getString(patientFirsNameColumnIndex);
+            if (patientFirsName == null) {
+                return null;
+            } else {
+                Log.e("name", "not uniqe");
+                return name;
+            }
+        }
+
+        return null;
+    }
+
+    public String uniLName(String name, Context context) {
+        Uri uri = ImsContract.PatientEntry.CONTENT_URI;
+
+        // Column name
+        String[] projection = {ImsContract.PatientEntry.COLUMN_LAST_NAME};
+
+        String selection = ImsContract.PatientEntry.COLUMN_LAST_NAME + " LIKE '" + name + "%'";
+
+        Cursor cursor = context.getContentResolver().query(
+                uri,
+                projection,
+                selection,
+                null,
+                null);
+
+        while (cursor.moveToNext()) {
+
+            // Firs name and last name column index
+            int
+                    patientFirsNameColumnIndex =
+                    cursor.getColumnIndex(PatientEntry.COLUMN_LAST_NAME);
+
+            String patientLastName = cursor.getString(patientFirsNameColumnIndex);
+            if (patientLastName == null) {
+                return null;
+            } else {
+                Log.e("name", "not uniqe");
+                return name;
+            }
+        }
+
+        return null;
     }
 }
 
