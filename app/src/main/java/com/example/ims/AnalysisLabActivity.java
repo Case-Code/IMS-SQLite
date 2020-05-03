@@ -106,7 +106,7 @@ public class AnalysisLabActivity extends AppCompatActivity implements Navigation
 
         mAnalysisCursorAdapter = new AnalysisCursorAdapter(this, null);
         patientNameListView.setAdapter(mAnalysisCursorAdapter);
-       /* patientNameListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        patientNameListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long id) {
 
@@ -123,19 +123,6 @@ public class AnalysisLabActivity extends AppCompatActivity implements Navigation
 
             }
         });
-        patientNameListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long id) {
-                mUri = ContentUris.withAppendedId(ImsContract.PatientDataToAnalysisEntry.CONTENT_URI, id);
-
-                patientId = getIdPatient(mUri, AnalysisLabActivity.this);
-
-                mPatientUri = ContentUris.withAppendedId(ImsContract.PatientRecordsEntry.CONTENT_URI, patientId);
-                getLoaderManager().initLoader(PATIENT_RECORD_LOADER, null,  AnalysisLabActivity.this);
-
-                return false;
-            }
-        });*/
 
         patientNameListView.setTextFilterEnabled(true);
         searchNameEditText.addTextChangedListener(new TextWatcher() {
@@ -405,10 +392,9 @@ public class AnalysisLabActivity extends AppCompatActivity implements Navigation
                 mAnalysisCursorAdapter.swapCursor(null);
             }
         } else  if(id==PATIENT_RECORD_LOADER){
-            loader.reset();
 
-            if(mPatientUri==null){
-                loader.isReset();
+
+
 
                 String name =getString(R.string.bill_to_name);
             String date = getString(R.string.date_of_birth);
@@ -426,7 +412,7 @@ public class AnalysisLabActivity extends AppCompatActivity implements Navigation
                 nextAppointmentDateTextView.setText(nodate);
                 nextTreatmentPlanReviewDateTextView.setText(treatment);
                 physicianSignatureTextView.setText(physician);
-                dateSignedTextView.setText(signed);}
+                dateSignedTextView.setText(signed);
 
         }
     }
