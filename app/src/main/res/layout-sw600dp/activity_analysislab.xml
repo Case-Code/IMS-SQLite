@@ -188,7 +188,7 @@
                                 android:layout_alignParentTop="true"
                                 android:layout_marginBottom="10dp"
                                 android:maxLines="2"
-                                android:text="bill to name"
+                                android:text="@string/bill_to_name"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="14sp" />
 
@@ -201,7 +201,7 @@
                                 android:layout_alignParentLeft="true"
                                 android:layout_marginBottom="10dp"
                                 android:maxLines="2"
-                                android:text="date of birth"
+                                android:text="@string/date_of_birth"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="14sp" />
 
@@ -214,7 +214,7 @@
                                 android:layout_alignParentLeft="true"
                                 android:layout_marginBottom="10dp"
                                 android:maxLines="2"
-                                android:text="patient id"
+                                android:text="@string/patient_id"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="14sp" />
 
@@ -227,7 +227,7 @@
                                 android:layout_alignParentLeft="true"
                                 android:layout_marginBottom="10dp"
                                 android:maxLines="2"
-                                android:text="medical record id"
+                                android:text="@string/medical_record_id"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="14sp" />
 
@@ -240,7 +240,7 @@
                                 android:layout_alignParentLeft="true"
                                 android:layout_marginBottom="10dp"
                                 android:maxLines="2"
-                                android:text="next appointment date"
+                                android:text="@string/next_appointment_date"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="14sp" />
 
@@ -253,7 +253,7 @@
                                 android:layout_alignParentLeft="true"
                                 android:layout_marginBottom="10dp"
                                 android:maxLines="2"
-                                android:text="next treatment plan review date"
+                                android:text="@string/next_treatment_plan_review_date"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="14sp" />
 
@@ -266,7 +266,7 @@
                                 android:layout_alignParentLeft="true"
                                 android:layout_marginBottom="10dp"
                                 android:maxLines="2"
-                                android:text="physician signature"
+                                android:text="@string/physician_signature"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="14sp" />
 
@@ -278,7 +278,7 @@
                                 android:layout_alignParentStart="true"
                                 android:layout_alignParentLeft="true"
                                 android:maxLines="2"
-                                android:text="date signed: "
+                                android:text="@string/date_signed"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="14sp" />
                         </RelativeLayout>

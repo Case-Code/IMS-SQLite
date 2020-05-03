@@ -1029,4 +1029,5 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
         getLoaderManager().initLoader(SP_LOADER, null, this);
         getLoaderManager().initLoader(PV_LOADER, null, this);
     }
+
 }

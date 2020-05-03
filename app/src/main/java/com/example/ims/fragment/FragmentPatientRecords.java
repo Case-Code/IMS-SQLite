@@ -115,7 +115,7 @@ public class FragmentPatientRecords extends Fragment implements LoaderManager.Lo
             // Firs name and last name
             String patientFirsName = cursor.getString(patientFirsNameColumnIndex);
             String patientLastName = cursor.getString(patientLastNameColumnIndex);
-            String dateOfBirth = cursor.getString(patientLastNameColumnIndex);
+            String dateOfBirth = cursor.getString(dateOfBirthColumnIndex);
 
             if (patientFirsName != null & patientLastName != null) {
                 mValues.put(ImsContract.PatientRecordsEntry.COLUMN_BILL_TO_NAME, patientFirsName.concat(" " + patientLastName) );
