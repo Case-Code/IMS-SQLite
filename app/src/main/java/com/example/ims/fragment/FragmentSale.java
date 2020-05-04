@@ -38,16 +38,16 @@ public class FragmentSale extends Fragment {
 private View view ;
     public void init(){
         // add sale
-         pharmacyFSaleQrEditText=view.findViewById(R.id.edit_pharmacy_fsale_qr);
-         pharmacyDSalePlusImageButton=view.findViewById(R.id.image_pharmacy_fsale_plus);
-         pharmacyFSaleQuantityEditText=view.findViewById(R.id.edit_pharmacy_fsale_quantity);
-         pharmacyFSaleMinusImageButton=view.findViewById(R.id.image_pharmacy_fsale_minus);
-         pharmacyFSaleSaleButton=view.findViewById(R.id.button_pharmacy_fsale_sale);
-         pharmacyFSaleTotalTextView=view.findViewById(R.id.text_pharmacy_fsale_total);
-         pharmacyFSaleSearchEditText=view.findViewById(R.id.edit_pharmacy_fsale_search);
+         pharmacyFSaleQrEditText=view.findViewById(R.id.edit_sale_qr);
+         pharmacyDSalePlusImageButton=view.findViewById(R.id.image_sale_plus);
+         pharmacyFSaleQuantityEditText=view.findViewById(R.id.edit_sale_quantity);
+         pharmacyFSaleMinusImageButton=view.findViewById(R.id.image_sale_minus);
+         pharmacyFSaleSaleButton=view.findViewById(R.id.button_sale_sale);
+         pharmacyFSaleTotalTextView=view.findViewById(R.id.text_sale_total);
+         pharmacyFSaleSearchEditText=view.findViewById(R.id.edit_sale_search);
 
         //show sale
-         pharmacyFSaleSaleListView=view.findViewById(R.id.list_pharmacy_fsale_sale);
+         pharmacyFSaleSaleListView=view.findViewById(R.id.list_sale_sale);
 
     }
     public FragmentSale() {

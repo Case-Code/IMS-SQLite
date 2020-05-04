@@ -36,11 +36,11 @@ public class FragmentSalesRecord extends Fragment {
     private View view ;
     public void init(){
         //component date sales record
-         pharmacyFsrDateYearTextView =view.findViewById(R.id.text_pharmacy_fsr_date_year);
-        pharmacyFsrDateMonthDayTextView=view.findViewById(R.id.text_pharmacy_fsr_date_month_day);;
-         pharmacyFsrSearchEditText=view.findViewById(R.id.edit_pharmacy_fsr_search);;
-         pharmacyFsrDateImageButton=view.findViewById(R.id.image_pharmacy_fsr_date);;
-         pharmacyFsrSalesRecordListView=view.findViewById(R.id.list_pharmacy_fsr_sales_record);;
+         pharmacyFsrDateYearTextView =view.findViewById(R.id.text_salesrecord_dateyear);
+        pharmacyFsrDateMonthDayTextView=view.findViewById(R.id.text_salesrecord__datemonth);;
+         pharmacyFsrSearchEditText=view.findViewById(R.id.edit_salesrecord_search);;
+         pharmacyFsrDateImageButton=view.findViewById(R.id.image_salesrecord_date);;
+         pharmacyFsrSalesRecordListView=view.findViewById(R.id.list_salesrecord);;
 
     }
     public FragmentSalesRecord() {

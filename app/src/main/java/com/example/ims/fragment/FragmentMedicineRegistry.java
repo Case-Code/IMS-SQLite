@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.ims.R;
@@ -24,29 +25,29 @@ public class FragmentMedicineRegistry extends Fragment {
     private String mParam2;
 
     // component view to fragment medicine registry
-    private EditText pharmacyFmrQrEditText;
-    private EditText pharmacyFmrMedicineNameEditText;
-    private ImageButton pharmacyFmrPlusImageButton;
-    private EditText pharmacyFmrQuantityEditText;
-    private ImageButton pharmacyFmrMinusImageButton;
-    private EditText pharmacyFmrPriceEditText;
-    private Button pharmacyFmrInsertButton;
-    private  Button pharmacyFmrUpdateButton;
-    private EditText pharmacyFmrSearchEditText;
+    private EditText qrEditText;
+    private EditText nameEditText;
+    private ImageButton plusImageButton;
+    private EditText quantityEditText;
+    private ImageButton minusImageButton;
+    private EditText priceEditText;
+    private Button insertButton;
+    private  Button updateButton;
+    private EditText searchEditText;
 
 private View view ;
 
 public void init (){
     // init component view to fragment medicine registry
-     pharmacyFmrQrEditText=view.findViewById(R.id.edit_pharmacy_fmr_qr);
-     pharmacyFmrMedicineNameEditText=view.findViewById(R.id.edit_pharmacy_fmr_medicine_name);
-     pharmacyFmrPlusImageButton=view.findViewById(R.id.image_pharmacy_fmr_plus);
-     pharmacyFmrQuantityEditText=view.findViewById(R.id.edit_pharmacy_fmr_quantity);
-     pharmacyFmrMinusImageButton=view.findViewById(R.id.image_pharmacy_fmr_minus);
-     pharmacyFmrPriceEditText=view.findViewById(R.id.edit_pharmacy_fmr_price);
-     pharmacyFmrInsertButton=view.findViewById(R.id.button_pharmacy_fmr_insert);
-     pharmacyFmrUpdateButton=view.findViewById(R.id.button_pharmacy_fmr_update);
-     pharmacyFmrSearchEditText=view.findViewById(R.id.edit_pharmacy_fmr_search);
+     qrEditText =view.findViewById(R.id.edit_medicine_qr);
+     nameEditText =view.findViewById(R.id.edit_medicine_name);
+     plusImageButton =view.findViewById(R.id.image_medicine_plus);
+     quantityEditText =view.findViewById(R.id.edit_medicine_quantity);
+     minusImageButton =view.findViewById(R.id.image_medicine_minus);
+     priceEditText =view.findViewById(R.id.edit_medicine_price);
+     insertButton =view.findViewById(R.id.button_medicine_insert);
+     updateButton =view.findViewById(R.id.button_medicine_update);
+     searchEditText =view.findViewById(R.id.edit_medicine_search);
 
 
 }
@@ -88,5 +89,11 @@ public void init (){
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_medicineregistry, container, false);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState)
+    {
+        super.onActivityCreated(savedInstanceState);
     }
 }

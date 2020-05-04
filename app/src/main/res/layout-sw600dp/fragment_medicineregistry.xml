@@ -20,7 +20,7 @@
             android:padding="16dp">
 
             <EditText
-                android:id="@+id/edit_pharmacy_fmr_qr"
+                android:id="@+id/edit_medicine_qr"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -30,7 +30,7 @@
                 android:inputType="number" />
 
             <EditText
-                android:id="@+id/edit_pharmacy_fmr_medicine_name"
+                android:id="@+id/edit_medicine_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -42,7 +42,7 @@
                 android:inputType="textPersonName" />
 
             <ImageButton
-                android:id="@+id/image_pharmacy_fmr_plus"
+                android:id="@+id/image_medicine_plus"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:layout_gravity="center_vertical"
@@ -50,7 +50,7 @@
                 android:src="@drawable/ic_action_add" />
 
             <EditText
-                android:id="@+id/edit_pharmacy_fmr_quantity"
+                android:id="@+id/edit_medicine_quantity"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -61,7 +61,7 @@
                 android:inputType="textPersonName" />
 
             <ImageButton
-                android:id="@+id/image_pharmacy_fmr_minus"
+                android:id="@+id/image_medicine_minus"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:layout_gravity="center_vertical"
@@ -71,7 +71,7 @@
 
 
             <EditText
-                android:id="@+id/edit_pharmacy_fmr_price"
+                android:id="@+id/edit_medicine_price"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="30dp"
@@ -82,7 +82,7 @@
                 android:inputType="number" />
 
             <Button
-                android:id="@+id/button_pharmacy_fmr_insert"
+                android:id="@+id/button_medicine_insert"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -91,7 +91,7 @@
                 android:textColor="@android:color/white" />
 
             <Button
-                android:id="@+id/button_pharmacy_fmr_update"
+                android:id="@+id/button_medicine_update"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -100,7 +100,7 @@
                 android:textColor="@android:color/white" />
 
             <EditText
-                android:id="@+id/edit_pharmacy_fmr_search"
+                android:id="@+id/edit_medicine_search"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="60dp"
@@ -114,7 +114,7 @@
         </LinearLayout>
 
         <ListView
-            android:id="@+id/list_pharmacy_fmr_sales"
+            android:id="@+id/list_medicine_sales"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="16dp"
