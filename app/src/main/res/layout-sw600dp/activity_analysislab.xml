@@ -307,7 +307,7 @@
                             android:textColor="@color/colorPrimaryDark" />
 
                         <ListView
-                            android:id="@+id/list_pp_progress_notes"
+                            android:id="@+id/list_anaylislab_patientprogress"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             tools:listitem="@layout/item_patient_progress" />
