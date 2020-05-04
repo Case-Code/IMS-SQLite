@@ -13,49 +13,44 @@ import android.widget.TextView;
 import com.example.ims.R;
 import com.example.ims.data.ImsContract;
 
-import static com.example.ims.data.ImsContract.PatientDataToAnalysisEntry.*;
+import static com.example.ims.data.ImsContract.PatientDataToRadiologyEntry.*;
 
-
-public class AnalysisCursorAdapter extends CursorAdapter
+public class RadiologyCursorAdapter extends CursorAdapter
 {
-    public AnalysisCursorAdapter(Context context, Cursor c)
+    public RadiologyCursorAdapter(Context context, Cursor c)
     {
         super(context, c, 0);
     }
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup viewGroup)
-
     {
-        return LayoutInflater.from(context).inflate(R.layout.item_analysis_lab, viewGroup, false);
+        return LayoutInflater.from(context).inflate(R.layout.item_radiology_laboratory, viewGroup, false);
+
     }
 
     @Override
     public void bindView(View view, Context context, Cursor cursor)
     {
+        TextView firstLastNameTextView = view.findViewById(R.id.text_itemradiology_name);
+        TextView typeOfRadiationTextView = view.findViewById(R.id.text_itemradiology_type);
+        TextView dateTextView = view.findViewById(R.id.text_itemradiology_date);
 
-        TextView firstLastNameTextView = view.findViewById(R.id.text_analysislap_flastname);
-        TextView typeOfAnalysisTextView = view.findViewById(R.id.text_analysislap_typesofanalysis);
-        TextView dateTextView = view.findViewById(R.id.text_analysislap_transferdate);
 
-
-        int patientIdColumnIndex = cursor.getColumnIndex(ImsContract.PatientDataToAnalysisEntry.COLUMN_PATIENT_ID);
-        int analysisNameColumnIndex = cursor.getColumnIndex(ImsContract.PatientDataToAnalysisEntry.COLUMN_ANALYSIS_NAME);
-        int transferDateColumnIndex = cursor.getColumnIndex(ImsContract.PatientDataToAnalysisEntry.COLUMN_TRANSFER_DATE);
+        int patientIdColumnIndex = cursor.getColumnIndex(ImsContract.PatientDataToRadiologyEntry.COLUMN_PATIENT_ID);
+        int typeOfRadiationColumnIndex = cursor.getColumnIndex(ImsContract.PatientDataToRadiologyEntry.COLUMN_TYPES_OF_RADIATION);
+        int transferDateColumnIndex = cursor.getColumnIndex(ImsContract.PatientDataToRadiologyEntry.COLUMN_TRANSFER_DATE);
 
         int patientId = cursor.getInt(patientIdColumnIndex);
-        int analysisName = cursor.getInt(analysisNameColumnIndex);
+        int typeOfRadiation = cursor.getInt(typeOfRadiationColumnIndex);
         String transferDate = cursor.getString(transferDateColumnIndex);
 
 
         firstLastNameTextView.setText(getPatientName(patientId, context));
-        typeOfAnalysisTextView.setText(getTypeOfRadiation(analysisName));
+        typeOfRadiationTextView.setText(getAnalysisName(typeOfRadiation));
         dateTextView.setText(transferDate);
-
-
     }
 
-    // Get patient name
     private String getPatientName(int patientId, Context context)
     {
         String patientName = null;
@@ -102,23 +97,32 @@ public class AnalysisCursorAdapter extends CursorAdapter
         return patientName;
     }
 
-    private String getTypeOfRadiation(int analysisName)
+    private String getAnalysisName(int type)
     {
-        if (ANALYSIS_COMPLETE_BLOOD_COUNT == analysisName)
+        if (RADIOLOGY_X_RAYS == type)
         {
-            return "Complete blood count";
+            return "X-rays";
         }
-        else if (ANALYSIS_URINE_EXAMINATION == analysisName)
+        else if (RADIOLOGY_CT_SCAN == type)
         {
-            return "Urine examination";
+            return "CT scan";
         }
-        else if (ANALYSIS_STOOL_EXAMINATION == analysisName)
+
+        else if (RADIOLOGY_MAGNETIC_RESONANCE_IMAGING == type)
         {
-            return "Stool examination";
+            return "Magnetic resonance imaging";
         }
-        return "ANALYSIS UNKNOWN";
+        else if (RADIOLOGY_ULTRASOUND == type)
+        {
+            return "Ultrasound";
+        }
+        else if (RADIOLOGY_SECTIONAL_TOMOGRAPHY_OF_THE_POSITRON_EMISSION == type)
+        {
+            return "Sectional tomography of the positron emission";
+        }
+
+        return "UNKNOWN";
 
 
     }
-
 }
