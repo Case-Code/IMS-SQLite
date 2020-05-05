@@ -42,7 +42,7 @@ public class AnalysisLabActivity extends AppCompatActivity implements Navigation
     AnalysisCursorAdapter mAnalysisCursorAdapter;
     PatientProgressCursorAdapter mPatientProgressCursorAdapter;
 
-    Uri mUri, mPatientUri, mProgressUrl;
+    Uri mUri, mPatientUri, mProgressUrl, mSearchUri;
 
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigationView;
@@ -120,15 +120,18 @@ public class AnalysisLabActivity extends AppCompatActivity implements Navigation
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long id)
             {
 
+
+                if (view.isSelected() != true)
+                {
+
+                    getLoaderManager().destroyLoader(PATIENT_RECORD_LOADER);
+                    getLoaderManager().destroyLoader(121);
+
+                }
+                //TODO::get patient data and progress
                 mUri = ContentUris.withAppendedId(ImsContract.PatientDataToAnalysisEntry.CONTENT_URI, id);
                 patientId = getIdPatient(mUri, AnalysisLabActivity.this);
 
-                if (view.getId() != 0)
-                {
-                    getLoaderManager().destroyLoader(PATIENT_RECORD_LOADER);
-                    getLoaderManager().destroyLoader(121);
-                }
-                //TODO::get patient data and progress
                 mPatientUri = ContentUris.withAppendedId(ImsContract.PatientRecordsEntry.CONTENT_URI, patientId);
                 getLoaderManager().initLoader(PATIENT_RECORD_LOADER, null, AnalysisLabActivity.this);
 
@@ -155,15 +158,15 @@ public class AnalysisLabActivity extends AppCompatActivity implements Navigation
                 if (charSequence.length() == 0)
                 {
                     patientSearch = null;
-                    getLoaderManager().restartLoader(ANALYSIS_LOADER, null, AnalysisLabActivity
-                       .this);
+                    getLoaderManager().restartLoader(ANALYSIS_LOADER, null, AnalysisLabActivity.this);
+                    //  getLoaderManager().destroyLoader(ANALYSIS_LOADER);
+
                 }
                 else
                 {
                     patientSearch = charSequence.toString();
 
                     firstName = getFirstName(patientSearch);
-
                     lastName = getLastName(patientSearch);
 
                     getLoaderManager().restartLoader(ANALYSIS_LOADER, null, AnalysisLabActivity.this);
@@ -344,9 +347,10 @@ public class AnalysisLabActivity extends AppCompatActivity implements Navigation
             }
             else
             {
-                return getAnalysisSearch(firstName, lastName);
 
+                return getAnalysisSearch(firstName, lastName);
             }
+
         }
         else if (id == PATIENT_RECORD_LOADER)
         {
@@ -374,35 +378,44 @@ public class AnalysisLabActivity extends AppCompatActivity implements Navigation
         }
         else
         {
-            if (patientId <= 0) return null;
+
 
             String[] projection = {ImsContract.PatientProgressEntry._ID,
                ImsContract.PatientProgressEntry.COLUMN_PROGRESS_NOTES,
                ImsContract.PatientProgressEntry.COLUMN_DATE,};
-
-            return new CursorLoader(
-               this,
-               ImsContract.PatientProgressEntry.CONTENT_URI,
-               projection,
-               ImsContract.PatientProgressEntry.COLUMN_PATIENT_ID + " =" + patientId
-               , null, null
-            );
-
+            if (patientId > 0)
+            {
+                return new CursorLoader(
+                   this,
+                   ImsContract.PatientProgressEntry.CONTENT_URI,
+                   projection,
+                   ImsContract.PatientProgressEntry.COLUMN_PATIENT_ID + " =" + patientId
+                   , null, null
+                );
+            }
 
         }
-
+        return null;
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor)
     {
         int id = loader.getId();
+       /* if(cursor!=null&&mAnalysisCursorAdapter!=cursor){
+            return;
+        }*/
 
         if (id == ANALYSIS_LOADER)
         {
-            if (mUri == null)
+            if (patientSearch == null)
             {
                 mAnalysisCursorAdapter.swapCursor(cursor);
+            }
+            else
+            {
+                mAnalysisCursorAdapter.swapCursor(cursor);
+
             }
         }
         else if (id == PATIENT_RECORD_LOADER)

@@ -109,15 +109,16 @@ public class RadiologyLaboratoryActivity extends AppCompatActivity implements Na
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long id)
             {
 
-                mUri = ContentUris.withAppendedId(ImsContract.PatientDataToAnalysisEntry.CONTENT_URI, id);
-                patientId = getIdPatient(mUri, RadiologyLaboratoryActivity.this);
 
-                if (view.getId() != 0)
+                if (view.isSelected() != true)
                 {
                     getLoaderManager().destroyLoader(PATIENT_RECORD_LOADER);
                     getLoaderManager().destroyLoader(121);
                 }
                 //TODO::get patient data and progress
+                mUri = ContentUris.withAppendedId(ImsContract.PatientDataToAnalysisEntry.CONTENT_URI, id);
+                patientId = getIdPatient(mUri, RadiologyLaboratoryActivity.this);
+
                 mPatientUri = ContentUris.withAppendedId(ImsContract.PatientRecordsEntry.CONTENT_URI, patientId);
                 getLoaderManager().initLoader(PATIENT_RECORD_LOADER, null, RadiologyLaboratoryActivity.this);
 
@@ -336,23 +337,24 @@ public class RadiologyLaboratoryActivity extends AppCompatActivity implements Na
         }
         else
         {
-            if (patientId <= 0) return null;
+            if (patientId > 0)
+            {
 
-            String[] projection = {ImsContract.PatientProgressEntry._ID,
-               ImsContract.PatientProgressEntry.COLUMN_PROGRESS_NOTES,
-               ImsContract.PatientProgressEntry.COLUMN_DATE,};
+                String[] projection = {ImsContract.PatientProgressEntry._ID,
+                   ImsContract.PatientProgressEntry.COLUMN_PROGRESS_NOTES,
+                   ImsContract.PatientProgressEntry.COLUMN_DATE,};
 
-            return new CursorLoader(
-               this,
-               ImsContract.PatientProgressEntry.CONTENT_URI,
-               projection,
-               ImsContract.PatientProgressEntry.COLUMN_PATIENT_ID + " =" + patientId
-               , null, null
-            );
-
+                return new CursorLoader(
+                   this,
+                   ImsContract.PatientProgressEntry.CONTENT_URI,
+                   projection,
+                   ImsContract.PatientProgressEntry.COLUMN_PATIENT_ID + " =" + patientId
+                   , null, null
+                );
+            }
 
         }
-
+        return null;
     }
 
     @Override
@@ -365,6 +367,11 @@ public class RadiologyLaboratoryActivity extends AppCompatActivity implements Na
             if (mUri == null)
             {
                 mRadiologyCursorAdapter.swapCursor(cursor);
+            }
+            else
+            {
+                mRadiologyCursorAdapter.swapCursor(cursor);
+
             }
         }
         else if (id == PATIENT_RECORD_LOADER)
