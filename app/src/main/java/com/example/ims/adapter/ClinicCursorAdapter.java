@@ -29,23 +29,19 @@ import java.util.Date;
 
 import static com.example.ims.data.ImsContract.PatientDataToClinicsEntry.*;
 
-public class ClinicCursorAdapter extends CursorAdapter
-{
+public class ClinicCursorAdapter extends CursorAdapter {
 
-    public ClinicCursorAdapter(Context context, Cursor c)
-    {
+    public ClinicCursorAdapter(Context context, Cursor c) {
         super(context, c, 15);
     }
 
     @Override
-    public View newView(Context context, Cursor cursor, ViewGroup viewGroup)
-    {
+    public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
         return LayoutInflater.from(context).inflate(R.layout.item_clinic, viewGroup, false);
     }
 
     @Override
-    public void bindView(View view, final Context context, Cursor cursor)
-    {
+    public void bindView(View view, final Context context, Cursor cursor) {
         TextView firstLastNameTextView = view.findViewById(R.id.text_transferredtopharmacy_firstlastname);
         TextView clinicNameTextView = view.findViewById(R.id.text_clinic_clinicname);
         TextView transferDataTextView = view.findViewById(R.id.text_clinic_transferdata);
@@ -67,11 +63,9 @@ public class ClinicCursorAdapter extends CursorAdapter
         transferDataTextView.setText(transferDate);
 
         // Transformation to analysis lab
-        clinicAnalysisLabButton.setOnClickListener(new View.OnClickListener()
-        {
+        clinicAnalysisLabButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(final View view)
-            {
+            public void onClick(final View view) {
                 new TheDoctorActivity().showTransferredToTheAnalysisLabDialog(context);
                 final Uri patientIdUri = ContentUris.withAppendedId(ImsContract.PatientEntry.CONTENT_URI, patientId);
 
@@ -79,12 +73,10 @@ public class ClinicCursorAdapter extends CursorAdapter
                 builder.setView(TheDoctorActivity.mDialogTransferredToTheAnalysisLab);
                 builder.setTitle("Transferred to the analysis lab");
 
-                builder.setPositiveButton("Transfer", new DialogInterface.OnClickListener()
-                {
+                builder.setPositiveButton("Transfer", new DialogInterface.OnClickListener() {
                     @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    {
+                    public void onClick(DialogInterface dialog, int which) {
                         final Date date = new Date();
 
                         String dateString = Utils.formatDate(date);
@@ -99,24 +91,18 @@ public class ClinicCursorAdapter extends CursorAdapter
 
                         // Insert patient data to analysis
                         Uri newUri = context.getContentResolver().insert(ImsContract.PatientDataToAnalysisEntry.CONTENT_URI, values);
-                        if (newUri == null)
-                        {
+                        if (newUri == null) {
                             Toast.makeText(view.getContext(), "Error with transfer patient", Toast.LENGTH_SHORT).show();
-                        }
-                        else
-                        {
+                        } else {
                             Toast.makeText(view.getContext(), "Transferred", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
 
-                builder.setNegativeButton("Decline", new DialogInterface.OnClickListener()
-                {
+                builder.setNegativeButton("Decline", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    {
-                        if (dialog != null)
-                        {
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (dialog != null) {
                             dialog.dismiss();
                         }
                     }
@@ -129,11 +115,9 @@ public class ClinicCursorAdapter extends CursorAdapter
         });
 
         // Transformation to radiology laboratory
-        clinicRadiologyLaboratoryButton.setOnClickListener(new View.OnClickListener()
-        {
+        clinicRadiologyLaboratoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(final View view)
-            {
+            public void onClick(final View view) {
                 new TheDoctorActivity().showTransferredToRadiologyDialog(context);
                 final Uri patientIdUri = ContentUris.withAppendedId(ImsContract.PatientEntry.CONTENT_URI, patientId);
 
@@ -141,12 +125,10 @@ public class ClinicCursorAdapter extends CursorAdapter
                 builder.setView(TheDoctorActivity.mDialogTransferredToRadiology);
                 builder.setTitle("Transferred to the radiology");
 
-                builder.setPositiveButton("Transfer", new DialogInterface.OnClickListener()
-                {
+                builder.setPositiveButton("Transfer", new DialogInterface.OnClickListener() {
                     @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    {
+                    public void onClick(DialogInterface dialog, int which) {
                         final Date date = new Date();
 
                         String dateString = Utils.formatDate(date);
@@ -161,24 +143,18 @@ public class ClinicCursorAdapter extends CursorAdapter
 
                         // Insert patient data to radiology
                         Uri newUri = context.getContentResolver().insert(ImsContract.PatientDataToRadiologyEntry.CONTENT_URI, values);
-                        if (newUri == null)
-                        {
+                        if (newUri == null) {
                             Toast.makeText(view.getContext(), "Error with transfer patient", Toast.LENGTH_SHORT).show();
-                        }
-                        else
-                        {
+                        } else {
                             Toast.makeText(view.getContext(), "Transferred", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
 
-                builder.setNegativeButton("Decline", new DialogInterface.OnClickListener()
-                {
+                builder.setNegativeButton("Decline", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    {
-                        if (dialog != null)
-                        {
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (dialog != null) {
                             dialog.dismiss();
                         }
                     }
@@ -190,11 +166,9 @@ public class ClinicCursorAdapter extends CursorAdapter
         });
 
         // Transformation to the pharmacy
-        clinicPharmacyButton.setOnClickListener(new View.OnClickListener()
-        {
+        clinicPharmacyButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(final View view)
-            {
+            public void onClick(final View view) {
                 new TheDoctorActivity().showTransferredToThePharmacyDialog(context);
                 final Uri patientIdUri = ContentUris.withAppendedId(ImsContract.PatientEntry.CONTENT_URI, patientId);
 
@@ -202,12 +176,10 @@ public class ClinicCursorAdapter extends CursorAdapter
                 builder.setView(TheDoctorActivity.mDialogTransferredToThePharmacy);
                 builder.setTitle("Transferred to the pharmacy");
 
-                builder.setPositiveButton("Transfer", new DialogInterface.OnClickListener()
-                {
+                builder.setPositiveButton("Transfer", new DialogInterface.OnClickListener() {
                     @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    {
+                    public void onClick(DialogInterface dialog, int which) {
                         final Date date = new Date();
 
                         String dateString = Utils.formatDate(date);
@@ -222,24 +194,18 @@ public class ClinicCursorAdapter extends CursorAdapter
 
                         // Insert patient data to pharmacy
                         Uri newUri = context.getContentResolver().insert(ImsContract.PatientDataToPharmacyEntry.CONTENT_URI, values);
-                        if (newUri == null)
-                        {
+                        if (newUri == null) {
                             Toast.makeText(view.getContext(), "Error with transfer patient", Toast.LENGTH_SHORT).show();
-                        }
-                        else
-                        {
+                        } else {
                             Toast.makeText(view.getContext(), "Transferred", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
 
-                builder.setNegativeButton("Decline", new DialogInterface.OnClickListener()
-                {
+                builder.setNegativeButton("Decline", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    {
-                        if (dialog != null)
-                        {
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (dialog != null) {
                             dialog.dismiss();
                         }
                     }
@@ -252,8 +218,7 @@ public class ClinicCursorAdapter extends CursorAdapter
     }
 
     // Get patient name
-    private String getPatientName(int patientId, Context context)
-    {
+    private String getPatientName(int patientId, Context context) {
         String patientName = null;
 
         // Uri
@@ -261,10 +226,10 @@ public class ClinicCursorAdapter extends CursorAdapter
 
         // Column name
         String[] projection =
-           {
-              ImsContract.PatientEntry.COLUMN_FIRST_NAME,
-              ImsContract.PatientEntry.COLUMN_LAST_NAME
-           };
+                {
+                        ImsContract.PatientEntry.COLUMN_FIRST_NAME,
+                        ImsContract.PatientEntry.COLUMN_LAST_NAME
+                };
 
         // Selection
         String selection = ImsContract.PatientEntry._ID + " =" + patientId;
@@ -272,15 +237,14 @@ public class ClinicCursorAdapter extends CursorAdapter
         // SQL query
         @SuppressLint("Recycle")
         Cursor cursor = context.getContentResolver().query(
-           uri,
-           projection,
-           selection,
-           null,
-           null);
+                uri,
+                projection,
+                selection,
+                null,
+                null);
 
         assert cursor != null;
-        while (cursor.moveToNext())
-        {
+        while (cursor.moveToNext()) {
 
             // Firs name and last name column index
             int patientFirsNameColumnIndex = cursor.getColumnIndex(ImsContract.PatientEntry.COLUMN_FIRST_NAME);
@@ -290,8 +254,7 @@ public class ClinicCursorAdapter extends CursorAdapter
             String patientFirsName = cursor.getString(patientFirsNameColumnIndex);
             String patientLastName = cursor.getString(patientLastNameColumnIndex);
 
-            if (patientFirsName != null & patientLastName != null)
-            {
+            if (patientFirsName != null & patientLastName != null) {
                 patientName = patientFirsName.concat(" " + patientLastName);
             }
         }
@@ -300,15 +263,13 @@ public class ClinicCursorAdapter extends CursorAdapter
 
     // Get id patient
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private int getIdPatient(Context context, Uri currentPatientUri)
-    {
+    private int getIdPatient(Context context, Uri currentPatientUri) {
         int patientId = 0;
         String[] projection = {ImsContract.PatientEntry._ID};
         Cursor cursor = context.getContentResolver().query(currentPatientUri, projection, null, null);
 
         assert cursor != null;
-        while (cursor.moveToNext())
-        {
+        while (cursor.moveToNext()) {
             int patientIdColumnIndex = cursor.getColumnIndex(ImsContract.PatientEntry._ID);
             patientId = cursor.getInt(patientIdColumnIndex);
         }
@@ -316,90 +277,48 @@ public class ClinicCursorAdapter extends CursorAdapter
     }
 
     // Get clinic name
-    private String getClinicName(int clinicName)
-    {
-        if (CLINICS_ENDEMIC_DISEASES == clinicName)
-        {
+    private String getClinicName(int clinicName) {
+        if (CLINICS_ENDEMIC_DISEASES == clinicName) {
             return "Endemic diseases:";
-        }
-        else if (clinicName == CLINICS_MEDICAL_AND_MICROBIOLOGICAL_ANALYZES)
-        {
+        } else if (clinicName == CLINICS_MEDICAL_AND_MICROBIOLOGICAL_ANALYZES) {
             return "Medical and microbiological analyzes";
-        }
-        else if (clinicName == CLINICS_PSYCHOLOGICAL_DISEASES)
-        {
+        } else if (clinicName == CLINICS_PSYCHOLOGICAL_DISEASES) {
             return "Psychological diseases";
-        }
-        else if (clinicName == CLINICS_PHONETIC_AND_PHONEME)
-        {
+        } else if (clinicName == CLINICS_PHONETIC_AND_PHONEME) {
             return "Phonetic and phoneme";
-        }
-        else if (clinicName == CLINICS_EAR_NOSE_AND_THROAT)
-        {
+        } else if (clinicName == CLINICS_EAR_NOSE_AND_THROAT) {
             return "Ear, nose and throat";
-        }
-        else if (clinicName == CLINICS_COLON_AND_ANUS)
-        {
+        } else if (clinicName == CLINICS_COLON_AND_ANUS) {
             return "Colon and anus";
-        }
-        else if (clinicName == CLINICS_BLOOD_VESSELS)
-        {
+        } else if (clinicName == CLINICS_BLOOD_VESSELS) {
             return "Blood vessels";
-        }
-        else if (clinicName == CLINICS_ENDOCRINE_GLANDS)
-        {
+        } else if (clinicName == CLINICS_ENDOCRINE_GLANDS) {
             return "Endocrine glands";
-        }
-        else if (clinicName == CLINICS_RHEUMATISM_AND_IMMUNITY)
-        {
+        } else if (clinicName == CLINICS_RHEUMATISM_AND_IMMUNITY) {
             return "Rheumatism and immunity";
-        }
-        else if (clinicName == CLINICS_KIDNEY)
-        {
+        } else if (clinicName == CLINICS_KIDNEY) {
             return "Kidney";
-        }
-        else if (clinicName == CLINICS_THE_PAIN)
-        {
+        } else if (clinicName == CLINICS_THE_PAIN) {
             return "The pain";
-        }
-        else if (clinicName == CLINICS_CHESTS_DISEASES)
-        {
+        } else if (clinicName == CLINICS_CHESTS_DISEASES) {
             return "Chest's diseases";
-        }
-        else if (clinicName == CLINICS_HEART_DRAWING)
-        {
+        } else if (clinicName == CLINICS_HEART_DRAWING) {
             return "Heart drawing";
-        }
-        else if (clinicName == CLINICS_CARDIOTHORACIC_SURGERY)
-        {
+        } else if (clinicName == CLINICS_CARDIOTHORACIC_SURGERY) {
             return "Cardiothoracic surgery";
-        }
-        else if (clinicName == CLINICS_FERTILITY_UNIT)
-        {
+        } else if (clinicName == CLINICS_FERTILITY_UNIT) {
             return "Fertility unit";
-        }
-        else if (clinicName == CLINICS_GENERAL_INTERIOR)
-        {
+        } else if (clinicName == CLINICS_GENERAL_INTERIOR) {
             return "General interior";
-        }
-        else if (clinicName == CLINICS_RHEUMATISM_AND_REHABILITATION)
-        {
+        } else if (clinicName == CLINICS_RHEUMATISM_AND_REHABILITATION) {
             return "Rheumatism and rehabilitation";
-        }
-        else if (clinicName == CLINICS_PLASTIC_SURGERY)
-        {
+        } else if (clinicName == CLINICS_PLASTIC_SURGERY) {
             return "Plastic surgery";
-        }
-        else if (clinicName == CLINICS_GENERAL_SURGERY)
-        {
+        } else if (clinicName == CLINICS_GENERAL_SURGERY) {
             return "General surgery";
-        }
-        else if (clinicName == CLINICS_ONCOLOGY_AND_NUCLEAR_MEDICINE)
-        {
+        } else if (clinicName == CLINICS_ONCOLOGY_AND_NUCLEAR_MEDICINE) {
             return "Oncology and nuclear medicine";
-        }
-        else if (clinicName == CLINICS_LEATHER_AND_GENITAL)
-        {
+        } else if (clinicName == CLINICS_LEATHER_AND_GENITAL) {
             return "Leather and genital";
         }
         return "CLINICS_UNKNOWN";
