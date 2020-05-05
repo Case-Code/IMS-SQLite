@@ -168,8 +168,7 @@ public class ImsProvider extends ContentProvider {
 
     @Nullable
     @Override
-    public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder)
-    {
+    public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
         SQLiteDatabase database = mImsDbHelper.getReadableDatabase();
         Cursor cursor;
 
@@ -1128,9 +1127,17 @@ public class ImsProvider extends ContentProvider {
         if (performingPhysicianSignature == null) {
             throw new IllegalArgumentException("Doctor diagnosis requires a performing physician signature");
         }
-        String DateOfService = values.getAsString(DoctorDiagnosisEntry.COLUMN_Date_of_Service);
-        if (performingPhysicianSignature == null) {
+
+        // Date of service
+        String DateOfService = values.getAsString(DoctorDiagnosisEntry.COLUMN_DATE_OF_SERVICE);
+        if (DateOfService == null) {
             throw new IllegalArgumentException("Doctor diagnosis requires a Date Of Service");
+        }
+
+        // Patient data to clinics id
+        Integer patientDataToClinicsId = values.getAsInteger(DoctorDiagnosisEntry.COLUMN_PATIENT_DATA_TO_CLINICS_ID);
+        if (patientDataToClinicsId == null) {
+            throw new IllegalArgumentException("Doctor diagnosis requires a patient data to clinics id");
         }
 
         // Patient id
@@ -2537,6 +2544,14 @@ public class ImsProvider extends ContentProvider {
             String performingPhysicianSignature = values.getAsString(DoctorDiagnosisEntry.COLUMN_PERFORMING_PHYSICIAN_SIGNATURE);
             if (performingPhysicianSignature == null) {
                 throw new IllegalArgumentException("Doctor diagnosis requires a performing physician signature");
+            }
+        }
+
+        // Patient data to clinics id
+        if (values.containsKey(DoctorDiagnosisEntry.COLUMN_PATIENT_DATA_TO_CLINICS_ID)) {
+            Integer patientDataToClinicsId = values.getAsInteger(DoctorDiagnosisEntry.COLUMN_PATIENT_DATA_TO_CLINICS_ID);
+            if (patientDataToClinicsId == null) {
+                throw new IllegalArgumentException("Doctor diagnosis requires a patient data to clinics id");
             }
         }
 

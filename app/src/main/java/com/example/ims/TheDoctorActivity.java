@@ -418,7 +418,7 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
         }
         else
         {
-            values.put(ImsContract.DoctorDiagnosisEntry.COLUMN_Date_of_Service, dateOfService);
+            values.put(ImsContract.DoctorDiagnosisEntry.COLUMN_DATE_OF_SERVICE, dateOfService);
         }
         if (TextUtils.isEmpty(diagnosis))
         {

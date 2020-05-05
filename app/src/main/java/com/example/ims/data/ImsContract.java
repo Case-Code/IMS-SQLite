@@ -362,7 +362,8 @@ public class ImsContract {
         public static final String COLUMN_DIAGNOSIS = "diagnosis";
         public static final String COLUMN_ADDITIONAL_NOTES = "additional_notes";
         public static final String COLUMN_PERFORMING_PHYSICIAN_SIGNATURE = "performing_physician_signature";
-        public static final String COLUMN_Date_of_Service = "Date_of_Service";
+        public static final String COLUMN_DATE_OF_SERVICE = "Date_of_Service";
+        public static final String COLUMN_PATIENT_DATA_TO_CLINICS_ID = "patient_data_to_clinics_id";
         public static final String COLUMN_PATIENT_ID = "patient_id";
     }
 
