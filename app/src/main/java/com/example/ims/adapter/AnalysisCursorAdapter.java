@@ -49,7 +49,7 @@ public class AnalysisCursorAdapter extends CursorAdapter
 
 
         firstLastNameTextView.setText(getPatientName(patientId, context));
-        typeOfAnalysisTextView.setText(getTypeOfRadiation(analysisName));
+        typeOfAnalysisTextView.setText(getAnalysisName(analysisName));
         dateTextView.setText(transferDate);
 
 
@@ -102,7 +102,7 @@ public class AnalysisCursorAdapter extends CursorAdapter
         return patientName;
     }
 
-    private String getTypeOfRadiation(int analysisName)
+    private String getAnalysisName(int analysisName)
     {
         if (ANALYSIS_COMPLETE_BLOOD_COUNT == analysisName)
         {

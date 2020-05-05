@@ -47,7 +47,7 @@ public class RadiologyCursorAdapter extends CursorAdapter
 
 
         firstLastNameTextView.setText(getPatientName(patientId, context));
-        typeOfRadiationTextView.setText(getAnalysisName(typeOfRadiation));
+        typeOfRadiationTextView.setText(getTypeOfRadiation(typeOfRadiation));
         dateTextView.setText(transferDate);
     }
 
@@ -97,7 +97,7 @@ public class RadiologyCursorAdapter extends CursorAdapter
         return patientName;
     }
 
-    private String getAnalysisName(int type)
+    private String getTypeOfRadiation(int type)
     {
         if (RADIOLOGY_X_RAYS == type)
         {

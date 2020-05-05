@@ -30,20 +30,20 @@
                 android:layout_marginLeft="45dp"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/edit_pharmacy_fsr_search"
+                app:layout_constraintEnd_toStartOf="@+id/edit_salesrecord_search"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/text_pharmacy_fsr_date_year"
+                    android:id="@+id/text_salesrecord_dateyear"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="2020"
                     android:textColor="@android:color/white" />
 
                 <TextView
-                    android:id="@+id/text_pharmacy_fsr_date_month_day"
+                    android:id="@+id/text_salesrecord__datemonth"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="fri ,jan 10"
@@ -52,7 +52,7 @@
             </LinearLayout>
 
             <EditText
-                android:id="@+id/edit_pharmacy_fsr_search"
+                android:id="@+id/edit_salesrecord_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -62,11 +62,11 @@
                 android:ems="10"
                 android:inputType="textPersonName"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/image_pharmacy_fsr_date"
+                app:layout_constraintEnd_toStartOf="@+id/image_salesrecord_date"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
-                android:id="@+id/image_pharmacy_fsr_date"
+                android:id="@+id/image_salesrecord_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -79,7 +79,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ListView
-            android:id="@+id/list_pharmacy_fsr_sales_record"
+            android:id="@+id/list_salesrecord"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="16dp"

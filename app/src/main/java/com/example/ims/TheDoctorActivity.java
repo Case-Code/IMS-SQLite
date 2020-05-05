@@ -630,6 +630,8 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
             }
             else
             {
+                mClinicCursorAdapter.swapCursor(data);
+
             }
         }
     }
