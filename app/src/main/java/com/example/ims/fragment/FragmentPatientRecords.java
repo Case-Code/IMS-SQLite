@@ -6,9 +6,11 @@ import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,10 +58,12 @@ public class FragmentPatientRecords extends Fragment implements LoaderManager.Lo
     ListView ReceptionFprPatientProgressListView;
     View view;
 
-    public Uri mPatientRecordUri;
-    public Uri mPatientProgressUri;
+    public Uri mPatientRecordUri, mPatientProgressUri;
+
     ContentValues mValues;
+
     private PatientProgressCursorAdapter mPatientProgressCursorAdapter;
+
     private static final int PR_LOADER = 131;
     private static final int PP_LOADER = 132;
 
@@ -201,15 +205,35 @@ public class FragmentPatientRecords extends Fragment implements LoaderManager.Lo
         {
             mValues.put(ImsContract.PatientRecordsEntry.COLUMN_DATE_SIGNED, dateSignedString);
         }
-        Uri newUri =
-           getContext().getContentResolver().insert(ImsContract.PatientRecordsEntry.CONTENT_URI, mValues);
-        if (newUri == null)
+
+        if (mPatientRecordUri == null)
         {
-            Toast.makeText(getContext(), getString(R.string.editor_insert_health_record_failed), Toast.LENGTH_SHORT).show();
+            Uri newUri =
+               getContext().getContentResolver().insert(ImsContract.PatientRecordsEntry.CONTENT_URI, mValues);
+
+            if (newUri == null)
+            {
+                Toast.makeText(getContext(), getString(R.string.editor_insert_health_record_failed), Toast.LENGTH_SHORT).show();
+            }
+            else
+            {
+
+                Toast.makeText(getContext(), getString(R.string.editor_insert_health_record_successful), Toast.LENGTH_SHORT).show();
+            }
         }
         else
         {
-            Toast.makeText(getContext(), getString(R.string.editor_insert_health_record_successful), Toast.LENGTH_SHORT).show();
+            int rowsAffected = getContext().getContentResolver().update(mPatientRecordUri, mValues, null, null);
+            if (rowsAffected == 0)
+            {
+                Toast.makeText(getActivity(), getString(R.string.editor_update_patient_failed), Toast.LENGTH_SHORT).show();
+            }
+            else
+            {
+                //  getLoaderManager().destroyLoader(PATIENT_UPDATE_LOADER);
+                //  mCurrentPatientUri = null;
+                Toast.makeText(getActivity(), getString(R.string.editor_update_patient_successful), Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -269,7 +293,7 @@ public class FragmentPatientRecords extends Fragment implements LoaderManager.Lo
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    int mPatientId;
+    int mPatientId = 0;
 
     public FragmentPatientRecords(int patientId)
     {
@@ -454,38 +478,42 @@ public class FragmentPatientRecords extends Fragment implements LoaderManager.Lo
             }
             else
             {
-                return new CursorLoader(
+          /*      return new CursorLoader(
                    this.getActivity(),
                    mPatientProgressUri,
                    projection,
                    null
                    , null, null
-                );
+                );*/
 
             }
 
-/*
-            }else if(id==PR_LOADER){
-*/
+
+        }
+        else if (id == PR_LOADER)
+        {
+
+            return getCursor();
+
         }
         return null;
 
     }
 
     @Override
-    public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data)
+    public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor cursor)
     {
         int loaderId = loader.getId();
         if (loaderId == PP_LOADER)
         {
             if (mPatientProgressUri == null)
             {
-                mPatientProgressCursorAdapter.swapCursor(data);
+                mPatientProgressCursorAdapter.swapCursor(cursor);
 
             }
             else
             {
-                if (data == null || data.getCount() < 1)
+                if (cursor == null || cursor.getCount() < 1)
                 {
                     return;
                 }
@@ -495,24 +523,57 @@ public class FragmentPatientRecords extends Fragment implements LoaderManager.Lo
         else if (loaderId == PR_LOADER)
         {
 
-            if (mPatientRecordUri == null)
+            if (cursor.moveToNext())
             {
 
-            }
-            else
-            {
-                if (data == null || data.getCount() < 1)
+                int patientIdColumnIndex = cursor.getColumnIndex(ImsContract.PatientRecordsEntry.COLUMN_PATIENT_ID);
+                int medicalRecordIdColumnIndex = cursor.getColumnIndex(ImsContract.PatientRecordsEntry.COLUMN_MEDICAL_RECORD_ID);
+                int nextAppointmentColumnIndex = cursor.getColumnIndex(ImsContract.PatientRecordsEntry.COLUMN_NEXT_APPOINTMENT_DATE);
+                int nextTreatmentPlanColumnIndex = cursor.getColumnIndex(ImsContract.PatientRecordsEntry.COLUMN_NEXT_TREATMENT_PLAN_REVIEW_DATE);
+                int physicianSignatureColumnIndex = cursor.getColumnIndex(ImsContract.PatientRecordsEntry.COLUMN_PHYSICIAN_SIGNATURE);
+                int dateSignedColumnIndex = cursor.getColumnIndex(ImsContract.PatientRecordsEntry.COLUMN_DATE_SIGNED);
+
+                int Id = cursor.getInt(patientIdColumnIndex);
+
+                String medicalRecordId = cursor.getString(medicalRecordIdColumnIndex);
+                String nextAppointment = cursor.getString(nextAppointmentColumnIndex);
+                String nextTreatmentPlan = cursor.getString(nextTreatmentPlanColumnIndex);
+                String physicianSignature = cursor.getString(physicianSignatureColumnIndex);
+                String dateSigned = cursor.getString(dateSignedColumnIndex);
+
+                if (Id >= 1)
                 {
-                    return;
+                    ReceptionFprSaveButton.setText("edit");
+                    ReceptionFprMedicalRecordIdEditText.setText(medicalRecordId);
+                    ReceptionFprPhysicanSignatureEditText.setText(physicianSignature);
+                    ReceptionFprDateSignedTextView.setText(dateSigned);
+                    ReceptionFprNextAppointmentDateTextView.setText(nextAppointment);
+                    ReceptionFprNextTreatmentPlanReviewDateTextView.setText(nextTreatmentPlan);
+
                 }
+                else
+                {
+                    ReceptionFprMedicalRecordIdEditText.setText("");
+                    ReceptionFprPhysicanSignatureEditText.setText("");
+                    ReceptionFprDateSignedTextView.setText("");
+                    ReceptionFprNextAppointmentDateTextView.setText("");
+                    ReceptionFprNextTreatmentPlanReviewDateTextView.setText("");
 
-
+                }
             }
+        }
+        else
+        {
+            if (cursor == null || cursor.getCount() < 1)
+            {
+                return;
+            }
+
 
         }
 
-
     }
+
 
     @Override
     public void onLoaderReset(@NonNull Loader<Cursor> loader)
@@ -529,7 +590,11 @@ public class FragmentPatientRecords extends Fragment implements LoaderManager.Lo
         }
         else if (loaderId == PR_LOADER)
         {
-
+            ReceptionFprMedicalRecordIdEditText.setText("");
+            ReceptionFprPhysicanSignatureEditText.setText("");
+            ReceptionFprDateSignedTextView.setText("");
+            ReceptionFprNextAppointmentDateTextView.setText("");
+            ReceptionFprNextTreatmentPlanReviewDateTextView.setText("");
 
         }
 
@@ -539,14 +604,85 @@ public class FragmentPatientRecords extends Fragment implements LoaderManager.Lo
     public void onActivityCreated(@Nullable Bundle savedInstanceState)
     {
 
-        mPatientRecordUri = ContentUris.withAppendedId(ImsContract.PatientRecordsEntry.CONTENT_URI, mPatientId);
-        // mPatientProgressUri=ContentUris.withAppendedId(ImsContract.PatientProgressEntry.CONTENT_URI, mPatientId);
-//        getLoaderManager().initLoader(PR_LOADER, null,  this);
+        // instance int equal result id
+        int id = getId(mPatientId, getActivity());
+        if (id != 0)
+        {
+            mPatientRecordUri = ContentUris.withAppendedId(ImsContract.PatientRecordsEntry.CONTENT_URI, id);
+        }
+
         getLoaderManager().initLoader(PP_LOADER, null, this);
+        getLoaderManager().initLoader(PR_LOADER, null, this);
 
 
         super.onActivityCreated(savedInstanceState);
     }
 
+    public CursorLoader getCursor()
+    {
+
+
+        String[] projection =
+           {
+              ImsContract.PatientRecordsEntry.COLUMN_PATIENT_ID,
+              ImsContract.PatientRecordsEntry.COLUMN_MEDICAL_RECORD_ID,
+              ImsContract.PatientRecordsEntry.COLUMN_NEXT_APPOINTMENT_DATE,
+              ImsContract.PatientRecordsEntry.COLUMN_NEXT_TREATMENT_PLAN_REVIEW_DATE,
+              ImsContract.PatientRecordsEntry.COLUMN_PHYSICIAN_SIGNATURE,
+              ImsContract.PatientRecordsEntry.COLUMN_DATE_SIGNED,
+           };
+        String selection = ImsContract.PatientRecordsEntry.COLUMN_PATIENT_ID + " =" + mPatientId;
+
+
+        return new CursorLoader(this.getActivity(),
+           ImsContract.PatientRecordsEntry.CONTENT_URI,
+           projection,
+           selection, null, null);
+    }
+
+    private int getId(int patientId, Context context)
+    {
+
+        // Uri get content provider
+        Uri uri = ImsContract.PatientRecordsEntry.CONTENT_URI;
+        //column id ,pid
+        String[] projection =
+           {
+              ImsContract.PatientRecordsEntry.COLUMN_PATIENT_ID,
+              ImsContract.PatientRecordsEntry._ID
+
+           };
+
+        // Selection where equal id
+        String selection = ImsContract.PatientRecordsEntry.COLUMN_PATIENT_ID + " =" + patientId;
+
+        // SQL query
+        @SuppressLint("Recycle")
+        Cursor cursor = context.getContentResolver().query(
+           uri,
+           projection,
+           selection,
+           null,
+           null);
+
+        assert cursor != null;
+        while (cursor.moveToNext())
+        {
+
+            // get num index
+            int idColumnIndex = cursor.getColumnIndex(ImsContract.PatientRecordsEntry._ID);
+
+
+            // get data id
+            int getId = cursor.getInt(idColumnIndex);
+            //if id equal then of 1
+            if (getId >= 1)
+            {
+                return getId;
+            }
+        }
+        //return 0 not data
+        return 0;
+    }
 
 }

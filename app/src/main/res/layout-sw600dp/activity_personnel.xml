@@ -105,8 +105,8 @@
                             android:text="Employee data management"
                             android:textColor="@color/colorPrimaryDark" />
 
-                        <AutoCompleteTextView
-                            android:id="@+id/text_edm_employee_search"
+                        <EditText
+                            android:id="@+id/edit_personnel_employeesearch"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
@@ -120,10 +120,10 @@
                             android:paddingLeft="10dp" />
 
                         <ListView
-                            android:id="@+id/list_edm_patient"
+                            android:id="@+id/list_personnel_employee"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            tools:listitem="@layout/item_patient_name" />
+                            tools:listitem="@layout/item_employee_name" />
 
                     </LinearLayout>
 
@@ -149,8 +149,8 @@
                             android:text="Attendance and Departure"
                             android:textColor="@color/colorPrimaryDark" />
 
-                        <AutoCompleteTextView
-                            android:id="@+id/text_aad_date_search"
+                        <EditText
+                            android:id="@+id/edit_personnel_datesearch"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
@@ -164,7 +164,7 @@
                             android:paddingLeft="10dp" />
 
                         <ListView
-                            android:id="@+id/list_aad_date"
+                            android:id="@+id/list_personnel_date"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             tools:listitem="@layout/item_attendance_and_departure" />
@@ -246,12 +246,13 @@
                                 </LinearLayout>
 
                                 <EditText
-                                    android:id="@+id/edit_employee_email"
+                                    android:id="@+id/edit_employee_emai"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="10dp"
                                     android:hint="email"
-                                    android:inputType="text" />
+                                    android:inputType="text"
+                                    android:autofillHints="" />
 
                                 <EditText
                                     android:id="@+id/edit_employee_phone"
@@ -262,7 +263,7 @@
                                     android:inputType="phone" />
 
                                 <TextView
-                                    android:id="@+id/text_employee_hire_date"
+                                    android:id="@+id/text_employee_hiredate"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="10dp"
@@ -309,7 +310,7 @@
                                     android:textColor="@color/colorPrimaryDark" />
 
                                 <EditText
-                                    android:id="@+id/edit_employee_job_title"
+                                    android:id="@+id/edit_employee_jobtitle"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="10dp"
@@ -323,7 +324,7 @@
                                     android:orientation="horizontal">
 
                                     <EditText
-                                        android:id="@+id/edit_employee_min_salary"
+                                        android:id="@+id/edit_employee_minsalary"
                                         android:layout_width="0dp"
                                         android:layout_height="match_parent"
                                         android:layout_marginEnd="5dp"
@@ -333,7 +334,7 @@
                                         android:inputType="number" />
 
                                     <EditText
-                                        android:id="@+id/edit_employee_max_salary"
+                                        android:id="@+id/edit_employee_maxsalary"
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content"
                                         android:layout_marginStart="5dp"
@@ -373,7 +374,7 @@
                                     app:cardCornerRadius="5dp">
 
                                     <Spinner
-                                        android:id="@+id/spinner_employee_region_name"
+                                        android:id="@+id/spinner_employee_regionname"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_margin="10dp"
@@ -398,7 +399,7 @@
                                     app:cardCornerRadius="5dp">
 
                                     <Spinner
-                                        android:id="@+id/spinner_employee_country_name"
+                                        android:id="@+id/spinner_employee_countryname"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_margin="10dp"
@@ -439,7 +440,7 @@
                                     android:orientation="horizontal">
 
                                     <EditText
-                                        android:id="@+id/edit_employee_street_address"
+                                        android:id="@+id/edit_employee_streetaddress"
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content"
                                         android:layout_marginEnd="5dp"
@@ -449,7 +450,7 @@
                                         android:inputType="text" />
 
                                     <EditText
-                                        android:id="@+id/edit_employee_postal_code"
+                                        android:id="@+id/edit_employee_postalcode"
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content"
                                         android:layout_marginStart="5dp"

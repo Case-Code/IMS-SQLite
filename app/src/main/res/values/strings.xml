@@ -93,6 +93,7 @@
     <string name="editor_insert_health_record_failed">Error with saving health record</string>
     <string name="editor_insert_health_record_successful">Health record saved</string>
 
+
     <string name="editor_insert_Current_And_Past_Medications_failed">Error with saving current and past medications</string>
     <string name="editor_insert_Current_And_Past_Medications_successful">Current and past medications saved</string>
 
