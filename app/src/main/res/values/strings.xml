@@ -127,6 +127,7 @@
     <string name="next_treatment_plan_review_date">next treatment plan review date</string>
     <string name="physician_signature">physician signature</string>
     <string name="date_signed">date signed:</string>
+    <string name="personnel">Personnel</string>
 
 
 </resources>

@@ -1365,25 +1365,25 @@ public class ImsProvider extends ContentProvider {
         }
 
         // Department name
-        Integer departmentName = values.getAsInteger(EmployeesEntry.COLUMN_DEPARTMENT_NAME);
+        String departmentName = values.getAsString(EmployeesEntry.COLUMN_DEPARTMENT_NAME);
         if (departmentName == null) {
             throw new IllegalArgumentException("Employees requires a department name");
         }
 
         // Region name
-        Integer regionName = values.getAsInteger(EmployeesEntry.COLUMN_REGION_NAME);
+        String regionName = values.getAsString(EmployeesEntry.COLUMN_REGION_NAME);
         if (regionName == null) {
             throw new IllegalArgumentException("Employees requires a region name");
         }
 
         // Country name
-        Integer countryName = values.getAsInteger(EmployeesEntry.COLUMN_COUNTRY_NAME);
+        String countryName = values.getAsString(EmployeesEntry.COLUMN_COUNTRY_NAME);
         if (countryName == null) {
             throw new IllegalArgumentException("Employees requires a country name");
         }
 
         // City
-        Integer city = values.getAsInteger(EmployeesEntry.COLUMN_CITY);
+        String city = values.getAsString(EmployeesEntry.COLUMN_CITY);
         if (city == null) {
             throw new IllegalArgumentException("Employees requires a city");
         }

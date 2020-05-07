@@ -1,20 +1,23 @@
 package com.example.ims;
 
 import android.app.LoaderManager;
+import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -50,13 +53,13 @@ public class PersonnelActivity extends AppCompatActivity implements NavigationVi
     private EditText phoneEditText;
     private TextView hireDateTextView;
     private EditText salaryEditText;
-    private Spinner departmentSpinner;
+    private AutoCompleteTextView departmentACTV;
     private EditText jobTitleEditText;
     private EditText minSalaryEditText;
     private EditText maxSalaryEditText;
-    private Spinner regionNameSpinner;
-    private Spinner countryNameSpinner;
-    private Spinner citySpinner;
+    private AutoCompleteTextView regionNameACTV;
+    private AutoCompleteTextView countryNameACTV;
+    private AutoCompleteTextView cityACTV;
     private EditText streetAddressEditText;
     private EditText postalCodeEditText;
     private Button addButton;
@@ -100,6 +103,16 @@ public class PersonnelActivity extends AppCompatActivity implements NavigationVi
 
         //set data in list view
         employeeListView.setAdapter(mEmployeeCursorAdapter);
+
+        addButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                saveData();
+            }
+        });
+        getLoaderManager().initLoader(EMPLOYEE_LOADER, null, this);
 
     }
 
@@ -178,13 +191,13 @@ public class PersonnelActivity extends AppCompatActivity implements NavigationVi
         phoneEditText = findViewById(R.id.edit_employee_phone);
         hireDateTextView = findViewById(R.id.text_employee_hiredate);
         salaryEditText = findViewById(R.id.edit_employee_salary);
-        departmentSpinner = findViewById(R.id.spinner_employee_department);
+        departmentACTV = findViewById(R.id.spinner_employee_department);
         jobTitleEditText = findViewById(R.id.edit_employee_jobtitle);
         minSalaryEditText = findViewById(R.id.edit_employee_minsalary);
         maxSalaryEditText = findViewById(R.id.edit_employee_maxsalary);
-        regionNameSpinner = findViewById(R.id.spinner_employee_regionname);
-        countryNameSpinner = findViewById(R.id.spinner_employee_countryname);
-        citySpinner = findViewById(R.id.spinner_employee_city);
+        regionNameACTV = findViewById(R.id.spinner_employee_regionname);
+        countryNameACTV = findViewById(R.id.spinner_employee_countryname);
+        cityACTV = findViewById(R.id.spinner_employee_city);
         streetAddressEditText = findViewById(R.id.edit_employee_streetaddress);
         postalCodeEditText = findViewById(R.id.edit_employee_postalcode);
         addButton = findViewById(R.id.button_employee_add);
@@ -192,7 +205,189 @@ public class PersonnelActivity extends AppCompatActivity implements NavigationVi
 
     public void saveData()
     {
+        String firstName = firstNameEditText.getText().toString().trim();
+        String lastName = lastNameEditText.getText().toString().trim();
+        String email = emailEditText.getText().toString().trim();
+        String phone = phoneEditText.getText().toString().trim();
+        String hireDate = hireDateTextView.getText().toString().trim();
+        String salary = salaryEditText.getText().toString().trim();
+        String department = departmentACTV.getText().toString().trim();
+        String jobTitle = jobTitleEditText.getText().toString().trim();
+        String minSalary = minSalaryEditText.getText().toString().trim();
+        String maxSalary = maxSalaryEditText.getText().toString().trim();
+        String regionName = regionNameACTV.getText().toString().trim();
+        String countryName = countryNameACTV.getText().toString().trim();
+        String city = cityACTV.getText().toString().trim();
+        String streetAddress = streetAddressEditText.getText().toString().trim();
+        String postalCode = postalCodeEditText.getText().toString().trim();
 
+        ContentValues values = new ContentValues();
+        if (TextUtils.isEmpty(firstName))
+        {
+            firstNameEditText.setError("please write on firstName ");
+            return;
+        }
+        else
+        {
+            values.put(ImsContract.EmployeesEntry.COLUMN_FIRST_NAME, firstName);
+        }
+        if (TextUtils.isEmpty(lastName))
+        {
+            lastNameEditText.setError("please write on lastName ");
+            return;
+        }
+        else
+        {
+            values.put(ImsContract.EmployeesEntry.COLUMN_LAST_NAME, lastName);
+        }
+        if (TextUtils.isEmpty(email))
+        {
+            emailEditText.setError("please write on email");
+            return;
+        }
+        else
+        {
+            values.put(ImsContract.EmployeesEntry.COLUMN_EMAIL, email);
+        }
+        if (TextUtils.isEmpty(phone))
+        {
+            phoneEditText.setError("please write on phone");
+            return;
+        }
+        else
+        {
+            values.put(ImsContract.EmployeesEntry.COLUMN_PHONE_NUMBER, phone);
+        }
+        if (TextUtils.isEmpty(hireDate))
+        {
+            hireDateTextView.setError("please write on hireDate");
+            return;
+        }
+        else
+        {
+            values.put(ImsContract.EmployeesEntry.COLUMN_HIRE_DATE, hireDate);
+        }
+        if (TextUtils.isEmpty(salary))
+        {
+            salaryEditText.setError("please write on salary");
+            return;
+        }
+        else
+        {
+            values.put(ImsContract.EmployeesEntry.COLUMN_SALARY, salary);
+        }
+        if (TextUtils.isEmpty(department))
+        {
+            departmentACTV.setError("please write on department ");
+            return;
+        }
+        else
+        {
+            values.put(ImsContract.EmployeesEntry.COLUMN_DEPARTMENT_NAME, department);
+        }
+        if (TextUtils.isEmpty(jobTitle))
+        {
+            jobTitleEditText.setError("please write on jobTitle");
+            return;
+        }
+        else
+        {
+            values.put(ImsContract.EmployeesEntry.COLUMN_JOB_TITLE, jobTitle);
+        }
+        if (TextUtils.isEmpty(minSalary))
+        {
+            minSalaryEditText.setError("please write on minSalary");
+            return;
+        }
+        else
+        {
+            values.put(ImsContract.EmployeesEntry.COLUMN_MIN_SALARY, minSalary);
+        }
+        if (TextUtils.isEmpty(maxSalary))
+        {
+            maxSalaryEditText.setError("please write on maxSalary");
+            return;
+        }
+        else
+        {
+            values.put(ImsContract.EmployeesEntry.COLUMN_MAX_SALARY, maxSalary);
+        }
+        if (TextUtils.isEmpty(regionName))
+        {
+            regionNameACTV.setError("please write on regionName");
+            return;
+        }
+        else
+        {
+            values.put(ImsContract.EmployeesEntry.COLUMN_REGION_NAME, regionName);
+        }
+        if (TextUtils.isEmpty(countryName))
+        {
+            countryNameACTV.setError("please write on countryName");
+            return;
+        }
+        else
+        {
+            values.put(ImsContract.EmployeesEntry.COLUMN_COUNTRY_NAME, countryName);
+        }
+        if (TextUtils.isEmpty(city))
+        {
+            cityACTV.setError("please write on city");
+            return;
+        }
+        else
+        {
+            values.put(ImsContract.EmployeesEntry.COLUMN_CITY, city);
+        }
+        if (TextUtils.isEmpty(streetAddress))
+        {
+            streetAddressEditText.setError("please write on streetAddress");
+            return;
+        }
+        else
+        {
+            values.put(ImsContract.EmployeesEntry.COLUMN_STREET_ADDRESS, streetAddress);
+        }
+        if (TextUtils.isEmpty(postalCode))
+        {
+            postalCodeEditText.setError("please write on postalCode");
+            return;
+        }
+        else
+        {
+            values.put(ImsContract.EmployeesEntry.COLUMN_POSTAL_CODE, postalCode);
+        }
+        Uri newUri = getContentResolver().insert(ImsContract.EmployeesEntry.CONTENT_URI, values);
+        if (newUri == null)
+        {
+            Toast.makeText(this, getString(R.string.insert_doctor_failed), Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            Toast.makeText(this, getString(R.string.insert_doctor_successful), Toast.LENGTH_SHORT).show();
+            setText();
+
+        }
+
+    }
+
+    public void setText()
+    {
+        firstNameEditText.setText("");
+        lastNameEditText.setText("");
+        emailEditText.setText("");
+        phoneEditText.setText("");
+        hireDateTextView.setText("");
+        salaryEditText.setText("");
+        departmentACTV.setText("");
+        jobTitleEditText.setText("");
+        minSalaryEditText.setText("");
+        maxSalaryEditText.setText("");
+        regionNameACTV.setText("");
+        countryNameACTV.setText("");
+        cityACTV.setText("");
+        streetAddressEditText.setText("");
+        postalCodeEditText.setText("");
     }
 
     @Override

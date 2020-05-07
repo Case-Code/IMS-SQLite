@@ -39,7 +39,10 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:src="@drawable/ic_action_menu" />
+                    android:src="@drawable/ic_action_menu"
+                    android:contentDescription="TODO"
+                    android:layout_alignParentStart="true"
+                    tools:targetApi="m" />
 
                 <TextView
                     android:id="@+id/text_page_title"
@@ -50,7 +53,7 @@
                     android:layout_marginLeft="16dp"
                     android:layout_toEndOf="@+id/image_button_action_menu"
                     android:layout_toRightOf="@+id/image_button_action_menu"
-                    android:text="Personnel"
+                    android:text="@string/personnel"
                     android:textColor="@android:color/white"
                     android:textSize="20sp" />
 
@@ -61,7 +64,8 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
-                android:src="@drawable/ims_logo" />
+                android:src="@drawable/ims_logo"
+                android:contentDescription="TODO" />
 
             <ImageView
                 android:layout_width="0dp"
@@ -160,8 +164,7 @@
                             android:drawableLeft="@drawable/ic_search_black_24dp"
                             android:drawablePadding="10dp"
                             android:hint="date"
-                            android:inputType="textPersonName"
-                            android:paddingLeft="10dp" />
+                            android:inputType="textPersonName" />
 
                         <ListView
                             android:id="@+id/list_personnel_date"
@@ -291,7 +294,7 @@
                                     android:layout_marginBottom="16dp"
                                     app:cardCornerRadius="5dp">
 
-                                    <Spinner
+                                    <AutoCompleteTextView
                                         android:id="@+id/spinner_employee_department"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
@@ -373,7 +376,7 @@
                                     android:layout_marginBottom="16dp"
                                     app:cardCornerRadius="5dp">
 
-                                    <Spinner
+                                    <AutoCompleteTextView
                                         android:id="@+id/spinner_employee_regionname"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
@@ -398,7 +401,7 @@
                                     android:layout_marginBottom="16dp"
                                     app:cardCornerRadius="5dp">
 
-                                    <Spinner
+                                    <AutoCompleteTextView
                                         android:id="@+id/spinner_employee_countryname"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
@@ -423,7 +426,7 @@
                                     android:layout_marginBottom="16dp"
                                     app:cardCornerRadius="5dp">
 
-                                    <Spinner
+                                    <AutoCompleteTextView
                                         android:id="@+id/spinner_employee_city"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
