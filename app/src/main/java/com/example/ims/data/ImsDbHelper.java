@@ -182,7 +182,7 @@ public class ImsDbHelper extends SQLiteOpenHelper {
             + SalesRecordEntry.COLUMN_QUANTITY + " INTEGER NOT NULL, "
             + SalesRecordEntry.COLUMN_SALE_DATE + " TEXT NOT NULL, "
             + SalesRecordEntry.COLUMN_PRICE + " INTEGER NOT NULL); ";
-
+    //TODO change data type
     // Create a String that contains the SQL statement to create the 'employees' table
     private static final String SQL_CREATE_EMPLOYEES_TABLE = "CREATE TABLE IF NOT EXISTS " + EmployeesEntry.TABLE_NAME + " ("
             + EmployeesEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -195,10 +195,10 @@ public class ImsDbHelper extends SQLiteOpenHelper {
             + EmployeesEntry.COLUMN_JOB_TITLE + " TEXT NOT NULL, "
             + EmployeesEntry.COLUMN_MIN_SALARY + " INTEGER, "
             + EmployeesEntry.COLUMN_MAX_SALARY + " INTEGER, "
-            + EmployeesEntry.COLUMN_DEPARTMENT_NAME + " INTEGER NOT NULL DEFAULT 0, "
-            + EmployeesEntry.COLUMN_REGION_NAME + " INTEGER NOT NULL DEFAULT 0, "
-            + EmployeesEntry.COLUMN_COUNTRY_NAME + " INTEGER NOT NULL DEFAULT 0, "
-            + EmployeesEntry.COLUMN_CITY + " INTEGER NOT NULL DEFAULT 0, "
+       + EmployeesEntry.COLUMN_DEPARTMENT_NAME + "  TEXT NOT NULL DEFAULT 0, "
+       + EmployeesEntry.COLUMN_REGION_NAME + " TEXT NOT NULL DEFAULT 0, "
+       + EmployeesEntry.COLUMN_COUNTRY_NAME + " TEXT NOT NULL DEFAULT 0, "
+       + EmployeesEntry.COLUMN_CITY + " TEXT NOT NULL DEFAULT 0, "
             + EmployeesEntry.COLUMN_STREET_ADDRESS + " TEXT, "
             + EmployeesEntry.COLUMN_POSTAL_CODE + " INTEGER NOT NULL); ";
 
