@@ -441,7 +441,7 @@ public class ImsContract {
         // Sales record table
         public static final String TABLE_NAME = PATH_SALES_RECORD;
         public static final String _ID = BaseColumns._ID;
-        public static final String COLUMN_MEDICINE_NAME = "medicine_name";
+        public static final String COLUMN_MEDICINE_REGISTRY_ID = "medicine_registry_id";
         public static final String COLUMN_QUANTITY = "quantity";
         public static final String COLUMN_SALE_DATE = "sale_date";
         public static final String COLUMN_PRICE = "price";

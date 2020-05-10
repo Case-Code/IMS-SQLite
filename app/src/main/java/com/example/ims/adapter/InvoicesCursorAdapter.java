@@ -45,7 +45,5 @@ public class InvoicesCursorAdapter extends CursorAdapter {
         medicalServicesTextView.setText(firstName);
         medictionTextView.setText(lastName);
         costTextView.setText(costNumber);*/
-
-
     }
 }

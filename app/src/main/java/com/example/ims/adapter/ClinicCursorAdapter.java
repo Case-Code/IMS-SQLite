@@ -50,6 +50,7 @@ public class ClinicCursorAdapter extends CursorAdapter {
         Button clinicRadiologyLaboratoryButton = view.findViewById(R.id.button_clinic_radiologylaboratory);
         Button clinicPharmacyButton = view.findViewById(R.id.button_clinic_pharmacy);
 
+
         int patientIdColumnIndex = cursor.getColumnIndex(ImsContract.PatientDataToClinicsEntry.COLUMN_PATIENT_ID);
         int clinicNameColumnIndex = cursor.getColumnIndex(ImsContract.PatientDataToClinicsEntry.COLUMN_CLINIC_NAME);
         int transferDataColumnIndex = cursor.getColumnIndex(ImsContract.PatientDataToClinicsEntry.COLUMN_TRANSFER_DATE);
@@ -125,6 +126,9 @@ public class ClinicCursorAdapter extends CursorAdapter {
                 builder.setView(TheDoctorActivity.mDialogTransferredToRadiology);
                 builder.setTitle("Transferred to the radiology");
 
+                // Set patient name
+                TheDoctorActivity.transferredToRadiologyFirstLastName.setText(getPatientName(patientId, context));
+
                 builder.setPositiveButton("Transfer", new DialogInterface.OnClickListener() {
                     @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
@@ -176,6 +180,9 @@ public class ClinicCursorAdapter extends CursorAdapter {
                 builder.setView(TheDoctorActivity.mDialogTransferredToThePharmacy);
                 builder.setTitle("Transferred to the pharmacy");
 
+                // Set patient name
+                TheDoctorActivity.transferredToPharmacyFirstLastName.setText(getPatientName(patientId, context));
+
                 builder.setPositiveButton("Transfer", new DialogInterface.OnClickListener() {
                     @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
@@ -183,14 +190,13 @@ public class ClinicCursorAdapter extends CursorAdapter {
                         final Date date = new Date();
 
                         String dateString = Utils.formatDate(date);
-                        int mTypesOfRadiology = TheDoctorActivity.mTypesOfRadiology;
+                        int mPatientDataToClinicsId = TheDoctorActivity.mPatientDataToClinicsId;
                         int idPatient = getIdPatient(context, patientIdUri);
 
                         ContentValues values = new ContentValues();
                         values.put(ImsContract.PatientDataToPharmacyEntry.COLUMN_TRANSFER_DATE, dateString);
-                        values.put(ImsContract.PatientDataToPharmacyEntry.COLUMN_DOCTOR_DIAGNOSIS_ID, mTypesOfRadiology);
+                        values.put(ImsContract.PatientDataToPharmacyEntry.COLUMN_DOCTOR_DIAGNOSIS_ID, mPatientDataToClinicsId);
                         values.put(ImsContract.PatientDataToPharmacyEntry.COLUMN_PATIENT_ID, String.valueOf(idPatient));
-
 
                         // Insert patient data to pharmacy
                         Uri newUri = context.getContentResolver().insert(ImsContract.PatientDataToPharmacyEntry.CONTENT_URI, values);

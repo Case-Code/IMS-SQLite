@@ -11,22 +11,18 @@ import android.widget.TextView;
 import com.example.ims.R;
 import com.example.ims.data.ImsContract;
 
-public class EmployeeCursorAdapter extends CursorAdapter
-{
-    public EmployeeCursorAdapter(Context context, Cursor c)
-    {
+public class EmployeeCursorAdapter extends CursorAdapter {
+    public EmployeeCursorAdapter(Context context, Cursor c) {
         super(context, c, 12);
     }
 
     @Override
-    public View newView(Context context, Cursor cursor, ViewGroup viewGroup)
-    {
+    public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
         return LayoutInflater.from(context).inflate(R.layout.item_employee_name, viewGroup, false);
     }
 
     @Override
-    public void bindView(View view, Context context, Cursor cursor)
-    {
+    public void bindView(View view, Context context, Cursor cursor) {
         TextView firstLastNameTextView = view.findViewById(R.id.text_employeename_fname);
         TextView lastLastNameTextView = view.findViewById(R.id.text_employeename_lname);
 
@@ -38,7 +34,5 @@ public class EmployeeCursorAdapter extends CursorAdapter
 
         firstLastNameTextView.setText(firstName);
         lastLastNameTextView.setText(lastName);
-
-
     }
 }

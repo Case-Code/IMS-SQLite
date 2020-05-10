@@ -31,12 +31,15 @@
                 android:inputType="number" />
 
             <ImageButton
-                android:id="@+id/image_sale_plus"
+                android:id="@+id/imagebutton_sale_minus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:background="@android:color/transparent"
-                android:src="@drawable/ic_action_add" />
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:src="@drawable/ic_remove_black_24dp" />
 
             <EditText
                 android:id="@+id/edit_sale_quantity"
@@ -49,12 +52,28 @@
                 android:inputType="textPersonName" />
 
             <ImageButton
-                android:id="@+id/image_sale_minus"
+                android:id="@+id/imagebutton_sale_plus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:background="@android:color/transparent"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:src="@drawable/ic_action_add" />
+
+            <Button
+                android:id="@+id/button_sale_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="30dp"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:text="Add"
+                android:textColor="@android:color/white" />
 
             <Button
                 android:id="@+id/button_sale_sale"
@@ -64,6 +83,9 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:background="@android:color/transparent"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:text="sale"
                 android:textColor="@android:color/white" />
 

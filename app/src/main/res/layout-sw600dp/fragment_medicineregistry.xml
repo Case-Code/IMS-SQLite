@@ -42,12 +42,15 @@
                 android:inputType="textPersonName" />
 
             <ImageButton
-                android:id="@+id/image_medicine_plus"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
+                android:id="@+id/image_medicine_minus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:background="@color/cardview_shadow_end_color"
-                android:src="@drawable/ic_action_add" />
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:src="@drawable/ic_remove_black_24dp" />
 
             <EditText
                 android:id="@+id/edit_medicine_quantity"
@@ -61,12 +64,15 @@
                 android:inputType="textPersonName" />
 
             <ImageButton
-                android:id="@+id/image_medicine_minus"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
+                android:id="@+id/image_medicine_plus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="30dp"
                 android:background="@android:color/transparent"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:src="@drawable/ic_action_add" />
 
 
@@ -87,6 +93,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:text="insert"
                 android:textColor="@android:color/white" />
 
@@ -96,6 +105,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:text="update"
                 android:textColor="@android:color/white" />
 

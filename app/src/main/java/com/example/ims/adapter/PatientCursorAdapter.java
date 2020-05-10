@@ -230,36 +230,6 @@ public class PatientCursorAdapter extends CursorAdapter {
         });
     }
 
-    /**
-     * This method reduced product stock by 1
-     *
-     * @param context                - Activity context
-     * @param productUri             - Uri used to update the stock of a specific product in the ListView
-     * @param currentQuantityInStock - current stock of that specific product
-     */
-    private void adjustProductQuantity(Context context, Uri productUri, int currentQuantityInStock) {
-
-        // Subtract 1 from current value if quantity of product >= 1
-        int newQuantityValue = (currentQuantityInStock >= 1) ? currentQuantityInStock - 1 : 0;
-
-        if (currentQuantityInStock == 0) {
-            Toast.makeText(context.getApplicationContext(), "Product is out of stock!", Toast.LENGTH_SHORT).show();
-        }
-
-        // Update table by using new value of quantity
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(PatientEntry.COLUMN_FIRST_NAME, newQuantityValue);
-        int numRowsUpdated = context.getContentResolver().update(productUri, contentValues, null, null);
-        if (numRowsUpdated > 0) {
-            // Show error message in Logs with info about pass update.
-            Log.i(TAG, "Item has been sold");
-        } else {
-            Toast.makeText(context.getApplicationContext(), "No available product in stock", Toast.LENGTH_SHORT).show();
-            // Show error message in Logs with info about fail update.
-            Log.e(TAG, "Issue with upload value of quantity");
-        }
-    }
-
     // Get id patient
     @RequiresApi(api = Build.VERSION_CODES.O)
     private int getIdPatient(Context context, Uri currentPatientUri) {

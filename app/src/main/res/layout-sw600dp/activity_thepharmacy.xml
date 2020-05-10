@@ -53,7 +53,7 @@
                     android:layout_toEndOf="@+id/image_button_action_menu"
                     android:layout_toRightOf="@+id/image_button_action_menu"
                     android:text="The pharmacy"
-                    android:textColor="?attr/colorAccent"
+                    android:textColor="@android:color/white"
                     android:textSize="20sp" />
 
                 <com.google.android.material.tabs.TabLayout

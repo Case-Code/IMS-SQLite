@@ -178,7 +178,7 @@ public class ImsDbHelper extends SQLiteOpenHelper {
     // Create a String that contains the SQL statement to create the 'sales record' table
     private static final String SQL_CREATE_SALES_RECORD_TABLE = "CREATE TABLE IF NOT EXISTS " + SalesRecordEntry.TABLE_NAME + " ("
             + SalesRecordEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + SalesRecordEntry.COLUMN_MEDICINE_NAME + " TEXT NOT NULL, "
+            + SalesRecordEntry.COLUMN_MEDICINE_REGISTRY_ID + " INTEGER NOT NULL, "
             + SalesRecordEntry.COLUMN_QUANTITY + " INTEGER NOT NULL, "
             + SalesRecordEntry.COLUMN_SALE_DATE + " TEXT NOT NULL, "
             + SalesRecordEntry.COLUMN_PRICE + " INTEGER NOT NULL); ";

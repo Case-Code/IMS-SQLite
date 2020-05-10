@@ -43,8 +43,7 @@ import com.example.logutil.Utils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
-public class ReceptionActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
-        LoaderManager.LoaderCallbacks<Cursor> {
+public class ReceptionActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final String TAG = ReceptionActivity.class.getSimpleName();
     private static final int PATIENT_REGISTRATION_LOADER = 1;
@@ -52,17 +51,22 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
     public static int mTypesOfAnalysis = ImsContract.PatientDataToAnalysisEntry.ANALYSIS_UNKNOWN;
     public static int mTheNamesOfTheClinics = ImsContract.PatientDataToClinicsEntry.CLINICS_UNKNOWN;
     public static FragmentManager mFragmentManager;
+
     public static View mDialogTransferredToClinicsView;
     public static View mDialogTransferredToTheAnalysisLab;
+
     public Uri mCurrentPatientUri;
-    public PatientCursorAdapter mPatientCursorAdapter;
+
+    private PatientCursorAdapter mPatientCursorAdapter;
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigationView;
     private ImageButton mActionMenuImageButton;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private FloatingActionButton mFloatingActionButton;
     private ImageView mEmptyReceptionImageView;
+
     private ListView mPatientListView;
+
     private EditText mFirstNameEditText;
     private EditText mLastNameEditText;
     private EditText mPhoneNumberEditText;
@@ -70,9 +74,11 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
     private EditText mLocationEditText;
     private EditText mWeightEditText;
     private EditText mHeightEditText;
+
     private Spinner mPatientGenderSpinner;
     private Spinner mTypeOfAnalysisSpinner;
     private Spinner mTheNameOfTheClinicSpinner;
+
     private int mGender = PatientEntry.GENDER_UNKNOWN;
 
     @Override
@@ -89,8 +95,7 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
         mPatientListView.setAdapter(mPatientCursorAdapter);
 
 
-        actionBarDrawerToggle =
-                new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
         mDrawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
         mNavigationView.setNavigationItemSelectedListener(this);
@@ -198,10 +203,8 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
         mFloatingActionButton = findViewById(R.id.floating_action_button);
         mEmptyReceptionImageView = findViewById(R.id.image_empty_reception);
         mPatientListView = findViewById(R.id.list_reception_patient);
-        mDialogTransferredToClinicsView =
-                getLayoutInflater().inflate(R.layout.dialog_transferred_to_clinics, null);
-        mDialogTransferredToTheAnalysisLab =
-                getLayoutInflater().inflate(R.layout.dialog_transferred_to_the_analysis_lab, null);
+        mDialogTransferredToClinicsView = getLayoutInflater().inflate(R.layout.dialog_transferred_to_clinics, null);
+        mDialogTransferredToTheAnalysisLab = getLayoutInflater().inflate(R.layout.dialog_transferred_to_the_analysis_lab, null);
     }
 
     // Setup spinner gender
@@ -371,7 +374,6 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View mView = getLayoutInflater().inflate(R.layout.dialog_patient_registration, null);
 
-
         mFirstNameEditText = mView.findViewById(R.id.edit_first_name);
         mLastNameEditText = mView.findViewById(R.id.edit_last_name);
         mPhoneNumberEditText = mView.findViewById(R.id.edit_phone_number);
@@ -406,7 +408,6 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
         });
 
 
-
         final AlertDialog alertDialog = builder.create();
         alertDialog.setCanceledOnTouchOutside(false);
 
@@ -424,12 +425,11 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
                         @Override
                         public void onClick(View view) {
                             String fName = mFirstNameEditText.getText().toString();
-                            String lName =mLastNameEditText.getText().toString();
+                            String lName = mLastNameEditText.getText().toString();
 
 
                             if (uniFName(fName, ReceptionActivity.this) != null &
-                                    uniLName(lName,ReceptionActivity.this)!=null)
-                            {
+                                    uniLName(lName, ReceptionActivity.this) != null) {
                                 mFirstNameEditText.setError("name useed is database");
                                 mLastNameEditText.setError("name use in database");
 
@@ -468,7 +468,7 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
                     positiveButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                              patientRegistration();
+                            patientRegistration();
                             alertDialog.dismiss();
 
                         }
@@ -514,7 +514,7 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
     }
 
     // Show transferred to the analysis lab dialog
-    public  void showTransferredToTheAnalysisLabDialog(Context context) {
+    public void showTransferredToTheAnalysisLabDialog(Context context) {
         if (mDialogTransferredToTheAnalysisLab.getParent() != null) {
             ((ViewGroup) mDialogTransferredToTheAnalysisLab.getParent()).removeView(mDialogTransferredToTheAnalysisLab);
         }

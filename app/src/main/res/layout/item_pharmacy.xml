@@ -2,12 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
+    android:padding="10dp"
     android:orientation="vertical"
     android:weightSum="1">
 
     <TextView
-        android:id="@+id/text_itemradiology_name"
+        android:id="@+id/text_itempharmacy_medicinename"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="medicine name"
@@ -21,6 +21,7 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/text_itempharmacy_quantity"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -28,14 +29,7 @@
             android:textColor="#1786B3" />
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="MM/DD/YYYY"
-            android:textColor="#1786B3" />
-
-        <TextView
+            android:id="@+id/text_itempharmacy_price"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

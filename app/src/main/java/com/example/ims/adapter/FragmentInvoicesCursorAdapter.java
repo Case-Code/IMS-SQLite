@@ -124,7 +124,5 @@ public class FragmentInvoicesCursorAdapter extends CursorAdapter {
         questionsWebEditText.setText(questionsWeb);
         procedureEditText.setText(procedure);
 */
-
-
     }
 }

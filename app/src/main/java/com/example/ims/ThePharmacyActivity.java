@@ -64,16 +64,13 @@ public class ThePharmacyActivity extends AppCompatActivity implements Navigation
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
             }
         });
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-
 
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
         mDrawerLayout.addDrawerListener(actionBarDrawerToggle);
@@ -148,8 +145,5 @@ public class ThePharmacyActivity extends AppCompatActivity implements Navigation
         tabSales = findViewById(R.id.tab_item_pharmacy_sales);
         tabSalesRecord = findViewById(R.id.tab_item_pharmacy_sales_record);
         viewPager = findViewById(R.id.view_pager);
-
-
     }
-
 }

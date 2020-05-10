@@ -1270,8 +1270,8 @@ public class ImsProvider extends ContentProvider {
     // Insert sales record
     private Uri insertSalesRecord(Uri uri, ContentValues values) {
 
-        // Medicine name
-        String medicineName = values.getAsString(SalesRecordEntry.COLUMN_MEDICINE_NAME);
+        // Medicine registry id
+        String medicineName = values.getAsString(SalesRecordEntry.COLUMN_MEDICINE_REGISTRY_ID);
         if (medicineName == null) {
             throw new IllegalArgumentException("Sales record requires a medicine name");
         }
@@ -1283,7 +1283,7 @@ public class ImsProvider extends ContentProvider {
         }
 
         // Sale date
-        String saleDate = values.getAsString(SalesRecordEntry.COLUMN_MEDICINE_NAME);
+        String saleDate = values.getAsString(SalesRecordEntry.COLUMN_SALE_DATE);
         if (saleDate == null) {
             throw new IllegalArgumentException("v requires a sale date");
         }
@@ -2715,9 +2715,9 @@ public class ImsProvider extends ContentProvider {
     // Update sales record
     private int updateSalesRecord(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
 
-        // Medicine name
-        if (values.containsKey(SalesRecordEntry.COLUMN_MEDICINE_NAME)) {
-            String medicineName = values.getAsString(SalesRecordEntry.COLUMN_MEDICINE_NAME);
+        // Medicine registry id
+        if (values.containsKey(SalesRecordEntry.COLUMN_MEDICINE_REGISTRY_ID)) {
+            String medicineName = values.getAsString(SalesRecordEntry.COLUMN_MEDICINE_REGISTRY_ID);
             if (medicineName == null) {
                 throw new IllegalArgumentException("Sales record requires a medicine name");
             }
@@ -2732,8 +2732,8 @@ public class ImsProvider extends ContentProvider {
         }
 
         // Sale date
-        if (values.containsKey(SalesRecordEntry.COLUMN_MEDICINE_NAME)) {
-            String saleDate = values.getAsString(SalesRecordEntry.COLUMN_MEDICINE_NAME);
+        if (values.containsKey(SalesRecordEntry.COLUMN_SALE_DATE)) {
+            String saleDate = values.getAsString(SalesRecordEntry.COLUMN_SALE_DATE);
             if (saleDate == null) {
                 throw new IllegalArgumentException("v requires a sale date");
             }

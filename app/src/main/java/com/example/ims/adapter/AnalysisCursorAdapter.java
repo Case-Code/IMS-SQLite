@@ -16,28 +16,23 @@ import com.example.ims.data.ImsContract;
 import static com.example.ims.data.ImsContract.PatientDataToAnalysisEntry.*;
 
 
-public class AnalysisCursorAdapter extends CursorAdapter
-{
-    public AnalysisCursorAdapter(Context context, Cursor c)
-    {
+public class AnalysisCursorAdapter extends CursorAdapter {
+
+    public AnalysisCursorAdapter(Context context, Cursor c) {
         super(context, c, 0);
     }
 
     @Override
-    public View newView(Context context, Cursor cursor, ViewGroup viewGroup)
-
-    {
+    public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
         return LayoutInflater.from(context).inflate(R.layout.item_analysis_lab, viewGroup, false);
     }
 
     @Override
-    public void bindView(View view, Context context, Cursor cursor)
-    {
+    public void bindView(View view, Context context, Cursor cursor) {
 
         TextView firstLastNameTextView = view.findViewById(R.id.text_analysislap_flastname);
         TextView typeOfAnalysisTextView = view.findViewById(R.id.text_analysislap_typesofanalysis);
         TextView dateTextView = view.findViewById(R.id.text_analysislap_transferdate);
-
 
         int patientIdColumnIndex = cursor.getColumnIndex(ImsContract.PatientDataToAnalysisEntry.COLUMN_PATIENT_ID);
         int analysisNameColumnIndex = cursor.getColumnIndex(ImsContract.PatientDataToAnalysisEntry.COLUMN_ANALYSIS_NAME);
@@ -47,28 +42,22 @@ public class AnalysisCursorAdapter extends CursorAdapter
         int analysisName = cursor.getInt(analysisNameColumnIndex);
         String transferDate = cursor.getString(transferDateColumnIndex);
 
-
         firstLastNameTextView.setText(getPatientName(patientId, context));
         typeOfAnalysisTextView.setText(getAnalysisName(analysisName));
         dateTextView.setText(transferDate);
-
-
     }
 
     // Get patient name
-    private String getPatientName(int patientId, Context context)
-    {
+    private String getPatientName(int patientId, Context context) {
         String patientName = null;
 
         // Uri
         Uri uri = ImsContract.PatientEntry.CONTENT_URI;
 
         // Column name
-        String[] projection =
-           {
-              ImsContract.PatientEntry.COLUMN_FIRST_NAME,
-              ImsContract.PatientEntry.COLUMN_LAST_NAME
-           };
+        String[] projection = {
+                ImsContract.PatientEntry.COLUMN_FIRST_NAME,
+                ImsContract.PatientEntry.COLUMN_LAST_NAME};
 
         // Selection
         String selection = ImsContract.PatientEntry._ID + " =" + patientId;
@@ -76,15 +65,14 @@ public class AnalysisCursorAdapter extends CursorAdapter
         // SQL query
         @SuppressLint("Recycle")
         Cursor cursor = context.getContentResolver().query(
-           uri,
-           projection,
-           selection,
-           null,
-           null);
+                uri,
+                projection,
+                selection,
+                null,
+                null);
 
         assert cursor != null;
-        while (cursor.moveToNext())
-        {
+        while (cursor.moveToNext()) {
 
             // Firs name and last name column index
             int patientFirsNameColumnIndex = cursor.getColumnIndex(ImsContract.PatientEntry.COLUMN_FIRST_NAME);
@@ -94,31 +82,22 @@ public class AnalysisCursorAdapter extends CursorAdapter
             String patientFirsName = cursor.getString(patientFirsNameColumnIndex);
             String patientLastName = cursor.getString(patientLastNameColumnIndex);
 
-            if (patientFirsName != null & patientLastName != null)
-            {
+            if (patientFirsName != null & patientLastName != null) {
                 patientName = patientFirsName.concat(" " + patientLastName);
             }
         }
         return patientName;
     }
 
-    private String getAnalysisName(int analysisName)
-    {
-        if (ANALYSIS_COMPLETE_BLOOD_COUNT == analysisName)
-        {
+    // Get analysis name
+    private String getAnalysisName(int analysisName) {
+        if (ANALYSIS_COMPLETE_BLOOD_COUNT == analysisName) {
             return "Complete blood count";
-        }
-        else if (ANALYSIS_URINE_EXAMINATION == analysisName)
-        {
+        } else if (ANALYSIS_URINE_EXAMINATION == analysisName) {
             return "Urine examination";
-        }
-        else if (ANALYSIS_STOOL_EXAMINATION == analysisName)
-        {
+        } else if (ANALYSIS_STOOL_EXAMINATION == analysisName) {
             return "Stool examination";
         }
         return "ANALYSIS UNKNOWN";
-
-
     }
-
 }

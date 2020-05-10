@@ -105,6 +105,7 @@ public class FragmentHealthRecord extends Fragment implements LoaderManager.Load
 
     // ContentValues values;
     View view;
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;

@@ -14,4 +14,12 @@
 
     <color name="tab_background">#D2E8E6</color>
     <color name="selectableItemBackground">#BBCFCE</color>
+
+
+    <color name="salesrecord_first_text">#2B62AB</color>
+    <color name="salesrecord_second_text">#1786B3</color> #ED9A36
+
+    <color name="sale_first_text">#ED9A36</color>
+    <color name="sale_second_text">#FECA32</color>
+
 </resources>

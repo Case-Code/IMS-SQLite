@@ -94,7 +94,10 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
     public static View mDialogTransferredToRadiology;
     public static View mDialogTransferredToThePharmacy;
 
-    private int mPatientDataToClinicsId;
+    public static int mPatientDataToClinicsId;
+
+    public static TextView transferredToPharmacyFirstLastName;
+    public static TextView transferredToRadiologyFirstLastName;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -131,6 +134,14 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
         mDrawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
         mNavigationView.setNavigationItemSelectedListener(this);
+
+        mActionMenuImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDrawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
+
 
         mClinicCursorAdapter = new ClinicCursorAdapter(this, null);
         patientListView.setAdapter(mClinicCursorAdapter);
@@ -344,6 +355,7 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
         }
 
         mTypeOfRadiationSpinner = mDialogTransferredToRadiology.findViewById(R.id.spinner_transferredtoradiology_typesofradiation);
+        transferredToRadiologyFirstLastName = mDialogTransferredToRadiology.findViewById(R.id.text_transferredtoradiology_firstlastname);
         setupSpinnerTypesOfRadiation(context);
     }
 
@@ -352,6 +364,8 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
         if (mDialogTransferredToThePharmacy.getParent() != null) {
             ((ViewGroup) mDialogTransferredToThePharmacy.getParent()).removeView(mDialogTransferredToThePharmacy);
         }
+
+        transferredToPharmacyFirstLastName = mDialogTransferredToThePharmacy.findViewById(R.id.text_transferredtopharmacy_firstlastname);
     }
 
     // Add doctor
@@ -594,7 +608,6 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
         }
     }
 
-
     public int getIdPatient(Uri uri, Context context) {
         int id = 0;
 
@@ -694,7 +707,6 @@ public class TheDoctorActivity extends AppCompatActivity implements NavigationVi
                 mClinicCursorAdapter.swapCursor(data);
             } else {
                 mClinicCursorAdapter.swapCursor(data);
-
             }
         }
     }
