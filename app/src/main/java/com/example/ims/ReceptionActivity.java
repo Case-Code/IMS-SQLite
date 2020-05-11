@@ -753,7 +753,6 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
         }
     }
 
-
     public String uniFName(String name, Context context) {
         Uri uri = ImsContract.PatientEntry.CONTENT_URI;
 
@@ -772,9 +771,7 @@ public class ReceptionActivity extends AppCompatActivity implements NavigationVi
         while (cursor.moveToNext()) {
 
             // Firs name and last name column index
-            int
-                    patientFirsNameColumnIndex =
-                    cursor.getColumnIndex(ImsContract.PatientEntry.COLUMN_FIRST_NAME);
+            int patientFirsNameColumnIndex = cursor.getColumnIndex(ImsContract.PatientEntry.COLUMN_FIRST_NAME);
 
             String patientFirsName = cursor.getString(patientFirsNameColumnIndex);
             if (patientFirsName == null) {

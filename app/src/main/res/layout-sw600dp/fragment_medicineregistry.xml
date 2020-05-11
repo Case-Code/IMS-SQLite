@@ -99,18 +99,6 @@
                 android:text="insert"
                 android:textColor="@android:color/white" />
 
-            <Button
-                android:id="@+id/button_medicine_update"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:text="update"
-                android:textColor="@android:color/white" />
-
             <EditText
                 android:id="@+id/edit_medicine_search"
                 android:layout_width="0dp"

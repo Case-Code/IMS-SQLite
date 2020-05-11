@@ -55,14 +55,13 @@ public class FragmentMedicineRegistry extends Fragment implements LoaderManager.
     private ImageButton medicinePlusImageButton;
     private ImageButton medicineMinusImageButton;
 
-    private Button insertButton;
-    private Button updateButton;
+    private Button medicineButton;
 
     private ListView medicineSalesListView;
 
     MedicineRegistryCursorAdapter mMedicineRegistryCursorAdapter;
 
-    private Uri mCurrentMedicineUri = null;
+    private Uri mCurrentMedicineUri;
 
     public static final int MEDICINE_REGISTRY_LOADER = 1;
     public static final int MEDICINE_UPDATE_LOADER = 2;
@@ -77,13 +76,15 @@ public class FragmentMedicineRegistry extends Fragment implements LoaderManager.
         // init component view to fragment medicine registry
         qrEditText = view.findViewById(R.id.edit_medicine_qr);
         medicineNameEditText = view.findViewById(R.id.edit_medicine_name);
-        medicinePlusImageButton = view.findViewById(R.id.image_medicine_plus);
         quantityEditText = view.findViewById(R.id.edit_medicine_quantity);
-        medicineMinusImageButton = view.findViewById(R.id.image_medicine_minus);
         priceEditText = view.findViewById(R.id.edit_medicine_price);
-        insertButton = view.findViewById(R.id.button_medicine_insert);
-        updateButton = view.findViewById(R.id.button_medicine_update);
         searchEditText = view.findViewById(R.id.edit_medicine_search);
+
+        medicinePlusImageButton = view.findViewById(R.id.image_medicine_plus);
+        medicineMinusImageButton = view.findViewById(R.id.image_medicine_minus);
+
+        medicineButton = view.findViewById(R.id.button_medicine_insert);
+
         medicineSalesListView = view.findViewById(R.id.list_medicine_sales);
     }
 
@@ -146,20 +147,12 @@ public class FragmentMedicineRegistry extends Fragment implements LoaderManager.
             }
         });
 
-        // Insert medicine
-        insertButton.setOnClickListener(new View.OnClickListener() {
+        // Insert or update medicine
+        medicineButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Add medicine
-                addMedicine();
-            }
-        });
-
-        // Update medicine
-        updateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
+                medicine();
             }
         });
 
@@ -178,7 +171,6 @@ public class FragmentMedicineRegistry extends Fragment implements LoaderManager.
                     mSearchText = charSequence.toString();
                     getLoaderManager().restartLoader(MEDICINE_REGISTRY_LOADER, null, mContext);
                 }
-
             }
 
             @Override
@@ -191,14 +183,18 @@ public class FragmentMedicineRegistry extends Fragment implements LoaderManager.
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 mCurrentMedicineUri = ContentUris.withAppendedId(ImsContract.MedicineRegistryEntry.CONTENT_URI, id);
-                getLoaderManager().restartLoader(MEDICINE_REGISTRY_LOADER, null, mContext);
+
+                // Get into medicine
+                getIntoMedicine(mCurrentMedicineUri, getContext());
+
+                medicineButton.setText("Update");
             }
         });
         return view;
     }
 
-    // Add medicine
-    private void addMedicine() {
+    // Insert or update medicine
+    private void medicine() {
 
         String qr = qrEditText.getText().toString().trim();
         String medicineName = medicineNameEditText.getText().toString().trim();
@@ -258,10 +254,7 @@ public class FragmentMedicineRegistry extends Fragment implements LoaderManager.
                 Toast.makeText(getContext(), getString(R.string.editor_insert_medicineregistry_successful), Toast.LENGTH_SHORT).show();
 
                 // data reset
-                qrEditText.setText(null);
-                medicineNameEditText.setText(null);
-                quantityEditText.setText(null);
-                priceEditText.setText(null);
+                dataReset();
             }
 
         } else {
@@ -270,8 +263,14 @@ public class FragmentMedicineRegistry extends Fragment implements LoaderManager.
                 Toast.makeText(getContext(), getString(R.string.editor_update_medicineregistry_failed), Toast.LENGTH_SHORT).show();
             } else {
                 getLoaderManager().destroyLoader(MEDICINE_UPDATE_LOADER);
-                mCurrentMedicineUri = null;
                 Toast.makeText(getContext(), getString(R.string.editor_update_medicineregistry_successful), Toast.LENGTH_SHORT).show();
+
+                mCurrentMedicineUri = null;
+
+                medicineButton.setText("Insert");
+
+                // data reset
+                dataReset();
             }
         }
     }
@@ -336,6 +335,50 @@ public class FragmentMedicineRegistry extends Fragment implements LoaderManager.
                 null);
     }
 
+    // select date
+    private void getIntoMedicine(Uri currentMedicineUri, Context context) {
+
+        String[] projection = {
+                ImsContract.MedicineRegistryEntry._ID,
+                ImsContract.MedicineRegistryEntry.COLUMN_QR,
+                ImsContract.MedicineRegistryEntry.COLUMN_MEDICINE_NAME,
+                ImsContract.MedicineRegistryEntry.COLUMN_QUANTITY,
+                ImsContract.MedicineRegistryEntry.COLUMN_PRICE};
+
+        Cursor cursor = context.getContentResolver().query(
+                currentMedicineUri,
+                projection,
+                null,
+                null,
+                null);
+
+        if (cursor.moveToFirst()) {
+            // get row medicine name
+            int qrColumnIndex = cursor.getColumnIndex(ImsContract.MedicineRegistryEntry.COLUMN_QR);
+            int medicineNameColumnIndex = cursor.getColumnIndex(ImsContract.MedicineRegistryEntry.COLUMN_MEDICINE_NAME);
+            int quantityColumnIndex = cursor.getColumnIndex(ImsContract.MedicineRegistryEntry.COLUMN_QUANTITY);
+            int priceColumnIndex = cursor.getColumnIndex(ImsContract.MedicineRegistryEntry.COLUMN_PRICE);
+
+            String qr = cursor.getString(qrColumnIndex);
+            String medicineName = cursor.getString(medicineNameColumnIndex);
+            String quantity = cursor.getString(quantityColumnIndex);
+            String price = cursor.getString(priceColumnIndex);
+
+            qrEditText.setText(qr);
+            medicineNameEditText.setText(medicineName);
+            quantityEditText.setText(quantity);
+            priceEditText.setText(price);
+        }
+    }
+
+    // data reset
+    private void dataReset() {
+        qrEditText.setText(null);
+        medicineNameEditText.setText(null);
+        quantityEditText.setText(null);
+        priceEditText.setText(null);
+    }
+
     @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
@@ -347,23 +390,14 @@ public class FragmentMedicineRegistry extends Fragment implements LoaderManager.
                 ImsContract.MedicineRegistryEntry.COLUMN_PRICE};
 
         if (mCurrentMedicineUri == null && mSearchText == null) {
-            return new CursorLoader(
-                    this.getActivity(),
+            return new CursorLoader(this.getActivity(),
                     ImsContract.MedicineRegistryEntry.CONTENT_URI,
                     projection,
                     null,
                     null,
                     null);
-        } else if (mCurrentMedicineUri == null) {
-            return getMedicineSearch(mSearchText, this.getContext());
         } else {
-            return new CursorLoader(
-                    this.getActivity(),
-                    mCurrentMedicineUri,
-                    projection,
-                    null,
-                    null,
-                    null);
+            return getMedicineSearch(mSearchText, this.getContext());
         }
     }
 
@@ -374,24 +408,6 @@ public class FragmentMedicineRegistry extends Fragment implements LoaderManager.
         } else {
             if (data == null && data.getCount() < 0) {
                 return;
-            }
-
-            if (data.moveToFirst()) {
-                // get row medicine name
-                int qrColumnIndex = data.getColumnIndex(ImsContract.MedicineRegistryEntry.COLUMN_QR);
-                int medicineNameColumnIndex = data.getColumnIndex(ImsContract.MedicineRegistryEntry.COLUMN_MEDICINE_NAME);
-                int quantityColumnIndex = data.getColumnIndex(ImsContract.MedicineRegistryEntry.COLUMN_QUANTITY);
-                int priceColumnIndex = data.getColumnIndex(ImsContract.MedicineRegistryEntry.COLUMN_PRICE);
-
-                String qr = data.getString(qrColumnIndex);
-                String medicineName = data.getString(medicineNameColumnIndex);
-                String quantity = data.getString(quantityColumnIndex);
-                String price = data.getString(priceColumnIndex);
-
-                qrEditText.setText(qr);
-                medicineNameEditText.setText(medicineName);
-                quantityEditText.setText(quantity);
-                priceEditText.setText(price);
             }
         }
     }
