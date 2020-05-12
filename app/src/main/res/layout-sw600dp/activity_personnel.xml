@@ -280,30 +280,36 @@
                                     android:hint="salary"
                                     android:inputType="number" />
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="16dp"
-                                    android:text="Department"
-                                    android:textColor="@color/colorPrimaryDark" />
-
-                                <androidx.cardview.widget.CardView
+                                <RelativeLayout
+                                    android:id="@+id/a"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="10dp"
-                                    android:layout_marginBottom="16dp"
-                                    app:cardCornerRadius="5dp">
+                                    android:layout_marginBottom="16dp">
 
                                     <AutoCompleteTextView
                                         android:id="@+id/spinner_employee_department"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_margin="10dp"
+                                        android:layout_marginEnd="14dp"
+                                        android:layout_marginRight="14dp"
                                         android:backgroundTint="@color/colorAccent"
-                                        android:spinnerMode="dropdown"
-                                        tools:ignore="RtlSymmetry"
+                                        android:layout_alignParentTop="true"
+                                        android:layout_centerHorizontal="true"
+                                        android:hint="Department"
+
                                         tools:targetApi="lollipop" />
-                                </androidx.cardview.widget.CardView>
+
+                                    <ImageView
+                                        android:id="@+id/image_personnel_department"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignTop="@+id/spinner_employee_department"
+                                        android:layout_alignRight="@+id/spinner_employee_department"
+                                        android:padding="5dp"
+                                        app:srcCompat="@drawable/arrow_down"
+                                        tools:ignore="VectorDrawableCompat" />
+                                </RelativeLayout>
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -362,69 +368,72 @@
                                     android:text="Location"
                                     android:textColor="@color/colorPrimaryDark" />
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="10dp"
-                                    android:text="Region name"
-                                    android:textColor="@color/primaryText" />
-
-                                <androidx.cardview.widget.CardView
+                                <RelativeLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="10dp"
-                                    android:layout_marginBottom="16dp"
-                                    app:cardCornerRadius="5dp">
+                                    android:layout_marginBottom="16dp">
 
                                     <AutoCompleteTextView
-                                        android:id="@+id/spinner_employee_regionname"
+                                        android:id="@+id/spinner_employee_regionName"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_margin="10dp"
                                         android:backgroundTint="@color/colorAccent"
+                                        android:hint="Region name"
                                         android:spinnerMode="dropdown"
                                         tools:ignore="RtlSymmetry"
+                                        android:layout_alignParentTop="true"
+                                        android:layout_centerHorizontal="true"
                                         tools:targetApi="lollipop" />
-                                </androidx.cardview.widget.CardView>
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="10dp"
-                                    android:text="Country name"
-                                    android:textColor="@color/primaryText" />
+                                    <ImageView
+                                        android:id="@+id/image_personnel_regionName"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignTop="@+id/spinner_employee_regionName"
+                                        android:layout_alignRight="@+id/spinner_employee_regionName"
+                                        android:padding="5dp"
+                                        app:srcCompat="@drawable/arrow_down"
+                                        tools:ignore="VectorDrawableCompat" />
 
-                                <androidx.cardview.widget.CardView
+                                </RelativeLayout>
+
+                                <RelativeLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="10dp"
-                                    android:layout_marginBottom="16dp"
-                                    app:cardCornerRadius="5dp">
+                                    android:layout_marginBottom="16dp">
 
                                     <AutoCompleteTextView
-                                        android:id="@+id/spinner_employee_countryname"
+                                        android:id="@+id/spinner_employee_country"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_margin="10dp"
                                         android:backgroundTint="@color/colorAccent"
+                                        android:hint="Country name"
                                         android:spinnerMode="dropdown"
+                                        android:layout_alignParentTop="true"
+                                        android:layout_centerHorizontal="true"
                                         tools:ignore="RtlSymmetry"
                                         tools:targetApi="lollipop" />
-                                </androidx.cardview.widget.CardView>
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="10dp"
-                                    android:text="City"
-                                    android:textColor="@color/primaryText" />
+                                    <ImageView
+                                        android:id="@+id/image_personnel_country"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignTop="@+id/spinner_employee_country"
+                                        android:layout_alignRight="@+id/spinner_employee_country"
+                                        android:padding="5dp"
+                                        app:srcCompat="@drawable/arrow_down"
+                                        tools:ignore="VectorDrawableCompat" />
+                                </RelativeLayout>
 
-                                <androidx.cardview.widget.CardView
+                                <RelativeLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="10dp"
-                                    android:layout_marginBottom="16dp"
-                                    app:cardCornerRadius="5dp">
+                                    android:layout_marginBottom="16dp">
 
                                     <AutoCompleteTextView
                                         android:id="@+id/spinner_employee_city"
@@ -432,10 +441,23 @@
                                         android:layout_height="wrap_content"
                                         android:layout_margin="10dp"
                                         android:backgroundTint="@color/colorAccent"
+                                        android:hint="City"
+                                        android:layout_alignParentTop="true"
+                                        android:layout_centerHorizontal="true"
                                         android:spinnerMode="dropdown"
                                         tools:ignore="RtlSymmetry"
                                         tools:targetApi="lollipop" />
-                                </androidx.cardview.widget.CardView>
+
+                                    <ImageView
+                                        android:id="@+id/image_personnel_city"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignTop="@+id/spinner_employee_city"
+                                        android:layout_alignRight="@+id/spinner_employee_city"
+                                        android:padding="5dp"
+                                        app:srcCompat="@drawable/arrow_down"
+                                        tools:ignore="VectorDrawableCompat" />
+                                </RelativeLayout>
 
                                 <LinearLayout
                                     android:layout_width="match_parent"

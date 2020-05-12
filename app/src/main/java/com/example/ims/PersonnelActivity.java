@@ -1,6 +1,7 @@
 package com.example.ims;
 
 import android.app.LoaderManager;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.Intent;
@@ -11,10 +12,12 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +31,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.example.ims.adapter.EmployeeCursorAdapter;
 import com.example.ims.data.ImsContract;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.ArrayList;
 
 public class PersonnelActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
    , LoaderManager.LoaderCallbacks<Cursor>
@@ -54,12 +59,16 @@ public class PersonnelActivity extends AppCompatActivity implements NavigationVi
     private TextView hireDateTextView;
     private EditText salaryEditText;
     private AutoCompleteTextView departmentACTV;
+    private ImageView departmentImageView;
     private EditText jobTitleEditText;
     private EditText minSalaryEditText;
     private EditText maxSalaryEditText;
     private AutoCompleteTextView regionNameACTV;
+    private ImageView regionImageView;
     private AutoCompleteTextView countryNameACTV;
+    private ImageView countryImageView;
     private AutoCompleteTextView cityACTV;
+    private ImageView cityImageView;
     private EditText streetAddressEditText;
     private EditText postalCodeEditText;
     private Button addButton;
@@ -82,6 +91,12 @@ public class PersonnelActivity extends AppCompatActivity implements NavigationVi
 
         // initial
         init();
+
+        //setup auto complete textView
+        department();
+        regionName();
+        countryName();
+        city();
 
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
         mDrawerLayout.addDrawerListener(actionBarDrawerToggle);
@@ -192,12 +207,16 @@ public class PersonnelActivity extends AppCompatActivity implements NavigationVi
         hireDateTextView = findViewById(R.id.text_employee_hiredate);
         salaryEditText = findViewById(R.id.edit_employee_salary);
         departmentACTV = findViewById(R.id.spinner_employee_department);
+        departmentImageView = findViewById(R.id.image_personnel_department);
         jobTitleEditText = findViewById(R.id.edit_employee_jobtitle);
         minSalaryEditText = findViewById(R.id.edit_employee_minsalary);
         maxSalaryEditText = findViewById(R.id.edit_employee_maxsalary);
-        regionNameACTV = findViewById(R.id.spinner_employee_regionname);
-        countryNameACTV = findViewById(R.id.spinner_employee_countryname);
+        regionNameACTV = findViewById(R.id.spinner_employee_regionName);
+        regionImageView = findViewById(R.id.image_personnel_regionName);
+        countryNameACTV = findViewById(R.id.spinner_employee_country);
+        countryImageView = findViewById(R.id.image_personnel_country);
         cityACTV = findViewById(R.id.spinner_employee_city);
+        cityImageView = findViewById(R.id.image_personnel_city);
         streetAddressEditText = findViewById(R.id.edit_employee_streetaddress);
         postalCodeEditText = findViewById(R.id.edit_employee_postalcode);
         addButton = findViewById(R.id.button_employee_add);
@@ -443,4 +462,171 @@ public class PersonnelActivity extends AppCompatActivity implements NavigationVi
 
         }
     }
+
+    public void department()
+    {
+        ArrayList arr = new ArrayList();
+
+
+        Uri uri = ImsContract.EmployeesEntry.CONTENT_URI;
+        Cursor cursor =
+           getContentResolver().query(uri, new String[]{ImsContract.EmployeesEntry.COLUMN_DEPARTMENT_NAME}, null, null, null);
+        cursor.moveToFirst();
+        while (cursor.isAfterLast() == false)
+        {
+
+            String department = cursor.getString(cursor.getColumnIndex(ImsContract.EmployeesEntry.COLUMN_DEPARTMENT_NAME));
+
+            if (department != null)
+            {
+                arr.add(department);
+            }
+            else
+            {
+                department = null;
+            }
+            cursor.moveToNext();
+
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item, arr);
+        departmentACTV.setThreshold(1);
+        departmentACTV.setAdapter(adapter);
+
+
+        departmentImageView.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                departmentACTV.showDropDown();
+            }
+        });
+    }
+
+    public void regionName()
+    {
+        ArrayList arr = new ArrayList();
+
+
+        Uri uri = ImsContract.EmployeesEntry.CONTENT_URI;
+        Cursor cursor =
+           getContentResolver().query(uri, new String[]{ImsContract.EmployeesEntry.COLUMN_REGION_NAME}, null, null, null);
+        cursor.moveToFirst();
+        while (cursor.isAfterLast() == false)
+        {
+
+            String regionName = cursor.getString(cursor.getColumnIndex(ImsContract.EmployeesEntry.COLUMN_REGION_NAME));
+
+            if (regionName != null)
+            {
+                arr.add(regionName);
+            }
+            else
+            {
+                regionName = null;
+            }
+            cursor.moveToNext();
+
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item, arr);
+        regionNameACTV.setThreshold(1);
+        regionNameACTV.setAdapter(adapter);
+
+
+        regionImageView.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                regionNameACTV.showDropDown();
+            }
+        });
+    }
+
+    public void countryName()
+    {
+        ArrayList arr = new ArrayList();
+
+
+        Uri uri = ImsContract.EmployeesEntry.CONTENT_URI;
+        Cursor cursor =
+           getContentResolver().query(uri, new String[]{ImsContract.EmployeesEntry.COLUMN_COUNTRY_NAME}, null, null, null);
+        cursor.moveToFirst();
+        while (cursor.isAfterLast() == false)
+        {
+
+            String regionName = cursor.getString(cursor.getColumnIndex(ImsContract.EmployeesEntry.COLUMN_COUNTRY_NAME));
+
+            if (regionName != null)
+            {
+                arr.add(regionName);
+            }
+            else
+            {
+                regionName = null;
+            }
+            cursor.moveToNext();
+
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item, arr);
+        countryNameACTV.setThreshold(1);
+        countryNameACTV.setAdapter(adapter);
+
+
+        countryImageView.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                countryNameACTV.showDropDown();
+            }
+        });
+    }
+
+    public void city()
+    {
+        ArrayList arr = new ArrayList();
+
+
+        Uri uri = ImsContract.EmployeesEntry.CONTENT_URI;
+        Cursor cursor =
+           getContentResolver().query(uri, new String[]{ImsContract.EmployeesEntry.COLUMN_CITY}, null, null, null);
+        cursor.moveToFirst();
+        while (cursor.isAfterLast() == false)
+        {
+
+            String regionName = cursor.getString(cursor.getColumnIndex(ImsContract.EmployeesEntry.COLUMN_CITY));
+
+            if (regionName != null)
+            {
+                arr.add(regionName);
+            }
+            else
+            {
+                regionName = null;
+            }
+            cursor.moveToNext();
+
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item, arr);
+        cityACTV.setThreshold(1);
+        cityACTV.setAdapter(adapter);
+
+
+        cityImageView.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                cityACTV.showDropDown();
+            }
+        });
+    }
+
+
+
 }
