@@ -97,6 +97,10 @@
     <string name="editor_delete_medicineregistry_failed">Error with deleting medicine</string>
     <string name="editor_delete_medicineregistry_successful">Medicine deleted</string>
 
+    <!-- sale -->
+    <string name="editor_insert_sale_failed">Error with sale</string>
+    <string name="editor_insert_sale_successful">The medicine was sold</string>
+
     <!-- health record -->
     <string name="editor_insert_health_record_failed">Error with saving health record</string>
     <string name="editor_insert_health_record_successful">Health record saved</string>

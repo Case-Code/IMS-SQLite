@@ -49,6 +49,8 @@ public class FragmentSale extends Fragment {
 
     //show sale
     private ListView saleListView;
+    private ArrayList<Sale> saleArrayList = null;
+    private SaleAdapter saleAdapter = null;
 
     public static double total = 0.0;
 
@@ -127,8 +129,8 @@ public class FragmentSale extends Fragment {
             }
         });
 
-        final ArrayList<Sale> saleArrayList = new ArrayList<Sale>();
-        final SaleAdapter saleAdapter = new SaleAdapter(getActivity(), saleArrayList);
+        saleArrayList = new ArrayList<Sale>();
+        saleAdapter = new SaleAdapter(getActivity(), saleArrayList);
 
         // Add sale
         saleAddButton.setOnClickListener(new View.OnClickListener() {
@@ -155,13 +157,9 @@ public class FragmentSale extends Fragment {
                 saleTotalTextView.setText("Total: ".concat(String.valueOf(total)));
 
                 // Adjust medicine quantity
-                adjustMedicineQuantity(getContext(), qrInput, quantity, quantityInput);
-
                 // Sale medicine
-                saleMedicine(medicineRegistryId, quantityInput, saleDate, newPrice);
-
-                saleArrayList.add(new Sale(medicineName, quantityInput, newPrice));
-                saleListView.setAdapter(saleAdapter);
+                // Add the list
+                adjustMedicineQuantity(getContext(), qrInput, quantity, quantityInput, medicineRegistryId, saleDate, newPrice, medicineName);
 
                 // Reset data
                 saleQrEditText.setText(null);
@@ -222,14 +220,25 @@ public class FragmentSale extends Fragment {
      * @param qrInput                   - qr used to update the stock of a specific quantity in the ListView
      * @param currentQuantityInPharmacy - current stock of that specific quantity
      */
-    private void adjustMedicineQuantity(Context context, int qrInput, int currentQuantityInPharmacy, double quantityInput) {
+    private void adjustMedicineQuantity(Context context, int qrInput, int currentQuantityInPharmacy, int quantityInput, int medicineRegistryId, String saleData, double price, String medicineName) {
 
         // Subtract 1 from current value if quantity of product >= 1
-        double newQuantityValue = (currentQuantityInPharmacy >= 1) ? currentQuantityInPharmacy - quantityInput : 0;
+        double newQuantityValue = 0;
 
-        if (currentQuantityInPharmacy == 0) {
-            Toast.makeText(context.getApplicationContext(), "The quantity is out of stock!", Toast.LENGTH_SHORT).show();
+        // If the quantity is greater or equal to the quantity entered
+        if (currentQuantityInPharmacy >= quantityInput) {
+            newQuantityValue = currentQuantityInPharmacy - quantityInput;
+        } else {
+
+            if (1 >= currentQuantityInPharmacy) {
+                Toast.makeText(context.getApplicationContext(), "The quantity is out of stock!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            Toast.makeText(context.getApplicationContext(), "The quantity entered is more than the current quantity!", Toast.LENGTH_SHORT).show();
+            return;
         }
+
 
         // Update table by using new value of quantity
         ContentValues contentValues = new ContentValues();
@@ -248,6 +257,13 @@ public class FragmentSale extends Fragment {
         if (numRowsUpdated > 0) {
             // Show error message in Logs with info about pass update.
             Log.i(TAG, "Item has been sold");
+
+            // Sale medicine
+            saleMedicine(medicineRegistryId, quantityInput, saleData, price);
+
+            // Add the list
+            saleArrayList.add(new Sale(medicineName, quantityInput, price));
+            saleListView.setAdapter(saleAdapter);
         } else {
             Toast.makeText(context.getApplicationContext(), "No available quantity in stock", Toast.LENGTH_SHORT).show();
             // Show error message in Logs with info about fail update.
@@ -303,9 +319,9 @@ public class FragmentSale extends Fragment {
 
         Uri newUri = getContext().getContentResolver().insert(ImsContract.SalesRecordEntry.CONTENT_URI, values);
         if (newUri == null) {
-            Toast.makeText(getContext(), getString(R.string.editor_insert_patient_failed), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getString(R.string.editor_insert_sale_failed), Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(getContext(), getString(R.string.editor_insert_patient_successful), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getString(R.string.editor_insert_sale_successful), Toast.LENGTH_SHORT).show();
         }
     }
 

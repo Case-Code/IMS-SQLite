@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,6 +32,7 @@ import com.example.ims.data.ImsContract;
 import com.example.logutil.Utils;
 
 import java.util.Calendar;
+import java.util.logging.Logger;
 
 public class FragmentSalesRecord extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -126,8 +128,6 @@ public class FragmentSalesRecord extends Fragment implements LoaderManager.Loade
                         calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
                         datePacker = Utils.formatDate(calendar.getTime());
-
-                        Log.i(TAG, datePacker);
 
                         getLoaderManager().restartLoader(SALES_RECORD_LOADER, null, mContext);
                     }
@@ -255,6 +255,7 @@ public class FragmentSalesRecord extends Fragment implements LoaderManager.Loade
     @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
+
         if (mSearchText == null) {
             return getMedicine(datePacker, getContext());
         } else {
@@ -269,8 +270,12 @@ public class FragmentSalesRecord extends Fragment implements LoaderManager.Loade
             salesRecordCursorAdapter.swapCursor(null);
         } else {
             if (data == null && data.getCount() < 0) {
+                Toast.makeText(getContext(), "There is no data", Toast.LENGTH_SHORT).show();
                 return;
+            } else if (data.getCount() <= 0) {
+                Toast.makeText(getContext(), "There is no data", Toast.LENGTH_SHORT).show();
             }
+
             salesRecordCursorAdapter.swapCursor(data);
         }
     }
