@@ -1,15 +1,10 @@
-package com.example.ims;
+package com.example.ims.activity;
 
-import android.animation.AnimatorSet;
 import android.content.Intent;
 import android.os.Bundle;
 
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
-import android.view.animation.TranslateAnimation;
 import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
@@ -19,6 +14,7 @@ import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.ims.R;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {

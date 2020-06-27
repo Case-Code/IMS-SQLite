@@ -5,7 +5,7 @@
     android:id="@+id/activity_the_doctor"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TheDoctorActivity">
+    tools:context=".activity.TheDoctorActivity">
 
     <LinearLayout
         android:layout_width="wrap_content"

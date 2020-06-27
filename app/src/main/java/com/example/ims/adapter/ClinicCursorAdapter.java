@@ -20,8 +20,7 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 
 import com.example.ims.R;
-import com.example.ims.ReceptionActivity;
-import com.example.ims.TheDoctorActivity;
+import com.example.ims.activity.TheDoctorActivity;
 import com.example.ims.data.ImsContract;
 import com.example.logutil.Utils;
 

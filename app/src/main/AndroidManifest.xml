@@ -11,32 +11,32 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".PersonnelActivity"
+            android:name=".activity.PersonnelActivity"
             android:windowSoftInputMode="adjustPan" />
 
         <activity
-            android:name=".FinancialAccountsActivity"
+            android:name=".activity.FinancialAccountsActivity"
             android:windowSoftInputMode="adjustPan" />
 
         <activity
-            android:name=".ThePharmacyActivity"
+            android:name=".activity.ThePharmacyActivity"
             android:windowSoftInputMode="adjustPan" />
 
         <activity
-            android:name=".RadiologyLaboratoryActivity"
+            android:name=".activity.RadiologyLaboratoryActivity"
             android:windowSoftInputMode="adjustPan" />
 
         <activity
-            android:name=".AnalysisLabActivity"
+            android:name=".activity.AnalysisLabActivity"
             android:windowSoftInputMode="adjustPan" />
 
         <activity
-            android:name=".TheDoctorActivity"
+            android:name=".activity.TheDoctorActivity"
             android:windowSoftInputMode="adjustPan" />
 
-        <activity android:name=".ReceptionActivity" />
+        <activity android:name=".activity.ReceptionActivity" />
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -5,7 +5,7 @@
     android:id="@+id/activity_financial_accounts"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FinancialAccountsActivity">
+    tools:context=".activity.FinancialAccountsActivity">
 
     <LinearLayout
         android:layout_width="wrap_content"

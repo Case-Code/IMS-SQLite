@@ -1,4 +1,4 @@
-package com.example.ims;
+package com.example.ims.activity;
 
 import android.annotation.SuppressLint;
 import android.app.LoaderManager;
@@ -27,6 +27,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.ims.R;
 import com.example.ims.adapter.AnalysisCursorAdapter;
 import com.example.ims.adapter.PatientProgressCursorAdapter;
 import com.example.ims.data.ImsContract;

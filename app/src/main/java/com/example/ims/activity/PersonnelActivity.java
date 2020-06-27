@@ -1,7 +1,6 @@
-package com.example.ims;
+package com.example.ims.activity;
 
 import android.app.LoaderManager;
-import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.Intent;
@@ -28,6 +27,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.ims.R;
 import com.example.ims.adapter.EmployeeCursorAdapter;
 import com.example.ims.data.ImsContract;
 import com.google.android.material.navigation.NavigationView;

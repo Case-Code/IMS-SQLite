@@ -1,4 +1,4 @@
-package com.example.ims;
+package com.example.ims.activity;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -36,6 +36,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.ims.R;
 import com.example.ims.adapter.PatientCursorAdapter;
 import com.example.ims.data.ImsContract;
 import com.example.ims.data.ImsContract.PatientEntry;

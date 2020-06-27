@@ -5,7 +5,7 @@
     android:id="@+id/activity_radiology_laboratory"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RadiologyLaboratoryActivity">
+    tools:context=".activity.RadiologyLaboratoryActivity">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -185,7 +185,7 @@
                                 android:layout_alignParentTop="true"
                                 android:layout_alignParentRight="true"
                                 android:padding="16dp"
-                                app:srcCompat="@drawable/analysis_lab_logo" />
+                                app:srcCompat="@drawable/ic_baseline_add_a_photo_50" />
 
                             <TextView
                                 android:id="@+id/text_radiology_billtoname"

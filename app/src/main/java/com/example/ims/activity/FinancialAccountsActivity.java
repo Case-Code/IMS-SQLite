@@ -1,4 +1,4 @@
-package com.example.ims;
+package com.example.ims.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.ims.R;
 import com.google.android.material.navigation.NavigationView;
 
 public class FinancialAccountsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {

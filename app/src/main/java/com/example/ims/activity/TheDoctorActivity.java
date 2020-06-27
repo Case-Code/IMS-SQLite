@@ -1,4 +1,4 @@
-package com.example.ims;
+package com.example.ims.activity;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
@@ -16,7 +16,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +39,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.ims.R;
 import com.example.ims.adapter.ClinicCursorAdapter;
 import com.example.ims.data.ImsContract;
 import com.example.logutil.Utils;

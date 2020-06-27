@@ -14,6 +14,9 @@ import androidx.annotation.Nullable;
 
 import com.example.ims.data.ImsContract.*;
 
+/**
+ * Database provider for IMS app.
+ */
 public class ImsProvider extends ContentProvider {
 
     public static final String LOG_TAG = ImsProvider.class.getSimpleName();

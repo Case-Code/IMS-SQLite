@@ -1,7 +1,5 @@
 package com.example.ims.adapter;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -22,7 +20,7 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 
 import com.example.ims.R;
-import com.example.ims.ReceptionActivity;
+import com.example.ims.activity.ReceptionActivity;
 import com.example.ims.data.ImsContract;
 import com.example.ims.data.ImsContract.PatientEntry;
 import com.example.ims.fragment.FragmentHealthRecord;

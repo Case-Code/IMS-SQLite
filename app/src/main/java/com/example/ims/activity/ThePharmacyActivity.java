@@ -1,4 +1,4 @@
-package com.example.ims;
+package com.example.ims.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +14,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.ims.R;
 import com.example.ims.fragment.FragmentPharmacyPagerAdapter;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabItem;
